@@ -1,0 +1,4 @@
+<template name="blank">
+    <view class='blank-model' style="background:{{backgroundColor}};height:{{height}}px;">
+    </view>
+</template>

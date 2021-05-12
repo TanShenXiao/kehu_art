@@ -1,0 +1,124 @@
+{extend name="../../../wstmart/admin/view/base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__ADMIN__/js/mmgrid/mmGrid.css?v={$v}" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css?v={$v}" />
+{/block}
+{block name="js"}
+<script src="__ADMIN__/js/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+<script type='text/javascript' src='__STATIC__/plugins/webuploader/webuploader.js?v={$v}'></script>
+<script src="__STATIC__/plugins/kindeditor/kindeditor.js?v={$v}" type="text/javascript" ></script>
+<script src="__ROOT__/addons/vote/view/admin/editcats.js?v={$v}" type="text/javascript"></script>
+{/block}
+{block name="main"}
+<div id='alertTips' class='alert alert-success alert-tips fade in'>
+  <div id='headTip' class='head'><i class='fa fa-lightbulb-o'></i>操作说明</div>
+  <ul class='body'>
+    <li>该功能主要用于设置在线投票项目。卸载插件时不会删除投票项目及投票记录，请注意。</li>
+  </ul>
+</div>
+<form autocomplete="off">
+</form>
+
+<div id='voteDlg'>
+    <form id='voteForm' method="post" autocomplete="off">
+	<input type='hidden' readonly id='catId' name="catId" value="{$catInfo['catId']}" class='ipt' />
+    <table class='wst-form wst-box-top'>
+       <tr>
+          <th width='150'>项目名称<font color='red'>*</font>：</th>
+          <td><input type='text' id='catName' name="catName"  class='ipt'/></td>
+       </tr>
+       <tr>
+          <th width='150'>开始时间<font color='red'>*</font>：</th>
+          <td><input type='text' id='startDate' name="startDate"  class='ipt' /></td>
+       </tr>
+       <tr>
+          <th width='150'>结束时间<font color='red'>*</font>：</th>
+          <td><input type='text' id='endDate' name="endDate"  class='ipt' /></td>
+       </tr>
+	   <tr>
+          <th width='150'>每人每日最大投票数<font color='red'>*</font>：</th>
+          <td><input type='text' id='totalVotes' name="totalVotes" class='ipt' /></td>
+       </tr>
+       <tr>
+          <th width='200'>单项目每人每日最大投票数<font color='red'>*</font>：</th>
+          <td><input type='text' id='itemVotes' name="itemVotes"  class='ipt' /></td>
+       </tr>
+       <tr>
+          <th width='150'>项目简介：</th>
+          <td><textarea id='catDesc' name="catDesc" style="width:300px;height:60px" class='ipt'>{if($catInfo['catId'] !=0)}{$catInfo['catDesc']}{/if}</textarea></td>
+       </tr>
+       <tr>
+          <th>排序号：</th>
+          <td>
+            <input type="text" id="catSort" class="ipt" />
+          </td>
+       </tr>
+	   <tr>
+          <th width='150'>项目主图片：</th>
+		  <td>
+			<div>
+			<div id="catFilePicker" style='margin-left:0px;float:left; width: 100px'>上传图片</div>
+				<!--<div style='margin-left:5px;float:left'>图片大小:400 x 200 (px)，格式为 gif, jpg, jpeg,bmp, png</div>-->
+				<input id="catImage" name="catImage" class="text ipt" data-target='#msg_catImg' autocomplete="off" type="hidden" value=""/>
+				<span class='msg-box' id='msg_catImg'></span>
+				<div style="clear:both;"></div>
+			</div>
+		 </td>
+	   </tr>
+       <tr>
+          <th>预览图：</th>
+          <td><div style="min-height:70px;" id="preview"></div></td>
+       </tr>
+     <tr>
+       <td colspan='2' align='center'>
+           <button type="submit" class="btn btn-primary btn-mright"><i class="fa fa-check"></i>保&nbsp;存</button>
+           <button type="button" class="btn" onclick="javascript:history.go(-1)"><i class="fa fa-angle-double-left"></i>返&nbsp;回</button>
+       </td>
+     </tr>
+    </table>
+    </form>
+  </div>
+<script>
+$(function(){
+	   {if condition="$catInfo['catId'] !=0"}
+			$('#catName').val("{$catInfo['catName']}");
+			$('#startDate').val("{$catInfo['startDate']}");
+			$('#endDate').val("{$catInfo['endDate']}");
+			$('#catSort').val("{$catInfo['catSort']}");
+			$('#catImage').val("{$catInfo['catImage']}");
+			$('#itemVotes').val("{$catInfo['itemVotes']}");
+			$('#totalVotes').val("{$catInfo['totalVotes']}");
+			$('#preview').html('<img src="'+WST.conf.ROOT+"/{$catInfo['catImage']}"+'" height="100" />');
+	   {/if}
+		$('#voteForm').validator({
+		    fields: {
+		    	catName: {
+		    		tip: "请输入投票项目名称",
+		    		rule: '项目名称:required;'
+		    	},
+		    	startDate: {
+		    		tip: "请选择开始时间",
+		    		rule: '开始时间:required;'
+		    	},
+		    	endDate:{
+	                tip:"请选择结束时间",
+	                rule:"结束时间:required;",
+		    	}
+		    },
+		    valid: function(form){
+		    	var catId = $('#catId').val();
+		    	toEdit(catId);
+		    }
+		});
+		
+	var laydate = layui.laydate;
+    form = layui.form; 
+    laydate.render({
+        elem: '#startDate'
+    });
+    laydate.render({
+        elem: '#endDate'
+    });
+});
+</script>
+{/block}

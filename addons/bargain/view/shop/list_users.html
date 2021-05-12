@@ -1,0 +1,25 @@
+{extend name="$LAYOUT_SHOP_BASE" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/mmgrid/mmGrid.css?v={$v}" />
+<link href="__ROOT__/addons/bargain/view/shop/css/bargain.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="main"}
+<div class="wst-toolbar">
+<button class='btn f-right' type='button' onclick="javascript:location.href = WST.AU('bargain://shops/index','p={$p}')"><i class="fa fa-angle-double-left"></i>返回</button>
+<div class='f-clear'></div>
+</div>
+<input type='hidden' id='bargainId' class='s-ipt' value='{$bargainId}'/>
+<div class='wst-grid'>
+    <div id="mmg" class="mmg"></div>
+    <div id="pg" style="text-align: right;"></div>
+</div>
+{/block}
+{block name="js"}
+<script src="__STATIC__/plugins/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+<script type="text/javascript" src="__ROOT__/addons/bargain/view/shop/shop.js?v={$v}"></script>
+<script>
+$(function(){
+  initJoinGrid();
+})
+</script>
+{/block}

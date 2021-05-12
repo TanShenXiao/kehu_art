@@ -1,0 +1,21 @@
+
+			  <div class='goods-list'>
+				{if isset($cats[$curIndex])}
+				{volist name="$cats[$curIndex]['items']" id="vo"}
+				<div class="goods">
+					<div class="img">
+						<a target="_blank" href="{$vo['itemUrl']}">
+							<img src="/{$vo['itemImage']}" style="display:inline;">
+						</a>
+					</div>
+					<div class="p-name">
+						<a target="_blank" href="{$vo['itemUrl']}">{$vo['itemName']}</a>
+					</div>
+					<div class="desc">{$vo['itemDesc']}</div>
+					<div class="p-hsale"><a class="p-add-cart" style="display:block" 
+						href="javascript:vote({$vo['itemId']},'{$vo['itemName']}',{$cats[$curIndex]['catId']},'{$cats[$curIndex]['catName']}','{:session('WST_USER.loginName')}',{$cats[$curIndex]['totalVotes']},{$cats[$curIndex]['itemVotes']})">
+						投一票</a></div>
+				</div>
+				{/volist}
+				{/if}
+			  </div>

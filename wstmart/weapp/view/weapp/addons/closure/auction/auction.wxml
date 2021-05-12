@@ -1,0 +1,12 @@
+<template name="my-auction">
+    <view class='model'bindtap="jumpCenter" data-url="/addons/package/pages/auction/user/myauction">
+      <view class='image'><image src="/addons/closure/auction/image/auction.png" mode='AspectFit'></image></view>
+      <view class='title'>我的拍卖</view>
+    </view>
+</template>
+<template name="my-bond">
+    <view class='model'bindtap="jumpCenter" data-url="/addons/package/pages/auction/user/mybond">
+      <view class='image'><image src="/addons/closure/auction/image/bond.png" mode='AspectFit'></image></view>
+      <view class='title'>我的保证金</view>
+    </view>
+</template>

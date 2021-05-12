@@ -1,0 +1,61 @@
+{if($needPay!=0)}
+<div class='wst-sec-info' style='margin-top:28px'>
+	      本项报名需要缴纳费用，金额￥{$signupFee}元。
+	   </div>
+{/if}
+			  <div class='wst-user-tbar' style='padding-left:80px'>
+				<div class='apply-box'>
+				  <form id='signupForm' autocomplete='off'>
+				  <input type='hidden' id='pkey' class='j-ipt' value="{$userSignupInfo['pkey']}"/>
+				  <input type='hidden' id='catId' class='a-ipt' value='{$curCatId}'/>
+				  <input type='hidden' id='catName' class='a-ipt' value='{$catName}'/>
+				  <input type='hidden' id='signupFee' class='a-ipt' value='{$signupFee}'/>
+				  <input type='hidden' id='listId' class='a-ipt' value="{if(isset($userSignupInfo['listId']))}{$userSignupInfo['listId']}{else}0{/if}"/>
+				  <table class='agreement-table'>
+					{volist name="$extras" id="vo"}
+					<tr>
+					  <th>{$vo['extraName']}{if($vo['isRequired'])}<font color='red'>*</font>{/if}：</th>
+					  <td>
+					  <input type='text' style="width:450px" id='{$vo["extraId"]}' class='e-ipt' 
+						{if($vo['isRequired'])}data-rule='{$vo['extraName']}:required;' {/if}
+						value="{if(isset($userExtrasVal[$vo['extraId']]['extraVal']))}{$userExtrasVal[$vo['extraId']]['extraVal']}{/if}"/>
+					  </td>
+					</tr>
+					{/volist}
+				  </table>
+				  </form>
+				</div>
+				{if($isLogin)}
+					{if($userSignupInfo['isSigned'])}
+						{if(($needPay!=0) && ($userSignupInfo['isPaid']==0))}
+							<button class="wst-sec-but u-btn" style="margin-top:30px;margin-left:130px" onclick="toPay()">去缴费</button>
+						{else}
+							<button class="wst-sec-but u-btn" style="margin-top:30px;margin-left:130px" onclick="toEnd()">更多信息</button>
+						{/if}
+					{else}
+						{if($needPay!=0)}
+							<button class="wst-sec-but u-btn" style="margin-top:30px;margin-left:130px" onclick="submit(1)">去缴费</button>
+						{else}
+							<button class="wst-sec-but u-btn" style="margin-top:30px;margin-left:130px" onclick="submit(0)">提交</button>
+						{/if}
+					{/if}
+				{else}
+				 <button class="wst-sec-but u-btn" style="margin-top:30px;margin-left:130px" onclick="WST.loginWindow()">去登录</button>
+				{/if}
+			  </div>
+<script>
+$(function(){
+	if({$userSignupInfo['isSigned']} || ({$isLogin}==0)){
+		$('.a-ipt').attr('disabled',true);
+		$('.e-ipt').attr('disabled',true);
+	}else{
+		$('.a-ipt').attr('disabled',false);
+		$('.e-ipt').attr('disabled',false);
+	};
+	if({$step} == 2 && {$userSignupInfo['isSigned']} && {$isLogin} && {$needPay} && {$userSignupInfo['isPaid']==0}){
+		toPayStep2();
+	}else if({$step} == 3){
+		toEnd();
+	}
+});
+</script>

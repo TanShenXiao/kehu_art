@@ -1,0 +1,42 @@
+       <div style='margin-top:28px'>
+	      {$catDesc}
+	   </div>
+	   
+	   <div class="wst-relative" style="margin-top: 10px;margin-left: 10px;">
+			<div style="font-size:14px;color:#666666;float:left">分享：</div>
+			  <?php if(!(Request()->isSsl())){?> 
+				<div class="bshare-custom icon-medium">
+				<a title="分享到QQ空间" class="bshare-qzone"></a>
+				<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+				<a title="分享到QQ好友" class="bshare-qqim"></a>
+				<a title="分享到腾讯微博" class="bshare-qqmb"></a>
+				<a title="分享到微信" class="bshare-weixin"></a>
+				</div>
+				<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&pophcol=2&lang=zh"></script>
+				<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+				<script type="text/javascript">
+					bShare.addEntry({  
+						url:  "{:url('addon/signup-signup-lists',array('catId'=>$curCatId),true,true)}",
+						title:'线上报名',
+						summary:'{$catName}',
+						pic: "{:WSTDomain()}/{:WSTConf('CONF.mallLogo')}"
+					});
+				</script>
+			  <?php } ?>
+		</div>
+
+{if($catStatus==0)}
+	<button class="wst-sec-but u-btn" style="margin-top:30px;margin-left:350px;width:150px;background-color:#999999">未开始</button>
+{elseif($catStatus==-1)}
+	<button class="wst-sec-but u-btn" style="margin-top:30px;margin-left:350px;width:150px;background-color:#999999">已结束</button>
+{else}
+	{if($isLogin)}
+		{if($userSignupInfo['isSigned'])}
+		<button class="wst-sec-but u-btn" style="margin-top:30px;margin-left:350px;width:150px" onclick="toSubmit()">查看报名信息</button>
+		{else}
+		<button class="wst-sec-but u-btn" style="margin-top:30px;margin-left:350px" onclick="toSubmit()">开始报名</button>
+		{/if}
+	{else}
+	 <button class="wst-sec-but u-btn" style="margin-top:30px;margin-left:350px" onclick="WST.loginWindow()">登录后报名</button>
+	{/if}
+{/if}

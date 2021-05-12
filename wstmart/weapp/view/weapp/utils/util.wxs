@@ -1,0 +1,29 @@
+
+var numberUtil = {
+  priceFormat: function (value) {
+   // len = len || 1;
+    var v = parseFloat(value);
+    return v;
+  },
+  numberFormat: function (value,len) {
+    len = len || 0;
+    return Number(value).toFixed(len);
+  }
+}
+
+
+var userPhotoFormat = function (resourceDomain,userPhoto) {
+  // 外网头像
+  if (userPhoto && userPhoto.indexOf('http') != -1) {
+    userPhoto = userPhoto;
+  } else if (userPhoto) {
+    userPhoto = resourceDomain + userPhoto;
+  }
+  return userPhoto;
+}
+
+module.exports = {
+  userPhotoFormat: userPhotoFormat,
+  priceFormat: numberUtil.priceFormat,
+  numberFormat: numberUtil.numberFormat
+}

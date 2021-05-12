@@ -1,0 +1,40 @@
+<div class="wst-footer-help">
+	<div class="wst-footer">
+		<div class="wst-footer-hp-ck1">
+		  <div style="width:900px;margin:auto">
+			{volist name=":WSTHelps(5,6)" id="vo1"}
+			<div class="wst-footer-wz-ca">
+				<div class="wst-footer-wz-pt">
+					<span class="wst-footer-wz-pn">{$vo1["catName"]}</span>
+					<ul style='margin-left:10px;'>
+						{volist name="vo1['articlecats']" id="vo2"}
+						<li color:#fff;font-size:12px;'>
+						<a href="{:Url('Home/Helpcenter/view',array('id'=>$vo2['articleId']))}">{:WSTMSubstr($vo2['articleTitle'],0,8)}</a>
+						</li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+			{/volist}
+
+			<div class="wst-clear"></div>
+		  </div>
+		</div>
+
+	    <div class="wst-footer-hp-ck3">
+	        <div class="copyright">
+	        {php}
+	        	if(WSTConf('CONF.mallFooter')!=''){
+	         		echo htmlspecialchars_decode(WSTConf('CONF.mallFooter'));
+	        	}
+	        {/php}
+	      	{php}
+				if(WSTConf('CONF.visitStatistics')!=''){
+					echo htmlspecialchars_decode(WSTConf('CONF.visitStatistics'))."<br/>";
+			    }
+			{/php}
+	        </div>
+	    </div>
+	</div>
+</div>
+{:hook('initCronHook')}

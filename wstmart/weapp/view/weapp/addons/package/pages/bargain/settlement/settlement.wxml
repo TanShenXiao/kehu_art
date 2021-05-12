@@ -1,0 +1,131 @@
+
+<view class='container'>
+  <!--用户地址-->
+  <view class='usersite' wx:if="{{data.userAddress==''}}" bindtap="address">
+    <view class='remindContent'>您还没添加收货地址，请添加。</view>
+    <view class='skipArrow'>
+      <view class='arrow'></view>
+    </view>
+  </view>
+  <view class='usersite2' wx:if="{{data.userAddress!=''}}" bindtap="address">
+    <view class='name'>{{data.userAddress.userName}} {{data.userAddress.userPhone}}</view>
+    <view class='address'>
+      <i class="icon" style="background:url({{domain}}wstmart/weapp/view/weapp/image/icon_user_adds.png) no-repeat 0 6rpx;background-size:100%;"></i>
+      {{data.userAddress.areaName}}{{data.userAddress.userAddress}}
+    </view>
+    <view class='skipArrow'>
+      <view class='arrow'></view>
+    </view>
+  </view>
+  <!--商品-->
+  <view class="wst-se-list">
+    <view class="list-model">
+      <view class="shop" data-shopid="{{carts.shopId}}" bindtap="toshops">
+        <i style="background-image:url({{domain+carts.shopImg}});background-size:cover;"></i>{{carts.shopName}}</view>
+      <view class="goos ">
+        <view class="img">
+          <image src='{{domain}}{{carts.goods.goodsImg}}' mode='aspectFit' data-goodsid="{{carts.goods.goodsId}}" bindtap="togoods"></image>
+        </view>
+        <view class='details' data-goodsid="{{carts.goods.goodsId}}" bindtap="togoods">
+          <view class='title'>{{carts.goods.goodsName}}</view>
+          <view class='price'>
+            <view>¥ {{carts.goods.shopPrice}}</view>
+            <view>× {{carts.goods.cartNum}}</view>
+          </view>
+        </view>
+        <view class='spec' wx:if="{{carts.goods.specNames!=''}}">
+          规格：
+          <block wx:for="{{carts.goods.specNames}}" wx:for-item="sp" wx:for-index="index" wx:key="k">
+          {{sp.itemName}}
+          <block wx:if="{{carts.goods.specNames.length - 1 > index}}">，</block>
+          </block>
+        </view>
+        <view class="wst-clear"></view>
+      </view>
+      <!--快递详情-->
+      <view class='expressDetails'>
+        <view class='freight'>运费：
+          <view class='number'>¥ {{prices.shops.freight}}</view>
+        </view>
+        <view class='amount'>店铺合计(含运费)：
+          <view class='number'>¥ {{data.goodsTotalMoney}}</view>
+        </view>
+      </view>
+      <!--备注信息-->
+      <view class="remarkInform">
+        <textarea bindinput="inRemarks" auto-height maxlength="300" data-shopid="{{shopId}}" placeholder='请输入备注'>{{remarks}}</textarea>
+      </view>
+    </view>
+  </view>
+  <!--方式-->
+  <view class="wst-se-info">
+    <view class='infoAmount'>
+      <view class='term' bindtap="onChoice" data-mode="payment">
+        <view class='left'>支付方式</view>
+        <view class='right' bindtap='powerDrawer'>
+          <view class='arrow'></view>
+        </view>
+        <view class='between'>{{paymentWord}}</view>
+      </view>
+      <view class='term' data-invoice="1" bindtap="inInvoice" wx:if="{{carts.isInvoice==1}}">
+        <view class='left'>发票信息</view>
+        <view class='right'>
+          <view class='arrow'></view>
+        </view>
+        <view class='between'>{{invoiceWord}}</view>
+      </view>
+      <view class='term' bindtap="onChoice" data-mode="integral" wx:if="{{isOpenScorePay==1}}">
+        <view class='left'>积分支付</view>
+        <view class='describe'>（可用
+          <text>{{prices.maxScore}}</text>个积分，可抵
+          <text>¥{{prices.maxScoreMoney}}</text>)</view>
+        <view class='right'>
+          <view class='arrow'></view>
+        </view>
+        <view class='between' style="width:50rpx;">{{integralWord}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--底部导航条-->
+<footer class="wst-se-footer">
+  <text class="words">合计：¥ {{prices.realTotalMoney}}</text>
+  <button class="button btn-green" bindtap='submit' disabled="{{disabled}}">提交订单</button>
+</footer>
+<!--发票信息-->
+<view class='wst-se-invoice' wx:if="{{invoice}}">
+  <view class="head">发票信息
+    <icon type='cancel' color='#B1B1B1' size='28' class="icon" data-invoice="0" bindtap="inInvoice"></icon>
+  </view>
+  <view class="invoice">
+    <view>发票抬头</view>
+    <radio-group name="radio" class="option" bindchange="ifInvoice">
+      <label>
+        <radio color="#1cc4ad" value="0" checked="{{invoiceClient=='个人'?true:false}}" />个人</label>
+      <label>
+        <radio color="#1cc4ad" value="1" checked="{{invoiceClient!='个人'?true:false}}" />单位</label>
+    </radio-group>
+    <view class='item' wx:if="{{invoiceCompany}}">
+      <input placeholder='请填写单位名称' bindinput='invoiceHead' bindfocus="invoiceHead2" bindblur="invoiceHead4" value="{{invoiceHead}}" />
+      <view class="list" wx:if="{{isinvoicelist}}">
+        <view class="word" wx:for="{{invoicelist}}" wx:for-item="in" wx:key="k" data-head="{{in.invoiceHead}}" data-code="{{in.invoiceCode}}" data-id="{{in.id}}" bindtap="invoiceHead3">
+          {{in.invoiceHead}}</view>
+      </view>
+    </view>
+    <view class='item' wx:if="{{invoiceCompany}}">
+      <input placeholder='请填写纳税人识别码' bindinput='invoiceCode' value="{{invoiceCode}}" />
+    </view>
+    <view class="content">发票内容</view>
+    <radio-group name="radio" class="option" bindchange="ifInvoice2">
+      <label>
+        <radio color="#1cc4ad" value="0" checked="{{isInvoice==0?true:false}}" />不开发票</label>
+      <label>
+        <radio color="#1cc4ad" value="1" checked="{{isInvoice==1?true:false}}" />明细</label>
+    </radio-group>
+  </view>
+  <view class="prompt" style="margin-top:60rpx;">·发票金额不计优惠券和积分支付部分</view>
+  <view class="prompt">·第三方卖家销售的商品发票由商家开具、寄出、发票内容由商家决定</view>
+  <view class='bottom'>
+    <button class='lo-button btn-green' bindtap='invoice'>确定</button>
+  </view>
+</view>

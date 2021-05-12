@@ -1,0 +1,76 @@
+<view class="user-info">
+  <image class="user-img" src="{{userPhoto}}"></image>
+  <view class="user-name" data-reactid="4">{{userName}}</view>
+</view>
+<view class="ui-container" id="shopBox">
+    <view class="ui-tab">
+        <view class="ui-tab-nav order-tab">
+            <view class="tab-item {{ftype==0?'tab-curr':''}}" bindtap="changeTab" data-type="0">全部</view>
+            <view class="tab-item {{ftype==1?'tab-curr':''}}" bindtap="changeTab" data-type="1">待付款</view>
+            <view class="tab-item {{ftype==2?'tab-curr':''}}" bindtap="changeTab" data-type="2">待成团</view>
+            <view class="tab-item {{ftype==3?'tab-curr':''}}" bindtap="changeTab" data-type="3">已成团</view>
+            <view class="tab-item {{ftype==4?'tab-curr':''}}" bindtap="changeTab" data-type="4">已退款</view>
+        </view>
+    </view>
+    <scroll-view>
+    <view class="ui-tab-content" id="pintuan-container">
+        <view id="goods-list">
+          
+          <block wx:if='{{totalCnt>0}}'>
+            <block wx:for='{{glist}}' wx:for-item="go" wx:for-index="key">
+              <view class="tuan-item" >
+                  <view class="item-top-block">
+                      <view>发起了拼单</view>
+                      <view class='time'>{{go.createTime}}</view>
+                      <view wx:if="{{go.tuanStatus==0}}" class="order-status red">待支付</view>
+                      <view wx:if="{{go.tuanStatus==1}}" class="order-status blue">正在拼团</view>
+                      <view wx:if="{{go.tuanStatus==2}}" class="order-status green">拼团成功</view>
+                      <view wx:if="{{go.tuanStatus==-1}}" class="order-status red">拼团失败</view>
+                  </view>
+                  <view class="item-goods" bindtap="toDetail" data-tuanno="{{ go.tuanNo }}">
+                      <image class="goods-img" src="{{resourceDomain +  go.goodsImg }}" mode='aspectFill' lazy-load='true'></image>
+                      <view class="goods-name">
+                          <p>{{ go.goodsName }}</p>
+                      </view>
+                      <p class="spec">{{go.tuanNum}}人拼单</p>
+                      <view class="price-and-num">
+                          <view class="goods-price">
+                              <span>￥{{go.tuanPrice}}</span>
+                          </view>
+                          <view class="goods-number">x{{ go.goodsNum }}</view>
+                      </view>
+                  </view>
+                
+                  <view class="button-block">
+                    
+                      <block wx:if="{{go.tuanStatus==0}}">
+                          <view class="currency-block">
+                              <p class="currency-head">实付<span>:</span>￥<span class="currency-amount">{{ go.needPay }}</span></p>
+                          </view>
+                          <button class="cancel" bindtap="toCancel" data-id="{{ go.id }}">取消拼单</button>
+                          <button class="go-pay" bindtap="choicePay" data-pkey="{{ go.pkey }}">去支付</button>
+                      </block>
+                      <block wx:if="{{go.tuanStatus==1}}">
+                          <button class="go-friend" bindtap="toDetail" data-tuanno="{{ go.tuanNo }}">去邀请好友</button>
+                      </block>
+                      <block wx:if="{{go.tuanStatus!=0 && go.tuanStatus!=1}}">
+                          <button class="check" bindtap="toDetail" data-tuanno="{{ go.tuanNo }}">查看拼团</button>
+                      </block>
+                  </view>
+              </view>
+              
+              <view class="wst-clear"></view>
+            </block>
+          </block>
+          <block wx:if='{{glist.length==0}}'>
+            <view class="wst-prompt-icon">
+              <image src="{{domain}}/addons/pintuan/view/images/pintuan-goods.png"></image>
+              <view class="wst-prompt-info">
+                <p>没有相关拼团。</p>
+              </view>
+            </view>
+          </block>
+        </view>
+    </view>
+    </scroll-view>
+</view>

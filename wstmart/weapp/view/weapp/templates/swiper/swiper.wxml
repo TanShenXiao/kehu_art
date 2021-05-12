@@ -1,0 +1,9 @@
+<template name="swiper">
+    <view class='swiper-model' style="padding:{{paddingTop}}px {{paddingRight}}px {{paddingBottom}}px {{paddingLeft}}px;">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" indicator-active-color="{{indicatorColor}}" class="swiper-box dot-{{indicatorType}}">
+        <swiper-item wx:for="{{swipers}}" wx:for-item="item">
+          <image src="{{resourceDomain}}{{item.img}}" mode='scaleToFill' bindtap='jumpcenter' data-url="{{item.link}}" />
+        </swiper-item>
+      </swiper>
+    </view>
+</template>

@@ -1,0 +1,103 @@
+{extend name="default/base" /}
+{block name="title"}
+    {if $catInfo['seoTitle']}
+        {$catInfo['seoTitle']} - 
+    {else}
+        {$catInfo['catName']} - 商品列表 - 
+    {/if}
+    {__block__}
+{/block}
+{block name="meta"}
+<meta name="description" content="{if $catInfo && $catInfo['seoDes']}{$catInfo['seoDes']}{else}{:WSTConf('CONF.seoMallDesc')}{/if}">
+<meta name="Keywords" content="{if $catInfo && $catInfo['seoKeywords']}{$catInfo['seoKeywords']}{else}{:WSTConf('CONF.seoMallKeywords')}{/if}">
+{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__MOBILE__/css/goods_list.css?v={$v}">
+{/block}
+{block name="header"}
+    <header class="ui-header ui-header-positive wst-se-header2" style="border-bottom: 1px solid #f6f6f8;">
+		<i class="ui-icon-return" onclick="history.back()"></i>
+		<div class="wst-se-search">
+		    <i class="ui-icon-search" onclick="javascript:WST.searchPage('goods',1);"></i>
+		    <form action＝"" class="input-form" onclick="javascript:WST.searchPage('goods',1);">
+			<input type="search" value="{$keyword}" placeholder="按关键字搜索艺术品/艺廊/艺术家" onsearch="WST.search(0)" autocomplete="off" disabled="disabled">
+			</form>
+		</div>
+		{eq name="catInfo.showWay" value="1"}
+			<span class='wst-se-icon wst-se-icon2' onclick="javascript:switchList(this);"></span>
+		{/eq}
+		{eq name="catInfo.showWay" value="0"}
+			<span class='wst-se-icon' onclick="javascript:switchList(this);"></span>
+		{/eq}
+	</header>
+{/block}
+{block name="main"}
+     <input type="hidden" name="" value="{$keyword}" id="keyword" autocomplete="off">
+     <input type="hidden" name="" value="{$catId}" id="catId" autocomplete="off">
+	 <input type="hidden" name="" value="{$brandId}" id="brandId" autocomplete="off">
+     <input type="hidden" name="" value="" id="condition" autocomplete="off">
+	 <input type="hidden" name="" value="" id="desc" autocomplete="off">
+	 <input type="hidden" name="" value="" id="currPage" autocomplete="off">
+	 <input type="hidden" name="" value="{$searchType}" id="searchType" autocomplete="off">
+     <input type="hidden" name="" value="" id="totalPage" autocomplete="off">
+
+     <section class="ui-container">
+     	<div class="ui-row-flex wst-shl-head">
+		    <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,0);">
+		   		 <p class="pd0">销量</p><i class="down"></i>
+		    </div>
+		    <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,1);">
+		   		 <p class="pd0">价格</p><i class="down"></i>
+		    </div>
+		    <div class="ui-col ui-col sorts active" status="down" onclick="javascript:orderCondition(this,5);">
+		   		 <p class="pd0">人气</p><i class="up2"></i>
+		   		 <span class="bar"></span>
+		    </div>
+		    <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,3);">
+		   		 <p>上架时间</p><i class="down"></i>
+			</div>
+		</div>
+		<ul class="ui-tab-content">
+	        <li id="goods-list"  {eq name="catInfo.showWay" value="1"} class='wst-go-switch'{/eq}></li>
+	    </ul>
+     </section>
+     {/*筛选框*/}
+<script id="list" type="text/html">
+{{# if(d && d.length>0){ }}
+{{# for(var i=0; i<d.length; i++){ }}
+<div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}" onclick="javascript:WST.intoGoods({{ d[i].goodsId }});">
+<div class="img j-imgAdapt"><a href="javascript:void(0);" onclick="javascript:WST.intoGoods({{ d[i].goodsId }});"><img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{{ d[i].goodsImg }}" title="{{ d[i].goodsName }}"/></a></div>
+<div class="name ui-nowrap-multi">{{ d[i].goodsName }}</div>
+
+<div class="info"><span class="price">{{# if(d[i].saleType==1){ }}<span>议价</span>{{# }else if(d[i].saleType==2){ }}<span>仅展示</span>{{# }else{ }}¥ <span>{{ d[i].shopPrice }}</span>{{# } }}</span></div>
+<div class="info2"><span class="price">{{# if(d[i].goodsAuthor!=null){ }}{{ d[i].goodsAuthor }} {{# } }}</span></div>
+</div>
+{{# } }}
+{{# }else{ }}
+<div class="wst-prompt-icon"><img src="__MOBILE__/img/nothing-goods.png"></div>
+<div class="wst-prompt-info">
+	<p>对不起，没有相关商品。</p>
+</div>
+{{# } }}
+</script>
+</script>
+{/block}
+{block name="include"}
+{include file="default/goods_search_box" /}
+<div class="wst-toTop" style="display: block;bottom: 0.68rem;">
+	<a href="{:url('mobile/goods/history')}"><i class="wst-toHistoryimg"></i></a>
+</div>
+{/block}
+{block name="js"}
+
+<div class="contact">
+	<div class="contact_top">
+		<img src="/upload/goods/2021-04/dhtb.png" alt="">
+		<span>咨询热线：{:WSTConf('CONF.serviceTel')}</span>
+	</div>
+	<p>
+		{:WSTConf('CONF.mallFooter')}
+	</p>
+</div>
+<script type='text/javascript' src='__MOBILE__/js/goods_list.js?v={$v}'></script>
+{/block}

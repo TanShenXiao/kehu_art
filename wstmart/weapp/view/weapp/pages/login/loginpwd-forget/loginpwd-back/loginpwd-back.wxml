@@ -1,0 +1,58 @@
+<view class='container'>
+  <view class='login-model' >
+    <view wx:if="{{type==1}}">
+          <view class='form-model' wx:if="{{step==1}}">
+            <view class='login-item' >
+              <input placeholder='' disabled="{{true}}" value="用户名：{{data.loginName}}"/>
+            </view>
+            <view class='login-item' >
+              <input placeholder='' disabled="{{true}}"  value="手机号码：{{data.userPhone}}"/>
+            </view>
+            <view class='login-item' wx:if="{{smsVerfy==1}}">
+              <input placeholder='输入验证码' bindinput='phoneVerfy' />
+              <image src="{{code}}" mode='aspectFill' class="verify" bindtap='code'/>
+            </view>
+            <view class='login-item'>
+              <input placeholder='短信验证码' bindinput='phoneCode'/>
+              <button type="default" disabled="{{phDisabled}}" bindtap="pverify" class="obtain">{{verifyWord}}</button>
+            </view>
+        </view>
+        <view class='log-model' wx:if="{{step==1}}">
+          <button class='lo-button' bindtap='verify' disabled="{{nextDisabled}}">下一步</button>
+        </view>
+    </view>
+    <view wx:if="{{type==2}}">
+        <view class='form-model' wx:if="{{step==1}}">
+          <view class='login-item' >
+              <input placeholder='' disabled="{{true}}" value="用户名：{{data.loginName}}"/>
+            </view>
+            <view class='login-item' >
+              <input placeholder='' disabled="{{true}}"  value="邮箱：{{data.userEmail}}"/>
+            </view>
+          <view class='login-item' wx:if="{{smsVerfy==1}}">
+            <input placeholder='输入验证码' bindinput='emailVerfy' />
+            <image src="{{code}}" mode='aspectFill' class="verify" bindtap='code'/>
+          </view>
+          <view class='login-item'>
+            <input placeholder='邮箱校验码' bindinput='emailCode'/>
+            <button type="default" disabled="{{emDisabled}}" bindtap="everify" class="obtain">{{emailVerifyWord}}</button>
+          </view>
+        </view>
+        <view class='log-model' wx:if="{{step==1}}">
+          <button class='lo-button' bindtap='verify' disabled="{{nextDisabled}}">下一步</button>
+        </view>
+    </view>
+    <view class='form-model' wx:if="{{step==2}}">
+      <view class='login-item'>
+            <input  placeholder='新密码6-20位' type="number" password  bindinput='loginPwd'/>
+      </view>
+      <view class='login-item'>
+            <input  placeholder='确认新密码' type="number" password  bindinput='cologinPwd'/>
+      </view>
+      <view class='log-model' style="margin:0;">
+        <button class='lo-button' bindtap='submit' disabled="{{suDisabled}}">重置</button>
+      </view>
+    </view>
+
+  </view>
+</view>

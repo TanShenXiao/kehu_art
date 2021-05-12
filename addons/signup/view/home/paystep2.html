@@ -1,0 +1,41 @@
+
+<link href="__STYLE__/css/recharge.css?v={$v}" rel="stylesheet">
+<div class='wst-user-content'>
+    <div style="padding-top: 27px;">
+    	<div class="pay-tip2"></div>
+    </div>
+    <div class='pay-sbox' >
+    	<div class="qrcode-box">
+		    <div class="pbox">
+	        	请您扫描以下二维码，缴费金额：<span class="wst-fred">￥{$signupFee}</span>
+	        </div>
+	        <div style="" class="wst-qrcode"></div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='__STYLE__/js/qrcode.js?v={$v}'></script>
+<script>
+	{if condition="$out_trade_no != '' and $code_url!=''"}
+		var qr = qrcode(10, 'M');
+			qr.addData("{$code_url}");
+			qr.make();
+		$(".wst-qrcode").html(qr.createImgTag());
+	
+	{/if}
+	setInterval(function(){
+		var params = {};
+			params.trade_no = "{$out_trade_no}";
+		$.ajax({
+			url:"{:url('home/weixinpays/getPayStatus')}",
+			data:params,
+			type:"POST",
+			dataType:"json",
+			success:function(data){
+				if(data.status==1){
+					WST.msg('支付成功');
+					location.href = WST.AU('signup://signup/lists','step=3');
+				}
+			}
+		});
+	},1500);
+</script>

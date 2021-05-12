@@ -1,0 +1,16 @@
+<view class="container">
+    <view wx:for="{{_data}}" wx:for-item="logItem" class="item">
+        <viwe class="img">
+            <image mode="aspectFit" src="{{logItem.avatar}}" />
+        </viwe>
+        <view class="item-r">
+            <viwe class="ir-t">
+                <view>{{logItem.nickname}}</view>
+                <view>{{logItem.logTime}}</view>
+            </viwe>
+            <viwe class="ir-b">
+                {{logItem.logContent}}
+            </viwe>
+        </view>
+    </view>
+</view>

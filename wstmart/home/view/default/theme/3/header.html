@@ -1,0 +1,42 @@
+<div style="height:90px;margin:0 auto;width:100%;">
+<div class='wst-search-container' style="width:100%;text-align:center">
+   <div style="width:231px;height:70px;margin:10px auto">
+   <a href='{$Request.root.true}' title="{:WSTConf('CONF.mallName')}" style="">
+      <img src="__ROOT__/{:WSTConf('CONF.mallLogo')}" style="max-height:100%;" title="{:WSTConf('CONF.mallName')}" alt="{:WSTConf('CONF.mallName')}">
+   </a>
+   </div>
+{/* 购物车 */}
+<script id="list-cart" type="text/html">
+{{# for(var i = 0; i < d.list.length; i++){ }}
+	<div class="goods" id="j-goods{{ d.list[i].cartId }}">
+	   	<div class="imgs"><a href="{{ WST.U('home/goods/detail','goodsId='+d.list[i].goodsId) }}"><img class="goodsImgc" data-original="__ROOT__/{{ d.list[i].goodsImg }}" title="{{ d.list[i].goodsName }}"></a></div>
+	   	<div class="number"><p><a  href="{{ WST.U('home/goods/detail','goodsId='+d.list[i].goodsId) }}">{{WST.cutStr(d.list[i].goodsName,26)}}</a></p><p>数量：{{ d.list[i].cartNum }}</p></div>
+	   	<div class="price"><p>￥{{ d.list[i].shopPrice }}</p><span><a href="javascript:WST.delCheckCart({{ d.list[i].cartId }})">删除</a></span></div>
+	</div>
+{{# } }}
+</script>
+<script>
+function addFavorite() {
+	var url = window.location;
+	var title = document.title;
+	var ua = navigator.userAgent.toLowerCase();
+	if (ua.indexOf("360se") > -1) {
+		alert("由于360浏览器功能限制，请按 Ctrl+D 手动收藏！");
+	}else if (ua.indexOf("msie 8") > -1) {
+		window.external.AddToFavoritesBar(url, title); //IE8
+	}else if (document.all) {
+		try{
+			window.external.addFavorite(url, title);
+		}catch(e){
+			alert('您的浏览器不支持,请按 Ctrl+D 手动收藏!');
+		}
+	}else if (window.sidebar) {
+		window.sidebar.addPanel(title, url, "");
+	}else {
+		alert('您的浏览器不支持,请按 Ctrl+D 手动收藏!');
+	}
+}
+</script>
+</div>
+<div class="wst-clear"></div>
+</div>

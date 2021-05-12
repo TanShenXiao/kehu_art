@@ -1,0 +1,23 @@
+/*优惠券组*/
+.coupon-model{
+  width: 100%;
+  background: #fff;
+}
+
+.coupon-item1{
+  width:33%;
+  height:200rpx;
+}
+.coupon-item2{
+  width:48%;
+  height:160rpx;
+}
+.coupon-value-content-1{color:#ff3030;margin-top:5px;}
+.coupon-condition-1{color:#ff3030;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.coupon-value-1{font-size: 60rpx;}
+.coupon-get-1{color:#fff;line-height:20px;}
+.coupon-value-content-2{color:#fff;width:50px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.coupon-condition-2{color:#fff;line-height:25px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.coupon-value-2{font-size: 40rpx;}
+.coupon-get-2{color: #223e83;line-height: 25px;background: #fff;padding: 0 5px;font-size: 28rpx;}
+.coupon-area{margin-left:15px;}

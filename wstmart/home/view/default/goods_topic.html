@@ -1,0 +1,152 @@
+{extend name="default/base" /}
+{block name="title"}{$catNamePath} - 商品列表 - {:WSTConf('CONF.mallName')}{__block__}{/block}
+{block name="meta"}
+<meta name="description" content="{:WSTConf('CONF.seoMallDesc')}">
+<meta name="Keywords" content="{:WSTConf('CONF.seoMallKeywords')}">
+{/block}
+{block name="css"}
+<link href="__STYLE__/css/goodslist.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="nav"}
+	{include file="default/header" /}
+{/block}
+{block name="main"}
+
+{/* 已筛选的条件 */}
+<input type="hidden" id="cat" class="sipt" value='{$catId}'/>
+<div class='wst-filters'>
+   <div class='item' style="border-left:2px solid #df2003;padding-left: 8px;">
+      <a class='link' href='__ROOT__/'>首页</a>
+      <i class="arrow">></i>
+   </div>
+   {if($catId)}
+   {volist name=":WSTPathGoodsCat($catId)" id='vo'}
+   <div class='wst-lfloat'>
+   	<div class='item dorpdown'>
+     <div class='drop-down'>
+        <a class='link' href='__ROOT__'>{$vo['catName']}</a>
+        <i class="drop-down-arrow"></i>
+     </div>
+     <div class="dorp-down-layer">
+         {volist name=":WSTGoodsCats($vo['parentId'])" id='vo2'}
+         <div class="{$vo['parentId']>0?'cat2':'cat1'}"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"])}'>{$vo2['catName']}</a></div>
+         {/volist}
+	</div>
+	</div>
+	<i class="arrow">></i>
+   </div>
+  
+   {/volist}
+   {else}
+   <div class='item'>
+      <a class='link' href='javascript:void(0);'>全部商品分类</a>
+   </div>
+   {/if}
+   <div class='wst-clear'></div>
+</div>
+
+{/* 商品展示  */}
+<div class="wst-container">
+	<div class='goods-side' style="width:160px">
+		<div class="guess-like">
+			 <div id="cat-0" class="g-cat">
+				<a href="{:url('home/goods/topiclists')}" style="font-size:20px;font-weight:bold;color:#666666;padding-top:30px;display:block">全部分类</a>
+			 </div>
+			{volist name=":WSTSideCategorys()" id="vo" key="k"}
+                 <div id="cat-{$k}" class="g-cat">
+					<a href="{:url('home/goods/topiclists','cat='.$vo['catId'])}" style="font-size:20px;font-weight:bold;color:#666666;padding-top:30px;display:block">{$vo['catName']}</a>
+                 </div>
+                 {/volist}
+		</div>
+	</div>
+	<div class='goods-main' style="width:815px;background-color:#fff">
+	   <div class="goods-list" style="padding-left:10px;padding-top:10px">
+	      {volist name='goodsPage["data"]' id='vo'}
+	      <div class="goods" style="width:247px;height:255px;background-color:#eeeeee;margin:10px 8px">
+	      	<div class="img" style="width:100%;height:175px;padding:0">
+	      		<a target='_blank' href="{:Url('home/goods/detail','goodsId='.$vo['goodsId'])}" style="width:100%;height:175px">
+	      			<img title="{$vo['goodsName']}" alt="{$vo['goodsName']}" class='goodsImg2'  style="max-width:100%;width:100%;height:175px" data-original="__ROOT__/{$vo['goodsImg']}"/>
+	      		</a>
+	      	</div>
+	      	<div class="p-name" style="width:100%;height:20px">
+				<a target='_blank' href="{:Url('home/goods/detail','goodsId='.$vo['goodsId'])}" class="wst-redlink" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;display:block;font-weight:bold" title="{$vo['goodsName']}">{$vo['goodsName']}</a>
+			</div>
+	      	<div class="p-shop">
+		      	<a href="{:Url('home/shops/home','shopId='.$vo['shopId'])}" target='_blank' class="wst-redlink">{$vo['shopName']}</a>
+	      	</div>
+			<div class="p-price" style="float:left">{if($vo['saleType']==1)}议价{elseif($vo['saleType']==2)}仅展示{else}￥{$vo['shopPrice']}{/if}</div>
+			<div class="rar_gthumb">{:WSTMSubStr($vo['thumbsNum'],0,20,'utf-8')}</div>
+	      </div>
+	      
+	      {/volist}
+	     <div class='wst-clear'></div>
+	   	</div>
+	   	<div style="width:980px;">
+	  		<div id="wst-pager"></div>
+		</div>
+		
+	</div>
+	<div class='wst-clear'></div>
+</div>
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__STYLE__/js/goodslist.js?v={$v}'></script>
+<script type='text/javascript'>
+$(function(){
+	{if !isset($areaInfo)}
+	$('#fl_1_1').click();
+	{/if}
+	contrastGoods(1,0,2);
+	swiperGoods('recom');
+})
+laypage({
+    cont: 'wst-pager',
+    pages: {$goodsPage["last_page"]}, //总页数
+    skip: true, //是否开启跳页
+    skin: '#e23e3d',
+    groups: 3, //连续显示分页数
+    curr: function(){ //通过url获取当前页，也可以同上（pages）方式获取
+        var page = location.search.match(/page=(\d+)/);
+        return page ? page[1] : 1;
+    }(), 
+    jump: function(e, first){ //触发分页后的回调
+        if(!first){ //一定要加此判断，否则初始时会无限刷新
+        	var nuewurl = WST.splitURL("page");
+        	var ulist = nuewurl.split("?");
+        	if(ulist.length>1){
+        		location.href = nuewurl+'&page='+e.curr;
+        	}else{
+        		location.href = '?page='+e.curr;
+        	}
+            
+        }
+    }
+});
+
+
+
+var total = {$goodsPage["last_page"]};
+function page(t){
+	var page = location.search.match(/page=(\d+)/);
+	var curr = 1;
+	if(page && page.length>1){ //说明当前url上有page参数
+		curr = page[1]; // 当前页
+	}
+	var nuewurl = WST.splitURL("page"); // 当前url
+	var ulist = nuewurl.split("?"); // 将传递的参数与url分开
+	// 说明当前有参数. 需要带着参数一起传递
+	var url = (ulist.length>1)?nuewurl+'&page=':'?page=';
+
+	if(t=='prev'){ // 上一页
+		if(curr<=1)return;
+		curr = parseInt(curr)-1;
+		location.href = url+curr;
+	}else{ // 下一页
+		if(curr>=total)return;
+		curr = parseInt(curr)+1;
+		location.href = url+curr;
+	}
+	
+}
+</script>
+{/block}

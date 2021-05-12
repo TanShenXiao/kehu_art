@@ -1,0 +1,192 @@
+<import src="../../../../../pages/common/parse/parse.wxml" />
+
+<view class="wst-navbar" style='opacity:{{navOpacity}}'>
+    
+</view>
+<scroll-view scroll-y style="height:100vh" bindscroll="mainScroll" bindscrolltolower="mainScrollTolower" scroll-with-animation="true" scroll-top="{{scrollTop}}">
+
+
+    <view class="wst-container">
+      <view id="tab-items">
+        <view id="tab1" class="tab" wx:if="{{showType==1}}">
+        
+          <scroll-view scroll-y="true">
+            <view class='wst-go-swiper'>
+              <swiper indicator-dots='true' autoplay='true' circular='true' interval='5000' indicator-active-color='#1cc4ad' indicator-color='rgba(0,0,0,.2)'>
+                <block wx:for='{{goods.gallery}}' wx:for-item="gal" wx:key="k">
+                <swiper-item data-src="{{resourceDomain}}{{gal}}" bindtap="viewImg">
+                  <image src="{{resourceDomain}}{{gal}}" mode='aspectFill'></image>
+                </swiper-item>
+                </block>
+              </swiper>
+            </view>
+          </scroll-view>
+          <view class='wst-go-info'>
+              <view class='price price{{goods.status}}'>
+                <i>¥ </i><span class="shop-price">{{goods.secPrice}}</span>
+                <span class='market'>¥<span class="market-price">{{goods.shopPrice}}</span></span>
+              </view>
+              <view class="timer timer{{goods.status}}">
+                <view class="status">
+                  <span wx:if='{{currStatus==0}}'>距开始</span>
+                  <span wx:if='{{currStatus==1}}'>距结束</span>
+                  <span wx:if='{{currStatus==2}}'>已结束</span>
+                </view>
+                <view id="seckillTime" class="seckill-time" data-stime="{{goods.startTime}}" data-etime="{{goods.endTime}}" data-ntime="{{goods.nowTime}}" data-status="{{goods['status']}}">
+                <label class="lab_timer">
+                    <span>{{hour}}</span><em>:</em>
+                    <span>{{mini}}</span><em>:</em>
+                    <span>{{sec}}</span><em>:</em>
+                    <span>{{msec}}</span>
+                </label>
+                </view>
+              </view>
+          </view>
+          <view class='wst-go-title'>
+            <label wx:if="{{goods['isFreeShipping']==1}}" class='lab_bgred'>包邮</label>
+            {{goods.goodsName}}
+          </view>
+          <view wx:if="{{goods.seckillDes!=''}}" class='wst-go-des'>{{goods.seckillDes}}</view>
+
+          <view wx:if="{{goods['isSpec']==1}}" bindtap='openSpec' class="wst-go-term">
+              <view class='term'>
+                <view class='title' >已选
+                  <view class="spec">
+                    <block wx:for="{{goods['spec']}}" wx:for-item="sp" wx:key="k" >
+                      <block wx:for="{{sp['list']}}" wx:for-item="sp2" wx:key="k2" >
+                        <span wx:if="{{sp2['itemImg']!=''}}" class="introduce">
+                          <image class="j-option img" data-val="{{sp2['itemId']}}" src="{{resourceDomain}}{{sp2['itemImg']}}" title="{{sp2['itemName']}}"></image>
+                        </span>
+                        <span wx:if="{{sp2['itemImg']==''}}" class="introduce">
+                          <span class="j-option words active" data-val="{{sp2['itemId']}}">{{sp2['itemName']}},</span>
+                        </span>
+                      </block>
+                    </block>
+                    <span class='buycnt'>1</span>{{goods.goodsUnit}}
+                  </view>
+                </view>
+                <view class='radius'></view>
+              </view>
+          </view>
+
+          <view wx:if="{{goods.attrs!=''}}" class="wst-go-term"  bindtap='openParam'>
+              <view class='term' types="1" >
+                <view class='title'>产品参数</view>
+                <view class='radius'></view>
+              </view>
+          </view>
+
+          
+        </view>
+      </view>
+      
+      <view id="tab3" class="tab" wx:if="{{showType==1}}">
+        <view class="loadmore" wx:if="{{reachBottomCnt==1}}">
+          <view class="loadmore_tips"><text class='fa fa-spin fa-spinner'></text>上拉查看详情</view>
+        </view>
+        <view class="wst-goods-desc" wx:if="{{reachBottomCnt==2}}">
+          <template is="wxParse" data="{{wxParseData:goodsDesc.nodes}}" />
+        </view>
+      </view>
+      
+  </view>
+</scroll-view>
+
+<view class="wst-sh-footer">
+  <view class='item home' bindtap='toIndex'>
+    <image src="../images/home.png"/>
+    <view class="title">首页</view>
+  </view>
+  <view class='item cart'>
+
+    <view bindtap='makePhone' class='J_service' data-tel="{{goods['shop']['shopTel']}}">
+      <image src='../images/custom.png'></image>
+      <view class="title">客服</view>
+    </view>
+
+  </view>
+  <view class='item' style="width: 60%;">
+    <button wx:if="{{goods.status==0}}" class="button tobuy{{goods.status}}">秒杀即将开始</button>
+    <button wx:if="{{goods.status==1 && goods.canBuyNum>0}}" bindtap="openSpec" class="button tobuy{{goods.status}}" >立即秒杀</button>
+    <button  wx:if="{{goods.status==1 && goods.canBuyNum<=0}}" class="button tobuy{{goods.status}}">已达限购（{{goods.secLimit}}{{goods.goodsUnit}}）</button>
+    <button wx:if="{{goods.status>1}}" class="button tobuy{{goods.status}}">秒杀已结束</button>
+  </view>
+</view>
+
+<!--商品规格-->
+<view id="check-spec" class='wst-check-spec {{specType}}'>
+  <view>
+    <view class="head">
+      <view class="title"></view>
+      <view class="close" bindtap="maskClose">x</view>
+    </view>
+    <view class="spec-head">
+      <view  wx:if="{{goods['isSpec']==1}}">
+        <block wx:for="{{goods['spec']}}" wx:for-item="sp" wx:key="k">
+          <block wx:for="{{sp['list']}}" wx:for-item="sp2" wx:key="k2" >
+            <image wx:if="{{sp2['itemImg']!=''}}" class="j-option img" data-val="{{sp2['itemId']}}" src="{{resourceDomain}}{{sp2['itemImg']}}" title="{{sp2['itemName']}}"/>
+          </block>
+        </block>
+      </view>
+      <image wx:if="{{goods['isSpec']==0}}" class="j-option img" data-val="{{goods['goodsImg']}}" src="{{resourceDomain}}{{goods['goodsImg']}}" title="{{goods['goodsName']}}"/>
+    
+      <view class="price">
+        <view>
+          <i>¥ </i><span class="shop-price">{{goods.secPrice}}</span>
+        </view>
+        <view class="prop"><label>已选 </label>
+          <text wx:if="{{choseSpec!=''}}" class="skuchoose">{{choseSpec}}，</text>
+          <em class='buycnt'>1</em>{{goods.goodsUnit}}
+        </view>
+      </view>
+    </view>
+    <view class="modal-content">
+      <scroll-view class="spec-items" scroll-y="true">
+        <view wx:if="{{goods['isSpec']==1}}" class="weui-panel_access">
+          <view class="weui-panel__bd" >
+            <block wx:for="{{goods['spec']}}" wx:for-item="sp" wx:key="k" >
+              <block wx:for="{{sp['list']}}" wx:for-item="sp2" wx:key="k2" >
+                <view wx:if="{{sp2['itemImg']==''}}">
+                  <view class="sku-kind">{{sp['name']}}</view>
+                  <view class="sku-choose">
+                    <span class="j-option item active" data-val="{{sp2['itemId']}}">{{sp2['itemName']}}</span>
+                  </view>
+                </view>
+              </block>
+            </block>
+          </view>
+        </view>
+        <view class="count-choose">
+            <view class="num_wrap_v2">
+              <span class="minus" bindtap="changeIptNum" data-type="-1"><i class="row"></i></span>
+              <view class="text_wrap">
+                <input class="text" type="tel" value="{{buyNum}}" id="buyNum" bindinput="changeIptNum" data-type="0"/>
+              </view>
+              <span class="plus" bindtap="changeIptNum" data-type="1"><i class="row"></i><i class="col"></i></span>
+            </view>
+            <view class="count">数量<em class="store" style="display:none;"></em></view>
+        </view>
+      </scroll-view>
+      <view class="btn-box close-popup">
+          <button wx:if="{{goods.status==1 && goods.canBuyNum>0}}" class="button" bindtap="addCart">立即秒杀</button>
+          <button wx:if="{{goods.status==1 && goods.canBuyNum<=0}}" class="button">已达限购（{{goods.secLimit}}{{goods.goodsUnit}}）</button>
+          <button wx:if="{{goods.status!=1}}"  class="button">确定</button>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<view class="wst-mask" wx:if="{{isOpen}}" bindtap="maskClose" data-types="0" catchtouchmove="true"></view>
+<!--产品参数-->
+<view wx:if="{{goods.attrs!=''}}" class="wst-go-parameter {{parameterType}}">
+  <view class="head">
+    <view class="title">商品参数</view>
+    <view class="close" bindtap="maskClose">x</view>
+  </view>
+  <scroll-view class="content" scroll-y="true">
+    <view wx:for="{{goods['attrs']}}" wx:for-item="at" wx:key="k" class='item'>
+      {{at['attrName']}}：{{at['attrVal']}}
+    </view>
+  </scroll-view>
+</view>

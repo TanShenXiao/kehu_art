@@ -1,0 +1,59 @@
+<template name="image-text">
+    <view class='image-text-model' style="padding:{{verticalPadding}}px 0;">
+        <view class="image-text image-text-style-1" wx:if="{{style==1}}" bindtap='jumpcenter' data-url="{{link}}">
+            <view class='image-text-imgs image-text-style-1-left'>
+                <block wx:for="{{img}}">
+                  <image src="{{resourceDomain}}{{item}}" mode='scaleToFill' />
+                </block>
+            </view>
+            <view class='image-text-style-1-right'>
+                <view class='image-text-style-title'>{{title}}</view>
+                <view class='image-text-style-desc'>{{desc}}</view>
+            </view>
+        </view>
+        <view class="image-text image-text-style-2" wx:if="{{style==2}}" bindtap='jumpcenter' data-url="{{link}}">
+            <view class='image-text-style-2-left'>
+                <view class='image-text-style-title'>{{title}}</view>
+                <view class='image-text-style-desc'>{{desc}}</view>
+            </view>
+            <view class='image-text-imgs image-text-style-2-right'>
+                <block wx:for="{{img}}">
+                  <image src="{{resourceDomain}}{{item}}" mode='scaleToFill' />
+                </block>
+            </view>
+        </view>
+        <view class="image-text image-text-style-3" wx:if="{{style==3}}">
+            <view class='image-text-style-3-top'>
+                <view class='image-text-style-title'>{{title}}</view>
+                <view class='image-text-style-desc'>{{desc}}</view>
+            </view>
+            <view class='image-text-imgs image-text-style-3-bottom'>
+                <block wx:for="{{img}}">
+                  <image src="{{resourceDomain}}{{item}}" alt=''/>
+                </block>
+            </view>
+        </view>
+        <view class="image-text image-text-style-4" wx:if="{{style==4}}">
+            <view class='image-text-style-4-top'>
+                <view class='image-text-style-title'>{{title}}</view>
+                <view class='image-text-style-desc'>{{desc}}</view>
+            </view>
+            <view class='image-text-imgs wst-flex-row wst-jsa image-text-style-4-bottom'>
+                <block wx:for="{{img}}">
+                  <image src="{{resourceDomain}}{{item}}" alt=''/>
+                </block>
+            </view>
+        </view>
+        <view class="image-text image-text-style-5" wx:if="{{style==5}}">
+            <view class='image-text-style-5-top'>
+                <view class='image-text-style-title'>{{title}}</view>
+                <view class='image-text-style-desc'>{{desc}}</view>
+            </view>
+            <view class='image-text-imgs wst-flex-row wst-jsa image-text-style-5-bottom'>
+                <block wx:for="{{img}}">
+                  <image src="{{resourceDomain}}{{item}}" alt=''/>
+                </block>
+            </view>
+        </view>
+    </view>
+</template>

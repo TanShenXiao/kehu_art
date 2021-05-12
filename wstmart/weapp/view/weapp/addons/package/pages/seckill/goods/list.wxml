@@ -1,0 +1,73 @@
+
+<wxs module="numberUtil" src="../../../../../utils/util.wxs"></wxs>
+<header class="wst-ne-header">
+  <scroll-view class="ui-tab-nav" scroll-x="true" scroll-with-animation="true" scroll-left="{{scrollLeft}}">
+    <li wx:for-items="{{secTimes}}" wx:for-item="st" wx:key="k" wx:for-index="idx"  bindtap="switchTab" class="tab-item times {{st['id']==timeId?'active':''}}" data-timeid="{{st.id}}" data-key="{{idx}}" data-status="{{st['status']}}" data-stime="{{st['startTime']}}" data-etime="{{st['endTime']}}">
+      <view class="title">{{st['title']}}</view>
+      <view class="status">{{st['status']==1?"抢购进行中":(st['status']==2?"已结束":"即将开场")}}</view>
+    </li>
+  </scroll-view>
+</header>
+
+<view class="ui-container">
+  <view class="seckill_items_head"> 
+    <h3 class="seckill_items_tit">{{currStatus==0?"即将开场":"抢购中"}} 先下单先得哦</h3> 
+    <view class="seckill_items_timer">
+      <strong class="status_tip">{{currStatus==0?"距开始":"距结束"}}</strong>
+      <label class="lab_timer">
+        <span>{{hour}}</span><em>:</em>
+        <span>{{mini}}</span><em>:</em>
+        <span>{{sec}}</span> 
+      </label>
+    </view>
+  </view>
+  <view class="wst-fi-list wst-container content">
+    <view id="goods-list" class="goods-list">
+      <view wx:for="{{goods}}" wx:for-item="go" wx:key="k" >
+      <view style="{{ go.gstock>0?'':'opacity: 0.5' }}">
+        <navigator url="/addons/package/pages/seckill/goods/detail?id={{go.id}}" class="weui-media-box weui-media-box_appmsg goods">
+            <view class="weui-media-box__hd weui-updown img">
+                <view class="gtips {{ go.gstock>0?'wst-hide':'wst-show' }}">已抢光</view>
+                <image class="weui-media-box__thumb" src="{{resourceDomain}}{{go.goodsImg}}" title="{{ go.goodsName }}" style="width: 100%;height: 100%;"></image>
+            </view>
+            
+            <view class="weui-media-box__bd" style="position:relative;">
+              <view class="weui-media-box__title" style="">{{go.goodsName}}</view>
+              <view class="price">
+                <span class="money-icon">¥</span>
+                <span>{{numberUtil.priceFormat(go.secPrice)}}</span>
+                <span class="shop-price">¥{{numberUtil.priceFormat(go.shopPrice)}}</span>
+              </view>
+              <view>
+                <view>
+                  <view wx:if="{{currStatus>0}}" class="progress-box">
+                    <view class="hasbuy">已抢{{go.hasBuyNum}}件</view>
+                    <view class="progress" style="width: {{go.percent}}%"></view>
+                    <view class="percent">{{ go.percent }}%</view>
+                  </view>
+                </view>
+                <view class="bnt-box">
+                  <button wx:if="{{currStatus==0}}" class="green-btn">抢先看看</button>
+                  <button wx:if="{{currStatus==2}}" class="gray-btn">已结束</button>
+                  <button wx:if="{{currStatus==1}}" class="{{ go.gstock>0?'buy-btn':'gray-btn' }}">去抢购</button>
+                </view>
+              </view>
+          </view>
+        </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+  <button class="wst-load" loading="true" disabled="true" wx:if="{{load==0}}">加载中</button>
+  <button class="wst-load" disabled="true" wx:if="{{load==1}}">加载完啦</button>
+  <view class="wst-prompt-icon" wx:if="{{totalCnt==0}}">
+    <image src="/image/nothing-goods.png"></image>
+    <view class="tipText">对不起，没有相关商品。</view>
+  </view>
+  <view class='home-btn'>
+    <navigator url="/pages/index/index">
+      <image src="/image/footer-home.png"></image>
+      <view class="title">首页</view>
+    </navigator>
+  </view>
+</view>

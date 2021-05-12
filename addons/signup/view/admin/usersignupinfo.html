@@ -1,0 +1,46 @@
+{extend name="../../../wstmart/admin/view/base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__ADMIN__/js/mmgrid/mmGrid.css?v={$v}" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css?v={$v}" />
+{/block}
+{block name="js"}
+<script src="__ADMIN__/js/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+<script src="__ROOT__/addons/signup/view/admin/list.js?v={$v}" type="text/javascript"></script>
+<script type='text/javascript' src='__STATIC__/plugins/webuploader/webuploader.js?v={$v}'></script>
+{/block}
+{block name="main"}
+<div id='alertTips' class='alert alert-success alert-tips fade in'>
+  <div id='headTip' class='head'><i class='fa fa-lightbulb-o'></i>报名详情</div>
+  <ul class='body'>
+    <li>这里显示会员报名的详细信息。</li>
+  </ul>
+</div>
+			  <div class='wst-user-tbar' style='padding-left:80px'>
+				<div class='apply-box'>
+				  <form id='signupForm' class='wst-form' autocomplete='off'>
+				  <table class='agreement-table'>
+					{volist name="$userExtrasVal" id="vo"}
+					<tr>
+					  <th>{$vo['extraName']}：</th>
+					  <td>
+					  <input type='text' readonly="readonly" style="width:450px" class='e-ipt' value="{$vo['extraVal']}"/>
+					  </td>
+					</tr>
+					{/volist}
+      <td colspan='2' align='center'>
+				            <button type="button" onclick='javascript:history.go(-1)' class='btn'><i class="fa fa-angle-double-left"></i>返回</button>
+			  </td>
+				  </table>
+				  </form>
+				</div></div>
+<script>
+$(function(){
+});
+function toNext(){
+	$('#tabname').html('报名成功');
+	$('#catdesctab').hide();
+	$('#submittab').hide();
+	$('#aftersignuptab').show();
+};
+</script>
+{/block}

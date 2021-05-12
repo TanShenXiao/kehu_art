@@ -1,0 +1,98 @@
+page {
+    width: 100%;
+    height: 100%;
+    background: #f6f6f8;
+  }
+  
+  .container {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  
+  .goods-list {
+    padding-bottom: 110rpx;
+  }
+  
+  .goods-item {
+    width: 100%;
+    background: #fff;
+    margin-top: 5px;
+    padding-bottom: 10px;
+  }
+  
+  .goods-item-left {
+    width: 30%;
+    padding: 5px;
+  }
+  
+  .goods-item-left image {
+    width: 176rpx;
+    height: 176rpx;
+  }
+  
+  .goods-item-right {
+    width: 65%;
+    padding: 5px;
+  }
+  .ac{
+    align-items: center;
+  }
+  .status-ing{
+    align-items: center;
+    padding: 0 5px;
+    border-width: 1;
+    border-color: #5bc0de;
+    background-color: #5bc0de;
+    border-radius: 2;
+    overflow: hidden;
+    font-size: 24rpx;
+    color:#fff;
+  }
+  .status-out{
+    border-color: #e3e2e2;
+    background-color: #e3e2e2
+  }
+  .status-win{
+    border-color: #5cb85c;
+    background-color: #5cb85c
+  }
+  .status-expire{
+    border-color: #de0202;
+    background-color: #de0202
+  }
+  
+  .goods-name {
+    font-size: 26rpx;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .market-price {
+    font-size: 26rpx;
+    margin: 5px 0 0 0;
+  }
+  
+  .floor-price {
+    color: #e01324;
+    font-weight: bold;
+  }
+  .time{
+    padding: 0 0 5px 5px;
+    border-bottom: 1px solid #eee;
+  }
+  .time image {
+    width: 15px;
+    height: 15px;
+    margin-right: 2px;
+  }
+  
+  .lab_timer {
+    color: #a4a4a4;
+    font-size: 24rpx;
+  }
+  .f15{font-size:30rpx;}
+  .c999{color: #999;}
+  

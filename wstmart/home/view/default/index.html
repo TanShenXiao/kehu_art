@@ -1,0 +1,256 @@
+{extend name="default/base" /}
+{block name="title"}{:WSTConf('CONF.mallName')} - {:WSTConf('CONF.mallSlogan')}{__block__}{/block}
+{block name="meta"}
+<meta name="description" content="{:WSTConf('CONF.seoMallDesc')}">
+<meta name="keywords" content="{:WSTConf('CONF.seoMallKeywords')}">
+{/block}
+{block name="css"}
+<link href="__STYLE__/css/index.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/shophome.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="main"}
+<div class="wst-clear"></div>
+{/* 左侧菜单栏 */}
+{/* 横栏广告  */}
+<div class="wst-ads" style="position:relative;" >
+	<div class="wst-slide" id="wst-slide">
+		<ul class="wst-slide-items">
+			{wst:ads code="ads-index" cache='86400'}
+				<a href="{$vo.adURL}" {if ($vo['isOpen'])}target='_blank'{/if} {if ($vo['adURL']!='')}onclick="WST.recordClick({$vo['adId']})"{/if}><li style="background: url(__RESOURCE_PATH__/{$vo.adFile}) no-repeat  scroll center top;background-size:cover;" ></li></a>
+			{/wst:ads}
+		</ul>
+		<div class="wst-slide-numbox">
+			<div style="position:absolute;right:0;top:-420px;">
+			</div>
+			<div style="width: 1000px;position: relative;margin:0 auto;">
+				<div class="wst-slide-controls">
+					{wst:ads code="ads-index" cache='86400' key='k'}
+						{if condition="$k+1 eq 1"}
+							<span class="curr"></span>
+						{else/}
+							<span class=""></span>
+						{/if}
+					{/wst:ads}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="width:1000px;margin:20px auto 0 auto;">
+	{/* 精选作品 */}
+	<div class="sector_pack">
+		<h2 class="sector_h2">精选作品</h2>
+		<div class="sector_desc">
+			<p>SELECTED WORKS</p>
+			<a href="/category-365.html">查看更多>></a>
+		</div>
+		<div class="sector_content">
+			<div class="zp_big">
+				<img class="zp_big_img" src="/upload/goods/2019-04/5cc561bf41a801.JPG" alt="">
+				<div class="zp_big_tost">
+					<h2 class="zp_big_title">精选作品</h2>
+					<p class="zp_big_desc">SELECTED WORKS</p>
+					<ul class="zp_big_category">
+						{volist name=":WSTSideCategorys()" id="vo" key="k"}
+						<li><a href="{:url('home/goods/lists','cat='.$vo['catId'])}">{:WSTMSubstr($vo['catName'],0,2)}</a></li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+			<div class="zp_litter">
+				<ul>
+					<?php
+						$goodsInfo = WSTGoodsCatsList();
+						foreach ($goodsInfo as $k => $goodInfo) {
+					?>
+					<li>
+						<a href="{:url('home/goods/detail','goodsId='.$goodInfo['goodsId'])}">
+							<img src="__ROOT__/{$goodInfo['goodsImg']}" alt="">
+							<div class="zp_mod">
+								<p class="zp_author">作者 {$goodInfo['goodsAuthor']}</p>
+								<p class="zp_size">尺寸{$goodInfo['goodsTips']}</p>
+								<p class="zp_name">{$goodInfo['goodsName']}</p>
+								<p class="zp prize">价格 ￥<span>{$goodInfo['shopPrice']}</span></p>
+							</div>
+						</a>
+					</li>
+					<?php } ?>
+				</ul>
+			</div>
+		</div>
+	</div>
+	{/* 优惠专区 */}
+	<div class="sector_pack">
+		<h2 class="sector_h2">优惠专区</h2>
+		<div class="sector_desc">
+			<p>PREFERENTIAL ZONE</p>
+			<a href="/category-365.html">查看更多>></a>
+		</div>
+		<div class="sector_content_yh">
+			<div class="yh_litter">
+				<ul>
+					<?php
+						$goodsInfo = WSTGoodsCatsList(['365','366','367','368','369','370'], [['isBest','=',1]], 'saleNum desc', '4');
+						foreach ($goodsInfo as $k => $goodInfo) {
+					?>
+					<li>
+						<img src="__ROOT__/{$goodInfo['goodsImg']}" alt="">
+						<div class="yh_content">
+							<p class="author">作者{$goodInfo['goodsAuthor']}</p>
+							<p class="name">{$goodInfo['goodsName']}</p>
+							<p class="cur_prize">价格 ￥<span>{$goodInfo['shopPrice']}</span></p>
+							<p class="old_prize"><s>原价 ￥{$goodInfo['marketPrice']}</s></p>
+							<a class="button"href="{:url('home/goods/detail','goodsId='.$goodInfo['goodsId'])}">立即进入</a>
+						</div>
+					</li>
+					<?php } ?>
+				</ul>
+			</div>
+			<div class="yh_big">
+				<img class="yh_big_img" src="/upload/goods/2019-04/5cc561bf41a815.JPG" alt="">
+				<div class="yh_big_tost">
+					<h2 class="yh_big_title">优惠专区</h2>
+					<p class="yh_big_desc">PREFERENTIAL ZONE</p>
+					<button>立即进入</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<div class="wst-clear"></div>
+<div class="artist">
+	<div class="sector_artist">
+		<h2 class="sector_h2">艺术家</h2>
+		<div class="sector_desc">
+			<p>PREFERENTIAL ZONE</p>
+			<a href="/street.html">查看更多>></a>
+		</div>
+		<div class="artist_content">
+			<?php
+				$shopList = WSTShopList('1');
+				foreach ($shopList as $k => $shopIfo) {
+			?>
+			<div class="artist_big">
+				<a href="{:url('home/shops/index',['shopId'=>$shopIfo['shopId']])}">
+					<img src="__ROOT__/{$shopIfo['shopImg']}" alt="">
+					<p>{$shopIfo['shopName']}</p>
+				</a>
+			</div>
+			<?php } ?>
+			<ul>
+				<?php
+					$shopList = WSTShopList('1,12');
+					foreach ($shopList as $k => $shopIfo) {
+				?>
+				<li>
+					<a href="{:url('home/shops/index',['shopId'=>$shopIfo['shopId']])}">
+						<img src="__ROOT__/{$shopIfo['shopImg']}" alt="">
+						<p>{$shopIfo['shopName']}</p>
+					</a>
+				</li>
+				<?php } ?>
+			</ul>
+		</div>
+	</div>
+</div>
+{/* 品牌活动 */}
+<div class="brand_pack">
+	<h2 class="sector_h2">品牌活动</h2>
+	<div class="sector_desc">
+		<p>BRAND ACTIVITIES</p>
+		<a href="">查看更多>></a>
+	</div>
+	<div class="brand_content">
+		<ul>
+			<li>
+				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<p>艺术家张海峰国画专场</p>
+			</li>
+			<li>
+				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<p>艺术家张海峰国画专场</p>
+			</li>
+			<li>
+				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<p>艺术家张海峰国画专场</p>
+			</li>
+			<li>
+				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<p>艺术家张海峰国画专场</p>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="wst-clear"></div>
+{/* 艺术服务 */}
+<div class="service_pack">
+	<h2 class="sector_h2">艺术服务</h2>
+	<div class="sector_desc">
+		<p>ART SERVICES</p>
+		<a href="">查看更多>></a>
+	</div>
+	<div class="services_content">
+		<ul>
+			<li>
+				<img src="/upload/goods/2021-04/5cc562b141a811.JPG" alt="">
+				<div class="mark">
+					<p>艺术服务</p>
+					<a href="/news/catId/402">点我查看详情</a>
+				</div>
+			</li>
+			<li>
+				<img src="/upload/goods/2021-04/5cc562b141a812.JPG" alt="">
+				<div class="mark">
+					<p>税收服务</p>
+					<a href="/news/catId/403">点我查看详情</a>
+				</div>
+			</li>
+			<li>
+				<img src="/upload/goods/2021-04/5cc562b141a813.JPG" alt="">
+				<div class="mark">
+					<p>作品征集</p>
+					<a href="/news/catId/404">点我查看详情</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="wst-clear"></div>
+{/* 右侧菜单栏  */}
+{include file="default/right_cart"/}
+{/block}
+{block name="js"}
+<script>
+$(function(){
+	//二维码
+	//参数1表示图像大小，取值范围1-10；参数2表示质量，取值范围'L','M','Q','H'
+	var a = qrcode(8, 'M');
+	var url = window.location.host+window.conf.APP;
+	a.addData(url);
+	a.make();
+	$('#qrcodea_l').html(a.createImgTag());
+});
+function goShop(id){
+  location.href=WST.U('home/shops/home','shopId='+id);
+}
+$(".zp_litter li").hover(function(){
+	$(this).find(".zp_mod").css("display", "block");
+},function(){
+	$(this).find(".zp_mod").css("display", "none");
+});
+</script>
+<script type='text/javascript' src='__STYLE__/js/qrcode.js?v={$v}'></script>
+<script async="async" type='text/javascript' src='__STYLE__/js/index.js?v={$v}'></script>
+{/block}
+{/block}
+{block name="bt_ads"}
+{wst:ads code="index-top-ads" cache='86400' id="tads"}
+{if ($tads['adFile']!='')}
+<div class="index-top-ads">
+  <a href="{$tads['adURL']}" {if ($tads['isOpen'])}target='_blank'{/if} {if ($tads['adURL']!='')}onclick="WST.recordClick({$tads['adId']})"{/if} onfocus="this.blur();">
+    <img src="__ROOT__/{$tads['adFile']}"></a>
+</div>
+{/if}
+{/wst:ads}
+{/block}

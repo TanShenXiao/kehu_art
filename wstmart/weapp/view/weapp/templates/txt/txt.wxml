@@ -1,0 +1,7 @@
+<template name="txt">
+    <view class='txt-model'>
+      <view class="txt-content text-{{textAlign}}" bindtap='jumpcenter' data-url="{{link}}" style="background:{{backgroundColor}};padding:{{verticalPadding}}px {{horizontalPadding}}px;">
+          <text style="color:{{textColor}};">{{text}}</text>
+      </view>
+    </view>
+</template>

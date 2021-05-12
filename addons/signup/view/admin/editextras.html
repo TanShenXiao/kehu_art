@@ -1,0 +1,70 @@
+{extend name="../../../wstmart/admin/view/base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__ADMIN__/js/mmgrid/mmGrid.css?v={$v}" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css?v={$v}" />
+{/block}
+{block name="js"}
+<script src="__ADMIN__/js/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+<script src="__ROOT__/addons/signup/view/admin/editextras.js?v={$v}" type="text/javascript"></script>
+<script type='text/javascript' src='__STATIC__/plugins/webuploader/webuploader.js?v={$v}'></script>
+{/block}
+{block name="main"}
+<div id='alertTips' class='alert alert-success alert-tips fade in'>
+  <div id='headTip' class='head'><i class='fa fa-lightbulb-o'></i>操作说明</div>
+  <ul class='body'>
+    <li>该功能主要用于设置线上报名项目的扩展字段。新增字段时已结束的报名项目不会出现在列表里。</li>
+  </ul>
+</div>
+<form autocomplete="off">
+<div class="wst-toolbar">
+    <!--<select id="btnSrc1"  class="query">
+      <option value="-1">请选择报名类型</option>
+      <option value="0">A</option>
+      <option value="1">B</option>
+    </select>-->
+  <input type="text" name="catQueryName" placeholder="项目名称" id="catQueryName" class="query">
+  <button type="button"  class='btn btn-primary btn-mright' onclick="javascript:loadGrid()"><i class="fa fa-search"></i>查询</button>
+  {if WSTGrant('SIGNUP_ZDXZ')}
+   <button type='button' class="btn btn-success f-right  btn-fixtop" onclick="javascript:toEdit(0)"><i class='fa fa-plus'></i>新增</button>
+   {/if}
+   <div style="clear:both"></div>
+</div>
+</form>
+<div class='wst-grid'>
+<div id="mmg" class="mmg"></div>
+<div id="pg" style="text-align: right;"></div>
+</div>
+
+<div id='signupDlg' style='display:none'>
+    <form id='signupForm' method="post" autocomplete="off">
+    <table class='wst-form wst-box-top'>
+       <tr>
+          <th width='150'>项目名称<font color='red'>*</font>：</th>
+		  <td id="catNames">
+		            <select id="catIndex" level="0" onchange="" data-rule='所属项目:required;' data-target="#msg_bcat_0">
+		                <option value="">-请选择-</option>
+		                {volist name="catsList" id="vo"}
+				        <option value="{$vo['catId']}">{$vo['catName']}</option>
+				        {/volist}
+		           	</select>
+		           	<span class='msg-box' id='msg_bcat_0' style='color:red;'>(至少选择一个报名项目)</span>
+          </td>
+       </tr>
+       <tr>
+          <th width='150'>字段名称<font color='red'>*</font>：</th>
+          <td><input type='text' id='extraName' name="extraName" class='ipt'/></td>
+       </tr>
+       <tr>
+          <th width='150'>是否必填<font color='red'>*</font>：</th>
+          <td>
+			<input type='radio' id='isRequired1' name="isRequired" class='ipt wst-radio' value='1'/>是
+			<input type='radio' id='isRequired2' name='isRequired' class='ipt wst-radio' value='0'/>否
+		  </td>
+       </tr>
+    </table>
+    </form>
+  </div>
+<script>
+  $(function(){initGrid()});
+</script>
+{/block}

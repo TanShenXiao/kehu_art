@@ -1,0 +1,43 @@
+{extend name="$LAYOUT_MOBILE_BASE" /}
+{block name="title"}缴费 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__MOBILE__/css/recharge.css?v={$v}">
+{/block}
+{block name="header"}
+    <header style="background:#ffffff;" class="ui-header ui-header-positive wst-header">
+        <i class="ui-icon-return" onclick="history.back()"></i><h1>缴费</h1>
+    </header>
+{/block}
+{block name="main"}
+   
+    <section class="ui-container">
+       
+    <div class="wst-re-info">
+    	<p>缴费金额<span class="balance">¥ <span id="rechargeMoney">{$cat['signupFee']}</span></span></p>
+    </div>
+        <div class="ui-form">
+            {volist name="payments" id="payment" }
+                <div class="ui-form-item ui-form-item-radio paytype-term">
+                    <label class="ui-checkbox" for="radio">
+                        <input type="radio" {if condition="$key eq 0"}checked{/if} name="payCode" value="{$payment['payCode']}">
+                    </label>
+                    <i class="{$payment['payCode']}"></i>
+                    <p>{$payment['payName']}</p>
+                </div>
+            {/volist}
+        </div>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn-lg ui-btn-danger wst-re-button" onclick="toPay()">确认支付</button>
+        </div>
+    <input type="hidden" value="{$signupInfo['listId']}" id='itemId' class='j-ipt' />
+    <input type="hidden" value="{$signupInfo['catId']}" id='catId' class='j-ipt' />
+	<input type="hidden" value="{$cat['signupFee']}" id='signupFee' class='j-ipt' />
+        </section>
+{/block}
+
+{block name="footer"}
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__MOBILE__/js/jquery.min.js'></script>
+<script type='text/javascript' src='__ROOT__/addons/signup/view/mobile/pay.js?v={$v}'></script>
+{/block}

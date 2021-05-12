@@ -1,0 +1,213 @@
+{extend name="default/theme/5/base" /}
+{block name="title"}{$data['shop']['shopName']} - {:WSTConf('CONF.mallName')}{__block__}{/block}
+<meta name="description" content="{$data['shop']['shopDesc']},{:WSTConf('CONF.mallName')}">
+<meta name="Keywords" content="{$data['shop']['shopKeywords']},{:WSTConf('CONF.mallName')}">
+{block name="css"}
+<link href="__STATIC__/plugins/lazyload/skin/laypage.css?v={$v}" rel="stylesheet">
+<link href="__STATIC__/plugins/slide/css/slide.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/theme/5/css/index.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="shop_header"}
+<div style="width:100%;border-top:1px solid #b2b2b2;border-bottom:1px solid #b2b2b2;height:16px;text-align:center">
+	<div class="wst-shop-catt">
+		<a href="{:url('home/shops/cat',array('shopId'=>$data['shop']['shopId']))}">
+			<li style="">所有宝贝</li>
+		</a>
+		{volist name="$data['shopcats']" id="sc1"}
+		<a href="{:url('home/shops/cat',array('shopId'=>$sc1['shopId'],'ct1'=>$sc1['catId']))}">
+			<li style="">{:WSTMSubstr($sc1['catName'],0,15)}</li>
+		</a>
+		<!--{if($sc1['children'])}
+		<div class="wst-shop-catts tree_{$sc1['catId']}" style="display:none">
+		{volist name="sc1['children']" id="sc2"}
+			<a href="{:url('home/shops/cat',array('shopId'=>$sc1['shopId'],'ct1'=>$sc1['catId'],'ct2'=>$sc2['catId']))}" style="width:90px;float:left">
+				<li">{:WSTMSubstr($sc2['catName'],0,15)}</li>
+			</a>
+		{/volist}
+		</div>
+		{/if}-->
+		{/volist}
+		<div class="wst-clear"></div>
+	</div>
+</div>
+<div class="ck-slide">
+	<ul class="ck-slide-wrapper">
+		{volist name="$data['shop']['shopAds']" id="ads"}
+		<li>
+			<a {if ($ads['isOpen'])}target='_blank'{/if}  href="{$ads['adUrl']}" ><img class='goodsImg' src="__RESOURCE_PATH__/{$ads['adImg']}" width="1200px" height="700px"/></a>
+		</li>
+		{/volist}
+	</ul>
+	<!-- <a href="javascript:;" class="ctrl-slide ck-prev" ></a> 
+	<a href="javascript:;" class="ctrl-slide ck-next" ></a> -->
+	<div class="ck-slidebox">
+		<div class="slideWrap">
+			<ul class="dot-wrap">
+			{volist name="$data['shop']['shopAds']" id="ads" key="i"}
+				{if condition="$i eq 1"}
+					<li class="current"><em>{$i}</em></li>
+				{else}
+					<li><em>{$i}</em></li>
+				{/if}
+			{/volist}
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="wst-clear"></div>
+<div class="wst-container">
+		<div style="width:430px;float:left;height:390px;margin-top:35px">
+			<div style="width:100%;height:90px;background-color:#c7b6a6;">
+				<div class="tzone-title" style="width:145px;height:32px;border-right:2px solid #fff;float:left;letter-spacing:3px;margin:28px 10px;line-height:30px">店铺公告&nbsp;</div>
+				<div class="tzone-title" style="width:180px;height:14px;float:left;margin-top:47px;font-size:12px;line-height:12px;text-align:left">announcement</div>
+			</div>
+			<div style="font-size:14px;margin-top:20px;height:220px">{$data['shop']['shopNotice']}</div>
+		</div>
+		<div style="width:480px;float:right;height:390px;margin-top:35px">
+			<a href="">
+				<img src="__RESOURCE_PATH__/{$data['shop']['shopImg']}" style="width:480px;height:390px"/>
+			</a>
+		</div>
+</div>
+<div class="wst-clear"></div>
+<div class="sbanner" style="height:500px;background-image:url('__STYLE__/theme/5/img/bk2.png');margin-top:60px;background-color:#e8e8e8">
+	<div class="wst-container" style="">
+		<a href="{:url('home/shops/home',array('shopId'=>$data['shop']['shopId']))}">
+			<div style="width:480px;height:400px;margin-top:50px;float:left" class="shopsDesc"></div>
+		</a>
+		<div class="wst-shop-keeper" style="width:430px;height:400px;margin-top:50px;float:right;background-color:#e9e9e9">
+			<div style="line-height:30px;font-size:30px;letter-spacing:5px;color:#000">店铺介绍</div>
+			<div id="keeper-info" style="background-color:#e9e9e9;padding:20px 0 0 0;height:230px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$data['shop']['shopBrief']}</div>
+			<div><a id="keeper-showmore1" class="keeper-more" href="javascript:;" style="margin:20px auto auto 0">查看更多>></a><a id="keeper-exmore1" class="keeper-more" style="display:none;margin:20px auto auto 0" href="javascript:;">收起<<</a></div>
+		</div>
+	</div>
+</div>
+<!--<div class="wst-container" style="height:570px;width:990px">
+	<div style="margin:50px 0 36px 0;font-size:36px;letter-spacing:5px;text-align:center">快速找到您想要的画</div>
+	<div class="tzone-area">
+		<a href="{:url('home/goods/detail',array('goodsId'=>1))}" target="_blank">
+			<img class="tzone-img" data-original="__RESOURCE_PATH__/upload/shops/2018-12/5c0e24fa1ff98.png" title="">
+			<div class="tzone-title">专区一</div>
+		</a>
+	</div>
+	<div class="tzone-area">
+		<a href="{:url('home/goods/detail',array('goodsId'=>1))}" target="_blank">
+			<img class="tzone-img" data-original="__RESOURCE_PATH__/upload/shops/2018-12/5c0e24fa1ff98.png" title="">
+			<div class="tzone-title">专区二</div>
+		</a>
+	</div>
+	<div class="tzone-area">
+		<a href="{:url('home/goods/detail',array('goodsId'=>1))}" target="_blank">
+			<img class="tzone-img" data-original="__RESOURCE_PATH__/upload/shops/2018-12/5c0e24fa1ff98.png" title="">
+			<div class="tzone-title">专区三</div>
+		</a>
+	</div>
+	<div class="bzone-area">
+		<a href="{:url('home/goods/detail',array('goodsId'=>1))}" target="_blank">
+			<img class="bzone-img" data-original="__RESOURCE_PATH__/upload/shops/2018-12/5c0e24fa1ff98.png" title="">
+			<div class="tzone-title">专区四</div>
+		</a>
+	</div>
+	<div class="bzone-area">
+		<a href="{:url('home/goods/detail',array('goodsId'=>1))}" target="_blank">
+			<img class="bzone-img" data-original="__RESOURCE_PATH__/upload/shops/2018-12/5c0e24fa1ff98.png" title="">
+			<div class="tzone-title">专区五</div>
+		</a>
+	</div>
+</div>-->
+<div class="wst-clear"></div>
+<div class="sbanner" style="margin-top:50px">
+	<img class="shopsImg" data-original="__RESOURCE_PATH__/{$data['shop']['shopBanner']}" title="{$data['shop']['shopName']}" style="height:600px"/>
+</div>
+<div class="wst-container" style="width:990px;margin-top:-45px;position:relative">
+	<div style="width:980px;height:90px;background-image:url('__STYLE__/shops/tpl/5/img/hot.png')"></div>
+	{wst:shopgoods type='recom' num='6' id='re' shop="$data['shop']['shopId']"}
+	<div class="hot-area" style="">
+		<a href="{:url('home/goods/detail',array('goodsId'=>$re['goodsId']))}" target="_blank">
+			<img class="hot-img goodsImg" data-original="__RESOURCE_PATH__/{$re['goodsImg']}" title="{$re['goodsName']}">
+		</a>
+		<div class="hot-title">《{$re['goodsName']}》</div>
+		<div class="hot-price-bg">
+			{if($re['saleType']==1)}
+			<div class="hot-buy">议价</div>
+			{elseif($re['saleType']==2)}
+			<div class="hot-buy">仅展示</div>
+			{else}
+			<div class="hot-price">￥<span style="font-size:36px">{$re['shopPrice']}</span>起</div>
+			<a href="{:url('home/goods/detail',array('goodsId'=>$re['goodsId']))}" class="hot-buy">立即购买</a>
+			{/if}
+		</div>
+	</div>
+	{/wst:shopgoods}
+	<div class="wst-clear"></div>
+	<a href="{:url('home/shops/cat',array('shopId'=>$data['shop']['shopId']))}"><div class="more">查看更多></div></a>
+</div>
+<!--<div class="sbanner" style="">
+	<img class="shopsImg" data-original="__RESOURCE_PATH__/{$data['shop']['shopBanner']}" style="height:600px"/>
+</div>-->
+<div class="wst-container" style="width:990px;position:relative">
+	<div style="height:90px;background-image:url('__STYLE__/theme/5/img/new.png')"></div>
+	{wst:shopgoods type='new' num='6' id='re' shop="$data['shop']['shopId']"}
+	<div class="hot-area">
+		<a href="{:url('home/goods/detail',array('goodsId'=>$re['goodsId']))}" target="_blank">
+			<img class="hot-img goodsImg" data-original="__RESOURCE_PATH__/{$re['goodsImg']}" title="{$re['goodsName']}">
+		</a>
+		<div class="hot-title">《{$re['goodsName']}》</div>
+		<div class="hot-price-bg">
+			{if($re['saleType']==1)}
+			<div class="hot-buy">议价</div>
+			{elseif($re['saleType']==2)}
+			<div class="hot-buy">仅展示</div>
+			{else}
+			<div class="hot-price">￥<span style="font-size:36px">{$re['shopPrice']}</span>起</div>
+			<a href="{:url('home/goods/detail',array('goodsId'=>$re['goodsId']))}" class="hot-buy">立即购买</a>
+			{/if}
+		</div>
+	</div>
+	{/wst:shopgoods}
+	<div class="wst-clear"></div>
+	<a href="{:url('home/shops/cat',array('shopId'=>$data['shop']['shopId']))}"><div class="more">查看更多></div></a>
+</div>
+		
+		<div class="wst-clear"></div>
+{/block}
+{block name="main"}
+<input type="hidden" id="msort" value="{$msort}" autocomplete="off"/>
+<input type="hidden" id="mdesc" value="{$mdesc}" autocomplete="off"/>
+<input type="hidden" id="shopId" value="{$data['shop']['shopId']}" autocomplete="off"/>
+<input type="hidden" id="ct1" value="{$ct1}" autocomplete="off"/>
+<input type="hidden" id="ct2" value="{$ct2}" autocomplete="off"/>
+
+</div>
+	<div class="wst-clear"></div>
+
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__STATIC__/plugins/slide/js/slide.js?v={$v}"></script>
+<script type='text/javascript' src='__STYLE__/js/shophome.js?v={$v}'></script>
+<script type='text/javascript' src='__STYLE__/js/qrcode.js?v={$v}'></script>
+<script>
+$(function(){
+	var qr = qrcode(10, 'M');
+	var url = '{:url("mobile/shops/home",array("shopId"=>$data["shop"]["shopId"]),true,true)}';
+	qr.addData(url);
+	qr.make();
+	$('#qrcode').html(qr.createImgTag());
+
+	$('#keeper-showmore1').click(function(){
+		$('#keeper-info').css({'height': 'auto'});
+		$('#keeper').css({'height': 'auto'});
+		$('#keeper-info').css({'-webkit-line-clamp': '999'});
+		$('#keeper-showmore1').hide(),$('#keeper-exmore1').show();
+	});
+	$('#keeper-exmore1').click(function(){
+		$('#keeper-info').css({'height': '230px'});
+		$('#keeper').css({'height': '400px'});
+		$('#keeper-info').css({'-webkit-line-clamp': '10'});
+		$('#keeper-exmore1').hide(),$('#keeper-showmore1').show();
+	});
+});
+</script>
+{/block}
+{block name="footer"}{__block__}
+{/block}

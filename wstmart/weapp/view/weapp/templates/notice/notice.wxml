@@ -1,0 +1,10 @@
+<template name="notice">
+  <view class='notice-model wst-flex-row wst-ac' style="background:{{backgroundColor}};padding:{{verticalPadding}}px 0;">
+    <image class='notice-img'src='{{resourceDomain}}{{img}}'></image>
+    <swiper autoplay="true" circular="false" vertical="{{direction==1?true:false}}" duration="300" interval="3000">
+      <swiper-item wx:for="{{notices}}" wx:for-item="item" bindtap='jumpcenter' data-url="{{item.link}}" >
+        <view class='text' style="color:{{item.textColor}}">{{item.text}}</view>
+      </swiper-item>
+    </swiper>
+  </view>
+</template>

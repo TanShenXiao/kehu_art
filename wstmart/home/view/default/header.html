@@ -1,0 +1,50 @@
+<div style="height:120px;margin:20px auto 0;width:100%;">
+<div class='wst-search-container' style="width:1000px">
+   <div class='wst-logo'>
+    <?php $mallName = WSTConf('CONF.mallName'); ?>
+   <a href='{$Request.root.true}' title="{$mallName|WSTStripTags}" >
+      <img src="__RESOURCE_PATH__/{:WSTConf('CONF.mallLogo')}" style="max-width:240px;max-height:120px" title="{:WSTConf('CONF.mallName')}" alt="{:WSTConf('CONF.mallName')}">
+   </a>
+   </div>
+   <div style="z-index:100;overflow:hidden;float:left;margin-top: 6px;">
+		<div style="float: left;">
+		{/* 横栏菜单 */}
+			<div id="wst-nav-items">
+				<ul>
+					{volist name=":WSTNavigations(0)" id='vo'}
+					<li class="fore1">
+						<a href="{$vo['navUrl']}" {if $vo['isOpen']==1}target="_blank"{/if}>{$vo['navTitle']}</a>
+					</li>
+					{/volist}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="wst-search-box">
+		<div class='wst-search'>
+			  <input type="hidden" id="search-type" value="0"/>
+			<input type="text" id='search-ipt' class='search-ipt' value=''/>
+		</div>
+		<div id='search-btn' class="wst-search-btn" onclick='javascript:WST.search(this.value)'></div>
+	 </div>
+   <!-- <div class="wst-cart-box">
+   <a href="{:url('home/carts/index')}" target="_blank" onclick="WST.currentUrl('{:url("home/carts/index")}');"><span class="word j-word">我的购物车<span class="num" id="goodsTotalNum" style='display:none'>0</span></span></a>
+   	<div class="wst-cart-boxs hide">
+   		<div id="list-carts"></div>
+   		<div id="list-carts2"></div>
+   		<div id="list-carts3"></div>
+	   	<div class="wst-clear"></div>
+   	</div>
+   </div> -->
+{/* 购物车 */}
+<script id="list-cart" type="text/html">
+{{# for(var i = 0; i < d.list.length; i++){ }}
+	<div class="goods" id="j-goods{{ d.list[i].cartId }}">
+	   	<div class="imgs"><a href="{{ WST.U('home/goods/detail','goodsId='+d.list[i].goodsId) }}"><img class="goodsImgc" data-original="__RESOURCE_PATH__/{{ d.list[i].goodsImg }}" title="{{ d.list[i].goodsName }}"></a></div>
+	   	<div class="number"><p><a  href="{{ WST.U('home/goods/detail','goodsId='+d.list[i].goodsId) }}">{{WST.cutStr(d.list[i].goodsName,26)}}</a></p><p>数量：{{ d.list[i].cartNum }}</p></div>
+	   	<div class="price"><p>{{# if(d.list[i].saleType==1){ }}议价{{# }else if(d.list[i].saleType==2){ }}仅展示{{# }else{ }}￥{{ d.list[i].shopPrice }}{{# } }}</p><span><a href="javascript:WST.delCheckCart({{ d.list[i].cartId }})">删除</a></span></div>
+	</div>
+{{# } }}
+</script>
+</div>
+<div class="wst-clear"></div>

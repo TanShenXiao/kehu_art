@@ -1,0 +1,175 @@
+<!DOCTYPE>
+{extend name="default/base" /}
+{block name="title"}{$data['shop']['shopName']} - {__block__}{/block}
+{block name="meta"}
+<meta name="description" content="{$data['shop']['shopDesc']}">
+<meta name="keywords" content="{$data['shop']['shopKeywords']}">
+{/block}
+{block name="css"}
+<link href="__STATIC__/plugins/lazyload/skin/laypage.css?v={$v}" rel="stylesheet">
+<link href="__STATIC__/plugins/slide/css/slide.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/shophome.css?v={$v}" rel="stylesheet">
+<style type="text/css">
+</style>
+{/block}
+{block name="shop_header"}
+<div style="width:100%;"></div>
+<div class="wst-clear"></div>
+    {php}$shopId = $data['shop']['shopId'];{/php}
+	<div class="wst-intro">
+		<div class="wst-intro-content">
+			<div class="wst-intro-content-top">
+				<div class="wst-intro-img"><a href="{:url('home/shops/index',array('shopId'=>$data['shop']['shopId']))}"><img src="__RESOURCE_PATH__/{$data['shop']['shopImg']}" title="{$data['shop']['shopName']|WSTStripTags}"></a></div>
+				<div class="wst-intro-img-r">
+					<div class="wst-intro-shopname">
+						{$data['shop']['shopName']}
+						<div class="wst-intro-shopname-qq">
+							<img src="/upload/goods/2021-04/ysjzytb.png" alt="">
+							有事您Q我 ！
+						</div>
+					</div>
+					<p class="wst-intro-lb">类别：绘画艺术</p>
+					<p class="wst-intro-lb">商品：{$data['goodsNum']}</p>
+					<div class="wst-intro-f">
+						<div class="wst-intro-ff">描述 
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/hwu.png" alt="">
+							<img src="/upload/goods/2019-04/hwu.png" alt="">
+						</div>
+						<div class="wst-intro-ff">服务 
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+						</div>
+						<div class="wst-intro-ff">物流 
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/rwu.png" alt="">
+							<img src="/upload/goods/2019-04/hwu.png" alt="">
+						</div>
+					</div>
+					<div class="wst-intro-sub"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">关注店铺</div>
+				</div>
+			</div>
+			<div class="wst-intro-content-bottom">
+				<div class="wst-intro-content-title">
+					<span class="wst-intro-content-bottom-text wst-intro-content-bottom-text-title">简介</span><span class="wst-intro-content-bottom-lim">/</span>
+					<span class="wst-intro-content-bottom-text">作品故事</span><span class="wst-intro-content-bottom-lim">/</span>
+					<span class="wst-intro-content-bottom-text">价值分析</span>
+				</div>
+				<div class="wst-intro-content-info">
+					1959年生于四川乐山，四川美术许愿教授，中国画系主任，硕士生导师，中国美术家协会会员，中国壁画学会理事，重庆市美术家协会理事，重庆市美术家协会理事，重庆市美术家协会综合材料回话艺委会副主任。作品参加“第二届全国少数民族美术作品展”优秀奖（文化部），“第六届中国体育美术作品展览”，“2012打通国际壁画双年展”，“第三届全国壁画大展”，第二届、第三届“学院·经...
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='wst-filters'>
+		<div class='item' style="padding-left: 8px;">
+			<span class='link'>当前位置：</span>
+			<a class='link' href='{:url('home/index/index')}'>首页</a>
+			<i class="arrow">></i>
+			<a class='link' href='#'>艺术家</a>
+			<i class="arrow">></i>
+			<a class='link' href='#'>艺术家主页</a>
+		</div>
+	</div>
+	<div class='wst-clear'></div>
+	<div class="wst-selector">
+	   <div class='wst-lfloat'>
+		   <div class='item dorpdown'>
+		 <div class="wst-pos">
+			 <div>作品类别：</div>
+			 {volist name=":WSTGoodsCats(0)" id='vo2'}
+			 <div class="cat1 cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"])}'>{$vo2['catName']}</a></div>
+			 {/volist}
+		</div>
+		</div>
+	   </div>
+		<div class='wst-clear'></div>
+	</div>
+	<div class="wst-art-content">
+		<div class="wst-art-contet-title">
+			<span>作品</span>/展示
+		</div>
+		<div class="wst-art-content-list">
+			<ul>
+				{volist name="$data['list']['data']" id="li"}
+				<li>
+					<a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank"><img src="__RESOURCE_PATH__/{$li['goodsImg']}" alt=""></a>
+					<p class="wst-art-title">{:WSTMSubstr($li['goodsName'],0,15)}</p>
+					<div class="wst-art-cont">
+						价格 ￥ <span>{if($li['saleType']==1)}议价{elseif($li['saleType']==2)}仅做展示{else}￥{$li['shopPrice']}{/if}</span>
+					</div>
+				</li>
+				{/volist}
+				<ul class="pagination">
+				<li><a href="?page=1">&laquo;</a></li>
+				<li><a href="?page=1">1</a></li>
+				<li class="active"><span>2</span></li>
+				<li class="disabled"><span>&raquo;</span></li>
+				</ul>
+			</ul>
+		</div>
+	</div>
+{/block}
+{block name="main"}
+<input type="hidden" id="msort" value="{$msort}" autocomplete="off"/>
+<input type="hidden" id="mdesc" value="{$mdesc}" autocomplete="off"/>
+<input type="hidden" id="shopId" value="{$data['shop']['shopId']}" autocomplete="off"/>
+<input type="hidden" id="ct1" value="{$ct1}" autocomplete="off"/>
+<input type="hidden" id="ct2" value="{$ct2}" autocomplete="off"/>
+{include file="default/right_cart"/}
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__STATIC__/plugins/slide/js/slide.js?v={$v}"></script>
+<script type='text/javascript' src='__STYLE__/js/shophome.js?v={$v}'></script>
+<script type='text/javascript' src='__STYLE__/js/qrcode.js?v={$v}'></script>
+<script type="text/javascript" src="{:WSTProtocol()}map.qq.com/api/js?v=2.exp&key={:WSTConf('CONF.mapKey')}"></script>
+<script>
+$(function(){
+	$(document).keypress(function(e) { 
+          if(e.which == 13) {  
+            searchShopsGoods();  
+          }
+    }); 
+	if({$data['list']['last_page']}>1){
+	laypage({
+	    cont: 'shopPage',
+	    pages: {$data['list']['last_page']}, //总页数
+	    curr: {$data['list']['current_page']},
+	    skip: true, //是否开启跳页
+	    skin: '#fd6148',
+	    groups: 3, //连续显示分页数
+	   	prev: '<<',
+		next: '>>',
+	    jump: function(e, first){ //触发分页后的回调
+	        if(!first){ //一定要加此判断，否则初始时会无限刷新
+	        	var nuewurl = WST.splitURL("page");
+	        	var ulist = nuewurl.split("?");
+	        	if(ulist.length>1){
+	        		location.href = nuewurl+'&page='+e.curr;
+	        	}else{
+	        		location.href = '?page='+e.curr;
+	        	}
+	            
+	        }
+	    }
+	});
+	}
+	var qr = qrcode(10, 'H');
+	var url = '{:url("mobile/shops/index",array("shopId"=>$data["shop"]["shopId"]),true,true)}';
+	qr.addData(url);
+	qr.make();
+	$('#qrcode').html(qr.createImgTag());
+	var width = $(window).width();
+	$('.wst-shop-tu').css('width',width);
+});
+</script>
+{/block}
+{block name="footer"}{__block__}
+{/block}

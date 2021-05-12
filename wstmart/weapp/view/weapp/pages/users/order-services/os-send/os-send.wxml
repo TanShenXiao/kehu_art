@@ -1,0 +1,38 @@
+<view class="container">
+    <view class="item">
+        <view class="item-tit">运输方式</view>
+        <view class="item-content">
+            <view class="express-type" bindtap="changetType" data-type="0">
+                <icon wx:if="{{expressType==0}}" type='success' color='#de0301' size='20'></icon>
+                <icon wx:else type='circle' size='20'></icon>
+                无需物流
+            </view>
+            <view class="express-type" bindtap="changetType" data-type="1">
+                <icon wx:if="{{expressType==1}}" type='success' color='#de0301' size='20'></icon>
+                <icon wx:else type='circle' size='20'></icon>
+                快递运输
+            </view>
+        </view>
+    </view>
+
+    <block wx:if="{{ expressType==1 }}">
+        <view class="item">
+            <view class="item-tit">物流公司</view>
+            <picker bindchange="bindPickerChange" value="{{index}}" range="{{expressArr}}">
+                <view class='item-picker' bindtap='clickType'>
+                    <view>{{expressArr[index]}}</view>
+                    <view class='icon'>▼</view>
+                </view>
+            </picker>
+        </view>
+        <view class="item">
+            <view class="item-tit">物流单号</view>
+            <view class="item-input">
+                <input bindinput="bindInput" type="text" placeholder="请填写物流单号" />
+            </view>
+        </view>
+    </block>
+    <view bind:tap="send" class="btn">
+        提交
+    </view>
+</view>

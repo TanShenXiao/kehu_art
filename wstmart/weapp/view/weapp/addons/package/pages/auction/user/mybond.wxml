@@ -1,0 +1,60 @@
+<wxs module="numberUtil" src="../../../../../utils/util.wxs"></wxs>
+<view class="container">
+    <view class="content" wx:if="{{!isLoad}}">
+        <view id="goods-list" class="goods-list" wx:if="{{goods.length>0}}">
+
+            <view bindtap="toDetail" data-id="{{ go.auctionId }}" wx:for="{{goods}}" wx:for-item="go" wx:key="k" class="goods-item">
+                <view class="wst-flex-row">
+                    <view class="goods-item-left">
+                        <image src="{{resourceDomain}}{{go.goodsImg}}" title="{{ go.goodsName }}"></image>
+                    </view>
+                    <view class="goods-item-right wst-flex-column">
+                        <view class="goods-name">{{go.goodsName}}</view>
+                        <view>
+                            <view class="wst-flex-row wst-jsb ac">
+                                <view class="market-price">
+                                    当前拍卖价：
+                                    <span class="floor-price">
+                                        ￥{{numberUtil.priceFormat(go.currPrice)}}
+                                    </span>
+                                </view>
+                                <view wx:if="{{ go.cautionStatus==2 }}" class="status-win">已退</view>
+                                <view wx:else class="status-ing status-out {{ go.cautionStatus==-1 && 'status-expire' }}" >
+                                    {{go.cautionStatus==-1?'没收':'未退'}}
+                                </view>
+                            </view>
+
+                            <view class="market-price">
+                                拍卖状态：
+                                <span class="floor-price">
+                                   {{go.status==1?'进行中':'已结束'}}
+                                </span>
+                            </view>
+                            <view class="market-price">
+                                我的保证金：
+                                <span class="floor-price">
+                                    ￥{{go.cautionMoney}}
+                                </span>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="time wst-flex-row wst-ac">
+                    <image src="../images/icon_time.png"></image>
+                    <view class="f15 c999">{{go.startTime}}至{{go.endTime}}</view>
+                </view>
+
+            </view>
+
+        </view>
+    </view>
+</view>
+<view class='remind-model' wx:if="{{goods.length==0}}">
+    <view class='image'>
+        <image src='../images/auction-goods.png' class="img"></image>
+    </view>
+    <view class='content'>对不起，没有相关拍卖商品</view>
+</view>
+<!-- 自定义底部导航栏 -->
+<import src="/templates/tabBar/tabBar.wxml" />
+<template is="tabBar" data="{{tabBar}}" />

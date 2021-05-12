@@ -1,0 +1,161 @@
+{extend name="default/users/base" /}
+{block name="title"}保底交易-会员中心{__block__}{/block}
+{block name="css"}
+{/block}
+{block name="content"}
+<div class="wst-user-head"><span>保底交易商品</span></div>
+<div class="wst-user-tbar">
+<input type='hidden' id='bdStatus' name='bdStatus' value="{$bdStatus}" class="s-query"/>
+<label>
+  商品分类：
+  <select name="cat1" id="cat1" onchange="getCat(this.value)" class="s-query">
+      <option value="">-请选择-</option>
+    {volist name=":WSTShopCats(0)" id="vo"}
+          <option value="{$vo['catId']}" >{$vo['catName']}</option>
+    {/volist}
+  </select>
+  <select name="cat2" id="cat2" class="s-query"><option value="">-请选择-</option></select>
+</label>
+<label>
+  商品类型：
+  <select id='goodsType' class="s-query">
+     <option value=''>全部</option>
+     <option value='0'>实物商品</option>
+     <option value='1'>虚拟商品</option>
+     <option value='2'>保底交易商品</option>
+  </select>
+  </label>
+<label>
+  商品名称：<input type="text" name="goodsName" id="goodsName" class="s-query" /><a class="s-btn" id="store-query" onclick="storeByPage()">查询</a>
+</label>
+</div>
+<div class="wst-clear"></div>
+<form id='editform' autocomplete='off'>
+<div class="wst-body"> 
+        <div class="s-menu">
+            {if $bdStatus!=3 && $bdStatus!=2}<a href='javascript:;' onclick="toBackSale()" class="s-sale"><span>保底回购</span></a>{/if}
+			{if $bdStatus==0}<a href='javascript:;' onclick="toSale()" class="s-sale-up"><span>出售增值</span></a>{/if}
+            {if $bdStatus!=3 && $bdStatus!=2 && $bdStatus!=5}<a href='javascript:;' onclick="toDelivery()" class="s-new" style="width:48px"><span>提货</span></a>{/if}
+            <!--<a href='javascript:void(0);' onclick="changeGoodsStatus('isRecom','store')" class="s-rec"><span>推荐</span></a>
+            <a href='javascript:void(0);' onclick="changeGoodsStatus('isNew','store')" class="s-new"><span>新品</span></a>
+            <a href='javascript:void(0);' onclick="changeGoodsStatus('isBest','store')" class="s-best"><span>精品</span></a>
+            <a href='javascript:void(0);' onclick="changeGoodsStatus('isHot','store')" class="s-hot"><span>热销</span></a>
+            <a href='javascript:void(0);' onclick="benchDel('store')" class="s-del"><span>删除</span></a>
+            <a href='{:url("home/goods/add")}' class="s-add"><span>新增</span></a>-->
+         </div>
+
+        <table class='wst-list'>
+		   <thead>
+		   <tr>
+		     <th width='10'>
+          <div class="checkbox-box-s checkbox-box-s-all">
+           <input style="margin-left:2px;" class="wst-checkbox-s" onclick="javascript:WST.checkChks(this,'.chk')" type='checkbox' id="all"/>
+           <label for="all"></label>
+          </div>
+        </th>
+		     <th>商品名称</th>
+		     <th>商品编号</th>
+		     <th width='50'>价格(￥)</th>
+		     <th>推荐</th>
+		     <th>精品</th>
+		     <th>新品</th>
+		     <th>热销</th>
+		     <th>数量</th>
+		     {if $bdStatus==2 || $bdStatus==5}<th>状态</th>{/if}
+		     <th width="175">操作</th>
+		   </tr>
+		   </thead>
+		   <tbody id='list1'></tbody>
+		   <tfoot>
+		     <tr align="center"><td colspan='10' id='pager1'></td></tr>
+		   </tfoot>
+		   <script id="tblist1" type="text/html">
+           {{# for(var i = 0; i < d.length; i++){ }}
+           <tr>
+             <td>
+             <div class="checkbox-box-s">
+              <input type='checkbox'  class='chk wst-checkbox-s' id="chk-{{i}}" value='{{d[i]['goodsId']}}' /><label for="chk-{{i}}"></label>
+             </div>
+             </td>
+             <td>
+                <div class="goods-img">
+				{{# if(d[i]['shopId']==0){ }}
+                <a href="{{WST.U("home/goods/detail","goodsId="+d[i]['oriGoodsId']+"&key="+d[i]['verfiycode'])}}">
+				{{# }else{ }}
+                <a href="{{WST.U("home/goods/detail","goodsId="+d[i]['goodsId']+"&key="+d[i]['verfiycode'])}}">
+				{{# } }}
+                  <img class='j-lazyGoodsImg'  data-original='__ROOT__/{{d[i].goodsImg}}'/>
+                </a>
+              </div>
+              <p class="goodsName">
+                {{WST.cutStr(d[i]['goodsName'],43)}}
+              </p>
+             </td>
+             <td>{{d[i]['goodsSn']}}</td>
+
+             {{# if(d[i]['isSpec']==1 || d[i]['goodsType']==1) { }}
+              <td>{{d[i]['shopPrice']}}</td>
+             {{# }else{ }}
+              <td width="40">
+                  <input id="ipt_2_{{d[i]['goodsId']}}" onkeyup="javascript:WST.isChinese(this,1)" onkeypress="return WST.isNumberdoteKey(event)" onblur="javascript:WST.limitDecimal(this,2);editGoodsBase(2,{{d[i]['goodsId']}})" style="display:none;width:100%;border:1px solid red;width:40px;padding:3px;" maxlength="10"/>
+                  <span id="span_2_{{d[i]['goodsId']}}" style="display: inline;cursor:pointer;color:green;">{{d[i]['shopPrice']}}</span>
+              </td>
+             {{# } }}
+
+             <td><div status="{{d[i]['isRecom']}}" class="w-r {{((d[i]['isRecom']==1)?'right':'wrong')}}"></div></td>
+              <td><div status="{{d[i]['isBest']}}" class="w-r {{((d[i]['isBest']==1)?'right':'wrong')}}"></div></td>
+              <td><div status="{{d[i]['isNew']}}" class="w-r {{((d[i]['isNew']==1)?'right':'wrong')}}"></div></td>
+              <td><div status="{{d[i]['isHot']}}" class="w-r {{((d[i]['isHot']==1)?'right':'wrong')}}"></div></td>
+
+             {{# if(d[i]['isSpec']==1 || d[i]['goodsType']==1) { }}
+             <td>{{d[i]['goodsStock']}}</td>
+              {{# }else{ }}
+                <td width="40">
+                <input id="ipt_3_{{d[i]['goodsId']}}" onkeyup="javascript:WST.isChinese(this,1)" onkeypress="return WST.isNumberKey(event)" onblur="javascript:editGoodsBase(3,{{d[i]['goodsId']}})" style="display:none;width:100%;border:1px solid red;width:40px;padding:3px;" maxlength="6"/>
+                <span id="span_3_{{d[i]['goodsId']}}" style="display: inline;color:green;">{{d[i]['goodsStock']}}</span>
+             </td>
+              {{# } }}
+			  
+             {if $bdStatus==2}
+			 <td>
+				{{# if(d[i]['bdBackStatus']==0){ }}商家收到申请
+				{{# }else if(d[i]['bdBackStatus']==1){ }}商家已联系买家
+				{{# }else if(d[i]['bdBackStatus']==2){ }}商家已线下付款
+				{{# }else if(d[i]['bdBackStatus']==3){ }}已完成保底回购
+				{{# } }}
+			 </td>
+			 {elseif $bdStatus==5}
+			 <td>
+				{{# if(d[i]['bdDeliveryStatus']==0){ }}已申请
+				{{# }else{ }}已提货
+				{{# } }}
+			 </td>
+			 {/if}
+             <td>
+				{{# if(d[i]['shopId']==0){ }}
+                <a class="g-handle" target='_blank' href='{{WST.U("home/goods/detail","goodsId="+d[i]['oriGoodsId']+"&key="+d[i]['verfiycode'])}}'>[查看]</a>
+				{{# }else{ }}
+                <a class="g-handle" target='_blank' href='{{WST.U("home/goods/detail","goodsId="+d[i]['goodsId']+"&key="+d[i]['verfiycode'])}}'>[查看]</a>
+				{{# } }}
+				{{# if(d[i]['bdDeliveryStatus']==0 && d[i]['bdStatus']==5){ }}
+                <a class="g-handle" href='javascript:;' onclick="resendSms({{d[i]['goodsId']}})">[重发验证码]</a>
+				{{# } }}
+             </td>
+          </tr>
+          {{# } }}
+          </script>
+		</table>
+		    <div class="s-menu">
+            {if $bdStatus!=3 && $bdStatus!=2}<a href='javascript:;' onclick="toBackSale()" class="s-sale"><span>保底回购</span></a>{/if}
+            {if $bdStatus==0}<a href='javascript:;' onclick="toSale()" class="s-sale-up"><span>出售增值</span></a>{/if}
+            {if $bdStatus!=3 && $bdStatus!=2 && $bdStatus!=5}<a href='javascript:;' onclick="toDelivery()" class="s-new" style="width:48px"><span>提货</span></a>{/if}
+         </div>
+        </div>
+     </form>
+{/block}  
+{block name="js"}
+<script type='text/javascript' src='__STYLE__/users/goods/goods.js?v={$v}'></script>
+<script>
+$(function(){storeByPage(0);})
+</script>
+{/block}

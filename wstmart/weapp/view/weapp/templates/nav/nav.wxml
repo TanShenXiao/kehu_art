@@ -1,0 +1,12 @@
+<template name="nav">
+  <view class='nav-model' style="background:{{backgroundColor}}">
+    <block wx:for="{{navs}}" wx:for-item="item">
+      <view class='term navs-count-{{item.count}}' bindtap='jumpcenter' data-url="{{item.link}}">
+        <view class="btns">
+          <image src='{{resourceDomain}}{{item.img}}' mode='aspectFill' style="border-radius:{{item.style=='square'?'10':'50'}}px"></image>
+        </view>
+        <text style="color:{{item.color}}">{{item.text}}</text>
+      </view>
+    </block>
+  </view>
+</template>

@@ -1,0 +1,38 @@
+.nav-model{
+  padding: 10rpx 0 24rpx 0;
+  background: #fff;
+  display: block;
+  overflow: hidden;
+}
+.nav-model .term{
+  float: left;
+  box-sizing: border-box;
+}
+.nav-model .btns{
+  width: 57%;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.nav-model .btns image{
+  width: 80rpx;
+  height: 80rpx;
+  margin-top: 10rpx;
+}
+.nav-model .term text{
+  font-size: 26rpx;
+  color: #666;
+  display: block;
+  text-align: center;
+}
+
+.navs-count-three{
+  width:33%;
+}
+.navs-count-four{
+  width:25%;
+}
+.navs-count-five{
+  width:20%;
+}

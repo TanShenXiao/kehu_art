@@ -1,0 +1,2172 @@
+{extend name="base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/colpick/css/colpick.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/dragula/dragula.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/range/jquery.range.css" />
+<link href="__ADMIN__/css/custompagedecoration.css?v={$v}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/mmgrid/mmGrid.css?v={$v}" />
+{/block}
+{block name="main"}
+<style>
+    .webuploader-pick{background: #fff;height:auto;}
+    p{line-height: 30px;}
+    .banner-picker div:nth-child(2){
+        top:-60px!important;
+        left:0!important;
+        width:100%!important;
+        height:70px!important;
+    }
+    .nav-picker div:nth-child(2){
+        top:-50px!important;
+        left:0!important;
+        width:100%!important;
+        height:70px!important;
+    }
+    .image-picker div:nth-child(2){
+        top:-50px!important;
+        left:0!important;
+        width:100%!important;
+        height:70px!important;
+    }
+    .shopwindow-picker div:nth-child(2){
+        top:0!important;
+        left:0!important;
+        width:100%!important;
+        height:70px!important;
+    }
+    .notice-picker div:nth-child(2){
+        top:0!important;
+        left:0!important;
+        width:100%!important;
+        height:50px!important;
+    }
+    .video-picker div:nth-child(2){
+        top:-50px!important;
+        left:0!important;
+        width:100%!important;
+        height:70px!important;
+    }
+    .image-text-picker div:nth-child(2){
+        top:0!important;
+        left:0!important;
+        width:100%!important;
+        height:50px!important;
+    }
+    .tabbar-picker div:nth-child(2){
+        top:-30px!important;
+        left:0!important;
+        width:100%!important;
+        height:40px!important;
+    }
+    .tabbar-select-picker div:nth-child(2){
+        top:-30px!important;
+        left:0!important;
+        width:100%!important;
+        height:40px!important;
+    }
+    .page-picker div:nth-child(2){
+        top:0!important;
+        left:0!important;
+        width:100%!important;
+        height:100%!important;
+    }
+    #mmg{width:100% !important;}
+    #mmg-coupon{width:100% !important;}
+    #mmg-new{width:100% !important;}
+    /*#couponBox .mmGrid{height:300px !important;}*/
+    .layui-form input[type=checkbox]{display: inline !important;}
+    .layui-layer-content::-webkit-scrollbar {
+        display: none !important;
+    }
+    .mmg-bodyWrapper{height:795px !important;}
+</style>
+<div id='alertTips' class='alert alert-success alert-tips fade in'>
+    <div id='headTip' class='head'><i class='fa fa-lightbulb-o'></i>操作说明</div>
+    <ul class='body'>
+        <li>点击左侧组件库里的组件，中间会生成对应的组件内容，右侧会生成对应的组件属性内容。拖拽组件位置可改变排列顺序。</li>
+        <li>设计完成后点击"保存页面"，在移动端和微信端首页下，刷新页面即可看到效果。在小程序端首页下，下拉刷新即可看到效果。</li>
+        <li>如需填写链接地址请参考<a class='link-tip' href="{:url('admin/custompages/link',array('type'=>$pageType))}">页面链接</a>。</li>
+    </ul>
+</div>
+<input type="hidden" id="base_url" value="__RESOURCE_PATH__"/>
+<input type="hidden" id="pageId" value="{$pageId}"/>
+<input type="hidden" id="pageType" value="{$pageType}"/>
+<div class="container" style="margin:20px 0;">
+    <div class="component border">
+        <div class="component-title">组件库</div>
+        <div class="component-reuse">
+            <div class="component-reuse-title">复用（可多次使用的组件）</div>
+            <div class="component-reuse-content">
+                <div class="component-reuse-content-item component-image">
+                    <img src="__ADMIN__/img/page/c_image.png" />
+                    <p>图片</p>
+                </div>
+                <div class="component-reuse-content-item component-media-swiper">
+                    <img src="__ADMIN__/img/page/c_swiper.png" />
+                    <p>图片轮播</p>
+                </div>
+                <div class="component-reuse-content-item component-nav">
+                    <img src="__ADMIN__/img/page/c_nav.png" />
+                    <p>导航组</p>
+                </div>
+                <div class="component-reuse-content-item component-goods-group">
+                    <img src="__ADMIN__/img/page/c_goods_group.png" />
+                    <p>商品组</p>
+                </div>
+                <div class="component-reuse-content-item component-shopwindow">
+                    <img src="__ADMIN__/img/page/c_shopwindow.png" />
+                    <p>图片橱窗</p>
+                </div>
+                <div class="component-reuse-content-item component-marketing">
+                    <img src="__ADMIN__/img/page/c_marketing.png" />
+                    <p>营销活动</p>
+                </div>
+                {if WSTConf('WST_ADDONS.coupon')!=''}
+                <div class="component-reuse-content-item component-coupon">
+                    <img src="__ADMIN__/img/page/c_coupon.png" />
+                    <p>优惠券组</p>
+                </div>
+                {/if}
+                <div class="component-reuse-content-item component-new">
+                    <img src="__ADMIN__/img/page/c_new.png" />
+                    <p>新闻</p>
+                </div>
+                <div class="component-reuse-content-item component-video">
+                    <img src="__ADMIN__/img/page/c_video.png" />
+                    <p>视频组</p>
+                </div>
+                <div class="component-reuse-content-item component-image-text">
+                    <img src="__ADMIN__/img/page/c_image_text.png" />
+                    <p>图文列表</p>
+                </div>
+                <div class="component-reuse-content-item component-text">
+                    <img src="__ADMIN__/img/page/c_text.png" />
+                    <p>富文本</p>
+                </div>
+                <div class="component-reuse-content-item component-txt">
+                    <img src="__ADMIN__/img/page/c_txt.png" />
+                    <p>单文本</p>
+                </div>
+                <div class="component-reuse-content-item component-blank">
+                    <img src="__ADMIN__/img/page/c_blank.png" />
+                    <p>辅助空白</p>
+                </div>
+                <!--
+                <div class="component-reuse-content-item component-line">
+                    <p>辅助线</p>
+                </div>
+                -->
+            </div>
+        </div>
+        <div class="component-only">
+            <div class="component-only-title">单选（单页面仅可使用一次）</div>
+            <div class="component-only-content">
+                <div class="component-reuse-content-item component-search">
+                    <img src="__ADMIN__/img/page/c_search.png" />
+                    <p>搜索框</p>
+                </div>
+                <div class="component-reuse-content-item component-notice">
+                    <img src="__ADMIN__/img/page/c_notice.png" />
+                    <p>公告组</p>
+                </div>
+                <div class="component-reuse-content-item component-shop">
+                    <img src="__ADMIN__/img/page/c_shop.png" />
+                    <p>多店铺</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="effect border" >
+            <div class='el-relative'>
+                <div class="">
+                    <div class="effect-title-text">{if $page_data}{$page_data['attr']['title']}{else}页面标题{/if}</div>
+                </div>
+                <div class='effect-title border-absolute effect-active select'  onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+            </div>
+            <div class="effect-content" id="effect-content">
+                {if condition="count($data) != 0"}
+                {volist name="data" id="vo" key="k"}
+                {if condition="$vo['name'] == 'swiper'"}
+                <div class='el-relative'>
+                    <div class='effect-media-swiper swiper{$k} ' swiper_num='{$k}'   >
+                        <input type="hidden" class="sort" value="{$vo['id']}"/>
+                        {php}$style="";{/php}
+                        {if $vo['attr']['padding_top']}
+                        {php}$style.="padding-top:".intval($vo['attr']['padding_top'])."px;";{/php}
+                        {/if}
+                        {if $vo['attr']['padding_bottom']}
+                        {php}$style.="padding-bottom:".intval($vo['attr']['padding_bottom'])."px;";{/php}
+                        {/if}
+                        {if $vo['attr']['padding_left']}
+                        {php}$style.="padding-left:".intval($vo['attr']['padding_left'])."px;";{/php}
+                        {/if}
+                        {if $vo['attr']['padding_right']}
+                        {php}$style.="padding-right:".intval($vo['attr']['padding_right'])."px;";{/php}
+                        {/if}
+                        <img src="__RESOURCE_PATH__/{$vo['attr']['img'][0]}" alt='' style="{$style}"/>
+                        <div class='dots round'>
+                            {if intval($vo['attr']['indicator_type'])==1 }
+                            {php}$class="rectangle";{/php}
+                            {elseif intval($vo['attr']['indicator_type'])==2 }
+                            {php}$class="square";{/php}
+                            {else}
+                            {php}$class="roundness";{/php}
+                            {/if}
+                            <span class="{$class}" style="background:{$vo['attr']['indicator_color']}"></span>
+                            <span class="{$class}" style="background:{$vo['attr']['indicator_color']}"></span>
+                        </div>
+                        <div class='btn-del' onclick='delSwiperBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addSwiperClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'goods_group'"}
+                <div class='el-relative'>
+                    <div class='interval'></div>
+                    <div class='effect-goods-group goods_group{$k} ' goods_group_num='{$k}'  style="background:{$vo['attr']['background_color']}" >
+                        <input type="hidden" class="sort" value="{$vo['id']}"/>
+                        {php}$style="";{/php}
+                        {if $vo['attr']['show_columns_title']==0}
+                        {php}$style.="display:none;";{/php}
+                        {/if}
+                        <div class="wst-flex-row wst-jc wst-ac columns-title " style="{$style}">
+                            {for start="0" end="count($vo['attr']['columns_title'])"  }
+                            <div columns_item='{$i+1}'>{$vo['attr']['columns_title'][$i]}</div>
+                            {/for}
+                        </div>
+                        <div class='wst-flex-row'>
+                        {if $vo['attr']['columns']==1}
+                        <div class="goods wst-flex-row" >
+                            <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/good_01.jpg' alt='' style='width:50%;' />
+                            <div class="goods-info" style='width:50%;'>
+                                <div class='wst-flex-column wst-jsb' style='height:100%;'>
+                                    <p class="goods-name {if intval($vo['attr']['show_goods_name'])!=1}none{/if}">此处显示商品名称</p>
+                                    <p class="goods-price red {if intval($vo['attr']['show_goods_price'])!=1}none{/if}">￥99.00</p>
+                                    <div class="wst-flex-row wst-jsb">
+                                        <p class="goods-praise-rate {if intval($vo['attr']['show_praise_rate'])!=1}none{/if}">100%</p>
+                                        <p class="goods-sale-num {if intval($vo['attr']['show_sale_num'])!=1}none{/if}" >成交数:99</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+                        {if $vo['attr']['columns']==2}
+                        <div class="goods" >
+                            <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/good_01.jpg' alt=''  />
+                            <div class="goods-info" >
+                                <div class='wst-flex-column wst-jsb' >
+                                    <p class="goods-name {if intval($vo['attr']['show_goods_name'])!=1}none{/if}">此处显示商品名称</p>
+                                    <p class="goods-price red {if intval($vo['attr']['show_goods_price'])!=1}none{/if}">￥99.00</p>
+                                    <div class="wst-flex-row wst-jsb">
+                                        <p class="goods-praise-rate {if intval($vo['attr']['show_praise_rate'])!=1}none{/if}">100%</p>
+                                        <p class="goods-sale-num {if intval($vo['attr']['show_sale_num'])!=1}none{/if}" >成交数:99</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goods" >
+                            <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/good_02.jpg' alt=''  />
+                            <div class="goods-info" >
+                                <div class='wst-flex-column wst-jsb' >
+                                    <p class="goods-name {if intval($vo['attr']['show_goods_name'])!=1}none{/if}">此处显示商品名称</p>
+                                    <p class="goods-price red {if intval($vo['attr']['show_goods_price'])!=1}none{/if}">￥99.00</p>
+                                    <div class="wst-flex-row wst-jsb">
+                                        <p class="goods-praise-rate {if intval($vo['attr']['show_praise_rate'])!=1}none{/if}">100%</p>
+                                        <p class="goods-sale-num {if intval($vo['attr']['show_sale_num'])!=1}none{/if}" >成交数:99</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+                        {if $vo['attr']['columns']==3}
+                        <div class="goods" >
+                            <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/good_01.jpg' alt='' />
+                            <div class="goods-info">
+                                <div class='wst-flex-column wst-jsb'>
+                                    <p class="goods-name {if intval($vo['attr']['show_goods_name'])!=1}none{/if}">此处显示商品名称</p>
+                                    <p class="goods-price red {if intval($vo['attr']['show_goods_price'])!=1}none{/if}">￥99.00</p>
+                                    <div class="wst-flex-row wst-jsb">
+                                        <p class="goods-praise-rate {if intval($vo['attr']['show_praise_rate'])!=1}none{/if}">100%</p>
+                                        <p class="goods-sale-num {if intval($vo['attr']['show_sale_num'])!=1}none{/if}" >成交数:99</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+                        </div>
+                        <div class='btn-del' onclick='delGoodsGroupBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addGoodsGroupClassActive(this)' onmouseover="addClassActive(this)" onmouseout="removeClassActive(this)"></div>
+                </div>
+                {elseif condition="$vo['name'] == 'nav'"}
+                <div class='el-relative'>
+                    <div class='interval'></div>
+                    <div class='effect-nav nav{$k}' nav_num='{$k}' style="background:{$vo['attr']['background_color']}">
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        {if $vo['attr']['style']==1}
+                            {php}$navClass="nav-style-square";{/php}
+                        {else}
+                            {php}$navClass="nav-style-roundness";{/php}
+                        {/if}
+                        {for start="0" end="intval(count($vo['attr']['item_text']))"  }
+                        {if intval($vo['attr']['count'])==1 }
+                        {php}$class="navs-count-three";{/php}
+                        {elseif intval($vo['attr']['count'])==2 }
+                        {php}$class="navs-count-four";{/php}
+                        {else}
+                        {php}$class="navs-count-five";{/php}
+                        {/if}
+                        <div class='navs {$class}' nav_item='{$i+1}'>
+                            <img class="{$navClass}" src="__RESOURCE_PATH__/{$vo['attr']['item_img'][$i]}" alt=''/>
+                            <div class='navs-info'>
+                                <p style="color:{$vo['attr']['item_color'][$i]}">{$vo['attr']['item_text'][$i]}</p>
+                            </div>
+                        </div>
+                        {/for}
+                        <div class='btn-del' onclick='delNavBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addNavClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'notice'"}
+                <div class='el-relative'>
+                    <div class='interval'></div>
+                    <div class='effect-notice notice{$k}' notice_num='{$k}' style="background:{$vo['attr']['background_color']}">
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <div class='notice-info'>
+                            <img src="__RESOURCE_PATH__/{$vo['attr']['img']}" alt=''/>
+                            <p style="color:{$vo['attr']['text_color']}">{$vo['attr']['text'][0]}</p>
+                        </div>
+                        <div class='btn-del' onclick='delNoticeBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addNoticeClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'search'"}
+                <div class='el-relative'>
+                    <div class='interval'></div>
+                    <div class='effect-search search{$k}' search_num='{$k}' >
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        {if intval($vo['attr']['class'])==1 }
+                        {php}$class="search-class-square";{/php}
+                        {elseif intval($vo['attr']['class'])==2 }
+                        {php}$class="search-class-circular";{/php}
+                        {else}
+                        {php}$class="search-class-arc";{/php}
+                        {/if}
+                        {if intval($vo['attr']['alignment'])==1 }
+                        {php}$class .=" search-alignment-left";{/php}
+                        {elseif intval($vo['attr']['alignment'])==2 }
+                        {php}$class .=" search-alignment-center";{/php}
+                        {else}
+                        {php}$class .=" search-alignment-right";{/php}
+                        {/if}
+                        <div class='search-info {$class}'>
+                            <i class='fa fa-search'></i>
+                            <p>{$vo['attr']['text']}</p>
+                        </div>
+                        <div class='btn-del' onclick='delSearchBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addSearchClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'coupon'"}
+                <div class='el-relative'>
+                    <div class='interval'></div>
+                    <div class='effect-coupon coupon{$k}' coupon_num='{$k}' style="background:{$vo['attr']['background_color']}">
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        {if $vo['attr']['style']==1}
+                        <div class='coupons'>
+                            {volist name="$vo['coupons']" id="voo" key="k2"}
+                            <div class='coupons-item-1 wst-flex-column wst-ac'>
+                                <p class='coupon-value-content-1'>￥<span class='coupon-value-1'>{$voo['couponValue']}</span></p>
+                                <p class='coupon-condition-1'>{if $voo['useCondition'] == 1}满{$voo['useMoney']}使用{else}无金额门槛{/if}</p>
+                                <p class='coupon-get-1'>立即领取</p>
+                            </div>
+                            {/volist}
+                        </div>
+                        {else}
+                        <div class='coupons'>
+                            {volist name="$vo['coupons']" id="voo" key="k2"}
+                            {if $k2==3}{php}break;{/php}{/if}
+                            <div class='coupons-item-2 wst-flex-row wst-jc wst-ac'>
+                                <p class='coupon-value-content-2'>￥<span class='coupon-value-2'>{$voo['couponValue']}</span></p>
+                                <div class='wst-flex-column wst-ac coupon-area'>
+                                    <p class='coupon-condition-2'>{if $voo['useCondition'] == 1}满{$voo['useMoney']}使用{else}无金额门槛{/if}</p>
+                                    <p class='coupon-get-2'>立即领取</p>
+                                </div>
+                            </div>
+                            {/volist}
+                        </div>
+                        {/if}
+                        <div class='btn-del' onclick='delCouponBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addCouponClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'image'"}
+                <div class='el-relative'>
+                    <div class='effect-image image{$k}' image_num='{$k}' style="background:{$vo['attr']['background_color']}">
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <div class='images'>
+                            {for start="0" end="intval(count($vo['attr']['img']))"  }
+                            {php}$style="";{/php}
+                            {if $vo['attr']['padding_top']}
+                            {php}$style.="padding-top:".intval($vo['attr']['padding_top'])."px;";{/php}
+                            {/if}
+                            {if $vo['attr']['padding_bottom']}
+                            {php}$style.="padding-bottom:".intval($vo['attr']['padding_bottom'])."px;";{/php}
+                            {/if}
+                            {if $vo['attr']['padding_left']}
+                            {php}$style.="padding-left:".intval($vo['attr']['padding_left'])."px;";{/php}
+                            {/if}
+                            {if $vo['attr']['padding_right']}
+                            {php}$style.="padding-right:".intval($vo['attr']['padding_right'])."px;";{/php}
+                            {/if}
+                            <div class='images-item' style="{$style}">
+                                <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}" alt='' image_item='{$i+1}'/>
+                            </div>
+                            {/for}
+                        </div>
+                        <div class='btn-del' onclick='delImageBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addImageClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'shopwindow'"}
+                <div class='el-relative'>
+                    <div class='effect-shopwindow shopwindow{$k}' shopwindow_num='{$k}' style="background:{$vo['attr']['background_color']}">
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        {php}
+                        $style="";
+                        $shopwindowStyle="";
+                        $shopwindowLayoutNone="";
+                        {/php}
+                        {if intval($vo['attr']['layout'])==1 }
+                        {php}
+                        $style .=" width:50%;";
+                        $shopwindowLayoutNone="none";
+                        {/php}
+                        {elseif intval($vo['attr']['layout'])==2 }
+                        {php}
+                        $style .=" width:33%;";
+                        $shopwindowLayoutNone="none";
+                        {/php}
+                        {elseif intval($vo['attr']['layout'])==3 }
+                        {php}
+                        $style .=" width:25%;";
+                        $shopwindowLayoutNone="none";
+                        {/php}
+                        {else}
+                        {php}
+                        $shopwindowStyle .=" display:none;";
+                        $shopwindowLayoutNone="";
+                        {/php}
+                        {/if}
+                        <div class='shopwindows' style="{$shopwindowStyle}" >
+                            {for start="0" end="intval(count($vo['attr']['img']))"  }
+                            <div class='shopwindows-item' style="{$style}">
+                                <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}" alt='' shopwindow_item='{$i+1}'/>
+                            </div>
+                            {/for}
+                        </div>
+                        <div class='btn-del' onclick='delShopwindowBtn(this)'>删除</div>
+                        <div class='shopwindows-layout {$shopwindowLayoutNone}'>
+                            <div class='s-layout'>
+                                <div class='s-layout-left'>
+                                    <div class='s-layout-left-item' >
+                                        {for start="0" end="intval(count($vo['attr']['img']))"  }
+                                        {if $i == 0}
+                                        <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}" alt='' shopwindow_item='{$i+1}'/>
+                                        {/if}
+                                        {/for}
+                                    </div>
+                                </div>
+                                <div class='s-layout-right'>
+                                    <div class='s-layout-top'>
+                                        <div class='s-layout-top-item' >
+                                            {for start="0" end="intval(count($vo['attr']['img']))"  }
+                                            {if $i == 1}
+                                            <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}" alt='' shopwindow_item='{$i+1}'/>
+                                            {/if}
+                                            {/for}
+                                        </div>
+                                    </div>
+                                    <div class='s-layout-bottom'>
+                                        <div class='s-layout-bottom-item' >
+                                            {for start="0" end="intval(count($vo['attr']['img']))"  }
+                                            {if $i == 2}
+                                            <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}" alt='' shopwindow_item='{$i+1}'/>
+                                            {/if}
+                                            {/for}
+                                        </div>
+                                        <div class='s-layout-bottom-item' >
+                                            {for start="0" end="intval(count($vo['attr']['img']))"  }
+                                            {if $i == 3}
+                                            <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}" alt='' shopwindow_item='{$i+1}'/>
+                                            {/if}
+                                            {/for}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='shopwindows-s-hide'></div>
+                    </div>
+                    <div class='border-absolute' onclick='addShopwindowClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'video'"}
+                {php}$style="";{/php}
+                {if $vo['attr']['vertical_padding']}
+                {php}
+                $style.="margin-top:".intval($vo['attr']['vertical_padding'])."px;";
+                $style.="margin-bottom:".intval($vo['attr']['vertical_padding'])."px;";
+                {/php}
+                {/if}
+                <div class='el-relative'>
+                    <div class='effect-video video{$k}' video_num='{$k}' style="{$style}">
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <img src="__RESOURCE_PATH__/{$vo['attr']['img']}" alt=''/>
+                        <div class='btn-del' onclick='delVideoBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addVideoClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'blank'"}
+                <div class='el-relative'>
+                    <div class='effect-blank blank{$k}' blank_num='{$k}' style="background:{$vo['attr']['background_color']};height:{$vo['attr']['height']}px;" >
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <div class='btn-del' onclick='delBlankBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addBlankClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'line'"}
+                {php}$style="";{/php}
+                {if $vo['attr']['vertical_margin']}
+                {php}
+                $style.="margin-top:".intval($vo['attr']['vertical_margin'])."px;";
+                $style.="margin-bottom:".intval($vo['attr']['vertical_margin'])."px;";
+                {/php}
+                {/if}
+                {if $vo['attr']['height']}
+                {php}
+                $style.="border-width:".intval($vo['attr']['height'])."px;";
+                {/php}
+                {/if}
+                {if intval($vo['attr']['class'])==1 }
+                {php}
+                $style.="border-top-style:solid;";
+                {/php}
+                {elseif intval($vo['attr']['class'])==2 }
+                {php}
+                $style.="border-top-style:dashed;";
+                {/php}
+                {else}
+                {php}
+                $style.="border-top-style:dotted;";
+                {/php}
+                {/if}
+                <div class='el-relative'>
+                    <div class='effect-line line{$k}' line_num='{$k}' style="background:{$vo['attr']['background_color']};" >
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <div class='line' style="border-color:{$vo['attr']['border_color']};{$style}"></div>
+                        <div class='btn-del' onclick='delLineBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addLineClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'text'"}
+                {php}$style="";{/php}
+                {if $vo['attr']['vertical_padding']}
+                {php}
+                $style.="padding-top:".intval($vo['attr']['vertical_padding'])."px;";
+                $style.="padding-bottom:".intval($vo['attr']['vertical_padding'])."px;";
+                {/php}
+                {/if}
+                {if $vo['attr']['horizontal_padding']}
+                {php}
+                $style.="padding-left:".intval($vo['attr']['horizontal_padding'])."px;";
+                $style.="padding-right:".intval($vo['attr']['horizontal_padding'])."px;";
+                {/php}
+                {/if}
+                <div class='el-relative'>
+                    <div class='effect-text text{$k}' text_num='{$k}' style="background:{$vo['attr']['background_color']};" >
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <div class='text' style="{$style}">{php}echo htmlspecialchars_decode($vo['attr']['text']);{/php}</div>
+                        <div class='btn-del' onclick='delTextBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addTextClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'txt'"}
+                {php}$style="background:".$vo['attr']['background_color'].";";{/php}
+                {if $vo['attr']['vertical_padding']}
+                    {php}
+                        $style.="padding-top:".intval($vo['attr']['vertical_padding'])."px;";
+                        $style.="padding-bottom:".intval($vo['attr']['vertical_padding'])."px;";
+                    {/php}
+                {/if}
+                {if $vo['attr']['horizontal_padding']}
+                    {php}
+                        $style.="padding-left:".intval($vo['attr']['horizontal_padding'])."px;";
+                        $style.="padding-right:".intval($vo['attr']['horizontal_padding'])."px;";
+                    {/php}
+                {/if}
+                {if intval($vo['attr']['alignment'])==1 }
+                    {php}$class =" txt-alignment-left";{/php}
+                {elseif intval($vo['attr']['alignment'])==2 }
+                    {php}$class =" txt-alignment-center";{/php}
+                {else}
+                    {php}$class =" txt-alignment-right";{/php}
+                {/if}
+                <div class='el-relative'>
+                    <div class='effect-txt txt{$k}' txt_num='{$k}' >
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <div class='txt-info {$class}'  style="{$style}"><p style="color:{$vo['attr']['text_color']}">{$vo['attr']['text']}</p></div>
+                        <div class='btn-del' onclick='delTxtBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addTxtClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'image_text'"}
+                {php}$style="";{/php}
+                {if $vo['attr']['vertical_padding']}
+                {php}
+                $style.="padding-top:".intval($vo['attr']['vertical_padding'])."px;";
+                $style.="padding-bottom:".intval($vo['attr']['vertical_padding'])."px;";
+                {/php}
+                {/if}
+                <div class='el-relative'>
+                    <div class='effect-image-text image_text{$k}' image_text_num='{$k}' >
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <div class="image-text image-text-style-1 {if $vo['attr']['style']!='1'}none2{/if}" image_text_item='1'>
+                            <div class='image-text-imgs image-text-style-1-left'>
+                                <img src="__RESOURCE_PATH__/{$vo['attr']['img'][0]}" alt=''/>
+                            </div>
+                            <div class='image-text-style-1-right'>
+                                <p class='image-text-style-title'>{$vo['attr']['title']}</p>
+                                <p class='image-text-style-desc'>{$vo['attr']['desc']}</p>
+                            </div>
+                        </div>
+                        <div class="image-text image-text-style-2 {if $vo['attr']['style']!='2'}none2{/if}" image_text_item='2'>
+                            <div class='image-text-style-2-left'>
+                                <p class='image-text-style-title'>{$vo['attr']['title']}</p>
+                                <p class='image-text-style-desc'>{$vo['attr']['desc']}</p>
+                            </div>
+                            <div class='image-text-imgs image-text-style-2-right'>
+                                <img src="__RESOURCE_PATH__/{$vo['attr']['img'][0]}" alt=''/>
+                            </div>
+                        </div>
+                        <div class="image-text image-text-style-3 {if $vo['attr']['style']!='3'}none{/if}" image_text_item='3'>
+                            <div class='image-text-style-3-top'>
+                                <p class='image-text-style-title'>{$vo['attr']['title']}</p>
+                                <p class='image-text-style-desc'>{$vo['attr']['desc']}</p>
+                            </div>
+                            <div class='image-text-imgs image-text-style-3-bottom'>
+                                <img src="__RESOURCE_PATH__/{$vo['attr']['img'][0]}" alt=''/>
+                            </div>
+                        </div>
+                        <div class="image-text image-text-style-4 {if $vo['attr']['style']!='4'}none{/if}" image_text_item='4'>
+                            <div class='image-text-style-4-top'>
+                                <p class='image-text-style-title'>{$vo['attr']['title']}</p>
+                                <p class='image-text-style-desc'>{$vo['attr']['desc']}</p>
+                            </div>
+                            <div class='image-text-imgs wst-flex-row wst-jsa image-text-style-4-bottom'>
+                                {for start="0" end="count($vo['attr']['img'])"  }
+                                    {if $i<2}
+                                        <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}" alt=''/>
+                                    {/if}
+                                {/for}
+                                {if count($vo['attr']['img'])<2}
+                                    <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/banner_01.jpg" alt=''/>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="image-text image-text-style-5 {if $vo['attr']['style']!='5'}none{/if}" image_text_item='5'>
+                            <div class='image-text-style-5-top'>
+                                <p class='image-text-style-title'>{$vo['attr']['title']}</p>
+                                <p class='image-text-style-desc'>{$vo['attr']['desc']}</p>
+                            </div>
+                            <div class='image-text-imgs wst-flex-row wst-jsa image-text-style-5-bottom'>
+                                {for start="0" end="count($vo['attr']['img'])"  }
+                                    <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}" alt=''/>
+                                {/for}
+                                {if count($vo['attr']['img'])==2}
+                                    <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/banner_01.jpg" alt=''/>
+                                {/if}
+                                {if count($vo['attr']['img'])<2}
+                                    <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/banner_01.jpg" alt=''/>
+                                    <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/banner_01.jpg" alt=''/>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class='btn-del' onclick='delImageTextBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addImageTextClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'shop'"}
+                <div class='el-relative'>
+                    <div class='effect-shop shop{$k}' shop_num='{$k}'>
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <div class='shop-title'>—— <span class='shop-title-text'>{$vo['attr']['title']}</span> ——</div>
+                        <div class='current-location'>
+                            <div class='location-icon'></div>
+                            <div>当前：天河北路</div>
+                        </div>
+                        <div class='shop-item'>
+                            <div class='shop-left'>
+                                <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/shop.png" alt="">
+                            </div>
+                            <div class='shop-right'>
+                                <div>
+                                    <p class='shop-name'>WSTMart自营超市</p>
+                                    <p class='shop-desc'>主营：时蔬水果、网上菜场...</p>
+                                    <div class='shop-score'>
+                                        <p>店铺评分：</p>
+                                        <div class='star-icon'></div>
+                                        <div class='star-icon'></div>
+                                        <div class='star-icon'></div>
+                                        <div class='star-icon'></div>
+                                        <div class='star-icon'></div>
+                                    </div>
+                                </div>
+                                <div class='wst-flex-row wst-jsb'>
+                                    <div class='shop-location'>
+                                        <div class='location-icon'></div>
+                                        <p>燕岭路89号</p>
+                                    </div>
+                                    <p>2km</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='shop-item'>
+                            <div class='shop-left'>
+                                <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/shop.png" alt="">
+                            </div>
+                            <div class='shop-right'>
+                                <div>
+                                    <p class='shop-name'>WSTMart自营超市</p>
+                                    <p class='shop-desc'>主营：时蔬水果、网上菜场...</p>
+                                    <div class='shop-score'>
+                                        <p>店铺评分：</p>
+                                        <div class='star-icon'></div>
+                                        <div class='star-icon'></div>
+                                        <div class='star-icon'></div>
+                                        <div class='star-icon'></div>
+                                        <div class='star-icon'></div>
+                                    </div>
+                                </div>
+                                <div class='wst-flex-row wst-jsb'>
+                                    <div class='shop-location'>
+                                        <div class='location-icon'></div>
+                                        <p>燕岭路89号</p>
+                                    </div>
+                                    <p>2km</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='btn-del' onclick='delShopBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addShopClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'new'"}
+                <div class='el-relative'>
+                    <div class='effect-new new{$k}' new_num='{$k}' >
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <div class='new-title'>
+                            <div class='new-title-text'>{$vo['attr']['title']}</div>
+                            <div>更多</div>
+                        </div>
+                        <div class='btn-del' onclick='delNewBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addNewClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {elseif condition="$vo['name'] == 'marketing'"}
+                {php}
+                    $isShowPintuan = 'none';
+                    $isShowSeckill = 'none';
+                    $isShowAuction = 'none';
+                    $isShowBargain = 'none';
+                    switch($vo['attr']['type']){
+                        case 'Pintuan':
+                            $isShowPintuan = '';
+                            $isShowSeckill = 'none';
+                            $isShowAuction = 'none';
+                            $isShowBargain = 'none';
+                            break;
+                        case 'Seckill':
+                            $isShowPintuan = 'none';
+                            $isShowSeckill = '';
+                            $isShowAuction = 'none';
+                            $isShowBargain = 'none';
+                            break;
+                        case 'Auction':
+                            $isShowPintuan = 'none';
+                            $isShowSeckill = 'none';
+                            $isShowAuction = '';
+                            $isShowBargain = 'none';
+                            break;
+                        case 'Bargain':
+                            $isShowPintuan = 'none';
+                            $isShowSeckill = 'none';
+                            $isShowAuction = 'none';
+                            $isShowBargain = '';
+                        break;
+                    }
+                {/php}
+                <div class='el-relative'>
+                    <div class='effect-marketing marketing{$k}' marketing_num='{$k}' >
+                        <input type='hidden' class='sort' value="{$vo['id']}"/>
+                        <div class='marketing-title'>
+                            <div class='wst-flex-row wst-ac'>
+                                <div class='marketing-title-text'>{$vo['attr']['title']}</div>
+                                <div class="seckill-title {if $vo['attr']['type']!='Seckill'}none2{/if}">
+                                    <div class='seckill-title-text'>12:00点场</div>
+                                    <div class='seckill-time'>01:15:16</div>
+                                </div>
+                            </div>
+                            <div class="seckill-more {if $vo['attr']['type']!='Seckill'}none{/if}">更多</div>
+                        </div>
+                        <div class='wst-flex-row'>
+                            <div class="goods" >
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/good_01.jpg' alt=''  />
+                                <div class="goods-info" >
+                                    <div class='wst-flex-column wst-jsb' >
+                                        <p class="goods-name">此处显示商品名称</p>
+                                        <div class='pintuan-detail {$isShowPintuan}'>
+                                            <div class='wst-flex-row wst-jsb'>
+                                                <p class="goods-price red ">￥99.00</p>
+                                                <p class="pintuan-num " >2人拼单</p>
+                                            </div>
+                                        </div>
+                                        <div class='seckill-detail {$isShowSeckill}'>
+                                            <div class='wst-flex-row wst-jsb'>
+                                                <p class="goods-price red ">￥99.00</p>
+                                                <p class="goods-price goods-price-decoration" >￥150.00</p>
+                                            </div>
+                                        </div>
+                                        <div class='auction-detail {$isShowAuction}'>
+                                            <p class="goods-price auction-num">1次出价</p>
+                                            <p class="goods-price " >当前价：<span class='red'>￥10.00</span></p>
+                                        </div>
+                                        <div class='bargain-detail {$isShowBargain}'>
+                                            <div class='wst-flex-row wst-jsb'>
+                                                <p class="market-price goods-price-decoration ">原价:￥20.00</p>
+                                                <p class='bargain-num'>2人参与</p>
+                                            </div>
+                                            <p class="floor-price red ">底价：￥5.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="goods" >
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/good_02.jpg' alt=''  />
+                                <div class="goods-info" >
+                                    <div class='wst-flex-column wst-jsb' >
+                                        <p class="goods-name">此处显示商品名称</p>
+                                        <div class='pintuan-detail {$isShowPintuan}'>
+                                            <div class='wst-flex-row wst-jsb'>
+                                                <p class="goods-price red ">￥99.00</p>
+                                                <p class="pintuan-num " >2人拼单</p>
+                                            </div>
+                                        </div>
+                                        <div class='seckill-detail {$isShowSeckill}'>
+                                            <div class='wst-flex-row wst-jsb'>
+                                                <p class="goods-price red ">￥99.00</p>
+                                                <p class="goods-price goods-price-decoration" >￥150.00</p>
+                                            </div>
+                                        </div>
+                                        <div class='auction-detail {$isShowAuction}'>
+                                            <p class="goods-price auction-num">1次出价</p>
+                                            <p class="goods-price " >当前价：<span class='red'>￥10.00</span></p>
+                                        </div>
+                                        <div class='bargain-detail {$isShowBargain}'>
+                                            <div class='wst-flex-row wst-jsb'>
+                                                <p class="market-price goods-price-decoration ">原价:￥20.00</p>
+                                                <p class='bargain-num'>2人参与</p>
+                                            </div>
+                                            <p class="floor-price red ">低价：￥5.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='btn-del' onclick='delMarketingBtn(this)'>删除</div>
+                    </div>
+                    <div class='border-absolute' onclick='addMarketingClassActive(this)' onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+                </div>
+                {/if}
+                {/volist}
+                {/if}
+            </div>
+        </div>
+        <div class='el-relative border' style="width: 320px;" >
+            <div>
+                {if condition="count($tabbar_data) != 0"}
+                <input type="hidden" class="sort" value="{$tabbar_data[0]['id']}"/>
+                {volist name="tabbar_data" id="vo" }
+                <div class="effect-tabbar-content" style="background:{$vo['attr']['background_color']};border-top:1px solid {$vo['attr']['border_color']};color:{$vo['attr']['text_color']}">
+                    {for start="0" end="intval(count($vo['attr']['icon']))"  }
+                    <div class='tabbars' tabbar_item='{$i+1}'>
+                        <img src="__RESOURCE_PATH__/{$vo['attr']['icon'][$i]}" />
+                        <div class='tabbars-info'>
+                            <p>{$vo['attr']['text'][$i]}</p>
+                        </div>
+                    </div>
+                    {/for}
+                </div>
+                {/volist}
+                {else}
+                <input type="hidden" class="sort-name" value="tabbar"/>
+                <div class="effect-tabbar-content" style="color:#2c2c2c;">
+                    <div class='tabbars' tabbar_item='1'>
+                        <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/footer-home.png" />
+                        <div class='tabbars-info'>
+                            <p>主页</p>
+                        </div>
+                    </div>
+                    <div class='tabbars' tabbar_item='2'>
+                        <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/footer-classify.png" />
+                        <div class='tabbars-info'>
+                            <p>分类</p>
+                        </div>
+                    </div>
+                    <div class='tabbars' tabbar_item='3'>
+                        <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/footer-cart.png" />
+                        <div class='tabbars-info'>
+                            <p>购物车</p>
+                        </div>
+                    </div>
+                    <div class='tabbars' tabbar_item='4'>
+                        <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/footer-follow.png" />
+                        <div class='tabbars-info'>
+                            <p>关注</p>
+                        </div>
+                    </div>
+                    <div class='tabbars' tabbar_item='5'>
+                        <img src="__RESOURCE_PATH__/upload/custompagedecoration/base/footer-user.png" />
+                        <div class='tabbars-info'>
+                            <p>我的</p>
+                        </div>
+                    </div>
+                </div>
+                {/if}
+            </div>
+            <div class='effect-tabbar border-absolute'  onmouseover='addClassActive(this)' onmouseout='removeClassActive(this)'></div>
+        </div>
+    </div>
+    <div class="attr border">
+        <div class="attr-title">页面设置</div>
+        <div class="attr-content">
+            <div class="attr-content-page" >
+                <div class="attr-content-page-item">
+                    <label class="label">页面名称</label><input type="text" maxlength="32" value="{if $page_data['pageName']}{$page_data['pageName']}{/if}" class="attr-content-page-name" />
+                </div>
+            </div>
+            <div class="attr-content-page" >
+                <div class="attr-content-page-item">
+                    <label class="label">页面标题</label><input type="text" value="{if $page_data['attr']['title']}{$page_data['attr']['title']}{else}页面标题{/if}" class="attr-content-page-title" onkeyup="setPageTitle(this)"/>
+                </div>
+                <div class='attr-content-page-item-img' >
+                    <div class='attr-content-page-img' img_url="{if $page_data['attr']['poster']}{$page_data['attr']['poster']}{/if}">
+                        <label class='label'>页面封面</label>
+                        <div class='page-picker' id="page-picker">
+                            {if $page_data['attr']['poster']}
+                            <img class='page-poster' src="__RESOURCE_PATH__/{$page_data['attr']['poster']}"/>
+                            <img class='page-poster-default none' src="__ADMIN__/img/page/upload.png"/>
+                            {else}
+                            <img class='page-poster none' src=''/>
+                            <img class='page-poster-default' src="__ADMIN__/img/page/upload.png"/>
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="attr-content-page-item">
+                        <div class="page-tip">页面封面用来展示在后台自定义页面列表，当布局完自定义首页并使用该页面，可以在移动端上截图，并将图片上传到这里。</div>
+                    </div>
+                </div>
+            </div>
+
+            {if condition="count($data) != 0"}
+            {volist name="data" id="vo" key="k"}
+            {if condition="$vo['name'] == 'swiper'"}
+            <div class='attr-content-swiper swiper_attr{$k} none' swiper_num='{$k}'>
+                <div class='attr-content-swiper-item' >
+                    <label class='d-label'>指示点形状</label>
+                    <input type='radio' value='1' name='swiper-indicator{$k}'  id='i-rectangle{$k}' onclick='changeSwiperIndicator(this)'  {if intval($vo['attr']['indicator_type'])==1 }checked{/if} />
+                    <label for='i-rectangle{$k}' class='d-a-label'>长方形</label>
+                    <input type='radio' value='2' name='swiper-indicator{$k}' id='i-square{$k}' onclick='changeSwiperIndicator(this)'  {if intval($vo['attr']['indicator_type'])==2 }checked{/if} />
+                    <label for='i-square{$k}' class='d-a-label'>正方形</label>
+                    <input type='radio' value='3' name='swiper-indicator{$k}' id='i-roundness{$k}' onclick='changeSwiperIndicator(this)'  {if intval($vo['attr']['indicator_type'])==3 }checked{/if} />
+                    <label for='i-roundness{$k}' class='d-a-label'>圆形</label>
+                </div>
+                <div class='attr-content-swiper-item' >
+                    <label class='d-label'>轮播间隔</label>
+                    <select name='swiper-inteval{$k}' onchange='changeSwiperInterval(this)'>
+                        <option value='3' {if empty($vo['attr']['interval'])||$vo['attr']['interval']==3}selected{/if}>3s</option>
+                        <option value='4' {if $vo['attr']['interval']==4}selected{/if}>4s</option>
+                        <option value='5' {if $vo['attr']['interval']==5}selected{/if}>5s</option>
+                        <option value='6' {if $vo['attr']['interval']==6}selected{/if}>6s</option>
+                    </select>
+                </div>
+                <div class='attr-content-swiper-item' >
+                    <label class='d-label'>指示点颜色</label>
+                    <div class='select-component-item-color swiper-indicator-select-color'  style="background:{$vo['attr']['indicator_color']}"></div>
+                </div>
+                <div class='attr-content-swiper-item'>
+                    <label class='d-label'>上边距</label>
+                    <div class='attr-content-swiper-item-content'>
+                        <input type='hidden' class='swiper-range-slider'  value="{$vo['attr']['padding_top']}" onchange='changeSwiperPadding(this,1)'/>
+                        <span class='swiper-padding-top-value'>{$vo['attr']['padding_top']}</span>
+                        <span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-swiper-item'>
+                    <label class='d-label'>下边距</label>
+                    <div class='attr-content-swiper-item-content'>
+                        <input type='hidden' class='swiper-range-slider'  value="{$vo['attr']['padding_bottom']}" onchange='changeSwiperPadding(this,2)'/>
+                        <span class='swiper-padding-bottom-value'>{$vo['attr']['padding_bottom']}</span>
+                        <span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-swiper-item'>
+                    <label class='d-label'>左边距</label>
+                    <div class='attr-content-swiper-item-content'>
+                        <input type='hidden' class='swiper-range-slider'  value="{$vo['attr']['padding_left']}" onchange='changeSwiperPadding(this,3)'/>
+                        <span class='image-padding-left-value'>{$vo['attr']['padding_left']}</span>
+                        <span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-swiper-item'>
+                    <label class='d-label'>右边距</label>
+                    <div class='attr-content-swiper-item-content'>
+                        <input type='hidden' class='swiper-range-slider'  value="{$vo['attr']['padding_right']}" onchange='changeSwiperPadding(this,4)'/>
+                        <span class='swiper-padding-right-value'>{$vo['attr']['padding_right']}</span>
+                        <span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <input type="hidden" class="swiper-item-id" value="{$vo['id']}"/>
+                {for start="0" end="count($vo['attr']['img'])"  }
+                <div class='attr-content-swiper-item-img' >
+                    <div class='attr-content-swiper-img' img_url="{$vo['attr']['img'][$i]}">
+                        <label class='d-label'>图片</label>
+                        <div class='banner-picker' id="banner-picker-{$k}-{$i+1}">
+                            <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}"/>
+                        </div>
+                        <div class='image-tips'>建议宽度750px，如尺寸不达标，图片将自适应显示</div>
+                    </div>
+                    <label class='d-label'>链接</label>
+                    <input type='text' value="{$vo['attr']['link'][$i]}" class='attr-content-swiper-link' />
+                    <div class='attr-btn-del' onclick='delSwiperItemBtn(this)'>X</div>
+                </div>
+                {/for}
+                <div class='attr-content-swiper-item-add' onclick='addSwiperItem(this)'>添加一个</div>
+                <input type='hidden' class='indicator-type' value="{$vo['attr']['indicator_type']}" />
+                <input type='hidden' class='indicator-color' value="{$vo['attr']['indicator_color']}" />
+                <input type='hidden' class='interval' value="{$vo['attr']['interval']}" />
+                <input type='hidden' class='swiper-padding-top' value="{$vo['attr']['padding_top']}" />
+                <input type='hidden' class='swiper-padding-bottom' value="{$vo['attr']['padding_bottom']}" />
+                <input type='hidden' class='swiper-padding-left' value="{$vo['attr']['padding_left']}" />
+                <input type='hidden' class='swiper-padding-right' value="{$vo['attr']['padding_right']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'goods_group'"}
+            <div class='attr-content-goods-group goods_group_attr{$k} none' goods_group_num='{$k}'>
+                <input type="hidden" class="goods-group-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-goods-group-item' >
+                    <label class='d-label'>显示内容</label>
+                    <div class='wst-flex-row wst-fw display-goods-attr'>
+                        <input type='checkbox' value='' onclick='toggleShowGoodsName(this)' id='goods-name' {if intval($vo['attr']['show_goods_name'])==1 }checked{/if}/>
+                        <label for='goods-name'>商品名称</label>
+                        <input type='checkbox' value='' onclick='toggleShowGoodsPrice(this)' id='goods-price' {if intval($vo['attr']['show_goods_price'])==1 }checked{/if}/>
+                        <label for='goods-price'>商品价格</label>
+                        <input type='checkbox' value='' onclick='toggleShowPraiseRate(this)' id='praise-rate' {if intval($vo['attr']['show_praise_rate'])==1 }checked{/if}/>
+                        <label for='praise-rate'>好评率</label>
+                        <input type='checkbox' value='' onclick='toggleShowSaleNum(this)' id='sale-num' {if intval($vo['attr']['show_sale_num'])==1 }checked{/if}/>
+                        <label for='sale-num'>销量</label>
+                    </div>
+                </div>
+                <div class='attr-content-goods-group-item' >
+                    <label class='d-label'>显示布局</label>
+                    <input type='radio' value='1' name='goods-group-columns{$k}' id='one-columns{$k}' onclick='changeGoodsGroupColumns(this)' {if intval($vo['attr']['columns'])==1 }checked{/if} />
+                    <label for='one-columns{$k}'>列表式</label>
+                    <input type='radio' value='2' name='goods-group-columns{$k}' id='two-columns{$k}' onclick='changeGoodsGroupColumns(this)' {if intval($vo['attr']['columns'])==2 }checked{/if} />
+                    <label for='two-columns{$k}'>橱窗式</label>
+                    <input type='radio' value='3' name='goods-group-columns{$k}' id='three-columns{$k}' onclick='changeGoodsGroupColumns(this)' {if intval($vo['attr']['columns'])==3 }checked{/if} />
+                    <label for='three-columns{$k}'>海报式</label>
+                </div>
+                <div class='attr-content-goods-group-item' >
+                    <label class='d-label'>商品数量</label>
+                    <input type='radio' value='4' name='goods_num{$k}' id='goods-num-four{$k}' onclick='changeGoodsNum(this)' {if intval($vo['attr']['goods_nums'])==4 }checked{/if} />
+                    <label for='goods-num-four{$k}'>4个</label>
+                    <input type='radio' value='6' name='goods_num{$k}' id='goods-num-six{$k}' onclick='changeGoodsNum(this)' {if intval($vo['attr']['goods_nums'])==6 }checked{/if} />
+                    <label for='goods-num-six{$k}'>6个</label>
+                    <input type='radio' value='8' name='goods_num{$k}' id='goods-num-eight{$k}' onclick='changeGoodsNum(this)' {if intval($vo['attr']['goods_nums'])==8 }checked{/if} />
+                    <label for='goods-num-eight{$k}'>8个</label>
+                </div>
+                <div class='goods-num-tips'>商品数量在选取商品为条件选取才有效</div>
+                <div class='attr-content-goods-group-item' >
+                    <label class='d-label'>列表名称</label>
+                    <input type='radio' value='1' name='columns_title_is_show{$k}' id='columns-title-show{$k}' onclick='changeColumnsTitleDisplay(this)' {if intval($vo['attr']['show_columns_title'])==1 }checked{/if} />
+                    <label for='columns-title-show{$k}'>显示</label>
+                    <input type='radio' value='0' name='columns_title_is_show{$k}' id='columns-title-hide{$k}' onclick='changeColumnsTitleDisplay(this)' {if intval($vo['attr']['show_columns_title'])==0 }checked{/if} />
+                    <label for='columns-title-hide{$k}'>隐藏</label>
+                </div>
+                <div class='attr-content-goods-group-item' >
+                    <label class='d-label'>商品排序</label>
+                    <select name='goods-group-order{$k}' onchange='changeGoodsGroupOrder(this)'>
+                        <option value='1' {if $vo['attr']['goods_order']==1}selected{/if}>销量从高到低</option>
+                        <option value='2' {if $vo['attr']['goods_order']==2}selected{/if}>销量从低到高</option>
+                        <option value='3' {if $vo['attr']['goods_order']==3}selected{/if}>价格从高到低</option>
+                        <option value='4' {if $vo['attr']['goods_order']==4}selected{/if}>价格从低到高</option>
+                        <option value='5' {if $vo['attr']['goods_order']==5}selected{/if}>更新时间由近到远</option>
+                        <option value='6' {if $vo['attr']['goods_order']==6}selected{/if}>更新时间由远到近</option>
+                        <option value='7' {if $vo['attr']['goods_order']==7}selected{/if}>商品排序由大到小</option>
+                        <option value='8' {if $vo['attr']['goods_order']==8}selected{/if}>商品排序由小到大</option>
+                    </select>
+                </div>
+                {for start="0" end="count($vo['attr']['columns_title'])"  }
+                <div class='attr-content-goods-group-item-column' >
+                    <div class='wst-flex-row wst-ac'>
+                        <label class='d-label'>列表名称</label>
+                        <input type='text' value="{$vo['attr']['columns_title'][$i]}" class='goods-group-columns-name' columns_item="{$i+1}" onkeyup='setColumnsTitle(this)' style='width:150px !important;'/>
+                        <span class='goods-group-columns-name-tip'><span class='goods-group-columns-name-length'>0</span>/6</span>
+                    </div>
+                    <label class='d-label'>选取商品</label>
+                    <input type='radio' value='1' name='goods-select{$k}-{$i+1}' id='goods-select-condition{$k}-{$i+1}' onclick='changeGoodsSelect(this)' columns_item="{$i+1}"  {if $vo['attr']['goods_select'][$i]==1}checked{/if}/>
+                    <label for='goods-select-condition{$k}-{$i+1}'>条件选取</label>
+                    <input type='radio' value='2' name='goods-select{$k}-{$i+1}' id='goods-select-manual{$k}-{$i+1}' onclick='changeGoodsSelect(this)' columns_item="{$i+1}" {if $vo['attr']['goods_select'][$i]==2}checked{/if}/>
+                    <label for='goods-select-manual{$k}-{$i+1}'>手动添加</label>
+                    <input type='hidden' class='goods-select-ids-value' value="{$vo['attr']['goods_select_ids'][$i]}" columns_item="{$i+1}">
+                    <input type='hidden' class='goods-select-cats-id-value' value="{$vo['attr']['goods_select_cats_id'][$i]}" columns_item="{$i+1}">
+                    <input type='hidden' class='goods-tag-value' value="{$vo['attr']['goods_tag'][$i]}" columns_item="{$i+1}"/>
+                    <input type='hidden' class='goods-min-price-value' value="{$vo['attr']['goods_min_price'][$i]}" columns_item="{$i+1}"/>
+                    <input type='hidden' class='goods-max-price-value' value="{$vo['attr']['goods_max_price'][$i]}" columns_item="{$i+1}"/>
+                    <div class='attr-btn-del' onclick='delGoodsColumnItemBtn(this)'>X</div>
+                </div>
+                {/for}
+                <div class='attr-content-goods-group-item-column-add' onclick='addGoodsColumnItem(this)'>添加一个</div>
+                <input type='hidden' class='goods-group-bg-color' value="{$vo['attr']['background_color']}" />
+                <input type='hidden' class='show-goods-name' value="{$vo['attr']['show_goods_name']}" />
+                <input type='hidden' class='show-goods-price' value="{$vo['attr']['show_goods_price']}" />
+                <input type='hidden' class='show-praise-rate' value="{$vo['attr']['show_praise_rate']}" />
+                <input type='hidden' class='show-sale-num' value="{$vo['attr']['show_sale_num']}" />
+                <input type='hidden' class='show-goods-columns' value="{$vo['attr']['columns']}" />
+                <input type='hidden' class='goods-group-goods-nums' value="{$vo['attr']['goods_nums']}" />
+                <input type='hidden' class='show-columns-title' value="{$vo['attr']['show_columns_title']}" />
+                <input type='hidden' class='goods-group-order' value="{$vo['attr']['goods_order']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'nav'"}
+            <div class='attr-content-nav nav_attr{$k} none' nav_num='{$k}'>
+                <input type="hidden" class="nav-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-nav-item' >
+                    <label class='d-label'>背景颜色</label>
+                    <div class='select-component-item-color nav-select-bg-color'  style="background:{$vo['attr']['background_color']}"></div>
+                </div>
+                <div class='attr-content-nav-item' >
+                    <label class='d-label'>每行数量</label>
+                    <input type='radio' value='1' name='nav-count{$k}'  id='n-three' onclick='changeNavCount(this)' {if intval($vo['attr']['count'])==1 }checked{/if} />
+                    <label for='n-three'>3个</label>
+                    <input type='radio' value='2' name='nav-count{$k}' id='n-four' onclick='changeNavCount(this)' {if intval($vo['attr']['count'])==2 }checked{/if} />
+                    <label for='n-four'>4个</label>
+                    <input type='radio' value='3' name='nav-count{$k}' id='n-five' onclick='changeNavCount(this)' {if intval($vo['attr']['count'])==3 }checked{/if} />
+                    <label for='n-five'>5个</label>
+                </div>
+                <div class='attr-content-nav-item' >
+                    <label class='d-label'>样式选择</label>
+                    <input type='radio' value='1' name='nav-style{$k}' id='n-square{$k}' onclick='changeNavStyle(this)'  {if intval($vo['attr']['style'])==1 }checked{/if} />
+                    <label for='n-square{$k}' class='d-a-label'>正方形</label>
+                    <input type='radio' value='2' name='nav-style{$k}' id='n-roundness{$k}' onclick='changeNavStyle(this)'  {if intval($vo['attr']['style'])==2 }checked{/if} />
+                    <label for='n-roundness{$k}' class='d-a-label'>圆形</label>
+                </div>
+                {for start="0" end="intval(count($vo['attr']['item_text']))"  }
+                <div class='attr-content-nav-item-group' nav_item='{$i+1}'>
+                    <div class='attr-content-nav-img' img_url="{$vo['attr']['item_img'][$i]}">
+                        <label class='d-label'>图片</label>
+                        <div class='nav-picker' id="nav-picker-{$k}-{$i+1}">
+                            <img src="__RESOURCE_PATH__/{$vo['attr']['item_img'][$i]}"/>
+                        </div>
+                        <div class='image-tips'>建议尺寸宽度40px，高度40px</div>
+                    </div>
+                    <div class='attr-content-nav-info'>
+                        <label class='nav-label'>文字内容</label>
+                        <input type='text' value="{$vo['attr']['item_text'][$i]}" class='attr-content-nav-text' onkeyup='setNavItemTitle(this)' />
+                        <span class='nav-text-tip'><span class='nav-text-length'>0</span>/4</span>
+                    </div>
+                    <div class='attr-content-nav-info'>
+                        <label class='nav-label'>文字颜色</label>
+                        <div class='select-component-item-color nav-select-text-color'  style="background:{$vo['attr']['item_color'][$i]}"></div>
+                        <input type='hidden' class='attr-content-nav-text-color' value="{$vo['attr']['item_color'][$i]}" />
+                    </div>
+                    <div class='attr-content-nav-info'>
+                        <label class='nav-label'>链接地址</label>
+                        <input type='text' value="{$vo['attr']['item_link'][$i]}" class='attr-content-nav-link' />
+                    </div>
+                    <div class='attr-btn-del' onclick='delNavItemBtn(this)'>X</div>
+                </div>
+                {/for}
+                <div class='attr-content-nav-item-add' onclick='addNavItem(this)'>添加一个</div>
+                <input type='hidden' class='nav-bg-color' value="{$vo['attr']['background_color']}" />
+                <input type='hidden' class='nav-count' value="{$vo['attr']['count']}" />
+                <input type='hidden' class='nav-style' value="{$vo['attr']['style']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'notice'"}
+            <div class='attr-content-notice notice_attr{$k} none' notice_num='{$k}'>
+                <input type="hidden" class="notice-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-notice-item'>
+                    <label class='d-label'>上下边距</label>
+                    <div class='attr-content-notice-item-content'>
+                        <input type="hidden" class="notice-range-slider"  value="{$vo['attr']['vertical_padding']}" onchange="changeNoticePadding(this)"/>
+                        <span class="notice-vertical-padding-value">{$vo['attr']['vertical_padding']}</span><span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-notice-item' >
+                    <label class='d-label'>背景颜色</label>
+                    <div class='select-component-item-color notice-select-bg-color' style="background:{$vo['attr']['background_color']}"></div>
+                </div>
+                <div class='attr-content-notice-item' >
+                    <label class='d-label'>文字颜色</label>
+                    <div class='select-component-item-color notice-select-text-color' style="background:{$vo['attr']['text_color']}"></div>
+                </div>
+                <div class='attr-content-notice-item'>
+                    <label class='d-label'>公告图标</label>
+                    <div class='notice-picker' id='notice-picker-{$k}' onclick='addNoticeImg(this)'>
+                        <img src="__RESOURCE_PATH__/{$vo['attr']['img']}" />
+                    </div>
+                </div>
+                <div class='attr-content-notice-item' >
+                    <label class='d-label'>滚动方向</label>
+                    <input type='radio' value='1' name='notice-direction' id='notice-direction-vertical' onclick='changeNoticeDirection(this)'  {if $vo['attr']['direction']==1}checked{/if}/>
+                    <label for='notice-direction-vertical' class='d-a-label'>纵向</label>
+                    <input type='radio' value='2' name='notice-direction' id='notice-direction-horizontal' onclick='changeNoticeDirection(this)'  {if $vo['attr']['direction']==2}checked{/if} />
+                    <label for='notice-direction-horizontal' class='d-a-label'>横向</label>
+                </div>
+                {for start="0" end="intval(count($vo['attr']['text']))"  }
+                <div class='attr-content-notice-item-group' >
+                    <div>
+                        <label class='d-label'>公告</label>
+                        <input type='text' value="{$vo['attr']['text'][$i]}" class='attr-content-notice-text' onkeyup='setNoticeText(this)'/>
+                    </div>
+                    <div>
+                        <label class='d-label'>链接</label>
+                        <input type='text' value="{$vo['attr']['link'][$i]}" class='attr-content-notice-link' />
+                    </div>
+                    <div class='attr-btn-del' onclick='delNoticeItemBtn(this)'>X</div>
+                </div>
+                {/for}
+                <div class='attr-content-notice-item-group-add' onclick='addNoticeItem(this)'>添加一个</div>
+                <input type='hidden' class='notice-bg-color' value="{$vo['attr']['background_color']}" />
+                <input type='hidden' class='notice-text-color' value="{$vo['attr']['text_color']}" />
+                <input type='hidden' class='notice-img' value="{$vo['attr']['img']}" />
+                <input type='hidden' class='notice-vertical-padding' value="{$vo['attr']['vertical_padding']}" />
+                <input type='hidden' class='notice-direction' value="{$vo['attr']['direction']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'search'"}
+            <div class='attr-content-search search_attr{$k} none' search_num='{$k}' >
+                <input type="hidden" class="search-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-search-item'>
+                    <div class='attr-content-search-item-title'>
+                        <label class='d-label'>提示文字</label>
+                    </div>
+                    <div class='attr-content-search-item-content'>
+                        <input type='text' value="{$vo['attr']['text']}" class='attr-content-search-text' onkeyup='setSearchText(this)' />
+                    </div>
+                </div>
+                <div class='attr-content-search-item'>
+                    <div class='attr-content-search-item-title'>
+                        <label class='d-label'>搜索框样式</label>
+                    </div>
+                    <div class='attr-content-search-item-content'>
+                        <input type='radio' value='1' name='search-class{$k}'  id='s-square' onclick='changeSearchClass(this)' {if intval($vo['attr']['class'])==1 }checked{/if} />
+                        <label for='s-square'>方形</label>
+                        <input type='radio' value='2' name='search-class{$k}' id='s-circular' onclick='changeSearchClass(this)' {if intval($vo['attr']['class'])==2 }checked{/if} />
+                        <label for='s-circular'>圆角</label>
+                        <input type='radio' value='3' name='search-class{$k}' id='s-arc' onclick='changeSearchClass(this)' {if intval($vo['attr']['class'])==3 }checked{/if} />
+                        <label for='s-arc'>圆弧</label>
+                    </div>
+                </div>
+                <div class='attr-content-search-item'>
+                    <div class='attr-content-search-item-title'>
+                        <label class='d-label'>文字对齐</label>
+                    </div>
+                    <div class='attr-content-search-item-content'>
+                        <input type='radio' value='1' name='search-text-alignment{$k}'  id='s-left' onclick='changeSearchTextAlignment(this)' {if intval($vo['attr']['alignment'])==1 }checked{/if} />
+                        <label for='s-left'>居左</label>
+                        <input type='radio' value='2' name='search-text-alignment{$k}' id='s-center' onclick='changeSearchTextAlignment(this)' {if intval($vo['attr']['alignment'])==2 }checked{/if} />
+                        <label for='s-center'>居中</label>
+                        <input type='radio' value='3' name='search-text-alignment{$k}' id='s-right' onclick='changeSearchTextAlignment(this)' {if intval($vo['attr']['alignment'])==3 }checked{/if} />
+                        <label for='s-right'>居右</label>
+                    </div>
+                </div>
+                <input type='hidden' class='attr-content-search-class' value="{$vo['attr']['class']}" />
+                <input type='hidden' class='attr-content-search-text-alignment' value="{$vo['attr']['alignment']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'coupon'"}
+            <div class='attr-content-coupon coupon_attr{$k} none' coupon_num='{$k}'>
+                <input type="hidden" class="coupon-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-coupon-item'>
+                    <label class='d-label'>优惠券样式</label>
+                    <input type='radio' value='1' name='coupon-style{$k}'  id='c-style-one{$k}' onclick='changeCouponStyle(this)' {if intval($vo['attr']['style'])==1 }checked{/if} />
+                    <label for='c-style-one{$k}'>样式1</label>
+                    <input type='radio' value='2' name='coupon-style{$k}' id='c-style-two{$k}' onclick='changeCouponStyle(this)' {if intval($vo['attr']['style'])==2 }checked{/if} />
+                    <label for='c-style-two{$k}'>样式2</label>
+                </div>
+                <div class='attr-content-coupon-item'>
+                    <label class='d-label'>上下边距</label>
+                    <div class='attr-content-coupon-item-content'>
+                        <input type='hidden' class='coupon-padding-range-slider'  value="{$vo['attr']['vertical_padding']}" onchange='changeCouponPadding(this)'/>
+                        <span class='coupon-vertical-padding-value'>{$vo['attr']['vertical_padding']}</span>
+                        <span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-coupon-item' >
+                    <label class='d-label'>背景颜色</label>
+                    <div class='select-component-item-color coupon-select-bg-color' style="background:{$vo['attr']['background_color']}"></div>
+                </div>
+                <div class='attr-content-coupon-item' >
+                    <label class='d-label'>添加优惠券</label>
+                    <div class='add-coupon' onclick='addCoupons(this)'>+ 添加优惠券</div>
+                </div>
+                <div class='coupon-tips'>1.本组件最多支持显示<span class='coupon-nums'>3</span>张优惠券</div>
+                <div class='coupon-tips'>2.保存页面后，优惠券的数据才会更新</div>
+                <input type='hidden' class='coupon-vertical-padding' value="{$vo['attr']['vertical_padding']}" />
+                <input type='hidden' class='coupon-bg-color' value="{$vo['attr']['background_color']}" />
+                <input type='hidden' class='coupon-style' value="{$vo['attr']['style']}" />
+                <input type='hidden' class='coupon-select-ids-value' value="{$vo['attr']['coupon_select_ids']}" >
+            </div>
+            {elseif condition="$vo['name'] == 'image'"}
+            <div class='attr-content-image image_attr{$k} none' image_num='{$k}'>
+                <input type="hidden" class="image-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-image-item'>
+                    <label class='d-label'>上边距</label>
+                    <div class='attr-content-image-item-content'>
+                        <input type='hidden' class='image-range-slider'  value="{$vo['attr']['padding_top']}" onchange='changeImagePadding(this,1)'/>
+                        <span class='image-padding-top-value'>{$vo['attr']['padding_top']}</span>
+                        <span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-image-item'>
+                    <label class='d-label'>下边距</label>
+                    <div class='attr-content-image-item-content'>
+                        <input type='hidden' class='image-range-slider'  value="{$vo['attr']['padding_bottom']}" onchange='changeImagePadding(this,2)'/>
+                        <span class='image-padding-bottom-value'>{$vo['attr']['padding_bottom']}</span>
+                        <span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-image-item'>
+                    <label class='d-label'>左边距</label>
+                    <div class='attr-content-image-item-content'>
+                        <input type='hidden' class='image-range-slider'  value="{$vo['attr']['padding_left']}" onchange='changeImagePadding(this,3)'/>
+                        <span class='image-padding-left-value'>{$vo['attr']['padding_left']}</span>
+                        <span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-image-item'>
+                    <label class='d-label'>右边距</label>
+                    <div class='attr-content-image-item-content'>
+                        <input type='hidden' class='image-range-slider'  value="{$vo['attr']['padding_right']}" onchange='changeImagePadding(this,4)'/>
+                        <span class='image-padding-right-value'>{$vo['attr']['padding_right']}</span>
+                        <span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-image-item' >
+                    <label class='d-label'>背景颜色</label>
+                    <div class='select-component-item-color image-select-bg-color' style="background:{$vo['attr']['background_color']}"></div>
+                </div>
+                {for start="0" end="count($vo['attr']['img'])"  }
+                <div class='attr-content-image-item-img' >
+                    <div class='attr-content-image-img' img_url="{$vo['attr']['img'][$i]}" image_item='{$i+1}'>
+                        <label class='d-label'>图片</label>
+                        <div class='image-picker' id="image-picker-{$k}-{$i+1}" onclick='addImageItemImg(this)'>
+                            <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}"/>
+                        </div>
+                        <div class='image-tips'>手机端与微信端建议宽度750px，高度自适应。小程序端建议宽度750px，高度374px</div>
+                    </div>
+                    <label class='d-label'>链接</label>
+                    <input type='text' value="{$vo['attr']['link'][$i]}" class='attr-content-image-link' />
+                    <div class='attr-btn-del' onclick='delImageItemBtn(this)'>X</div>
+                </div>
+                {/for}
+                <div class='attr-content-image-item-add' onclick='addImageItem(this)'>添加一个</div>
+                <input type='hidden' class='image-padding-top' value="{$vo['attr']['padding_top']}" />
+                <input type='hidden' class='image-padding-bottom' value="{$vo['attr']['padding_bottom']}" />
+                <input type='hidden' class='image-padding-left' value="{$vo['attr']['padding_left']}" />
+                <input type='hidden' class='image-padding-right' value="{$vo['attr']['padding_right']}" />
+                <input type='hidden' class='image-bg-color' value="{$vo['attr']['background_color']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'shopwindow'"}
+            <div class='attr-content-shopwindow shopwindow_attr{$k} none' shopwindow_num='{$k}'>
+                <input type="hidden" class="shopwindow-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-shopwindow-item' >
+                    <label class='d-label'>背景颜色</label>
+                    <div class='select-component-item-color shopwindow-select-bg-color' style="background:{$vo['attr']['background_color']}"></div>
+                </div>
+                <div class='attr-content-shopwindow-item'>
+                    <label class='d-label'>布局方式</label>
+                    <div class='shopwindow-layout'>
+                        <input type='radio' value='1' name='shopwindow-layout{$k}' id='s-two{$k}' onclick='changeShopwindowLayout(this)' {if intval($vo['attr']['layout'])==1 }checked{/if} />
+                        <label for='s-two{$k}'>堆积两列</label>
+                        <input type='radio' value='2' name='shopwindow-layout{$k}' id='s-three{$k}' onclick='changeShopwindowLayout(this)' {if intval($vo['attr']['layout'])==2 }checked{/if} />
+                        <label for='s-three{$k}'>堆积三列</label>
+                        <input type='radio' value='3' name='shopwindow-layout{$k}' id='s-four{$k}' onclick='changeShopwindowLayout(this)' {if intval($vo['attr']['layout'])==3 }checked{/if} />
+                        <label for='s-four{$k}'>堆积四列</label>
+                        <input type='radio' value='4' name='shopwindow-layout{$k}' id='s-s{$k}' onclick='changeShopwindowLayout(this)' {if intval($vo['attr']['layout'])==4 }checked{/if} />
+                        <label for='s-s{$k}'>橱窗样式</label>
+                    </div>
+                </div>
+                <div class='attr-content-shopwindow-item'>
+                    <label class='d-label'>布局说明</label>
+                    <div class='shopwindow-layout-info'>{if $vo['attr']['layout']!=4}请确保所有图片的尺寸/比例相同{else}最多显示四张图片，超出隐藏。请确保右上角的图片长宽比保持2:1，其余图片的比例相同{/if}</div>
+                </div>
+                {for start="0" end="intval(count($vo['attr']['img']))"  }
+                <div class='attr-content-shopwindow-item-img' >
+                    <div class='attr-content-shopwindow-img' img_url="{$vo['attr']['img'][$i]}" shopwindow_item='{$i+1}'>
+                        <label class='d-label'>图片</label>
+                        <div class='shopwindow-picker' id="shopwindow-picker-{$k}-{$i+1}" onclick='addShopwindowItemImg(this)'>
+                            <img src="__RESOURCE_PATH__/{$vo['attr']['img'][$i]}" />
+                        </div>
+                    </div>
+                    <label class='d-label'>链接</label>
+                    <input type='text' value="{$vo['attr']['link'][$i]}" class='attr-content-shopwindow-link' />
+                    <div class='attr-btn-del' onclick='delShopwindowItemBtn(this)'>X</div>
+                </div>
+                {/for}
+                <div class='attr-content-shopwindow-item-add' onclick='addShopwindowItem(this)'>添加一个</div>
+                <input type='hidden' class='shopwindow-bg-color' value="{$vo['attr']['background_color']}" />
+                <input type='hidden' class='shopwindow-layout-value' value="{$vo['attr']['layout']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'video'"}
+            <div class='attr-content-video video_attr{$k} none' video_num='{$k}' >
+                <input type="hidden" class="video-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-video-item'>
+                    <label class='d-label'>上下边距</label>
+                    <div class='attr-content-video-item-content'>
+                        <input type='hidden' class='video-range-slider'  value="{$vo['attr']['vertical_padding']}" onchange='changeVideoMargin(this)'/>
+                        <span class='video-vertical-padding-value'>{$vo['attr']['vertical_padding']}</span>
+                        <span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-video-item'>
+                    <div class='attr-content-video-img' img_url="{$vo['attr']['img']}" >
+                        <label class='d-label'>视频封面</label>
+                        <div class='video-picker' id='video-picker-{$k}' onclick='addVideoItemImg(this)'>
+                            <img src="__RESOURCE_PATH__/{$vo['attr']['img']}" />
+                        </div>
+                    </div>
+                </div>
+                <div class='attr-content-video-item'>
+                    <label class='d-label'>视频地址</label>
+                    <input type='text' value="{$vo['attr']['link']}" class='attr-content-video-link' />
+                </div>
+                <input type='hidden' class='video-vertical-padding' value="{$vo['attr']['vertical_padding']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'blank'"}
+            <div class='attr-content-blank blank_attr{$k} none' blank_num='{$k}' >
+                <input type="hidden" class="blank-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-blank-item'>
+                    <label class='d-label'>组件高度</label>
+                    <div class='attr-content-blank-item-content'>
+                        <input type='hidden' class='blank-range-slider'  value="{$vo['attr']['height']}" onchange='changeBlankHeight(this)'/>
+                        <span class='blank-height-value'>{$vo['attr']['height']}</span><span>px </span>
+                    </div>
+                </div>
+                <div class='attr-content-blank-item' >
+                    <label class='d-label'>背景颜色</label>
+                    <div class='attr-content-blank-item-content'>
+                        <div class='select-component-item-color blank-select-bg-color' style="background:{$vo['attr']['background_color']}"></div>
+                    </div>
+                </div>
+                <input type='hidden' class='blank-bg-color' value="{$vo['attr']['background_color']}" />
+                <input type='hidden' class='blank-height' value="{$vo['attr']['height']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'line'"}
+            <div class='attr-content-line line_attr{$k} none' line_num='{$k}' >
+                <input type="hidden" class="line-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-line-item' >
+                    <label class='d-label'>背景颜色</label>
+                    <div class='attr-content-line-item-content'>
+                        <div class='select-component-item-color line-select-bg-color' style="background:{$vo['attr']['background_color']}"></div>
+                    </div>
+                </div>
+                <div class='attr-content-line-item'>
+                    <label class='d-label'>线条样式</label>
+                    <div class='attr-content-line-item-content'>
+                        <input type='radio' value='1' name='line-class{$k}' id='l-solid{$k}' onclick='changeLineClass(this)' {if intval($vo['attr']['class'])==1 }checked{/if} />
+                        <label for='l-solid{$k}'>实线</label>
+                        <input type='radio' value='2' name='line-class{$k}' id='l-dashed{$k}' onclick='changeLineClass(this)' {if intval($vo['attr']['class'])==2 }checked{/if} />
+                        <label for='l-dashed{$k}'>虚线</label>
+                        <input type='radio' value='3' name='line-class{$k}' id='l-dotted{$k}' onclick='changeLineClass(this)' {if intval($vo['attr']['class'])==3 }checked{/if} />
+                        <label for='l-dotted{$k}'>点状</label>
+                    </div>
+                </div>
+                <div class='attr-content-line-item' >
+                    <label class='d-label'>线条颜色</label>
+                    <div class='attr-content-line-item-content'>
+                        <div class='select-component-item-color line-select-color' style="background:{$vo['attr']['border_color']}"></div>
+                    </div>
+                </div>
+                <div class='attr-content-line-item'>
+                    <label class='d-label'>线条高度</label>
+                    <div class='attr-content-line-item-content'>
+                        <input type='hidden' class='line-height-range-slider'  value="{$vo['attr']['height']}" onchange='changeLineHeight(this)'/>
+                        <span class='line-height-value'>{$vo['attr']['height']}</span><span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-line-item'>
+                    <label class='d-label'>上下边距</label>
+                    <div class='attr-content-line-item-content'>
+                        <input type='hidden' class='line-margin-range-slider'  value="{$vo['attr']['vertical_margin']}" onchange='changeLineMargin(this)'/>
+                        <span class='line-vertical-margin-value'>{$vo['attr']['vertical_margin']}</span><span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <input type='hidden' class='line-bg-color' value="{$vo['attr']['background_color']}" />
+                <input type='hidden' class='line-class' value="{$vo['attr']['class']}" />
+                <input type='hidden' class='line-border-color' value="{$vo['attr']['border_color']}" />
+                <input type='hidden' class='line-height' value="{$vo['attr']['height']}" />
+                <input type='hidden' class='line-vertical-margin' value="{$vo['attr']['vertical_margin']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'text'"}
+            <div class='attr-content-text text_attr{$k} none' text_num='{$k}' >
+                <input type="hidden" class="text-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-text-item'>
+                    <label class='d-label'>上下边距</label>
+                    <div class='attr-content-text-item-content'>
+                        <input type='hidden' class='text-range-slider'  value="{$vo['attr']['vertical_padding']}" onchange='changeTextPadding(this,1)'/>
+                        <span class='text-vertical-padding-value'>{$vo['attr']['vertical_padding']}</span><span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-text-item'>
+                    <label class='d-label'>左右边距</label>
+                    <div class='attr-content-text-item-content'>
+                        <input type='hidden' class='text-range-slider'  value="{$vo['attr']['horizontal_padding']}" onchange='changeTextPadding(this,2)'/>
+                        <span class='text-horizontal-padding-value'>{$vo['attr']['horizontal_padding']}</span><span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-text-item' >
+                    <label class='d-label'>背景颜色</label>
+                    <div class='select-component-item-color text-select-bg-color' style="background:{$vo['attr']['background_color']}"></div>
+                </div>
+                <div class='attr-content-text-item'>
+                    <textarea rows='2' cols='60' class='text-desc{$k}' >{php}echo htmlspecialchars_decode($vo['attr']['text']);{/php}</textarea>
+                </div>
+                <input type='hidden' class='text-vertical-padding' value="{$vo['attr']['vertical_padding']}" />
+                <input type='hidden' class='text-horizontal-padding' value="{$vo['attr']['horizontal_padding']}" />
+                <input type='hidden' class='text-bg-color' value="{$vo['attr']['background_color']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'txt'"}
+            <div class='attr-content-txt txt_attr{$k} none' txt_num='{$k}' >
+                <input type="hidden" class="txt-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-txt-item'>
+                    <label class='d-label'>提示文字</label>
+                    <input type='text' value="{$vo['attr']['text']}" class='attr-content-txt-text' onkeyup='setTxtText(this)' />
+                    <span class='txt-text-tip'><span class='txt-text-length'>0</span>/15</span>
+                </div>
+                <div class='attr-content-txt-item'>
+                    <label class='d-label'>链接地址</label>
+                    <input type='text' value="{$vo['attr']['link']}" class='attr-content-txt-link' />
+                </div>
+                <div class='attr-content-txt-item'>
+                    <label class='d-label'>字体位置</label>
+                    <input type='radio' value='1' checked name='txt-text-alignment{$k}'  id='t-left{$k}' onclick='changeTxtTextAlignment(this)' {if intval($vo['attr']['alignment'])==1 }checked{/if}/>
+                    <label for='t-left{$k}'>居左</label>
+                    <input type='radio' value='2' name='txt-text-alignment{$k}' id='t-center{$k}' onclick='changeTxtTextAlignment(this)' {if intval($vo['attr']['alignment'])==2 }checked{/if}/>
+                    <label for='t-center{$k}'>居中</label>
+                    <input type='radio' value='3' name='txt-text-alignment{$k}' id='t-right{$k}' onclick='changeTxtTextAlignment(this)' {if intval($vo['attr']['alignment'])==3 }checked{/if}/>
+                    <label for='t-right{$k}'>居右</label>
+                </div>
+                <div class='attr-content-txt-item' >
+                    <label class='d-label'>背景颜色</label>
+                    <div class='select-component-item-color txt-select-bg-color' style="background:{$vo['attr']['background_color']}"></div>
+                </div>
+                <div class='attr-content-txt-item' >
+                    <label class='d-label'>文字颜色</label>
+                    <div class='select-component-item-color txt-select-text-color' style="background:{$vo['attr']['text_color']}"></div>
+                </div>
+                <div class='attr-content-txt-item'>
+                    <label class='d-label'>上下边距</label>
+                    <div class='attr-content-txt-item-content'>
+                        <input type='hidden' class='txt-range-slider'  value="{$vo['attr']['vertical_padding']}" onchange='changeTxtPadding(this,1)'/>
+                        <span class='txt-vertical-padding-value'>{$vo['attr']['vertical_padding']}</span><span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <div class='attr-content-txt-item'>
+                    <label class='d-label'>左右边距</label>
+                    <div class='attr-content-txt-item-content'>
+                        <input type='hidden' class='txt-range-slider'  value="{$vo['attr']['horizontal_padding']}" onchange='changeTxtPadding(this,2)'/>
+                        <span class='txt-horizontal-padding-value'>{$vo['attr']['horizontal_padding']}</span><span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <input type='hidden' class='txt-vertical-padding' value="{$vo['attr']['vertical_padding']}" />
+                <input type='hidden' class='txt-horizontal-padding' value="{$vo['attr']['horizontal_padding']}" />
+                <input type='hidden' class='txt-bg-color' value="{$vo['attr']['background_color']}" />
+                <input type='hidden' class='txt-text-color' value="{$vo['attr']['text_color']}" />
+                <input type='hidden' class='attr-content-txt-text-alignment' value="{$vo['attr']['alignment']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'image_text'"}
+            <div class='attr-content-image-text image_text_attr{$k} none' image_text_num='{$k}' >
+                <input type="hidden" class="image-text-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-image-text-item'>
+                    <label class='d-label'>排列样式</label>
+                </div>
+                <div class='attr-content-image-text-item'>
+                    <div class="image-text-style-item {if $vo['attr']['style']==1}active{/if}" onclick='changeImageTextStyle(this)' image_text_item='1'>左图右文</div>
+                    <div class="image-text-style-item {if $vo['attr']['style']==2}active{/if}" onclick='changeImageTextStyle(this)' image_text_item='2'>左文右图</div>
+                    <div class="image-text-style-item {if $vo['attr']['style']==3}active{/if}" onclick='changeImageTextStyle(this)' image_text_item='3'>上下单图</div>
+                    <div class="image-text-style-item {if $vo['attr']['style']==4}active{/if}" onclick='changeImageTextStyle(this)' image_text_item='4'>上下双图</div>
+                    <div class="image-text-style-item {if $vo['attr']['style']==5}active{/if}" onclick='changeImageTextStyle(this)' image_text_item='5'>上下三图</div>
+                </div>
+                <div class='attr-content-image-text-item-img' >
+                    <div class='image-text-img'>
+                        <div class='attr-content-image-text-img ' img_url="{$vo['attr']['img'][0]}">
+                            <div class='wst-flex-row'>
+                                <label class='d-label'>图片</label>
+                                <div class='image-text-picker' id='image-text-picker-{$k}-1'>
+                                    <img src="__RESOURCE_PATH__/{$vo['attr']['img'][0]}"/>
+                                </div>
+                            </div>
+                            <div class='image-tips'>建议宽度540px，高度380px，如尺寸不达标，图片将自适应显示</div>
+                        </div>
+                    </div>
+                    {php}
+                        $img_url2 = 'upload/custompagedecoration/base/banner_01.jpg';
+                        $img_url3 = 'upload/custompagedecoration/base/banner_01.jpg';
+                        if(count($vo['attr']['img'])==2){
+                            $img_url2 = $vo['attr']['img'][1];
+                        }
+                        if(count($vo['attr']['img'])==3){
+                            $img_url3 = $vo['attr']['img'][2];
+                        }
+                    {/php}
+                    <div class="image-text-img {if $vo['attr']['style']==1 || $vo['attr']['style']==2 || $vo['attr']['style']==3}none{/if}">
+                        <div class='attr-content-image-text-img 'img_url="{$img_url2}">
+                            <div class='wst-flex-row'>
+                                <label class='d-label'>图片</label>
+                                <div class='image-text-picker' id='image-text-picker-{$k}-2'>
+                                    <img src="__RESOURCE_PATH__/{$img_url2}"/>
+                                </div>
+                            </div>
+                            <div class='image-tips'>建议宽度540px，高度380px，如尺寸不达标，图片将自适应显示</div>
+                        </div>
+                    </div>
+                    <div class="image-text-img {if $vo['attr']['style']!=5}none{/if}">
+                        <div class='attr-content-image-text-img ' img_url="{$img_url3}">
+                            <div class='wst-flex-row'>
+                                <label class='d-label'>图片</label>
+                                <div class='image-text-picker' id='image-text-picker-{$k}-3'>
+                                    <img src="__RESOURCE_PATH__/{$img_url3}"/>
+                                </div>
+                            </div>
+                            <div class='image-tips'>建议宽度540px，高度380px，如尺寸不达标，图片将自适应显示</div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class='d-label'>标题</label>
+                        <input type='text' value="{$vo['attr']['title']}" class='attr-content-image-text-title' onkeyup='setImageTextTitle(this)' style='width:145px !important;'/>
+                        <span class='image-text-title-tip'><span class='image-text-title-length'>0</span>/20</span>
+                    </div>
+                    <div>
+                        <label class='d-label'>简介</label>
+                        <input type='text' value="{$vo['attr']['desc']}" class='attr-content-image-text-desc' onkeyup='setImageTextDesc(this)' style='width:145px !important;' />
+                        <span class='image-text-desc-tip'><span class='image-text-desc-length'>0</span>/200</span>
+                    </div>
+                    <div>
+                        <label class='d-label'>链接</label>
+                        <input type='text' value="{$vo['attr']['link']}" class='attr-content-image-text-link' />
+                    </div>
+                </div>
+                <div class='attr-content-image-text-item'>
+                    <label class='d-label'>上下边距</label>
+                    <div class='attr-content-image-text-item-content'>
+                        <input type='hidden' class='image-text-range-slider'  value="{$vo['attr']['vertical_padding']}" onchange='changeImageTextPadding(this)'/>
+                        <span class='image-text-vertical-padding-value'>{$vo['attr']['vertical_padding']}</span><span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <input type='hidden' class='image-text-style' value="{$vo['attr']['style']}" />
+                <input type='hidden' class='image-text-vertical-padding' value="{$vo['attr']['vertical_padding']}">
+            </div>
+            {elseif condition="$vo['name'] == 'shop'"}
+            <div class='attr-content-shop shop_attr{$k} none' shop_num='{$k}' >
+                <input type="hidden" class="shop-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-shop-item'>
+                    <label class='d-label'>搜索半径</label>
+                    <input type='text' value="{$vo['attr']['search_radius']}" class='attr-content-shop-search-radius' onkeyup='javascript:WST.isChinese(this,1)' onkeypress='return WST.isNumberdoteKey(event)' /><span class='shop-radius-tip' >Km以内</span>
+                </div>
+                <div class='attr-content-shop-item'>
+                    <label class='d-label'>顶部文字</label>
+                    <input type='text' value="{$vo['attr']['title']}" class='attr-content-shop-title' onkeyup='setShopTitle(this)'/>
+                    <span class='shop-title-tip'><span class='shop-title-length'>0</span>/10</span>
+                </div>
+            </div>
+            {elseif condition="$vo['name'] == 'new'"}
+            <div class='attr-content-new new_attr{$k} none' new_num='{$k}' >
+                <input type="hidden" class="new-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-new-item'>
+                    <label class='d-label'>新闻数量</label>
+                    <input type='radio' value='2' name='new-count{$k}'  id='n-count-2-{$k}' checked onclick='changeNewCount(this)' {if $vo['attr']['count'] == 2}checked{/if} />
+                    <label for='n-count-2-{$k}' class='d-a-label'>2个</label>
+                    <input type='radio' value='4' name='new-count{$k}' id='n-count-4-{$k}' onclick='changeNewCount(this)' {if $vo['attr']['count'] == 4}checked{/if} />
+                    <label for='n-count-4-{$k}' class='d-a-label'>4个</label>
+                    <input type='radio' value='6' name='new-count{$k}' id='n-count-6-{$k}' onclick='changeNewCount(this)' {if $vo['attr']['count'] == 6}checked{/if} />
+                    <label for='n-count-6-{$k}' class='d-a-label'>6个</label>
+                    <input type='radio' value='8' name='new-count{$k}' id='n-count-8-{$k}' onclick='changeNewCount(this)' {if $vo['attr']['count'] == 8}checked{/if} />
+                    <label for='n-count-8-{$k}' class='d-a-label'>8个</label>
+                </div>
+                <div class='attr-content-new-item'>
+                    <label class='d-label'>新闻主题名称</label>
+                    <input type='text' value="{$vo['attr']['title']}" class='attr-content-new-title' onkeyup='setNewTitle(this)'/>
+                    <span class='new-title-tip'><span class='new-title-length'>0</span>/8</span>
+                </div>
+                <div class='attr-content-new-item'>
+                    <label class='d-label'>新闻列表添加</label>
+                    <input type='radio' value='1' name='news-select{$k}'  onclick='addNews(this)'  />
+                </div>
+                <input type='hidden' class='new-select-ids-value' value="{$vo['attr']['new_select_ids']}" >
+                <input type='hidden' class='new-count' value="{$vo['attr']['count']}" />
+            </div>
+            {elseif condition="$vo['name'] == 'marketing'"}
+            <div class='attr-content-marketing marketing_attr{$k} none' marketing_num='{$k}' >
+                <input type="hidden" class="marketing-item-id" value="{$vo['id']}"/>
+                <div class='attr-content-marketing-item'>
+                    <label class='d-label'>营销活动</label>
+                    <select name='marketing-type' onchange='changeMarketingType(this)'>
+                        <option value="0">请选择</option>
+                        {if WSTConf('WST_ADDONS.pintuan')!=''}
+                        <option value="Pintuan" {if $vo['attr']['type']=='Pintuan'}selected{/if}>拼团</option>
+                        {/if}
+                        {if WSTConf('WST_ADDONS.seckill')!=''}
+                        <option value="Seckill" {if $vo['attr']['type']=='Seckill'}selected{/if}>秒杀</option>
+                        {/if}
+                        {if WSTConf('WST_ADDONS.auction')!=''}
+                        <option value="Auction" {if $vo['attr']['type']=='Auction'}selected{/if}>拍卖</option>
+                        {/if}
+                        {if WSTConf('WST_ADDONS.bargain')!=''}
+                        <option value="Bargain" {if $vo['attr']['type']=='Bargain'}selected{/if}>砍价</option>
+                        {/if}
+                    </select>
+                </div>
+                <div class='attr-content-marketing-item'>
+                    <label class='d-label'>列表名称</label>
+                    <input type='text' value="{$vo['attr']['title']}" class='attr-content-marketing-title' onkeyup='setMarketingTitle(this)'/>
+                    <span class='marketing-title-tip'><span class='marketing-title-length'>0</span>/6</span>
+                </div>
+                <div class='attr-content-marketing-item'>
+                    <label class='d-label'>上下边距</label>
+                    <div class='attr-content-marketing-item-content'>
+                        <input type='hidden' class='marketing-range-slider'  value="{$vo['attr']['vertical_padding']}" onchange='changeMarketingPadding(this)'/>
+                        <span class='marketing-vertical-padding-value'>{$vo['attr']['vertical_padding']}</span><span class='pixel'>px (像素)</span>
+                    </div>
+                </div>
+                <input type='hidden' class='marketing-type' value="{$vo['attr']['type']}">
+                <input type='hidden' class='marketing-vertical-padding' value="{$vo['attr']['vertical_padding']}">
+            </div>
+            {/if}
+            {/volist}
+            {/if}
+            {if condition="count($tabbar_data) != 0"}
+                <div class="attr-content-tabbar">
+                    {volist name="tabbar_data" id="vo" }
+                        <input type="hidden" class="tabbar-item-id" value="{$vo['id']}"/>
+                        <div class='attr-content-tabbar-item' >
+                            <label class='tabbar-color-label'>文字颜色</label>
+                            <div class='select-component-item-color tabbar-select-text-color' style="background:{$vo['attr']['text_color']}"></div>
+                        </div>
+                        <div class='attr-content-tabbar-item' >
+                            <label class='tabbar-color-label'>选中时文字颜色</label>
+                            <div class='select-component-item-color tabbar-select-text-checked-color' style="background:{$vo['attr']['text_checked_color']}"></div>
+                        </div>
+                        <div class='attr-content-tabbar-item' >
+                            <label class='tabbar-color-label'>背景颜色</label>
+                            <div class='select-component-item-color tabbar-select-bg-color' style="background:{$vo['attr']['background_color']}"></div>
+                        </div>
+                        <div class='attr-content-tabbar-item' >
+                            <label class='tabbar-color-label'>上边框颜色</label>
+                            <div class='select-component-item-color tabbar-select-border-color' style="background:{$vo['attr']['border_color']}"></div>
+                        </div>
+                        {for start="0" end="intval(count($vo['attr']['icon']))"  }
+                        <div class='attr-content-tabbar-item-group' tabbar_item="{$i+1}">
+                            <div class='attr-content-tabbar-img' img_url="{$vo['attr']['icon'][$i]}">
+                                <label class='d-label'>未选中图片</label>
+                                <div class='tabbar-picker' id='tabbar-picker-{$i+1}'>
+                                    <img src="__RESOURCE_PATH__/{$vo['attr']['icon'][$i]}" />
+                                </div>
+                            </div>
+                            <div class='attr-content-tabbar-img' img_url="{$vo['attr']['select_icon'][$i]}">
+                                <label class='d-label'>选中时图片</label>
+                                <div class='tabbar-select-picker' id='tabbar-select-picker-{$i+1}'>
+                                    <img src="__RESOURCE_PATH__/{$vo['attr']['select_icon'][$i]}"/>
+                                </div>
+                            </div>
+                            <div class='attr-content-tabbar-info'>
+                                <label class='tabbar-label'>按钮文字</label>
+                                <input type='text' value="{$vo['attr']['text'][$i]}" class='attr-content-tabbar-text' onkeyup='setTabbarItemTitle(this)' />
+                                <span class='tabbar-text-tip'><span class='tabbar-text-length'>0</span>/4</span>
+                            </div>
+                            <div class='attr-content-tabbar-info'>
+                                <label class='tabbar-label'>链接地址</label>
+                                <div class="tabbar-change-link" onclick="changeTabbarLink(this)">{if $vo['attr']['link_text'][$i]}{$vo['attr']['link_text'][$i]}{else}设置链接{/if}</div>
+                                <input type='hidden' value="{$vo['attr']['link'][$i]}" class='attr-content-tabbar-link' />
+                                <input type='hidden' value="{$vo['attr']['link_text'][$i]}" class='attr-content-tabbar-link-text' />
+                                <input type='hidden' value="{$vo['attr']['menu_flag'][$i]}" class='attr-content-tabbar-menu-flag' />
+                            </div>
+                            <div class='attr-btn-del' onclick='delTabbarItemBtn(this)'>X</div>
+                        </div>
+                        {/for}
+                        <div class='attr-content-tabbar-item-add' onclick='addTabbarItem(this)'>添加一个</div>
+                        <input type='hidden' class='tabbar-bg-color' value="{$vo['attr']['background_color']}" />
+                        <input type='hidden' class='tabbar-border-color' value="{$vo['attr']['border_color']}" />
+                        <input type='hidden' class='tabbar-text-color' value="{$vo['attr']['text_color']}" />
+                        <input type='hidden' class='tabbar-text-checked-color' value="{$vo['attr']['text_checked_color']}" />
+                    {/volist}
+                </div>
+            {else}
+                <div class="attr-content-tabbar">
+                    <div class='attr-content-tabbar-item' >
+                        <label class='tabbar-color-label'>文字颜色</label>
+                        <div class='select-component-item-color tabbar-select-text-color' style="background:#2c2c2c;"></div>
+                    </div>
+                    <div class='attr-content-tabbar-item' >
+                        <label class='tabbar-color-label'>选中时文字颜色</label>
+                        <div class='select-component-item-color tabbar-select-text-checked-color' style="background:#df0202;"></div>
+                    </div>
+                    <div class='attr-content-tabbar-item' >
+                        <label class='tabbar-color-label'>背景颜色</label>
+                        <div class='select-component-item-color tabbar-select-bg-color'></div>
+                    </div>
+                    <div class='attr-content-tabbar-item' >
+                        <label class='tabbar-color-label'>上边框颜色</label>
+                        <div class='select-component-item-color tabbar-select-border-color'></div>
+                    </div>
+                    <div class='attr-content-tabbar-item-group' tabbar_item="1">
+                        <div class='attr-content-tabbar-img' img_url='upload/custompagedecoration/base/footer-home.png'>
+                            <label class='d-label'>未选中图片</label>
+                            <div class='tabbar-picker' id='tabbar-picker-1'>
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/footer-home.png'/>
+                            </div>
+                        </div>
+                        <div class='attr-content-tabbar-img' img_url='upload/custompagedecoration/base/footer-home2.png'>
+                            <label class='d-label'>选中时图片</label>
+                            <div class='tabbar-select-picker' id='tabbar-select-picker-1'>
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/footer-home2.png'/>
+                            </div>
+                        </div>
+                        <div class='attr-content-tabbar-info'>
+                            <label class='tabbar-label'>按钮文字</label>
+                            <input type='text' value='主页' class='attr-content-tabbar-text' onkeyup='setTabbarItemTitle(this)' />
+                            <span class='tabbar-text-tip'><span class='tabbar-text-length'>2</span>/4</span>
+                        </div>
+                        <div class='attr-content-tabbar-info'>
+                            <label class='tabbar-label'>链接地址</label>
+                            <div class="tabbar-change-link" onclick="changeTabbarLink(this)">设置链接</div>
+                            <input type='hidden' value='' class='attr-content-tabbar-link' />
+                            <input type='hidden' value='' class='attr-content-tabbar-link-text' />
+                            <input type='hidden' value='' class='attr-content-tabbar-menu-flag' />
+                        </div>
+                        <div class='attr-btn-del' onclick='delTabbarItemBtn(this)'>X</div>
+                    </div>
+                    <div class='attr-content-tabbar-item-group' tabbar_item="2">
+                        <div class='attr-content-tabbar-img' img_url='upload/custompagedecoration/base/footer-classify.png'>
+                            <label class='d-label'>未选中图片</label>
+                            <div class='tabbar-picker' id='tabbar-picker-2'>
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/footer-classify.png'/>
+                            </div>
+                        </div>
+                        <div class='attr-content-tabbar-img' img_url='upload/custompagedecoration/base/footer-classify2.png'>
+                            <label class='d-label'>选中时图片</label>
+                            <div class='tabbar-select-picker' id='tabbar-select-picker-2'>
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/footer-classify2.png'/>
+                            </div>
+                        </div>
+                        <div class='attr-content-tabbar-info'>
+                            <label class='tabbar-label'>按钮文字</label>
+                            <input type='text' value='分类' class='attr-content-tabbar-text' onkeyup='setTabbarItemTitle(this)' />
+                            <span class='tabbar-text-tip'><span class='tabbar-text-length'>2</span>/4</span>
+                        </div>
+                        <div class='attr-content-tabbar-info'>
+                            <label class='tabbar-label'>链接地址</label>
+                            <div class="tabbar-change-link" onclick="changeTabbarLink(this)">设置链接</div>
+                            <input type='hidden' value='' class='attr-content-tabbar-link' />
+                            <input type='hidden' value='' class='attr-content-tabbar-link-text' />
+                            <input type='hidden' value='' class='attr-content-tabbar-menu-flag' />
+                        </div>
+                        <div class='attr-btn-del' onclick='delTabbarItemBtn(this)'>X</div>
+                    </div>
+                    <div class='attr-content-tabbar-item-group' tabbar_item="3">
+                        <div class='attr-content-tabbar-img' img_url='upload/custompagedecoration/base/footer-cart.png'>
+                            <label class='d-label'>未选中图片</label>
+                            <div class='tabbar-picker' id='tabbar-picker-3'>
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/footer-cart.png'/>
+                            </div>
+                        </div>
+                        <div class='attr-content-tabbar-img' img_url='upload/custompagedecoration/base/footer-cart2.png'>
+                            <label class='d-label'>选中时图片</label>
+                            <div class='tabbar-select-picker' id='tabbar-select-picker-3'>
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/footer-cart2.png'/>
+                            </div>
+                        </div>
+                        <div class='attr-content-tabbar-info'>
+                            <label class='tabbar-label'>按钮文字</label>
+                            <input type='text' value='购物车' class='attr-content-tabbar-text' onkeyup='setTabbarItemTitle(this)' />
+                            <span class='tabbar-text-tip'><span class='tabbar-text-length'>3</span>/4</span>
+                        </div>
+                        <div class='attr-content-tabbar-info'>
+                            <label class='tabbar-label'>链接地址</label>
+                            <div class="tabbar-change-link" onclick="changeTabbarLink(this)">设置链接</div>
+                            <input type='hidden' value='' class='attr-content-tabbar-link' />
+                            <input type='hidden' value='' class='attr-content-tabbar-link-text' />
+                            <input type='hidden' value='' class='attr-content-tabbar-menu-flag' />
+                        </div>
+                        <div class='attr-btn-del' onclick='delTabbarItemBtn(this)'>X</div>
+                    </div>
+                    <div class='attr-content-tabbar-item-group' tabbar_item="4">
+                        <div class='attr-content-tabbar-img' img_url='upload/custompagedecoration/base/footer-follow.png'>
+                            <label class='d-label'>未选中图片</label>
+                            <div class='tabbar-picker' id='tabbar-picker-4'>
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/footer-follow.png'/>
+                            </div>
+                        </div>
+                        <div class='attr-content-tabbar-img' img_url='upload/custompagedecoration/base/footer-follow2.png'>
+                            <label class='d-label'>选中时图片</label>
+                            <div class='tabbar-select-picker' id='tabbar-select-picker-4'>
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/footer-follow2.png'/>
+                            </div>
+                        </div>
+                        <div class='attr-content-tabbar-info'>
+                            <label class='tabbar-label'>按钮文字</label>
+                            <input type='text' value='关注' class='attr-content-tabbar-text' onkeyup='setTabbarItemTitle(this)' />
+                            <span class='tabbar-text-tip'><span class='tabbar-text-length'>2</span>/4</span>
+                        </div>
+                        <div class='attr-content-tabbar-info'>
+                            <label class='tabbar-label'>链接地址</label>
+                            <div class="tabbar-change-link" onclick="changeTabbarLink(this)">设置链接</div>
+                            <input type='hidden' value='' class='attr-content-tabbar-link' />
+                            <input type='hidden' value='' class='attr-content-tabbar-link-text' />
+                            <input type='hidden' value='' class='attr-content-tabbar-menu-flag' />
+                        </div>
+                        <div class='attr-btn-del' onclick='delTabbarItemBtn(this)'>X</div>
+                    </div>
+                    <div class='attr-content-tabbar-item-group' tabbar_item="5">
+                        <div class='attr-content-tabbar-img' img_url='upload/custompagedecoration/base/footer-user.png'>
+                            <label class='d-label'>未选中图片</label>
+                            <div class='tabbar-picker' id='tabbar-picker-5'>
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/footer-user.png'/>
+                            </div>
+                        </div>
+                        <div class='attr-content-tabbar-img' img_url='upload/custompagedecoration/base/footer-user2.png'>
+                            <label class='d-label'>选中时图片</label>
+                            <div class='tabbar-select-picker' id='tabbar-select-picker-5'>
+                                <img src='__RESOURCE_PATH__/upload/custompagedecoration/base/footer-user2.png'/>
+                            </div>
+                        </div>
+                        <div class='attr-content-tabbar-info'>
+                            <label class='tabbar-label'>按钮文字</label>
+                            <input type='text' value='我的' class='attr-content-tabbar-text' onkeyup='setTabbarItemTitle(this)' />
+                            <span class='tabbar-text-tip'><span class='tabbar-text-length'>2</span>/4</span>
+                        </div>
+                        <div class='attr-content-tabbar-info'>
+                            <label class='tabbar-label'>链接地址</label>
+                            <div class="tabbar-change-link" onclick="changeTabbarLink(this)">设置链接</div>
+                            <input type='hidden' value='' class='attr-content-tabbar-link' />
+                            <input type='hidden' value='' class='attr-content-tabbar-link-text' />
+                            <input type='hidden' value='' class='attr-content-tabbar-menu-flag' />
+                        </div>
+                        <div class='attr-btn-del' onclick='delTabbarItemBtn(this)'>X</div>
+                    </div>
+                    <div class='attr-content-tabbar-item-add' onclick='addTabbarItem(this)'>添加一个</div>
+                    <input type='hidden' class='tabbar-bg-color' value="#ffffff" />
+                    <input type='hidden' class='tabbar-border-color' value="#ffffff" />
+                    <input type='hidden' class='tabbar-text-color' value="#2c2c2c" />
+                    <input type='hidden' class='tabbar-text-checked-color' value="#df0202" />
+                </div>
+            {/if}
+        </div>
+    </div>
+</div>
+<div class="wst-flex-row wst-center">
+    <button onclick="submit()" class="btn btn-primary btn-mright" ><i class="fa fa-check"></i>保存页面</button>
+    <button type="button" class="btn" onclick="javascript:location.href='{:Url(\'admin/custompages/index\',\'p=\'.$p)}'"><i class="fa fa-angle-double-left"></i>返回</button>
+</div>
+<div class="none couponHtml1">
+    <div class='coupons-item-1 wst-flex-column wst-ac'>
+        <p class='coupon-value-content-1'>￥<span class='coupon-value-1'>100</span></p>
+        <p class='coupon-condition-1'>满200使用</p>
+        <p class='coupon-get-1'>立即领取</p>
+    </div>
+    <div class='coupons-item-1 wst-flex-column wst-ac'>
+        <p class='coupon-value-content-1'>￥<span class='coupon-value-1'>100</span></p>
+        <p class='coupon-condition-1'>满200使用</p>
+        <p class='coupon-get-1'>立即领取</p>
+    </div>
+    <div class='coupons-item-1 wst-flex-column wst-ac'>
+        <p class='coupon-value-content-1'>￥<span class='coupon-value-1'>100</span></p>
+        <p class='coupon-condition-1'>满200使用</p>
+        <p class='coupon-get-1'>立即领取</p>
+    </div>
+</div>
+<div class="none couponHtml2">
+    <div class='coupons-item-2 wst-flex-row wst-jc wst-ac'>
+        <p class='coupon-value-content-2'>￥<span class='coupon-value-2'>100</span></p>
+        <div class='wst-flex-column wst-ac coupon-area'>
+            <p class='coupon-condition-2'>满200使用</p>
+            <p class='coupon-get-2'>立即领取</p>
+        </div>
+    </div>
+    <div class='coupons-item-2 wst-flex-row wst-jc wst-ac'>
+        <p class='coupon-value-content-2'>￥<span class='coupon-value-2'>100</span></p>
+        <div class='wst-flex-column wst-ac coupon-area'>
+            <p class='coupon-condition-2'>满200使用</p>
+            <p class='coupon-get-2'>立即领取</p>
+        </div>
+    </div>
+</div>
+<div class="none goodsCatsHtml">
+    <div class='attr-content-goods-group-item'>
+        <label class='d-label'>商品分类</label>
+        <div>
+            <select class='ipt goodsCats' >
+                <option value="">-所属分类-</option>
+                {volist name=":WSTGoodsCats(0)" id="voo"}
+                <option value="{$voo['catId']}">{$voo['catName']}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+</div>
+<div id='goodBox' style='display:none'>
+    <div class="wst-toolbar">
+        <input type="text" name="goodsName"  placeholder='商品名称' id="goodsName" class='j-ipt'/>
+        <button class="btn btn-primary" onclick='javascript:loadGrid(0)'><i class='fa fa-search'></i>查询</button>
+        <div style='clear:both'></div>
+    </div>
+    <div class='wst-grid'>
+        <div id="mmg" class="mmg layui-form"></div>
+        <div id="pg" style="text-align: right;"></div>
+    </div>
+</div>
+<div id='goodBox2' style='display:none'>
+    <div class="wst-flex-row wst-jsb">
+        <div class='goods-attr-left'>
+            <div class='goods-attr-item'>
+                <div class='goods-attr-item-title'>商品分类</div>
+                <div>
+                    {volist name=":WSTGoodsCats(0)" id="vo"}
+                    <input type="hidden" class='hidden-cats-id' value="{if $key==0}{$vo['catId']}{/if}">
+                    <div class="goods-select-cat-name"><input type="radio" name='goods-select-cat-name' cats-id="{$vo['catId']}"><span class="cat-name-text">{$vo['catName']}</span></div>
+                    {/volist}
+                </div>
+            </div>
+        </div>
+        <div class='goods-attr-right'>
+            <div class='goods-attr-item'>
+                <div class='goods-attr-item-title'>商品标签</div>
+                <div class='goods-attr-item-content1'>
+                    <input type='radio' value='0' name='goods-tag'  id='is-none'  />
+                    <label for='is-none' class='g-tag-label'>不设置</label>
+                    <input type='radio' value='1' name='goods-tag'  id='is-recom'  />
+                    <label for='is-recom' class='g-tag-label'>推荐</label>
+                    <input type='radio' value='2' name='goods-tag' id='is-new' />
+                    <label for='is-new' class='g-tag-label'>新品</label>
+                    <input type='radio' value='3' name='goods-tag' id='is-hot' />
+                    <label for='is-hot' class='g-tag-label'>热卖</label>
+                </div>
+            </div>
+            <div class='goods-attr-item'>
+                <div class='goods-attr-item-title'>价格</div>
+                <div class='goods-attr-item-content2'>
+                    <input type='text' value='' placeholder='最低价格' class='goods-min-price' onkeyup='javascript:WST.isChinese(this,1)' onkeypress='return WST.isNumberdoteKey(event)' />
+                    <span>至</span>
+                    <input type='text' value='' placeholder='最高价格' class='goods-max-price' onkeyup='javascript:WST.isChinese(this,1)' onkeypress='return WST.isNumberdoteKey(event)' />
+                    <span>元</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id='couponBox' style='display:none'>
+    <div class='wst-grid'>
+        <div id="mmg-coupon" class="mmg-coupon layui-form"></div>
+        <div id="pg-coupon" style="text-align: right;"></div>
+    </div>
+</div>
+<div id='newBox' style='display:none'>
+    <div class='wst-grid'>
+        <div id="mmg-new" class="mmg-new layui-form"></div>
+        <div id="pg-new" style="text-align: right;"></div>
+    </div>
+</div>
+<div class='marketingType' style='display:none'>
+    <select name='marketing-type' onchange='changeMarketingType(this)'>
+        <option value="0">请选择</option>
+        {if WSTConf('WST_ADDONS.pintuan')!=''}
+        <option value="Pintuan">拼团</option>
+        {/if}
+        {if WSTConf('WST_ADDONS.seckill')!=''}
+        <option value="Seckill">秒杀</option>
+        {/if}
+        {if WSTConf('WST_ADDONS.auction')!=''}
+        <option value="Auction">拍卖</option>
+        {/if}
+        {if WSTConf('WST_ADDONS.bargain')!=''}
+        <option value="Bargain">砍价</option>
+        {/if}
+    </select>
+</div>
+<div id='linkBox' style='display:none'>
+    {if $pageType==1}
+    <div class='link-attr'>
+        <div class='link-attr-content'>
+            <input type='radio' value='mobile/index/index' name='custom-link' link-text='首页' menu-flag='index' id='link-m-index'  />
+            <label for='link-m-index' class='link-label'>首页</label>
+            <input type='radio' value='mobile/goodscats/index' name='custom-link' link-text='分类' menu-flag='category'  id='link-m-cats'  />
+            <label for='link-m-cats' class='link-label'>分类</label>
+            <input type='radio' value='mobile/carts/index' name='custom-link' link-text='购物车' menu-flag='cart' id='link-m-carts'  />
+            <label for='link-m-carts' class='link-label'>购物车</label>
+            <input type='radio' value='mobile/favorites/goods' name='custom-link' link-text='关注' menu-flag='favorite' id='link-m-favorites'  />
+            <label for='link-m-favorites' class='link-label'>关注</label>
+            <input type='radio' value='mobile/users/index' name='custom-link' link-text='我的' menu-flag='user' id='link-m-users'  />
+            <label for='link-m-users' class='link-label'>我的</label>
+            <input type='radio' value='mobile/orders/index' name='custom-link' link-text='订单' menu-flag='order' id='link-m-order'  />
+            <label for='link-m-order' class='link-label'>订单</label>
+        </div>
+    </div>
+    {elseif $pageType==2}
+    <div class='link-attr'>
+        <div class='link-attr-content'>
+            <input type='radio' value='wechat/index/index' name='custom-link' link-text='首页' menu-flag='index' id='link-wx-index'  />
+            <label for='link-wx-index' class='link-label'>首页</label>
+            <input type='radio' value='wechat/goodscats/index' name='custom-link' link-text='分类' menu-flag='category'  id='link-wx-cats'  />
+            <label for='link-wx-cats' class='link-label'>分类</label>
+            <input type='radio' value='wechat/carts/index' name='custom-link' link-text='购物车' menu-flag='cart' id='link-wx-carts'  />
+            <label for='link-wx-carts' class='link-label'>购物车</label>
+            <input type='radio' value='wechat/favorites/goods' name='custom-link' link-text='关注' menu-flag='favorite' id='link-wx-favorites'  />
+            <label for='link-wx-favorites' class='link-label'>关注</label>
+            <input type='radio' value='wechat/users/index' name='custom-link' link-text='我的' menu-flag='user' id='link-wx-users'  />
+            <label for='link-wx-users' class='link-label'>我的</label>
+            <input type='radio' value='wechat/orders/index' name='custom-link' link-text='我的' menu-flag='order' id='link-wx-order'  />
+            <label for='link-wx-order' class='link-label'>订单</label>
+        </div>
+    </div>
+    {elseif $pageType==3}
+    <div class='link-attr'>
+        <div class='link-attr-content'>
+            <input type='radio' value='/pages/index/index' name='custom-link' link-text='首页' menu-flag='index' id='link-we-index'  />
+            <label for='link-we-index' class='link-label'>首页</label>
+            <input type='radio' value='/pages/classify/classify' name='custom-link' link-text='分类' menu-flag='category'  id='link-we-cats'  />
+            <label for='link-we-cats' class='link-label'>分类</label>
+            <input type='radio' value='/pages/carts/carts' name='custom-link' link-text='购物车' menu-flag='cart' id='link-we-carts'  />
+            <label for='link-we-carts' class='link-label'>购物车</label>
+            <input type='radio' value='/pages/users/attension/attension' name='custom-link' link-text='关注' menu-flag='favorite' id='link-we-favorites'  />
+            <label for='link-we-favorites' class='link-label'>关注</label>
+            <input type='radio' value='/pages/users/users' name='custom-link' link-text='我的' menu-flag='user' id='link-we-users'  />
+            <label for='link-we-users' class='link-label'>我的</label>
+            <input type='radio' value='/pages/users/orders/orders' name='custom-link' link-text='订单' menu-flag='order' id='link-we-orders'  />
+            <label for='link-we-orders' class='link-label'>订单</label>
+        </div>
+    </div>
+    {/if}
+</div>
+{/block}
+{block name="js"}
+<script src="__STATIC__/plugins/colpick/js/colpick.js"></script>
+<script type='text/javascript' src='__STATIC__/plugins/webuploader/webuploader.js'></script>
+<script type='text/javascript' src='__STATIC__/plugins/dragula/dragula.js'></script>
+<script type='text/javascript' src='__STATIC__/plugins/dragula/example.min.js'></script>
+<script type='text/javascript' src='__STATIC__/plugins/range/jquery.range.js'></script>
+<script type="text/javascript" src="__STATIC__/plugins/kindeditor/kindeditor.js"></script>
+<script src="__STATIC__/plugins/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+<script src="__ADMIN__/custompagedecoration/custompagedecoration.js?v={$v}" type="text/javascript"></script>
+<script>
+
+</script>
+{/block}

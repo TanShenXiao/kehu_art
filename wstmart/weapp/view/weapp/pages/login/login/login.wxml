@@ -1,0 +1,49 @@
+<view class='container'>
+  <scroll-view scroll-X='true' class="wst-login-head">
+    <block wx:for="{{termData}}">
+      <view class="term {{item.types == types? 'active':''}}" style="{{termData.length==1?'width:100%;':'width:50%;'}}" data-types="{{item.types}}" bindtap='selected'>{{item.title}}</view>
+    </block>
+  </scroll-view>
+  <view class='login-model' wx:if="{{types=='phone'}}">
+    <view class='form-model'>
+      <view class='login-item'>
+        <input placeholder='手机号' bindinput='phone' type='number' />
+      </view>
+      <view class='login-item' wx:if='{{isPhone}}'>
+        <input placeholder='验证码' bindinput='phoneverfy' />
+        <image src="{{pcode}}" mode='aspectFill' class="verify" bindtap='pcode' />
+      </view>
+      <view class='login-item' wx:if='{{isPhoneVerify}}'>
+        <input placeholder='短信验证码' bindinput='checkCode' />
+        <button type="default" disabled="{{phDisabled}}" bindtap="pverify" class="obtain">{{verifyWord}}</button>
+      </view>
+    </view>
+    <view class='log-model'>
+      <button class='lo-button' bindtap='login2' disabled="{{loDisabled}}">登录</button>
+    </view>
+    <view class="log-forget">
+      <text bindtap='forget'>忘记密码？</text>
+    </view>
+  </view>
+
+  <view class='login-model' wx:if="{{types=='account'}}">
+    <view class='form-model'>
+      <view class='login-item'>
+        <input placeholder='邮箱/用户名/手机号' bindinput='name' />
+      </view>
+      <view class='login-item'>
+        <input placeholder='密码' password='true' bindinput='pwd' />
+      </view>
+      <view class='login-item'>
+        <input placeholder='验证码' bindinput='verify' />
+        <image src="{{code}}" mode='aspectFill' class="verify" bindtap='code' />
+      </view>
+    </view>
+    <view class='log-model'>
+      <button class='lo-button' bindtap='login' disabled="{{loDisabled}}">登录</button>
+    </view>
+    <view class="log-forget">
+      <text bindtap='forget'>忘记密码？</text>
+    </view>
+  </view>
+</view>

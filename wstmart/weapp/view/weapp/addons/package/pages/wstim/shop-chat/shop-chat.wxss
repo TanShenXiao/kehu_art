@@ -1,0 +1,430 @@
+.container {
+  height: 100%;
+  width: 100%;
+}
+
+.chat-list {
+  height: calc(100vh - 200rpx);
+  width: 100%;
+  background: #faf0e6;
+}
+
+.tool-bar {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200rpx;
+  background: #f3f5f7;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  margin: 30rpx 30rpx 0 30rpx;
+}
+
+.input input {
+  background: #fff;
+  width: 90%;
+  height: 70rpx;
+  padding-left: 20rpx;
+}
+
+.input .send-msg {
+  width: 10%;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  background: #e70012;
+  color: #fff;
+  font-size: 50rpx;
+  border-radius: 0 10px 10px 0;
+}
+
+.btn-link:before {
+  content: '.';
+  position: absolute;
+  background: #fff;
+  right: 23px;
+  top: 31px;
+  width: 20px;
+  height: 2px;
+}
+
+.btn-link:after {
+  content: '.';
+  position: absolute;
+  right: 23px;
+  top: 25px;
+  width: 10px;
+  height: 10px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-top-color: #fff;
+  border-right-color: #fff;
+  transform: rotate(45deg);
+}
+
+.tool-nav {
+  width: 50%;
+  height: 70rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 60rpx;
+  margin-top: 10rpx;
+}
+
+.tool-nav-img {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/*动画模块*/
+
+.drawer_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #000;
+  opacity: 0.4;
+  overflow: hidden;
+  border-top: 1rpx solid white;
+}
+
+/*咨询商品层,咨询订单层*/
+
+.screen-tier {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+  position: fixed;
+  top: 0rpx;
+  right: 0rpx;
+  background: white;
+  z-index: 9999;
+  font-size: 32rpx;
+  color: #666;
+  border-radius: 10px 10px 0 0;
+}
+
+.recent-title {
+  margin: 20rpx 20rpx 0 20rpx;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e9e9e9;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.pop-close {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.pop-close image {
+  width: 100%;
+  height: 100%;
+}
+
+.no-data-list {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.data-list {
+  height: 520rpx;
+}
+
+.good-item {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.item-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.item-bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.item-left {
+  width: 25%;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+}
+
+.item-right {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.good-title {
+  font-size: 13px;
+  color: #232326;
+}
+
+.good-price {
+  font-size: 13px;
+  color: #888;
+}
+
+.good-img {
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.order-item {
+  width: 90%;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.order-img {
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 5px;
+}
+
+.order-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.order-title {
+  font-size: 13px;
+  color: #232326;
+}
+
+.order-price {
+  font-size: 13px;
+  color: #888;
+}
+
+.order-no {
+  font-size: 11px;
+  color: #888;
+}
+
+.order-time {
+  font-size: 11px;
+  color: #888;
+}
+
+.order-status-view {
+  background: #ffeded;
+  border-radius: 5px;
+  width: 100rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+}
+
+.order-status {
+  font-size: 13px;
+  color: #f23030;
+}
+
+.item-order-img {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.chat-item {
+  display: flex;
+  flex-direction: column;
+  width: 96%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.chat-time {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: #999;
+  font-size: 12px;
+  margin-bottom:10px;
+}
+
+.chat-area1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.chat-area2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.chat-area1 view{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  max-width: 90%;
+}
+
+.chat-area2 view{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  max-width: 90%;
+}
+
+.chat-content1 {
+  color: #fff;
+  background-color: rgb(240, 86, 91);
+  border-radius: 4px;
+  height: auto;
+  padding:10px;
+}
+.chat-content2 {
+  color: #252525;
+  background-color: #fff;
+  border-radius: 4px;
+  height: auto;
+  padding:10px;
+}
+.chat-content3{
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  /* width:90%; */
+}
+
+.send-link{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.send-link-text{
+  color:#e70012;
+  font-size:13px;
+
+}
+
+.r-arrow {
+  background-color: rgb(240, 86, 91);
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  position: absolute;
+  right: 5px;
+}
+
+.l-arrow {
+  background-color: #fff;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  position: absolute;
+  left: 5px;
+}
+
+.chat-img {
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.chat-img image {
+  width: 100%;
+  height: 100%;
+}
+
+#flag{
+  margin-bottom: 15vh;
+  height: 1px;
+}
+
+.sendImage{
+  width:160rpx;
+  height:160rpx;
+}
+
+.no-group{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width:75%;
+  background:#DCE1E4;
+  margin:0 auto;
+  padding-top:10px;
+  text-align: center;
+}
+
+.queue-tier {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+  position: fixed;
+  top: 0rpx;
+  right: 0rpx;
+  background: white;
+  opacity: 0.9;
+  z-index: 9999;
+  font-size: 32rpx;
+  color: #666;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.queue-text{
+  width:100px;
+  color:#999;
+  font-size: 12px;
+  margin-bottom:10px;
+}
+
+.queue-btn{
+  width:150px;
+  color:#fff;
+  background: #d82a2e;
+  font-size: 12px;
+  padding-top:10px;
+  padding-bottom:10px;
+  text-align: center;
+}
+
+

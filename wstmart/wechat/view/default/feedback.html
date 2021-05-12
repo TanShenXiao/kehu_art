@@ -1,0 +1,81 @@
+{extend name="default/base" /}
+{block name="title"}意见反馈 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__ROOT__/wstmart/wechat/view/default/css/feedbacks.css?v={$v}">
+{/block}
+{block name="footer"}
+{/block}
+{block name="header"}
+    <div id="useri_infos">
+        <header style="background:#ffffff;" class="ui-header ui-header-positive ui-border-b wst-header">
+            <a href="{:url('wechat/users/index')}"><i class="ui-icon-return"></i></a><h1 class="useri_info">意见反馈</h1>
+        </header>
+    </div>
+{/block}
+
+{block name="main"}
+<input type="hidden" name="" value="" id="feedbackType" autocomplete="off">
+<sction class="ui-container" id="upload_modal">
+    <div class="upload-modal">
+     <div id="clipArea" class="clipArea"></div>
+     <input type="hidden" id="imgData" autocomplete="off">
+  </div>
+</sction>
+
+<div class="ui-row-flex ui-whitespace d-item c-item">
+    <div class="ui-col ui-col">反馈问题类型</div>
+    <div class="ui-col ui-col-3 order-tr" onclick="dataShow(0)" id="complainText" >请选择反馈问题类型 > </div>
+</div>
+
+<div class="ui-row-flex ui-whitespace ui-row-flex-ver c-box">
+    <div class="ui-col c-title">反馈内容</div>
+    <div class="ui-col c-content">
+      <textarea id="feedback" placeholder="请填写反馈内容"></textarea>
+    </div>
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="contact-left">联系方式</div>
+        <div class="contact-right">
+            <input type="text" id="contact" class="contact" placeholder="手机/QQ/微信"/>
+        </div>
+    </div>
+    <div class="ui-btn-wrap" style="padding:5px;padding-bottom:5px;">
+        <button class="ui-btn-lg ui-btn-danger c-btn" onclick="save()">
+            提交
+        </button>
+    </div>
+</div>
+
+ {/* 遮盖层  */}
+<div class="wst-cover" id="cover"></div>
+{/* 订单详情层  */}
+<div class="wst-fr-box" id="frame">
+    <div class="title" id="boxTitle"><span>反馈问题类型</span><i class="ui-icon-close-page" onclick="javascript:dataHide(0);"></i><div class="wst-clear"></div></div>
+    <div class="content" id="content">
+       {volist name=':WSTDatas("FEEDBACK_TYPE")' id='vo'}
+      <ul class="ui-row feedback-item">
+        <li class="ui-col ui-col-75">{$vo['dataName']}</li>
+        <li class="ui-col ui-col-25 chk-box">
+          <label class="ui-checkbox">
+            <input class="active" type="radio" name="data" value="{$vo['dataVal']}">
+          </label>
+        </li>
+      </ul>
+        {/volist}
+
+    </div>
+    <div class="ui-btn-wrap">
+          <button class="ui-btn-lg ui-btn-danger c-btn" onclick="dataHide(1)">
+              确定
+          </button>
+      </div>
+</div>
+</section>
+
+{/block}
+{block name="include"}
+{include file="default/dialog" /}<!-- 对话框模板 -->
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__WECHAT__/js/jquery.min.js'></script>
+<script type='text/javascript' src='__WECHAT__/js/feedback.js?v={$v}'></script>
+{/block}

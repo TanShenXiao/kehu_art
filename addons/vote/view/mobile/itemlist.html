@@ -1,0 +1,54 @@
+{extend name="$LAYOUT_MOBILE_BASE" /}
+{block name="title"}投票项 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__MOBILE__/css/swiper.min.css">
+<link rel="stylesheet"  href="__MOBILE__/css/goods_list.css?v={$v}">
+<link rel="stylesheet"  href="__ROOT__/addons/vote/view/mobile/vote.css?v={$v}">
+{/block}
+{block name="header"}
+    <header class="ui-header ui-header-positive wst-header">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+		<div class="wst-in-search tit">投票项</div>
+    </header>
+{/block}
+{block name="main"}
+     <input type="hidden" name="" value="{$catId}" id="catId" autocomplete="off">
+     <input type="hidden" name="" value="" id="condition" autocomplete="off">
+	 <input type="hidden" name="" value="" id="desc" autocomplete="off">
+	 <input type="hidden" name="" value="" id="currPage" autocomplete="off">
+     <input type="hidden" name="" value="" id="totalPage" autocomplete="off">
+     <section class="ui-container">
+		<ul class="ui-tab-content">
+	        <li id="items-list"></li>
+	    </ul>
+     </section>
+<script id="list" type="text/html">
+{{# if(d && d.length>0){ }}
+{{# for(var i=0; i<d.length; i++){ }}
+<div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}">
+<div class="img j-imgAdapt"><a href="{{ d[i].itemUrl }}"><img src="__ROOT__/{:WSTConf('CONF.goodsLogo')}" data-echo="__ROOT__/{{ d[i].itemImage }}" title="{{ d[i].itemName }}"/></a></div>
+<div class="name ui-nowrap-multi">{{ d[i].itemName }}</div>
+<div class="tags ui-nowrap-multi" style="height:0.88rem;-webkit-line-clamp:4;color:#999999">
+{{ d[i].itemDesc }}
+</div>
+<div style="text-align:center">
+	<button class="ui-btn-s" style="margin-top:0.1rem;font-size:0.15rem;color: #df0202;width:1.5rem;height:0.35rem;border:1px solid #df0202;"
+		onclick="javascript:vote('{{ d[i].itemId }}','{{ d[i].itemName }}','{{ d[i].catId }}','{{ d[i].catName }}','{:session('WST_USER.loginName')}');">投一票</button>
+</div>
+</div>
+{{# } }}
+{{# }else{ }}
+<div class="wst-prompt-icon"><img src="__MOBILE__/img/nothing-goods.png"></div>
+<div class="wst-prompt-info">
+	<p>暂时还没有投票项。</p>
+</div>
+{{# } }}
+</script>
+{/block}
+{block name="footer"}
+    
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__MOBILE__/js/swiper.jquery.min.js'></script>
+<script type='text/javascript' src='__ROOT__/addons/vote/view/mobile/itemlist.js'></script>
+{/block}

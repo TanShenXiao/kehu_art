@@ -1,0 +1,60 @@
+page{
+  width: 100%;
+  height: 80%;
+  background: #F2F2F2;
+}
+.container{
+  width: 100%;
+  height: auto;
+}
+.remind{
+  width: 100%;
+  height: 400rpx;
+}
+.remind .content{
+  width: 100%;
+  height: 300rpx;
+  text-align: center;
+  line-height: 500rpx;
+}
+.button{
+  width: 60%;
+  height: 60rpx;
+  text-align: center;
+  margin: 0rpx auto;
+  margin-top: 30rpx;
+}
+button{
+  width: 100%;
+  height:100%;
+  line-height: 1.8;
+  border-radius: 10rpx;
+  background: red;
+  color: white;
+  font-size: 30rpx;
+}
+/*数据列表*/
+.dataList{
+  width: 95%;
+  height: 280rpx;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  border-radius: 10rpx;
+  display: flex;
+  background: white;
+  color: #59595C;
+  position: relative;
+}
+.dataList .bank-content{
+  height:100%;
+  padding-bottom:50px;
+}
+.wst-ca-info{color: #fff;font-size:16px;margin-bottom:10rpx;}
+.wst-ca-user{color: #fff;font-size:13px;}
+.wst-acc-no{color:#fff;font-weight:bold;font-size:20px;margin-right:20rpx;}
+.delete-btn{position: absolute;bottom:10px;right:10px;color:#fff;}
+.bank-img{width:80rpx;height:80rpx;margin:30rpx;}
+.bank-no-img{margin:30rpx;}
+.bank-img image{width:100%;height:100%;background: #fff;border-radius: 50%;border:4px solid #fff;}
+
+

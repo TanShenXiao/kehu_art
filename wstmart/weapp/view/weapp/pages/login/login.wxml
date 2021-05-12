@@ -1,0 +1,10 @@
+<view class='wst-login'>
+  <view class="wst-flex-column wst-center">
+    <view wx:if="{{user.avatarUrl}}"><image class="img" src="{{user.avatarUrl}}" mode='aspectFill'/></view>
+    <view class="name">{{user.nickName}}</view>
+    <view class="prompt">您尚未登录{{info}}账号</view>
+  </view>
+  <button type="primary" bindtap="primary" class="button" bindtap="register">注册新账号</button>
+  <button bindtap="setPlain" class="button" bindtap="login">登录</button>
+  <button bindtap="setPlain" class="button" bindtap="index">返回首页</button>
+</view>

@@ -1,0 +1,51 @@
+<view class='container'>
+  <!--无账户提醒-->
+  <view  class='remind-model' wx:if="{{!dataStatu}}">
+    <view class='image' ><image src='/image/nothing-account.png' class="img"></image></view>
+    <view class='content'>暂无相关信息</view> 
+    <view class='button' bindtap='addAccount'><button>点击添加</button></view>
+  </view>
+  <!--有数据时列表-->
+  <view  wx:if="{{dataStatu}}">
+     <block  wx:for="{{dataList}}">
+      <view class='dataList wst-flex-column wst-jsb'  style="background:url({{domain}}wstmart/weapp/view/weapp/image/cashdraw_bg.png);background-size:cover;">
+       <view class='wst-flex-row wst-jsb wst-ac bank-content' bindtap='jumpAccountInfo' data-id="{{item.id}}" data-areaName="{{item.areaName}}" data-bankName="{{item.bankName}}" data-accUser="{{item.accUser}}" data-accNo="{{item.accNo}}">
+          <view class="wst-flex-row wst-ac bank-info" >
+              <view class="{{item.bankImg?'bank-img':'bank-no-img'}}">
+                  <image src="{{domain}}{{item.bankImg}}" alt="" />
+              </view>
+              <view>
+                  <view class='wst-ca-info' style="font-size:16px;">{{item.bankName}}</view>
+                  <view class='wst-ca-user'>{{item.accUser}}</view>
+              </view>  
+          </view>
+          <view class="wst-acc-no">{{item.accNo}}</view>
+       </view>
+       <view class='delete-btn' data-id="{{item.id}}" bindtap='delInfo'>
+        <view>删除</view>
+       </view>
+      </view>
+
+     </block>
+    <view class='button' bindtap='addAccount'><button>点击添加</button></view>
+  </view>
+</view>
+<!--
+<view class='strip' style='color:red;font-weight:bold;font-size:30rpx;'>{{item.accNo}}</view>
+      <view class="wst-flex-column bank-content" >
+          <view class="wst-flex-row wst-jsb wst-ac bank-info">
+              <view class="wst-flex-row wst-ac " >
+                  <view class="">
+                      <image src="{{domain}}/{{item.bankImg}}" alt="" />
+                  </view>
+                  <view>
+                      <text class="wst-ca-info"> {{item.bankName}}</text>
+                      <text class="wst-ca-user"> {{item.accUser}}</text>
+                  </view>
+              </view>
+              <view class="wst-ca-accno">{{item.accNo}}</view>
+          </view>
+          <view class="wst-flex-row wst-jfe" data-id="{{item.id}}" bindtap='delInfo'>
+              <text class="c-tr">删除</text>
+          </view>
+      </view>-->

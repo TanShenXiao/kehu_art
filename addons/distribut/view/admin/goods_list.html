@@ -1,0 +1,64 @@
+{extend name="../../../wstmart/admin/view/base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/mmgrid/mmGrid.css?v={$v}" />
+{/block}
+{block name="js"}
+<script src="__STATIC__/plugins/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+{/block}
+{block name="main"}
+<div class="wst-toolbar">
+<input type="text" name="shopName"  placeholder='店铺名称/店铺编号' id="shopName" class='query'/>
+<input type="text" name="goodsName"  placeholder='商品名称/商品编号' id="goodsName" class='query'/>
+<button class="btn btn-primary" onclick='javascript:goodsQuery()'><i class='fa fa-search'></i>查询</button>
+<div style='clear:both'></div>
+</div>
+<div class='wst-grid'>
+ <div id="mmg" class="mmg"></div>
+ <div id="pg" style="text-align: right;"></div>
+</div>
+<script>
+$(function(){initGrid({$p});});
+  var mmg;
+  function initGrid(p){
+  	var h = WST.pageHeight();
+    var cols = [
+            {title:'&nbsp;', name:'goodsImg', width: 50,renderer:function(val,item,rowIndex){
+                var thumb = item['goodsImg'];
+	        	thumb = thumb.replace('.','_thumb.');
+            	return "<span class='weixin'><img id='img' onmouseout='toolTip()' onmouseover='toolTip()' style='height:50px;width:50px;' src='"+WST.conf.RESOURCE_PATH+"/"+thumb
+            	+"'><span class='imged' ><img  style='height:180px;width:180px;' src='"+WST.conf.RESOURCE_PATH+"/"+item['goodsImg']+"'></span></span>";
+            }},
+            {title:'商品名称', name:'goodsName' ,width:100,renderer:function(val,item,rowIndex){
+            	 return "<a style='color:blue;' href='"+WST.U('home/goods/detail',{"goodsId":item['goodsId']})+"' target='_blank'>"+item['goodsName']+"</a>";
+            }},
+            {title:'商品编号', name:'goodsSn' ,width:30},
+            {title:'价格', name:'shopPrice' ,width:30,renderer:function(val,item,rowIndex){return '￥'+val;}},
+            {title:'所属店铺', name:'shopName' ,width:30},
+            {title:'所属分类', name:'goodsCatName' ,width:30},
+            {title:'销量', name:'saleNum' ,width:30,align:'center'},
+            {title:'佣金', name:'commission' ,width:80, align:'center', renderer: function(val,item,rowIndex){
+                return (item['distributType']==1)?item['commission']:"按订单比例分成";
+            }}
+            ];
+ 
+    mmg = $('.mmg').mmGrid({height: h-100,indexCol: true, indexColWidth:50, cols: cols,method:'POST',
+
+        url: "{:addon_url('distribut://distribut/queryadmindistributgoods')}", fullWidthRows: true, autoLoad: false,
+        plugins: [
+            $('#pg').mmPaginator({})
+        ]
+    });
+      goodsQuery(p);
+  }
+  
+  function goodsQuery(p){
+		var query = WST.getParams('.query');
+		p=(p<=1)?1:p;
+		query.page=p;
+		mmg.load(query);
+  }
+  function toolTip(){
+    WST.toolTip();
+}
+</script>
+{/block}

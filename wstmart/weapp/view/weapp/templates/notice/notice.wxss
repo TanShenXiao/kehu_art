@@ -1,0 +1,16 @@
+/*公告组*/
+.notice-model{
+  width: 100%;
+  background: #fff;
+}
+.notice-img{margin:10rpx 20rpx;width:20px;height:20px;}
+.notice-model swiper{
+  height: 44rpx;
+  width: 80%;
+}
+.notice-model .text{
+  height: 44rpx;
+  line-height:44rpx;
+  overflow:hidden;
+  color: #000;
+}

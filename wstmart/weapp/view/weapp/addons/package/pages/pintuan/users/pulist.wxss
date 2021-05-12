@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+.ui-header ~ .ui-container{border-top:0;}
+.user-info {height: 246rpx;text-align: center;background-color: #e02e24;background-position: 0 0;background-size: 100% auto;background-repeat: no-repeat;}
+.user-info .user-img {width: 110rpx;height: 110rpx;border-radius: 50%;margin-top: 44rpx;border: 1px solid #ef7a73;box-sizing: content-box;}
+.user-info .user-name {color: #fff;font-size: 30rpx;margin-top: 10rpx;}
+.tuan-item{position: relative;margin-bottom:16rpx;background-color: #fff;max-height: 452rpx;}
+.tuan-item .time{font-size:26rpx;color: #9c9c9c;}
+.item-top-block{ position: relative;padding:10rpx 20rpx 0 20rpx;}
+.item-top-block .order-status {position: absolute;font-size: 34rpx;max-width: 318rpx;overflow-x: hidden;text-overflow: ellipsis;line-height:34rpx;top: 36rpx;right: 20rpx;}
+.item-top-block .blue {color: #08B1EF;}
+.item-top-block .red {color: #e02e24;}
+.item-top-block .green {color: green;}
+.item-goods {height: 156rpx; position: relative;padding: 14rpx 0 14rpx 20rpx;background-color: #f5f5f5;overflow: hidden;}
+.item-goods .goods-img {height: 154rpx;width: 154rpx;float: left;margin-right: 24rpx;}
+.item-goods .goods-name {position: relative;font-size: 26rpx;margin-right: 150rpx;max-height: 114rpx;overflow: hidden;}
+.item-goods .goods-name p {color: #151516;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;line-height: 38rpx;}
+.item-goods .price-and-num { position: absolute;right: 22rpx;top: 20rpx;z-index: 1;text-align: right;font-size: 0;}
+.item-goods .spec {margin-top: 10rpx;color: #9c9c9c;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 392rpx;font-size: 24rpx;}
+.item-goods .price-and-num .goods-price {font-size: 28rpx;color: #151516;margin-bottom: 12rpx;}
+.item-goods .price-and-num .goods-number {font-size: 24rpx;color: #9c9c9c;}
+.currency-block {text-align: right; padding:10rpx 20rpx;}
+.button-block{text-align: right;padding:10rpx 20rpx;}
+.button-block .cancel,.button-block .check {line-height: 60rpx;font-size: 26rpx;border: 1px solid #9c9c9c;border-radius: 6rpx;width: 168rpx;display: inline-block;}
+.button-block .go-pay, .button-block .go-friend{line-height: 60rpx;font-size: 26rpx;border: 1px solid #e02e24;border-radius: 6rpx;background-color: #e02e24;color:#fff;display: inline-block;margin-left: 10rpx;
+min-width: 160rpx
+}
+.ui-tab-nav .tab-item{font-size:28rpx;height:60rpx;line-height:60rpx;min-width:100rpx;padding:0 10rpx;text-align:center;
+    box-flex: 1;
+    -webkit-box-flex: 1;
+    box-sizing: border-box;
+    width: 100%;}
+.ui-tab-nav .tab-curr{height:fit-content;border-bottom:2px solid red}
+.ui-tab-nav {color:#fff;}
+.ui-tab-nav{height:auto;padding: 0 20rpx 0 20rpx;background-color: #000;color: #fff;    width: 100%;
+    display: box;
+    display: -webkit-box;
+    font-size: 32rpx;
+    box-sizing: border-box;
+}

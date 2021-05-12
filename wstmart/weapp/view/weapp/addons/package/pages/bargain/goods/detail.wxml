@@ -1,0 +1,172 @@
+<import src="../../../../../pages/common/parse/parse.wxml" />
+
+<!--基本版面-->
+<scroll-view scroll-y="true" bindscroll="onRoll" style="height:100%;">
+  <!--轮播图-->
+  <view class='slider-model'>
+    <swiper indicator-dots='true' autoplay='{{goods.goodsVideo!=null?false:true}}' circular='true' interval='5000' indicator-active-color='#ff6666' indicator-color='rgba(0,0,0,.2)'>
+      <swiper-item wx:if="{{goods.goodsVideo!=null && goods.goodsVideo!=''}}">
+        <video src="{{domain}}{{goods.goodsVideo}}" autoplay="{{true}}"></video>
+      </swiper-item>
+      <block wx:for="{{goods.gallery}}" wx:for-item="gallery">
+        <swiper-item data-src="{{domain}}{{gallery}}" bindtap="viewImg">
+          <image src="{{domain}}{{gallery}}" mode='aspectFill'></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!--倒计时-->
+  <view class="count-down wst-flex-row wst-center" >
+    <view class="wst-flex-row wst-center" wx:if="{{goods.status!=-1}}">
+      <view>砍价活动{{goods.status==1?'剩余':'还有'}}</view>
+      <label class="lab_timer wst-flex-row wst-ac">
+        <span class="count-down-title">{{day}}</span>
+        <em>天</em>
+        <span class="count-down-title">{{hour}}</span>
+        <em>小时</em>
+        <span class="count-down-title">{{mini}}</span>
+        <em>分</em>
+        <span class="count-down-title">{{sec}}</span>
+        <em>秒</em>
+      </label>
+      <view>{{goods.status==0?'开始':''}}</view>
+    </view>
+    <label class="lab_timer" wx:if="{{goods.status==-1}}">
+      <span>砍价活动已结束</span>
+    </label>
+  </view>
+  <!--商品信息-->
+  <view class="goods-info">
+    <view class='goods-name'>{{goods.goodsName}}</view>
+    <view class="wst-flex-row wst-jsb wst-ac">
+      <view class="wst-flex-row">
+        <view class="goods-stock">库存数：{{goods.goodsStock}}{{goods.goodsUnit}}</view>
+        <view class="order-num">成交数：{{goods.orderNum}}</view>
+      </view>
+      <view class="join-num">{{goods.joinNum}}人参与</view>
+    </view>
+    <view class="price wst-flex-row wst-jc wst-ac">
+      <view style="margin-right:40rpx;">原价：<text class="start-price">￥{{goods.startPrice}}</text>
+      </view>
+      <view>低价：<text class="floor-price">￥{{goods.floorPrice}}</text>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{user.userType==1}}" class="wst-flex-row wst-jsb bargain-detail">
+      <view>
+        <view class="wst-flex-row wst-center bargin-info-item">￥{{user.bargain.currPrice?user.bargain.currPrice:user.bargain.startPrice}}</view>
+        <view>当前价格</view>
+      </view>
+      <view class="wst-flex-column wst-ac">
+        <view class="bargin-user-photo" ><image src="{{user.userPhoto}}"></image></view>
+        <view>{{user.userName?user.userName:user.loginName}}</view>
+      </view>
+      <view>
+        <view class="wst-flex-row wst-center bargin-info-item">{{user.bargain.helpNum?user.bargain.helpNum:0}}</view>
+        <view>支持人数</view>
+      </view>
+  </view>
+  <view class="bargain-info" wx:if="{{user.bargainType==1 && user.userType==0}}">
+    <view>亲爱的<text class="user-name">{{user.userName?user.userName:user.loginName}}</text>：</view>
+    <view>已经有<text class="help-num">{{user.bargain.helpNum}}</text>位亲友帮你砍价了，你当前的价格为<text class="curr-price">{{user.bargain.currPrice}}</text>元，{{user.bargain.orderId==0?(goods.floorPrice>=user.bargain.currPrice?'恭喜你已砍价达到最低价，请及时下单！':'继续加油吧！'):'你已经下单，不能再砍了！'}}</view>
+  </view>
+
+  <view class="bargain-rule" wx:if="{{article!=''}}">
+    <view>活动规则：</view>
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+  </view>
+  <view class="goods-page wst-flex-row">
+    <view class="page-item {{currPage==1?'page-active':''}}" bindtap="pageSwitch" data-id="1">商品介绍</view>
+    <view wx:if="{{goods.attrs.length>0}}" class="page-item {{currPage==2?'page-active':''}}" bindtap="pageSwitch" data-id="2">商品参数</view>
+    <view wx:if="{{goods.isSpec!=0}}" class="page-item {{currPage==3?'page-active':''}}" bindtap="pageSwitch" data-id="3">商品规格</view>
+    <view class="page-item {{currPage==4?'page-active':''}}" bindtap="pageSwitch" data-id="4">亲友团出刀</view>
+  </view>
+  <view wx:if="{{currPage==1}}" class="wst-goods-desc">
+    <template is="wxParse" data="{{wxParseData:goodsDesc.nodes}}" />
+  </view>
+  <view wx:if="{{currPage==2}}">
+    <view class="goods-attrs">
+      <block wx:for="{{goods.attrs}}" wx:for-item="item">
+        <view class="goods-attrs-item">
+          {{item.attrName}}:{{item.attrVal}}
+        </view>
+      </block>
+    </view>
+  </view>
+  <view wx:if="{{currPage==3}}">
+    <view wx:if="{{goods['isSpec']==1}}" class="weui-panel_access goods-spec">
+      <view class="weui-panel__bd">
+        <block wx:for="{{goods['spec']}}" wx:for-item="sp" wx:key="k">
+          <block wx:for="{{sp['list']}}" wx:for-item="sp2" wx:key="k2">
+            <view wx:if="{{sp2['itemImg']!=''}}" class="wst-flex-row sku-item">
+              <view class="sku-kind">{{sp['name']}}:</view>
+              <view class="sku-choose">
+                <image class="sku-img active" src="{{domain}}{{sp2.itemImg}}"></image>
+              </view>
+            </view>
+            <view wx:if="{{sp2['itemImg']==''}}" class="wst-flex-row sku-item">
+              <view class="sku-kind">{{sp['name']}}:</view>
+              <view class="sku-choose">
+                <span class="j-option item active" data-val="{{sp2['itemId']}}">{{sp2['itemName']}}</span>
+              </view>
+            </view>
+          </block>
+        </block>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{currPage==4}}">
+    <scroll-view class="helps-list">
+      <view wx:for="{{helpsList}}" wx:for-item="item">
+          <view class="wst-flex-row wst-jsb wst-ac helps-list-item">
+            <view class="wst-flex-row wst-ac">
+              <image class="helps-list-user-photo" src="{{item.userPhoto}}"></image>
+              <view>
+                <view class="helps-list-user-name">{{item.userName}}</view>
+                <view>{{item.createTime}}</view>
+              </view>
+            </view>
+            <view>帮砍：<text class="helps-list-minus-money">{{item.minusMoney}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="wst-flex-row wst-center more-help-list" bindtap="moreHelpList">{{helpMoreText}}</view>
+    </scroll-view>
+  </view>
+  <!--底部按钮-->
+  <view class="bottom">
+    <view wx:if="{{user.userType==0}}">
+      <view class="btn wst-flex-row wst-center {{disableBtnClass}}" bindtap="{{disableBtnClass==''?'firstKnife':''}}" wx:if="{{user.bargainType==0}}">
+        参与第一刀
+      </view>
+      <view class="btn2 wst-flex-row wst-center" wx:if="{{user.bargainType!=0}}">
+        <button data-name="shareBtn" open-type="{{disableBtnClass==''?'share':''}}" wx:if="{{user.bargain.orderId==0}}" class="btn-item {{disableBtnClass}}" >
+          <text>找亲友帮忙砍刀</text>
+        </button>
+        <view wx:if="{{user.bargain.orderId!=0}}" class="btn-item {{user.bargain.orderId!=0?'btn-item-disable':''}}">
+          <text>找亲友帮忙砍刀</text>
+        </view>
+        <view wx:if="{{user.bargain.orderId==0}}" class="btn-item {{disableBtnClass}}" bindtap="{{disableBtnClass==''?'addCart':''}}">立即下单</view>
+        <view wx:if="{{user.bargain.orderId!=0}}" class="btn-item {{user.bargain.orderId!=0?'btn-item-disable':''}}">已下单</view>
+      </view>
+    </view>
+    <view wx:if="{{user.userType==1}}">
+      <view class="btn2 wst-flex-row wst-center">
+        <button  class="btn-item {{disableBtnClass}}" bindtap="{{disableBtnClass==''?'forAdd':''}}">
+          <text>帮砍一刀</text>
+        </button>
+        <view class="btn-item {{disableBtnClass}}" bindtap="{{disableBtnClass==''?'toPartake':''}}">
+          <text>我也参与</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<!--成功砍价-->
+<view class="wst-bargain-success" wx:if="{{price!=0}}">
+  <view class="bargain-success-content">
+    <image src="../images/gold.png"></image>
+    <view class="bargain-success-text">{{bargainSuccessText}}{{price}}元</view>
+  </view>
+</view>

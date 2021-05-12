@@ -1,0 +1,269 @@
+{extend name="default/base" /}
+{block name="title"}首页 - {if $pageId > 0}{$customPageTitle}{else}{__block__}{/if}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__STATIC__/plugins/swiper/swiper.min.css"/>
+<link rel="stylesheet"  href="__MOBILE__/css/index.css?v={$v}"/>
+{/block}
+{block name="header"}
+	{if $pageId == 0}
+    <div class="wst-in-search">
+    	<div class="searchs" id="j-searchs">
+		    <form action＝"" class="input-form">
+		    <input type="text" placeholder="按关键字搜索艺术品/艺廊/艺术家" onsearch="WST.search(0)">
+		    <i class="ui-icon-searcha" onclick="javascript:toSearch(0);"></i>
+		</form>
+			<div class="wst-clear"></div>
+		</div>
+	</div>
+	{/if}
+{/block}
+{block name="main"}
+{if $pageId == 0}
+<section class="ui-container">
+		<ul class="zp_big_category" style="background: #eeeeee;">
+			<li style="width: 20%;"><a href="{:url('mobile/shops/shopstreet')}">艺术家</a></li>
+			<li style="width: 20%;"><a href="{:url('mobile/goods/lists')}">艺术服务</a></li>
+			<li style="width: 20%;"><a href="{:url('mobile/goods/lists')}">税收服务</a></li>
+			<li style="width: 20%;"><a href="{:url('mobile/shops/artCollect')}">作品征集</a></li>
+			<li style="width: 20%;"><a href="{:url('mobile/goods/lists')}">官网</a></li>
+		</ul>
+        <div class="swiper-container banner">
+			<div class="swiper-wrapper ads">
+				{wst:ads code="mo-ads-index" cache='86400'}
+				<div class="swiper-slide"><a class='ms-slide' href="{$vo.adURL}"><img src="__ROOT__/{:WSTImg($vo.adFile,2)}"></a></div>
+				{/wst:ads}
+		    </div>
+		    <div class="swiper-pagination" style="background:none;"></div>
+		</div>
+
+		<ul class="zp_big_category">
+			{volist name=":WSTSideCategorys()" id="vo" key="k"}
+			<li><a href="{:url('mobile/goods/lists','cat='.$vo['catId'])}">{:WSTMSubstr($vo['catName'],0,2)}</a></li>
+			{/volist}
+		</ul>
+		<div class="sector_pack">
+			<h2 class="sector_h2">精选作品</h2>
+			<div class="sector_desc">
+				<p>Selected works</p>
+				<!-- <a href="/category-365.html">查看更多>></a> -->
+			</div>
+			<div class="zp_litter">
+				<ul>
+					<?php
+						$goodsInfo = WSTGoodsCatsList(['365','366','367','368','369','370'],[],'saleNum desc',4);
+						foreach ($goodsInfo as $k => $goodInfo) {
+					?>
+					<li>
+						<a href="{:url('mobile/goods/detail','goodsId='.$goodInfo['goodsId'])}">
+							<img src="__ROOT__/{$goodInfo['goodsImg']}" alt="">
+							<div class="zp_mod">
+								<p class="zp_name">{$goodInfo['goodsName']}</p>
+								<p class="zp_prize">价格 ￥<span>{$goodInfo['shopPrice']}</span></p>
+								<span class="zp_author">作者{$goodInfo['goodsAuthor']}</span>&nbsp;
+								<span class="zp_size">尺寸{$goodInfo['goodsTips']}</span>
+							</div>
+						</a>
+					</li>
+					<?php } ?>
+				</ul>
+			</div>
+		</div>
+		<div class="sector_pack">
+			<h2 class="sector_h2">优惠专区</h2>
+			<div class="sector_desc">
+				<p>Preferential zone</p>
+				<!-- <a href="/category-365.html">查看更多>></a> -->
+			</div>
+			<div class="sector_content_yh">
+				<div class="yh_big">
+					<img class="yh_big_img" src="/upload/goods/2019-04/yh.JPG" alt="">
+					<div class="yh_big_tost">
+						<h2 class="yh_big_title">优惠专区</h2>
+						<p class="yh_big_desc">PREFERENTIAL ZONE</p>
+						<button>立即进入</button>
+					</div>
+				</div>
+				<div class="yh_litter">
+					<ul>
+						<?php
+							$goodsInfo = WSTGoodsCatsList(['365','366','367','368','369','370'], [['isBest','=',1]], 'saleNum desc', '4');
+							foreach ($goodsInfo as $k => $goodInfo) {
+						?>
+						<li>
+							<img src="__ROOT__/{$goodInfo['goodsImg']}" alt="">
+							<div class="yh_content">
+								<p class="author">作者{$goodInfo['goodsAuthor']}</p>
+								<p class="name">{$goodInfo['goodsName']}</p>
+								<p class="cur_prize">价格 ￥<span>{$goodInfo['shopPrice']}</span></p>
+								<p class="old_prize"><s>原价 ￥{$goodInfo['marketPrice']}</s></p>
+								<a class="button"href="{:url('home/goods/detail','goodsId='.$goodInfo['goodsId'])}">立即进入</a>
+							</div>
+						</li>
+						<?php } ?>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="artist">
+			<div class="sector_artist">
+				<h2 class="sector_h2">艺术家</h2>
+				<div class="sector_desc">
+					<p>artist</p>
+					<!-- <a href="/street.html">查看更多>></a> -->
+				</div>
+				<div class="artist_content">
+					<?php
+						$shopList = WSTShopList('1');
+						foreach ($shopList as $k => $shopIfo) {
+					?>
+					<div class="artist_big_cont">
+						<div class="artist_big">
+							<a href="{:url('mobile/shops/index',['shopId'=>$shopIfo['shopId']])}">
+								<img src="__ROOT__/{$shopIfo['shopImg']}" alt="">
+								<p>{$shopIfo['shopName']}</p>
+							</a>
+						<?php } ?>
+						</div>
+						<ul class="artist_big_right">
+							<?php
+								$shopList = WSTShopList('1,4');
+								foreach ($shopList as $k => $shopIfo) {
+							?>
+							<li>
+								<a href="{:url('mobile/shops/index',['shopId'=>$shopIfo['shopId']])}">
+									<img src="__ROOT__/{$shopIfo['shopImg']}" alt="">
+								</a>
+							</li>
+							<?php } ?>
+						</ul>
+					</div>
+					<ul class="artist_big_bottom">
+						<?php
+							$shopList = WSTShopList('5,8');
+							foreach ($shopList as $k => $shopIfo) {
+						?>
+						<li>
+							<a href="{:url('mobile/shops/index',['shopId'=>$shopIfo['shopId']])}">
+								<img src="__ROOT__/{$shopIfo['shopImg']}" alt="">
+							</a>
+						</li>
+						<?php } ?>
+					</ul>
+				</div>
+			</div>
+		</div>
+		{/* 品牌活动 */}
+<div class="brand_pack">
+	<h2 class="sector_h2">品牌活动</h2>
+	<div class="sector_desc">
+		<p>Brand activities</p>
+		<!-- <a href="">查看更多>></a> -->
+	</div>
+	<div class="brand_content">
+		<ul>
+			<li>
+				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<p>艺术家张海峰国画专场</p>
+			</li>
+			<li>
+				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<p>艺术家张海峰国画专场</p>
+			</li>
+			<li>
+				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<p>艺术家张海峰国画专场</p>
+			</li>
+			<li>
+				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<p>艺术家张海峰国画专场</p>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="wst-clear"></div>
+{/* 艺术服务 */}
+<div class="service_pack">
+	<h2 class="sector_h2">艺术服务</h2>
+	<div class="sector_desc">
+		<p>Art services</p>
+		<!-- <a href="">查看更多>></a> -->
+	</div>
+	<div class="services_content">
+		<ul>
+			<li>
+				<img src="/upload/goods/2021-04/ysfw.jpg" alt="">
+				<div class="mark">
+					<p>艺术服务</p>
+					<a href="/news/catId/402">查看详情</a>
+				</div>
+			</li>
+			<li>
+				<img src="/upload/goods/2021-04/ysfw2.jpg" alt="">
+				<div class="mark">
+					<p>税收服务</p>
+					<a href="/news/catId/403">查看详情</a>
+				</div>
+			</li>
+			<li>
+				<img src="/upload/goods/2021-04/ysfw3.jpg" alt="">
+				<div class="mark">
+					<p>作品征集</p>
+					<a href="/news/catId/404">查看详情</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="contact">
+	<div class="contact_top">
+		<img src="/upload/goods/2021-04/dhtb.png" alt="">
+		<span>咨询热线：{:WSTConf('CONF.serviceTel')}</span>
+	</div>
+	<p>
+		{:WSTConf('CONF.mallFooter')}
+	</p>
+</div>
+		<div class="bottom_clear"></div>
+</section>
+<script id="list" type="text/html">
+	{{# if(d.ads && d.ads.length>0){ }}
+		<div class="wst-in-adscats"><a href="{{ d.ads[0].adURL }}"><img src="__RESOURCE_PATH__/{{ d.ads[0].adFile }}"/></a></div>
+	{{# } }}
+	{{# if(d.goods.length>0){ }}
+		<div class="wst-in-title colour0" onclick="javascript:getGoodsList({{ d.catId }});">
+			<div class="name">
+				<p style="float:left"><span>{{ d.catName }}</span></p>
+				<p style="width:30%;float:right;margin-right:5%;text-align:right">
+					<span style="color:#d30322;font-size:0.15rem">更多>></span>
+				</p>
+			</div>
+		</div>
+		<div class="wst-in-back">
+		{{# for(var i=0; i<d.goods.length; i++){ }}
+			<div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}">
+				<div class="img j-imgAdapt"><a href="javascript:void(0);" onclick="javascript:WST.intoGoods({{ d.goods[i].goodsId }});"><img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{{ d.goods[i].goodsImg }}" title="{{ d.goods[i].goodsName }}"/></a></div>
+				<div class="name ui-nowrap-multi" style="text-align:center" onclick="javascript:WST.intoGoods({{ d.goods[i].goodsId }});">{{ d.goods[i].goodsName }}</div>
+				<div style="background-color:#eeeeee;height:0.44rem">
+					<!--<div class="info2" style="text-align:center;width:100%;background-color:#eeeeee">{{# if(d.goods[i].goodsAuthor!=null){ }}{{ d.goods[i].goodsAuthor }} {{# } }}</div>-->
+					<div class="info2">{{# if(d.goods[i].goodsAuthor!=null){ }}{{ d.goods[i].goodsAuthor }} {{# } }}</div>
+					<div class="info3">{{ d.goods[i].thumbsNum }}</div>
+				</div>
+			</div>
+		{{# } }}
+		</div>
+	{{# } }}
+<div class="wst-clear"></div>
+</script>
+{else}
+<div class="decoration-container">
+	{:action('index/loadCustomPage',array('pageId'=>$pageId))}
+</div>
+{/if}
+{/block}
+{block name="include"}
+{include file="default/goods_search_box" /}
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__STATIC__/plugins/swiper/swiper.min.js'></script>
+<script type='text/javascript' src='__MOBILE__/js/index.js?v={$v}'></script>
+{/block}

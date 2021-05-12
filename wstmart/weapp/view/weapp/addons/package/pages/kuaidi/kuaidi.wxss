@@ -1,0 +1,22 @@
+.container{background:#eee}
+.express{width:100%;padding:5px;background:#fff}
+.express .img{float:left}
+.express .img .o-Img{width:100rpx;height:100rpx}
+.express .txt{float:left;padding-left:5px;font-size:32rpx;padding-top:7px;}
+.list{padding:5px;font-size:18px;}
+.time-context{position: relative;margin-top: 1em;margin-bottom: 2em;}
+.time-context::before{content: '';position: absolute;top: 0;left: 18px;height: 100%;width: 4px;background: #d7e4ed;}
+.time-context .item{position: relative;margin-top:5px;border-radius:10px 10px 10px 10px;padding:5px;}
+.time-context .item .dotted{position: absolute;top: 2px;left: 10px;width: 20px;height: 20px;border-radius: 50%;box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);}
+.time-context .item .dotted icon{position: absolute;left: 0px;top: 0px;font-size:24px;line-height:25px;}
+.time-context .item .context{position: relative;margin-left: 50px;background: white;border-radius: 0.25em;padding: 1em;box-shadow: 0 2px 0 #e0e4e3;font-size:32rpx;}
+.time-context .item .context::after {content: "";display: table;clear: both;}
+.time-context .item .context::before{content: '';position: absolute;top: 4px;right: 100%;height: 0;width: 0;border: 7px solid transparent;border-right: 7px solid white;}
+.time-context .item .context .time{color:#d2d2d2;margin-top:5px;}
+
+.tab{float: left; width: 33.3333%;text-align: center;padding: 10rpx 0; }
+.topTabSwiper{border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; zoom: 1;display: flex;flex-direction: row;flex-wrap: wrap;}
+.topTabSwiper:after{content: ""; clear: both;display: block;}
+.tabBorer{border-bottom: 1px solid #f00; color: #f00;}
+.swiper{width: 100%;}
+.swiper_con{text-align: center; width: 100%; height: 100%; padding: 80rpx 0;}

@@ -1,0 +1,82 @@
+{extend name="$LAYOUT_WECHAT_BASE" /}
+{block name="title"}报名简介 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__ROOT__/addons/signup/view/wechat/signup.css?v={$v}">
+{/block}
+{block name="header"}
+    <header class="ui-header ui-header-positive wst-header">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+		<div class="wst-in-search tit">报名简介</div>
+		<span class="share" onclick="javascript:WST.share();"></span>
+    </header>
+{/block}
+{block name="footer"}
+    
+    <div class="ui-loading-wrap wst-Load" id="Load">
+	    <i class="ui-loading"></i>
+	</div>
+	<input type="hidden" name="" value="" id="goodsId" autocomplete="off">
+	<input type="hidden" name="" value="" id="goodsType" autocomplete="off">
+    <footer class="ui-footer wst-footer-btns" style="height:42px;" id="footer">
+        <div class="wst-toTop" id="toTop">
+	  	<i class="wst-toTopimg"></i>
+		</div>
+		<div class="ui-row-flex">
+	    <div class="ui-col ui-col-4 wst-goods_buy">
+			{if($cat['status']==0)}
+				<button class="wst-goods_buyl" type="button" style="background-color:#999999">未开始</button>
+			{elseif($cat['status']==-1)}
+				<button class="wst-goods_buyl" type="button" style="background-color:#999999">已结束</button>
+			{else}
+				<button class="wst-goods_buyl" type="button" onclick="javascript:toSubmit({$cat['catId']});" >去报名</button>
+			{/if}
+			<button class="wst-goods_buyr" type="button" onclick="javascript:history.go(-1);" >返回</button>
+	    </div>
+	    </div>
+    </footer>
+{/block}
+{block name="main"}
+    <section class="ui-container" id="goods2">
+    	<div class="wst-go-details">{$cat['catDesc']}</div>
+    </section>
+{/block}
+{block name="include"}
+{include file="$LAYOUT_WECHAT_DIALOG" /}<!-- 对话框模板 -->
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__WECHAT__/js/jquery.min.js'></script>
+<script type='text/javascript' src='__ROOT__/addons/signup/view/wechat/catdesc.js'></script>
+{if(!empty($datawx))}
+<script src="{:request()->scheme()}://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+wx.config({
+    debug: false,
+    appId: '<?php echo WSTConf('CONF.wxAppId'); ?>', //公众号的唯一标识
+    timestamp: '<?php echo $datawx['timestamp'];?>', //生成签名的时间戳
+    nonceStr: '<?php echo $datawx['noncestr'];?>', //生成签名的随机串
+    signature: '<?php echo $datawx['signature'];?>',//签名
+    jsApiList: [ //需要使用的JS接口
+       	'onMenuShareTimeline',
+		'onMenuShareAppMessage',
+		'onMenuShareQQ',
+		'onMenuShareWeibo',
+		'onMenuShareQZone'
+    ]
+});
+
+wx.ready(function(){
+	var shareData = {
+			title: "{$cat['catName']}",
+			desc: "{$cat['catName']}",
+			link: "{:url('addon/signup-signup-mdesc',array('catId'=>$cat['catId']),true,true)}",
+			imgUrl: "{:WSTDomain()}/{:WSTConf('CONF.mallLogo')}"
+	};
+	wx.onMenuShareAppMessage(shareData);
+	wx.onMenuShareTimeline(shareData);
+	wx.onMenuShareQQ(shareData);
+	wx.onMenuShareWeibo(shareData);
+	wx.onMenuShareQZone(shareData);
+});
+</script>
+{/if}
+{/block}

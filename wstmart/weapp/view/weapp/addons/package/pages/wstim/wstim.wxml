@@ -1,0 +1,217 @@
+<view class="container">
+  <view class="nav-bar" style="padding-top:{{navBarPaddingTop}}px;height:{{titleBarHeight}}px;">
+    <view class="nav-container" >
+        <view class="nav-back" bindtap="goBack">
+            <image src="{{domain}}wstmart/weapp/view/weapp/image/go-back.png"></image>
+        </view>
+        <view class="nav-shop-info">
+            <image class="nav-img {{offline?'offline':''}}" src="{{shopLogo}}"></image>
+            <text class="nav-text">{{shopName}}</text>
+            <!-- <view class="nav-button" bindtap="goShop" data-shopId="{{shopId}}">进店</view> -->
+        </view>
+        <view style="width:50rpx;height:50rpx;"></view>
+    </view>
+  </view>
+  <scroll-view scroll-y="true" class="chat-list" id="chat-list" scroll-top="{{scrollTop}}" bindscroll="scrollChange" style="padding-top:{{statusBarHeight+titleBarHeight}}px">
+    <block wx:for="{{chatList}}" wx:for-item="item">
+      <view class="chat-item" wx:if="{{item.groupName != undefined && item.groupName!=''}}">
+        <view class="chat-time">客服 {{item.groupName}} 接待了您</view>
+      </view>
+      <view class="chat-item " wx:if="{{item.noGroup}}">
+        <view class="no-group">
+          <view class="chat-time" style="color:#777">{{item.noGroupText}}</view>
+        </view>
+      </view>
+      <view class="chat-item" wx:if="{{item.from && item.from==userId}}">
+        <view class="chat-time">{{item.time}}</view>
+        <view class="chat-area1">
+          <view>
+            <view class="chat-content1" bindtap="jumpDetail" wx:if="{{item.type!='image'}}" data-gid="{{item.goodsId}}" data-oid="{{item.orderId}}">{{item.content}}</view>
+            <view class="chat-content1" data-src="{{item.content}}" bindtap="imViewImg" wx:if="{{item.type=='image'}}">
+              <image data-src="{{item.content}}" class="sendImage" src="{{item.content}}"></image>
+            </view>
+            <view class="r-arrow"></view>
+          </view>
+          <view class="chat-img">
+            <image src="{{userData.userPhoto}}"></image>
+          </view>
+        </view>
+      </view>
+      <view class="chat-item" wx:if="{{item.from && item.from!=userId}}">
+        <view class="chat-time">{{item.time}}</view>
+        <view class="chat-area2">
+          <view class="chat-img">
+            <image src="{{shopLogo}}" mode='aspectFill'></image>
+          </view>
+          <view>
+            <view class="l-arrow"></view>
+            <view class="chat-content2" bindtap="jumpDetail" wx:if="{{item.type!='image'}}" data-gid="{{item.goodsId}}" data-oid="{{item.orderId}}">{{item.content}}</view>
+            <view data-src="{{item.content}}" 
+                  bindtap="imViewImg"  class="chat-content2" wx:if="{{item.type=='image'}}">
+              <image data-src="{{item.content}}" class="sendImage" src="{{item.content}}"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="chat-item" wx:if="{{item.goodsInfo}}">
+        <view class="chat-content3">
+          <view class="good-item" bindtap="jumpDetail" data-gid="{{item.goodsId}}">
+            <view class="item-left">
+              <image class="good-img" src="{{item.goodsImg}}"></image>
+            </view>
+            <view class="item-right">
+              <text class="good-title">{{item.goodsName}}</text>
+              <text class="good-price">￥{{item.shopPrice}}</text>
+            </view>
+          </view>
+          <view class="send-link" bindtap="sendGoodsName" data-goodsId="{{item.goodsId}}" data-goodsName="{{item.goodsName}}" data-delFlag="{{true}}">
+            <text class="send-link-text">发送链接 ></text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+  <view id="flag"></view>
+  <view class="tool-bar">
+    <view class="input">
+      <input placeholder='请输入您要咨询的问题' value="{{message}}" bindinput="bindChange"></input>
+      <view class="send-msg" bindtap="send">
+        <text class="btn-link"></text>
+      </view>
+    </view>
+    <view class="tool-nav">
+      <view bindtap="chooseImg">
+        <image class="tool-nav-img" src="{{domain}}wstmart/weapp/view/weapp/image/chat_photo.png"></image>
+      </view>
+      <view bindtap="openScreenTier" data-action="open" data-type="orders">
+        <image class="tool-nav-img" src="{{domain}}wstmart/weapp/view/weapp/image/chat_order.png"></image>
+      </view>
+      <view bindtap="openScreenTier" data-action="open" data-type="goods">
+        <image class="tool-nav-img" src="{{domain}}wstmart/weapp/view/weapp/image/chat_history.png"></image>
+      </view>
+      <view bindtap="openScreenTier" data-action="open" data-type="eval">
+        <view class="eval-star eval-tool-img" />
+      </view>
+      <view bindtap="goShop" data-shopId="{{shopId}}">
+        <image class="tool-nav-img" src="{{domain}}wstmart/weapp/view/weapp/image/go_shop.png"></image>
+      </view>
+    </view>
+    <!--自定义底部导航栏-->
+    <!-- <import src="../../../../templates/tabBar/tabBar.wxml" />
+    <template is="tabBar" data="{{tabBar}}" /> -->
+  </view>
+
+</view>
+
+<view class="drawer_screen" bindtap="openScreenTier" data-action="close" data-type="goods" wx:if="{{showRecentStatus}}"></view>
+<!--咨询商品层-->
+<view class="screen-tier" id="recent-tier" wx:if="{{recentTier}}" animation="{{parameterData}}">
+  <view class="recent-title">
+    <text>请选择您要咨询的商品</text>
+    <view bindtap="openScreenTier" data-action="close" data-type="goods" class="pop-close">
+      <image src="{{domain}}wstshop/weapp/view/weapp/image/pop_close.png"></image>
+    </view>
+  </view>
+  <scroll-view scroll-y="true" class="data-list">
+    <view wx:if="{{goodsList.length>0}}">
+      <block wx:for="{{goodsList}}" wx:for-item="item">
+        <view class="good-item" bindtap="sendGoodsName" data-goodsId="{{item.goodsId}}" data-goodsName="{{item.goodsName}}">
+          <view class="item-left">
+            <image class="good-img" src="{{item.goodsImg}}"></image>
+          </view>
+          <view class="item-right">
+            <text class="good-title">{{item.goodsName}}</text>
+            <text class="good-price">￥{{item.shopPrice}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="no-data-list" wx:if="{{goodsList.length==0}}">
+      <text>暂无相关数据</text>
+    </view>
+  </scroll-view>
+</view>
+
+<view class="drawer_screen" bindtap="openScreenTier" data-action="close" data-type="orders" wx:if="{{showOrderStatus}}"></view>
+<!--咨询订单层-->
+<view class="screen-tier" id="order-tier" wx:if="{{orderTier}}" animation="{{parameterData}}">
+  <view class="recent-title">
+    <text>请选择您要咨询的订单</text>
+    <view bindtap="openScreenTier" data-action="close" data-type="orders" class="pop-close">
+      <image src="{{domain}}wstshop/weapp/view/weapp/image/pop_close.png"></image>
+    </view>
+  </view>
+  <scroll-view scroll-y="true" class="data-list"  bindscrolltolower="orderScrollToLower">
+    <view wx:if="{{ordersList.length>0}}">
+      <block wx:for="{{ordersList}}" wx:for-item="item">
+        <view class="order-item" bindtap="sendOrderNo" data-orderNo="{{item.orderNo}}" data-orderId="{{item.orderId}}">
+          <view class="item-top">
+            <text class="order-no">订单号：<text style='color:#232326;'>{{item.orderNo}}</text></text>
+            <text class="order-time">{{item.createTime}}</text>
+          </view>
+          <view class="item-bottom" wx:if="{{item.list.length==1}}">
+            <view class="item-left">
+              <image class="good-img" src="{{item.list[0].goodsImg}}"></image>
+            </view>
+            <view class="item-right">
+              <text class="order-title">{{item.list[0].goodsName}}</text>
+              <view class="order-info">
+                <text class="order-price">￥{{item.goodsMoney}}</text>
+                <view class="order-status-view">
+                  <text class="order-status">{{item.orderStatus}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="item-bottom" wx:if="{{item.list.length>1}}">
+            <view class="item-order-img">
+              <block wx:for="{{item.list}}" wx:for-item="item">
+                <image class="order-img" src="{{item.goodsImg}}"></image>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="no-data-list" wx:if="{{ordersList.length==0}}">
+      <text>暂无相关数据</text>
+    </view>
+  </scroll-view>
+</view>
+
+<view class="drawer_screen" bindtap="openScreenTier" data-action="close" data-type="eval" wx:if="{{showEvalStatus}}"></view>
+<!--评分-->
+<view class="screen-tier" style="top:20%" id="eval-tier" wx:if="{{evalTier}}" animation="{{parameterData}}">
+  <view class="eval-tit">
+    <text>请对本次服务进行评价</text>
+    <view bindtap="openScreenTier" data-action="close" data-type="eval" class="pop-close">
+      <image src="{{domain}}wstshop/weapp/view/weapp/image/pop_close.png"></image>
+    </view>
+  </view>
+  <view class="evaluate-box">
+    <view class="star-box">
+        <view wx:for="{{[1,2,3,4,5]}}" wx:for-item="v">
+          <view bind:tap="tapStar" data-i="{{v}}" class="eval-star chked" wx:if="{{v<=score}}"  ></view>
+          <view bind:tap="tapStar" data-i="{{v}}" class="eval-star" wx:else  ></view>
+        </view>
+        <view class="clear"></view>
+    </view>
+    <view class="star-text-box">
+        <text id="star-text">{{_star_text[score]}}</text>
+    </view>
+    <view class="eval-btm">
+        <view  bind:tap="submitEval">提交</view>
+    </view>
+  </view>
+</view>
+
+
+
+
+<!--排队遮罩层-->
+<view class="queue-tier" id="queue-tier" wx:if="{{queueTier}}" animation="{{parameterData}}">
+  <view class="queue-text">当前店铺客服接待人数过多，您目前处于排队状态...</view>
+  <view class="queue-btn" bindtap="noQueue">不排队了，我要留言</view>
+</view>

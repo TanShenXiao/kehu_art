@@ -1,0 +1,89 @@
+{extend name="$LAYOUT_WECHAT_BASE" /}
+{block name="title"}开始报名 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__ROOT__/addons/signup/view/wechat/signup.css?v={$v}">
+<link rel="stylesheet"  href="__WECHAT__/css/address.css?v={$v}">
+{/block}
+{block name="header"}
+    <header class="ui-header ui-header-positive wst-header">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+		<div class="wst-in-search tit">开始报名</div>
+		<div class="wst-in-icon" id="j-icon">
+			<span class="cats" style="left:initial;right:2px;" onclick="javascript:dataShow();"></span>
+		</div>
+    </header>
+{/block}
+{block name="footer"}
+    
+    <div class="ui-loading-wrap wst-Load" id="Load">
+	    <i class="ui-loading"></i>
+	</div>
+	<input type="hidden" name="" value="" id="goodsId" autocomplete="off">
+	<input type="hidden" name="" value="" id="goodsType" autocomplete="off">
+    <footer class="ui-footer wst-footer-btns" style="height:42px;" id="footer">
+        <div class="wst-toTop" id="toTop">
+	  	<i class="wst-toTopimg"></i>
+		</div>
+		<div class="ui-row-flex">
+	    <div class="ui-col ui-col-4 wst-goods_buy">
+			{if($isLogin)}
+				{if($userSignupInfo['isSigned'])}
+					{if(($cat['needPay']!=0) && ($userSignupInfo['isPaid']==0))}
+						<button class="wst-goods_buyl" type="button" onclick="toPay({$cat['catId']})">去缴费</button>
+					{else}
+						<button class="wst-goods_buyl" type="button" onclick="toEnd({$cat['catId']})">更多信息</button>
+					{/if}
+				{else}
+					{if($cat['needPay']!=0)}
+						<button class="wst-goods_buyl" type="button" onclick="toSubmit({$cat['catId']},1)">去缴费</button>
+					{else}
+						<button class="wst-goods_buyl" type="button" onclick="toSubmit({$cat['catId']},0)">提交</button>
+					{/if}
+				{/if}
+			{else}
+			 <button class="wst-goods_buyl" type="button" onclick="WST.inLogin();">去登录</button>
+			{/if}
+			<button class="wst-goods_buyr" type="button" onclick="javascript:history.go(-1);" >返回</button>
+	    </div>
+	    </div>
+    </footer>
+{/block}
+{block name="include"}
+{include file="$LAYOUT_WECHAT_DIALOG" /}<!-- 对话框模板 -->
+{/block}
+{block name="main"}
+     {if($cat['needPay']!=0)}
+		<!-- <div style='height:1rem;margin-top:41px'>
+			  本项报名需要缴纳费用，金额￥{$cat['signupFee']}元。
+		</div> -->
+	{/if}
+     <div id="modal-large" class="iziModal">
+				  <input type='hidden' id='catId' class='a-ipt' value='{$cat['catId']}'/>
+				  <input type='hidden' id='catName' class='a-ipt' value='{$cat['catName']}'/>
+				  <input type='hidden' id='listId' class='a-ipt' value="{if(isset($userSignupInfo['listId']))}{$userSignupInfo['listId']}{else}0{/if}"/>
+				  <input type='hidden' id='signupFee' class='a-ipt' value='{$cat['signupFee']}'/>
+				  
+	   	<div class="wst-ad-form" style="margin-top:40px">
+			{volist name="$extras" id="vo"}
+	        <div class="ui-form-itemin">
+	        	<label class="word" style="text-align:right;height:44px;width:38%;overflow:hidden">{$vo['extraName']}{if($vo['isRequired'])}<font color='red'>*</font>{/if}：</label>
+				<input class="ui-border-binte e-ipt" style="width:60%" id="{$vo["extraId"]}" type="text" placeholder="请填写{$vo['extraName']}"
+				value="{if(isset($userExtrasVal[$vo['extraId']]['extraVal']))}{$userExtrasVal[$vo['extraId']]['extraVal']}{/if}">
+	        </div>
+	        <div class="wst-ad-line"><p></p></div>
+			{/volist}
+	    </div>
+     </div> 
+<script>
+$(function(){
+	if({$userSignupInfo['isSigned']} || ({$isLogin}==0)){
+		$('.e-ipt').attr('disabled',true);
+	}else{
+		$('.e-ipt').removeAttr('disabled');
+	};
+});
+</script>
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__ROOT__/addons/signup/view/wechat/submit.js'></script>
+{/block}

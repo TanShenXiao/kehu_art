@@ -1,0 +1,38 @@
+<template name="shop">
+    <view class='shop-model'>
+      <view class='shop-title'>—— <span class='shop-title-text'>{{title}}</span> ——</view>
+      <view class='current-location'>
+        <image class='location-icon' src='/image/location.png' />
+        <view class='location-text'>当前：{{location}}</view>
+      </view>
+      <block wx:for="{{shops}}">
+        <view class='shop-item' bindtap='jumpShopDetail' data-shopid="{{item.shopId}}">
+          <view class='shop-left'>
+              <image src="{{resourceDomain}}{{item.shopImg}}" />
+          </view>
+          <view class='shop-right'>
+              <view>
+                <view class='shop-name'>WSTMart自营超市</view>
+                <view class='shop-desc'>主营：{{item.catshops}}</view>
+                <view class='shop-score'>
+                    <text>店铺评分：</text>
+                    <block wx:for="{{item.totalScore}}">
+                      <view class='image'><image src="/image/img_pentagon.png" mode='aspectFit'></image></view>
+                    </block>
+                    <block wx:for="{{5-item.totalScore}}">
+                      <view class='image'><image src='/image/img_pentagon1.png' mode='aspectFit'></image></view>
+                    </block >
+                </view>
+              </view>
+              <view class='wst-flex-row wst-jsb wst-ac'>
+                <view class='shop-address-content wst-flex-row wst-ac'>
+                  <image class='location-icon' src='/image/location.png' />
+                  <view class='shop-address'>{{item.shopAddress}}</view>
+                </view>
+                <view class='distince'>{{item.distince}}km</view>
+              </view>
+          </view>
+        </view>
+      </block>
+    </view>
+</template>

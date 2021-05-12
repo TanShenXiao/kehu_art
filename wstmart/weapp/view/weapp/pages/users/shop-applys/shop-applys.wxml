@@ -1,0 +1,35 @@
+<scroll-view scroll-y="{{allStatus}}" style='height:100%;' wx:if="{{isLoad}}">
+  <view  class='remind-model' wx:if="{{isApply==true}}">
+    <view class='image' ><image src='/image/nothing-apply.png' class="img"></image></view>
+    <view class='content'>您的申请已提交，我们将会尽快联系您</view>
+  </view>
+  <view class='container' wx:if="{{isApply==false}}">
+    <view class='wst-bor-all'>
+      <view class='apply-item'>
+        <view class='title'>联系方式</view>
+        <view style='width:80%;margin-left:10rpx;'>
+          <input placeholder='请填写联系方式' type="text" bindinput='changeLinkPhone' value="{{linkPhone}}"/>
+        </view>
+      </view>
+      <view class='apply-item'>
+        <view class='title'>联系人</view>
+        <view style='width:80%;margin-left:10rpx;'>
+          <input placeholder='请填写联系人' type="text" bindinput='changeLinkman'/>
+        </view>
+      </view>
+      <view class='apply-content'>
+        <view class='wst-bor'>
+          <view class='strip'>
+            <view class='title'>营业范围</view>
+          </view>
+          <view class='content'>
+            <textarea bindinput="changeApplyIntention" placeholder='请填写营业范围'></textarea>
+          </view>
+        </view>
+      </view>
+      <view class="submit">
+        <button type="default" class="button"  bindtap="submit">提交</button>
+      </view>
+    </view>
+  </view>
+</scroll-view>

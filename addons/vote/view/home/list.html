@@ -1,0 +1,195 @@
+{extend name="$LAYOUT_HOME_BASE" /}
+{block name="title"}在线投票 - {:WSTConf('CONF.mallName')}{__block__}{/block}
+{block name="meta"}
+<meta name="description" content="{:WSTConf('CONF.seoMallDesc')},线上报名">
+<meta name="Keywords" content="{:WSTConf('CONF.seoMallKeywords')}">
+{/block}
+{block name="css"}
+<link href="__STYLE__/css/common.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/user.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/security.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/goodslist.css?v={$v}" rel="stylesheet">
+<link href="__ROOT__/addons/vote/view/home/list.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="top"}
+	{include file="$LAYOUT_HOME_TOP" /}
+{/block}
+{block name="header"}
+	{include file="$LAYOUT_HOME_HEADER" /}
+{/block}
+{block name="main"}
+<div class="wst-container">
+<div class="wst-route">
+	<a href="{:url('home/index/index')}" ><img style="float:left;margin-right:10px"/>首页</a> > 
+	<a href="{:url('addon/vote-vote-lists')}">在线投票</a>
+</div>
+<div class="wst-wrap">
+          <div class='wst-nav'></div>
+          <div class='wst-main' style='width:1000px'>
+            <div class='wst-menu' style='min-height:600px'>
+				{$catName = "";$catDesc = "";$index = 0;$curIndex = 0;$itemName="";$catStatus=0;$catImage='';}
+              	<span class='wst-menu-title'>进行中<img src="__STYLE__/img/user_icon_sider_zhankai.png"></span>
+				{volist name="$cats" id="vo"}
+				{if($vo['status']==1)}
+              	<ul>
+                  	<li class="{if($vo['catId']==$curCatId)}
+									{$catName=$vo['catName'];$catDesc=$vo['catDesc'];$curIndex=$index;$catStatus=$vo['status'];$catImage=$vo['catImage'];}
+									wst-menua{/if} wst-menuas"
+									style="height:auto;line-height:18px;margin:15px 0;padding:0 5px"
+									onclick="toCat('{$vo['catId']}')">
+					<img style='height:32px;width:32px;float:left' src='/{$vo['catImage']}'>
+					<div style='float:left;width:140px;margin-left:5px'>{$vo['catName']}	</div>
+                  	</li>
+					<div {$index++}></div>
+              	</ul>
+				<div style='clear:both;'></div>
+				{/if}
+				{/volist}
+              	<span class='wst-menu-title'>未开始<img src="__STYLE__/img/user_icon_sider_zhankai.png"></span>
+				{volist name="$cats" id="vo"}
+				{if($vo['status']==0)}
+              	<ul>
+                  	<li class="{if($vo['catId']==$curCatId)}
+									{$catName=$vo['catName'];$catDesc=$vo['catDesc'];$curIndex=$index;$catStatus=$vo['status'];$catImage=$vo['catImage'];}
+									wst-menua{/if} wst-menuas"
+									style="height:auto;line-height:18px;margin:15px 0;padding:0 5px"
+									onclick="toCat('{$vo['catId']}')">
+					<img style='height:32px;width:32px;float:left' src='/{$vo['catImage']}'>
+					<div style='float:left;width:140px;margin-left:5px'>{$vo['catName']}	</div>
+                  	</li>
+					<div {$index++}></div>
+              	</ul>
+				<div style='clear:both;'></div>
+				{/if}
+				{/volist}
+              	<span class='wst-menu-title'>已结束<img src="__STYLE__/img/user_icon_sider_zhankai.png"></span>
+				{volist name="$cats" id="vo"}
+				{if($vo['status']==-1)}
+              	<ul>
+                  	<li class="{if($vo['catId']==$curCatId)}
+									{$catName=$vo['catName'];$catDesc=$vo['catDesc'];$curIndex=$index;$catStatus=$vo['status'];$catImage=$vo['catImage'];}
+									wst-menua{/if} wst-menuas"
+									style="height:auto;line-height:18px;margin:15px 0;padding:0 5px"
+									onclick="toCat('{$vo['catId']}')">
+					<img style='height:32px;width:32px;float:left' src='/{$vo['catImage']}'>
+					<div style='float:left;width:140px;margin-left:5px'>{$vo['catName']}	</div>
+                  	</li>
+					<div {$index++}></div>
+              	</ul>
+				<div style='clear:both;'></div>
+				{/if}
+				{/volist}
+            </div>
+            <div class='wst-content' style='width:590px;min-height:600px;float:left;margin-left:10px'>
+			  <div class="wst-user-head"><span id='tabname'>项目介绍</span></div>
+					<div class="wst-tab-content" style='width:580px;margin-bottom: 10px;border:0px;'>
+					  <div id='editform' autocomplete='off'>
+						<div id='catdesctab' class="wst-tab-item" style="width:590px;position: relative;">
+						{include file='home/catdesc'/}
+						</div>
+						<div id='votetab' class="wst-tab-item" style="width:590px;position: relative;display:none">
+						{include file='home/votesubmit'/}
+						</div>
+					 </div>
+					</div>
+            </div>
+	<div class="wst-menu" style="width:188px;background-color:#fff;float:right;min-height:600px;">
+		<span class='wst-menu-title' style="width:auto">投票数排行</span>
+		<div style="width:160px;margin-left:8px">
+		  {volist name="$voteRanking" id="vr"}
+			<div style="width:100%;height:55px;border-bottom:1px dotted">
+				<div class="wst-shopstr-shopl"  style="width:40px;height:40px;margin-top:7px;float:left">
+					<a target='_blank' href="{$vr['itemUrl']}" style="width:80px;height:80px">
+						<img class="shopsImg" data-original="__ROOT__/{$vr['itemImage']}" title="{$vr['itemName']}" alt="{$vr['itemName']}" style="max-width:100%;max-height:100%;top:0;bottom:0;left:0;right:0;margin:auto"/>
+					</a>
+				</div>
+				<div class="wst-shopstr-shopi" style="float:left;height:50px">
+					<div class="wst-shopstr-pr" style="margin-top:0">
+						<span style="margin-left:3px;"><a class="company" target='_blank' href="{$vr['itemUrl']}">{$vr['itemName']}</a></span>
+					</div>
+					<div class="wst-shopstr-pr" style="margin-top:5px">
+						<span style="margin-left:3px;">投票数：{$vr['itemCount']}</span>
+					</div>
+				</div>
+			</div>
+          <div style='clear:both;'></div>
+		  {/volist}
+		</div>
+		<span class='wst-menu-title' style="width:auto;margin-top:10px">今日得票排行</span>
+		<div style="width:160px;margin-left:8px">
+		  {volist name="$voteRankingToday" id="vr"}
+			<div style="width:100%;height:55px;border-bottom:1px dotted">
+				<div class="wst-shopstr-shopl"  style="width:40px;height:40px;margin-top:7px;float:left">
+					<a target='_blank' href="{$vr['itemUrl']}" style="width:80px;height:80px">
+						<img class="shopsImg" data-original="__ROOT__/{$vr['itemImage']}" title="{$vr['itemName']}" alt="{$vr['itemName']}" style="max-width:100%;max-height:100%;top:0;bottom:0;left:0;right:0;margin:auto"/>
+					</a>
+				</div>
+				<div class="wst-shopstr-shopi" style="float:left;height:50px">
+					<div class="wst-shopstr-pr" style="margin-top:0">
+						<span style="margin-left:3px;"><a class="company" target='_blank' href="{$vr['itemUrl']}">{$vr['itemName']}</a></span>
+					</div>
+					<div class="wst-shopstr-pr" style="margin-top:5px">
+						<span style="margin-left:3px;">投票数：{$vr['itemCount']}</span>
+					</div>
+				</div>
+			</div>
+          <div style='clear:both;'></div>
+		  {/volist}
+		</div>
+		
+		<span class='wst-menu-title' style="width:auto;margin-top:10px">活跃用户排行</span>
+		<div style="width:160px;margin-left:8px">
+		  {volist name="$userRanking" id="vr"}
+			<div style="width:100%;height:55px;border-bottom:1px dotted">
+				<div class="wst-shopstr-shopl"  style="width:40px;height:40px;margin-top:7px;float:left">
+					<a target='_blank' style="width:80px;height:80px">
+						<img class="shopsImg" data-original="__ROOT__/{$vr['userPhoto']}" title="{$vr['loginName']}" alt="{$vr['loginName']}" style="max-width:100%;max-height:100%;top:0;bottom:0;left:0;right:0;margin:auto"/>
+					</a>
+				</div>
+				<div class="wst-shopstr-shopi" style="float:left;height:50px">
+					<div class="wst-shopstr-pr" style="margin-top:0">
+						<span style="margin-left:3px;"><a class="company" target='_blank'>{$vr['loginName']}</a></span>
+					</div>
+					<div class="wst-shopstr-pr" style="margin-top:5px">
+						<span style="margin-left:3px;">投票次数：{$vr['itemCount']}</span>
+					</div>
+				</div>
+			</div>
+          <div style='clear:both;'></div>
+		  {/volist}
+		</div>
+	</div>
+          </div>
+          <div style='clear:both;'></div>
+          <br/>
+</div>
+</div>
+{include file="$LAYOUT_HOME_RIGHT_CART"/}
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__STYLE__/js/brandslist.js?v={$v}'></script>
+<script>
+function toCat(catId){
+    location.href=WST.U('addon/vote-vote-lists','catId='+catId);
+}
+function vote(itemId,itemName,catId,catName,userName){
+	var params = {itemId:itemId,itemName:itemName,catId:catId,catName:catName,userName:userName};
+	var loading = WST.msg('正在提交数据，请稍候...', {icon: 16,time:60000});
+	$.post(WST.AU('vote://lists/addlist'),params,function(data,textStatus){
+		  layer.close(loading);
+		  var json = WST.toJson(data);
+		  if(json.status=='1'){
+				WST.msg("投票成功",{icon:1});
+		  }else if(json.status=='-2'){
+				WST.msg(json.msg,{icon:2});
+				WST.loginWindow();
+		  }else{
+				WST.msg(json.msg,{icon:2});
+		  }
+	});
+}
+</script>
+{/block}
+{block name="footer"}
+	{include file="$LAYOUT_HOME_FOOTER" /}
+{/block}

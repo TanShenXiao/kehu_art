@@ -1,0 +1,10 @@
+/*视频组*/
+.video-model{
+  width: 100%;
+}
+
+.video-model video{
+  width:100%;
+  height: 374rpx;
+  display: block !important;
+}

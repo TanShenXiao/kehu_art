@@ -1,0 +1,73 @@
+page{background:#f5f5f5}
+.wst-flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.wst-flex-item {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+.wst-container{border-top:0}
+
+.wst-sha-u{height:30px;line-height:30px;font-size:30rpx;text-align:right;padding-right:20rpx}
+.wst-sha-user{padding-right:10rpx;background:#fff;border-bottom:1rpx solid #edebeb}
+.wst-sha-user image{margin:16rpx 0 16rpx 30rpx;width:120rpx;height:120rpx;border-radius:1000px}
+.wst-sha-user .name{margin-top:30rpx;font-size:28rpx;font-weight:700}
+.wst-sha-user .name2{font-size: 22rpx;color: #999;}
+.wst-sha-user .dmoney{font-size: 30rpx;color:#fb4e44;}
+.wst-sha-user .time{color:#858585;margin-top:32rpx;font-size:26rpx;text-align:right}
+.wst-sha-head{height:92rpx;position:fixed;top:0;width:100vw;z-index: 100;}
+.wst-sha-head .choose{text-align:center;font-size:30rpx;height:72rpx;line-height:72rpx;background:#fff;}
+.wst-sha-head .active{color:#fb4e44;border-bottom:2px #fb4e44 solid}
+
+.wst-sha-com{position:relative;font-size:28rpx;padding:30rpx 10rpx;background:#fff;border-bottom:1rpx solid #edebeb}
+.wst-sha-com p{color:#858585}
+.wst-sha-com .info{color:#2f2f2f;font-size:30rpx;min-height: 60rpx;}
+.wst-sha-com .time{margin-top:10rpx;position:absolute;bottom:16rpx;width:35vh;right:10rpx;text-align:right}
+.wst-sha-com .money{text-align:right;color:#fc523f}
+.wst-sha-com .money span{font-size:30rpx;font-weight:700}
+
+.wst-us-user .pname{font-size: 26rpx;color: #9c9b9b;}
+.user-share{
+    padding: 10rpx 20rpx;
+    background:#ffffff;
+    text-align: center;
+}
+.user-share .money{
+    font-size: 30rpx;
+    color: #fb4e44;
+}
+.user-share .money span{
+    font-size: 50rpx;
+}
+.user-share .get{
+    font-size: 30rpx;
+}
+.ui-tab-content{background-color: #fff;}
+.ui-row-flex {
+    display: -webkit-box;
+}
+
+.ui-row-flex .ui-col {
+    float: none;
+    -webkit-box-flex: 1;
+    width: 0;
+}
+.ui-row-flex .ui-col-2 {
+    -webkit-box-flex: 2;
+}
+.ui-row-flex .ui-col-3 {
+    -webkit-box-flex: 3;
+}
+.ui-container{border-top:0;
+margin-top:10px;
+padding:0 30rpx;
+background:#fff;
+min-height:calc(100vh - 78px);
+}
+.wst-sha-user image{margin:16rpx 0 16rpx 0}
+.tmoney{text-align: right;background:#f5f5f5;margin-top: 46px;padding: 0 30rpx }
+.status{text-align: right;font-size: 26rpx;}
+.success{color:#1bbc6a;}

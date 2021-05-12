@@ -1,0 +1,82 @@
+{extend name="$LAYOUT_WECHAT_BASE" /}
+{block name="title"}在线投票 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__ROOT__/addons/vote/view/wechat/vote.css?v={$v}">
+{/block}
+{block name="header"}
+    <header class="ui-header ui-header-positive wst-header" id="goods-header">
+	    <i class="ui-icon-return" onclick="history.back()"></i>
+	    <ul class="ui-tab-nav">
+	        <li class="switch active" onclick="javascript:pageSwitch(this,1);">进行中</li>
+	        <li class="switch" onclick="javascript:pageSwitch(this,0);">未开始</li>
+	        <li class="switch" id="appr" onclick="javascript:pageSwitch(this,-1);">已结束</li>
+    	</ul>
+    </header>
+{/block}
+{block name="footer"}
+    
+{/block}
+{block name="main"}
+     <input type="hidden" name="" value="" id="currPage" autocomplete="off">
+    <input type="hidden" name="" value="" id="totalPage" autocomplete="off">
+    <input type="hidden" name="" value="{$curCatId}" id="catId" autocomplete="off">
+
+    <script id="shopList" type="text/html">
+    {{# for(var i = 0; i < d.length; i++){ }}
+      <div class="coupon_item" onClick="toDesc({{d[i].catId}})">
+            <div class="coupon_item_left">
+                <div class="coupon_left">
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <div class="coupon_left_main">
+                    <img class="v_img" src="/{{d[i].catImage}}">
+                </div>
+                <div class="wst-clear"></div>
+            </div>
+            <div class="coupon_item_right">
+                <div class="coupon_item_right_inner">
+                    <div class="c_item_r_left">
+                        <p class="c_item_txt1 ui-nowrap ui-whitespace">{{d[i].catName}}</p>
+                        <p class="c_item_txt2 ui-nowrap ui-whitespace">
+							&nbsp;
+                        </p>
+                        <p class="c_item_txt4 ui-nowrap ui-whitespace">起：{{d[i].startDate}}</p>
+                        <p class="c_item_txt4 ui-nowrap ui-whitespace">止：{{d[i].endDate}}</p>
+                    </div>
+                    <div class="wst-clear"></div>
+                </div>
+            </div>
+            <div class="wst-clear"></div>
+        </div>
+    {{#  } }}
+    </script>
+
+    <section class="ui-container" id="shopBox">
+
+        <div id="order-box">
+        </div>
+
+    </section>
+{/block}
+{block name="include"}
+{/* 遮盖层  */}
+<div class="wst-cover" id="cover"></div>
+{/* 分类层  */}
+<div class="wst-fr-box" id="frame">
+    <div class="title"><span>投票项目</span><i class="ui-icon-close-page" onclick="javascript:dataHide();"></i><div class="wst-clear"></div></div>
+    <div class="content">
+        <ul class="ui-row">
+            {volist name="cats" id="vo"}
+                <li class="ui-col ui-col-48 cat_item" id="{$vo['catId']}">{$vo['catName']}</li>
+            {/volist}
+        </ul>
+        <div class="wst-clear"></div>
+    </div>
+</div>
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__WECHAT__/js/jquery.min.js'></script>
+<script type='text/javascript' src='__ROOT__/addons/vote/view/wechat/list.js'></script>
+<script>
+</script>
+{/block}

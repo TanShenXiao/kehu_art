@@ -1,0 +1,68 @@
+<view>
+  <view class="wst-head active"></view>
+  <view class="wst-head-input active-input">
+    <view class="input">
+      <icon class="icon" type="search" size="13" color="{{select == 0 ? '#fff' : '#666'}}" bindtap="onSearch" />
+      <input placeholder='按关键字搜索商品' placeholder-class='wst-head-placeholder' bindconfirm="onSearch" bindinput="nameInput" ></input>
+    </view>
+  </view>
+  <view class='container index' > 
+    <!--排序条-->
+ <view class='sortStrip'>
+  <block wx:for="{{sortArray}}" wx:key="k">
+   <view class="main-case {{item.selected?'main-case1':''}}" bindtap='sortSelect' data-id="{{item.id}}">
+    <view class='border'>
+     <view class='left'>{{item.title}}</view>
+     <block wx:if="{{item.selected}}">
+      <view class='right'><image src="{{desc == 0?item.img1:item.img2}}" mode='aspectFill'></image></view>
+     </block>
+     <block wx:else>
+      <view class='right'><image src="{{item.img}}" mode='aspectFill'></image></view>
+     </block>
+    </view>
+   </view>
+  </block>
+ </view>
+    <!--分类商品独立显示-->
+    <scroll-view>
+      <view class='assify-model'>
+        <!--商品列表-->
+        <block wx:for='{{goods}}' wx:key='k' wx:for-item="go" wx:for-index="key2">
+          
+            <view class='assify-commodity'>
+            <navigator open-type='navigate' url='/pages/goods-detail/goods-detail?goodsId={{go.goodsId}}'>
+              <view class='ginfo'>
+                <view class='image'>
+                  <image src='{{resourceDomain+go.goodsImg}}' mode='aspectFill' lazy-load='true'></image>
+                </view>
+                <view class='content gtext'>{{go.goodsName}}</view>
+                
+                <view class='price gtext'>¥
+                  <text>{{go.shopPrice}}</text>
+                </view>
+                <view class='info gtext'>
+                  <text class="praise">{{go.praiseRate}}</text>
+                  <text class="deal">成交数: {{go.saleNum}}</text>
+                </view>
+                <view class="wst-clear"></view>
+              </view>
+              </navigator>
+            </view>
+          
+        </block>
+      </view>
+    </scroll-view>
+    <button class="wst-load" loading="true" disabled="true" wx:if="{{load==0}}">加载中</button>
+    <button class="wst-load" disabled="true" wx:if="{{load==1}}">加载完啦</button>
+
+    <view class="wst-prompt-icon" wx:if="{{totalCnt==0}}">
+      <image src="/image/nothing-goods.png"></image>
+      <view class="tipText">对不起，没有相关分销商品。</view>
+    </view>
+
+  </view>
+</view>
+
+<!--自定义底部导航栏-->
+<import src="/templates/tabBar/tabBar.wxml" />
+<template is="tabBar" data="{{tabBar}}" />

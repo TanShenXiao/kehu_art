@@ -1,0 +1,105 @@
+<view class="container">
+    <view wx:for="{{goods}}" wx:for-item="gItem" wx:for-index="gIndex">
+        <view wx:if="{{ gItem.goodsNum>0 }}" class="goods-item">
+            <view class="gi-chkbox">
+                <icon wx:if="{{!!gItem.isCheck}}" type='success' color='#de0301' bindtap='goodsCheck' size='20' data-id="{{gItem.id}}" data-index="{{gIndex}}"  data-types="1"></icon>
+                <icon wx:else type='circle' bindtap='goodsCheck' size='20' data-id="{{gItem.id}}" data-index="{{gIndex}}" data-types="0"></icon>
+            </view>
+            <view class="goods-img">
+                <image mode="aspectFit" src="{{resourceDomain}}{{gItem.goodsImg}}" />
+            </view>
+            <view class="gi-r">
+                <view class="gi-r-t">
+                    <view class="gi-name">{{ gItem.goodsName }}</view>
+                    <view class="gi-num">x {{ gItem.goodsNum }}</view>
+                </view>
+                <view class="gi-r-c">{{ gItem.goodsSpecNames }}</view>
+                <view class="gi-r-b">
+                    <view class='subtract' bindtap='changeNum' data-type="sub" data-val="1" data-index="{{gIndex}}">-</view>
+                    <input class='number {{(gItem.currNum>gItem.goodsNum)?"back":""}}' 
+                           bindinput="inputNum" 
+                           data-index="{{gIndex}}"
+                           value="{{gItem.currNum}}" />
+                    <view class='add' bindtap='changeNum' data-type="add" data-val="{{gItem.goodsNum}}" data-index="{{gIndex}}">+</view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="item"  bindtap="showDrawer" data-type="goodsServiceType">
+        <view class="item-tit">售后类型</view>
+        <view class="item-content"> {{ optJson['goodsServiceType'].currText }} ></view>
+    </view>
+    <view class="item" bindtap="showDrawer" data-type="serviceType">
+        <view class="item-tit" >申请原因</view>
+        <view class="item-content"> {{ optJson['serviceType'].currText }} ></view>
+    </view>
+    <view class="item" wx:if="{{ optJson['goodsServiceType'].value!=2 }}">
+        <view class="item-tit">可退款金额</view>
+        <view class="item-content"> {{ canRefundMoney }} </view>
+    </view>
+    <view class="item" wx:if="{{ optJson['goodsServiceType'].value!=2 }}">
+        <view class="item-tit">退款金额</view>
+        <view class="item-content"> 
+             <input class="item-input" bindinput="refundMoneyChange" placeholder="请输入退款金额"/>
+        </view>
+    </view>
+    <view class="item">
+        <textarea class="remark" placeholder="请输入问题描述" bindinput="remarkChange" ></textarea>
+    </view>
+
+
+    <view class="imgs">
+        <view wx:for="{{imgList}}" wx:for-item="img" class="img">
+            <image mode="aspectFit" src="{{img}}"></image>
+            <i class="delete" data-index="{{index}}" bindtap="deleteImg"></i>
+        </view>
+    </view>
+    <view class="upload">
+        <button class="button" type="warn" size="mini" bindtap="upload">上传附件(最多5张)</button>
+    </view>
+
+
+    <view class="commint-btn" bindtap="commit">
+        提交
+    </view>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- drawer -->
+    <view class="drawer" wx:if="{{openDrawer}}">
+        <view class="dr-titbox">
+            <view class="dr-tit">{{optJson[currOpt]['title']}}</view>
+            <!-- <view bindtap="closeDrawer" class="dr-tit-cancel">关闭</view> -->
+        </view>
+        <view class="dr-content" 
+              wx:for="{{optJson[currOpt]['options']}}" 
+              wx:for-item="optItem" 
+              wx:for-index="optIndex">
+            <view class="dr-item" bindtap='optClick' data-value="{{optItem.value}}" data-text="{{optItem.text}}" data-index="{{optIndex}}">
+                <view class="dr-item-txt">
+                    {{optItem.text}}
+                </view>
+                <view class="dr-item-chk">
+                    <icon wx:if="{{optItem.isCheck}}" type='success' color='#de0301' size='20'></icon>
+                    <icon wx:else type='circle' size='20'></icon>
+                </view>
+            </view>
+        </view>
+        <view bindtap="doneChose" class="dr-btn-box">
+            确定
+        </view>
+    </view>
+
+    
+
+</view>

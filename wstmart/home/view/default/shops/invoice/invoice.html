@@ -1,0 +1,54 @@
+{extend name="default/shops/base" /}
+{block name="title"}开具发票 - 卖家中心{__block__}{/block}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css?v={$v}" />
+{/block}
+{block name="content"}
+<div class="wst-body"> 
+	<div class="wst-shop-head"><span>开具发票</span></div>
+    <table class="table table-hover table-striped table-bordered wst-form">
+         <tr>
+           <td colspan='2' style='color:#707070;padding-left:25px;padding-top:5px;'>
+           <div class='wst-tips-box' style='margin-top:10px;'>
+               <div class='icon'></div>
+               <div class='tips' ><a href='http://www.baidu.com' style='color:blue;' target='_blank'>去往税务页面</a>。<br/>
+               </div>
+               <div style="clear:both"></div>
+           </div>
+           </td>
+         </tr>
+         <tr>
+           <th align='right' width='90'>使用说明：</th>
+           <td>
+            <div  style='margin-left:0px;'></div>		 
+           </td>
+         </tr>
+      </table>
+</div>
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__STATIC__/plugins/webuploader/webuploader.js?v={$v}'></script>
+<script>
+   var uploading = null;
+   $(function(){
+	   var uploader = WST.upload({
+    	  server:"{:url('home/imports/importGoods')}",pick:'#filePicker',
+    	  formData: {dir:'temp'},
+    	  callback:function(f,file){
+    		  layer.close(uploading);
+    		  uploader.removeFile(file);
+    		  var json = WST.toJson(f);
+    		  if(json.status==1){
+    			  uploader.refresh();
+    		      WST.msg('导入数据成功!已导入数据'+json.importNum+"条", {icon: 1});
+    		  }else{
+    			  WST.msg('导入数据失败,出错原因：'+json.msg, {icon: 5});
+    		  }
+	      },
+	      progress:function(rate){
+	    	  uploading = WST.msg('正在导入数据，请稍后...');
+	      }
+      });
+   });
+</script>
+{/block}

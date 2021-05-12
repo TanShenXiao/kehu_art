@@ -1,0 +1,43 @@
+{extend name="$LAYOUT_MOBILE_BASE" /}
+{block name="title"}报名成功 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__ROOT__/addons/signup/view/mobile/signup.css?v={$v}">
+{/block}
+{block name="header"}
+    <header class="ui-header ui-header-positive wst-header">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+    </header>
+    <div class="wst-in-search tit">
+        报名成功
+    </div>
+    <div class="wst-in-icon" id="j-icon">
+        <span class="cats" style="left:initial;right:2px;" onclick="javascript:dataShow();"></span>
+    </div>
+{/block}
+{block name="footer"}
+    
+    <div class="ui-loading-wrap wst-Load" id="Load">
+	    <i class="ui-loading"></i>
+	</div>
+	<input type="hidden" name="" value="" id="goodsId" autocomplete="off">
+	<input type="hidden" name="" value="" id="goodsType" autocomplete="off">
+    <footer class="ui-footer wst-footer-btns" style="height:42px;" id="footer">
+        <div class="wst-toTop" id="toTop">
+	  	<i class="wst-toTopimg"></i>
+		</div>
+		<div class="ui-row-flex">
+	    <div class="ui-col ui-col-4 wst-goods_buy">
+			<button class="wst-goods_buyr" type="button" onclick="javascript:history.go(-1);" >返回</button>
+	    </div>
+	    </div>
+    </footer>
+{/block}
+{block name="main"}
+     
+    <section class="ui-container" id="goods2">
+    	<div class="wst-go-details">{$cat['afterSignup']}</div>
+    </section>
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__MOBILE__/js/jquery.min.js'></script>
+{/block}

@@ -1,0 +1,109 @@
+<template name="marketing">
+  <view class='marketing-model' style="padding:{{verticalPadding}}px 0;">
+    <view class='marketing-title'>
+      <view class='wst-flex-row wst-ac'>
+        <view class='marketing-title-text'>{{title}}</view>
+        <view class='sec-title' wx:if="{{type=='Seckill'}}">{{secTitle}}点场</view>
+        <view class='sec-time' wx:if="{{type=='Seckill'}}">
+          <label class="lab_timer">
+            <span>{{hour}}</span><em>:</em>
+            <span>{{mini}}</span><em>:</em>
+            <span>{{sec}}</span> 
+          </label>
+        </view>
+      </view>
+      <view bindtap="getMarketingMore" data-type="{{type}}" wx:if="{{type=='Seckill'}}">更多</view>
+    </view>    
+    <scroll-view>
+      <view class='assify-model' wx:if="{{type=='Pintuan'}}">
+        <!--拼团商品列表-->
+        <block wx:for='{{goods}}' wx:for-item="go" wx:for-index="key2">
+            <view class="assify-commodity {{(key2)%2==0 ? 'left' : 'right'}}">
+            <navigator open-type='navigate' url='/addons/package/pages/pintuan/goods/detail?id={{go.tuanId}}'>
+              <view class='ginfo'>
+                <view class='image'>
+                  <image src='{{resourceDomain+go.goodsImg}}' mode='aspectFill' lazy-load='true'></image>
+                </view>
+                <view class='content'>{{go.goodsName}}</view>
+                <view class='info wst-flex-row wst-jsb wst-ac' >
+                  <view class="pin-price">￥{{go.tuanPrice}}</view>
+                  <view class="pin-num">{{go.tuanNum}}人拼单</view>
+                </view>
+              </view>
+              </navigator>
+            </view>
+        </block>
+        <view wx:if="{{hasData == 0}}" class="marketing-remind-box">
+            没有更多商品了
+        </view>
+      </view>
+      <view class='assify-model' wx:if="{{type=='Seckill'}}">
+        <!--秒杀商品列表-->
+        <block wx:for='{{goods}}' wx:for-item="go" wx:for-index="key2">
+            <view class="assify-commodity {{(key2)%2==0 ? 'left' : 'right'}}">
+            <navigator open-type='navigate' url='/addons/package/pages/seckill/goods/detail?id={{go.id}}'>
+              <view class='ginfo'>
+                <view class='image'>
+                  <image src='{{resourceDomain+go.goodsImg}}' mode='aspectFill' lazy-load='true'></image>
+                </view>
+                <view class='content'>{{go.goodsName}}</view>
+               <view class='info wst-flex-row wst-jsb wst-ac' >
+                  <view class="sec-sec-price">￥{{go.secPrice}}</view>
+                  <view class="sec-shop-price">￥{{go.shopPrice}}</view>
+                </view>
+              </view>
+              </navigator>
+            </view>
+        </block>
+        <view wx:if="{{hasData == 0}}" class="marketing-remind-box">
+            没有更多商品了
+        </view>
+      </view>
+      <view class='assify-model' wx:if="{{type=='Auction'}}">
+        <!--拍卖商品列表-->
+        <block wx:for='{{goods}}' wx:for-item="go" wx:for-index="key2">
+            <view class="assify-commodity {{(key2)%2==0 ? 'left' : 'right'}}">
+            <navigator open-type='navigate' url='/addons/package/pages/auction/goods/detail?id={{go.auctionId}}'>
+              <view class='ginfo'>
+                <view class='image'>
+                  <image src='{{resourceDomain+go.goodsImg}}' mode='aspectFill' lazy-load='true'></image>
+                </view>
+                <view class='content'>{{go.goodsName}}</view>
+                <view class='info' >
+                  <view class='offer-num'>{{go.auctionNum}}人出价</view>
+                  <view class='current-price-content'>当前价：<text class='current-price'>￥{{go.currPrice}}</text></view>
+                </view>
+              </view>
+              </navigator>
+            </view>
+        </block>
+        <view wx:if="{{hasData == 0}}" class="marketing-remind-box">
+            没有更多商品了
+        </view>
+      </view>
+      <view class='assify-model' wx:if="{{type=='Bargain'}}">
+        <!--砍价商品列表-->
+        <block wx:for='{{goods}}' wx:for-item="go" wx:for-index="key2">
+            <view class="assify-commodity {{(key2)%2==0 ? 'left' : 'right'}}">
+            <navigator open-type='navigate' url='/addons/package/pages/bargain/goods/detail?id={{go.bargainId}}'>
+              <view class='ginfo'>
+                <view class='image'>
+                  <image src='{{resourceDomain+go.goodsImg}}' mode='aspectFill' lazy-load='true'></image>
+                </view>
+                <view class='content'>{{go.goodsName}}</view>
+                  <view class='info wst-flex-row wst-jsb'>
+                    <view class="market-price market-price-decoration ">原价：￥{{go.startPrice}}</view>
+                    <view class='bargain-num'>{{go.joinNum}}人参与</view>
+                  </view>
+                  <view class="floor-price">底价：￥{{go.floorPrice}}</view>
+              </view>
+              </navigator>
+            </view>
+        </block>
+        <view wx:if="{{hasData == 0}}" class="marketing-remind-box">
+            没有更多商品了
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</template>

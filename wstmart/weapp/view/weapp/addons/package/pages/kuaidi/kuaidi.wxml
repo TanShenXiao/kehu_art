@@ -1,0 +1,35 @@
+<view class='topTabSwiper'>
+  <block wx:for="{{expressData}}" wx:for-item="item" wx:for-index="index">
+    <view class='tab  {{index == currentIndex ? "tabBorer" : ""}}' data-current="{{index}}" bindtap='checkCurrent'>包裹{{index+1}}</view>
+  </block>
+</view>
+<block wx:for="{{expressData}}" wx:for-item="item" wx:for-index="index">
+  <view hidden="{{currentIndex != index}}">
+    <view class='express'>
+      <view class='txt'>
+        <view>物流状态：{{data.express[index].stateText}}</view>
+        <view>运单号：{{data.express[index].expressNo ? data.express[index].expressNo : '--'}}</view>
+        <view>信息来源：{{data.express[index].expressName ? data.express[index].expressName : '--'}}</view>
+      </view>
+      <view style='clear:both;'></view>
+    </view>
+    <view class='list'>
+      <view class='time-context'>
+        <view wx:for="{{item.logs.data}}" class='item' wx:for-item='vo' wx:key='idx'>
+          <view class='dotted'>
+            <view wx:if="{{index==0}}">
+              <icon type='success' color='#75ce66' size='20'></icon>
+            </view>
+            <view wx:else>
+              <icon type='success' color='#eeeeee' size='20'></icon>
+            </view>
+          </view>
+          <view class='context'>
+            <view>{{vo.context}}</view>
+            <view class='time'>{{vo.time}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>

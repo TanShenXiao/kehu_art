@@ -1,0 +1,12 @@
+<template name="search">
+  <view class="wst-search">
+    <view class="wst-search-input">
+      <view class="input angle-{{searchStyle}} text-{{textAlign}}" bindtap="toSearch">
+          <icon class="icon" type="search" size="13" />
+          <view>
+            <text>{{placeholder}}</text>
+          </view>
+      </view>
+    </view>
+  </view>
+</template>

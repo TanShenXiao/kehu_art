@@ -1,0 +1,69 @@
+page{background-color: #f5f5f8;}
+/*轮播图*/
+.slider-model,.slider-model swiper,.slider-model swiper image,.slider-model swiper video{width: calc(100%); width: -webkit-calc(100%); width: -moz-calc(100%); width: -ms-calc(100%); width: -o-calc(100%); height: calc(100vw); height: -webkit-calc(100vw); height: -moz-calc(100vw); height: -ms-calc(100vw); height: -o-calc(100vw); position: relative;}
+.count-down{background:#eee;height:80rpx;text-align: center;font-weight: bold;color:#232326;font-size:32rpx;}
+.count-down-title{display: inline-block;background:#d00910;padding:10rpx 20rpx;}
+.goods-info{background: #fff;padding:20rpx;}
+.goods-name{color:#616161;font-size:34rpx;font-weight: bold;margin-bottom:20rpx;}
+.order-num{margin-left:10px;font-size: 30rpx;color:#707070;}
+.goods-stock{font-size: 30rpx;color:#707070;}
+.join-num{font-size: 30rpx;color:#707070;}
+.price{background: #f6f6f8;border: 1px solid #edebeb;border-radius: 2px;margin-top:40rpx;padding:20rpx 0;}
+.start-price{color:#e00102;font-weight: bold;}
+.floor-price{color:#c3c2c2;font-weight: bold;}
+.goods-page{border-bottom:1px solid #ebebeb;background: #fff;padding-top:10rpx;}
+.page-item{padding:20rpx;font-size: 30rpx;}
+.page-active{color: #e00102;border-top: 1px solid #edebeb;border-left: 1px solid #edebeb;border-right: 1px solid #edebeb;border-bottom: 1px solid #fff;position: relative;top:1px;}
+/*商品详情*/
+.wst-goods-desc{padding:0 10rpx;margin-bottom:100rpx;min-height: 400rpx;}
+.wst-goods-desc image{width: 100%;}
+/*商品砍价信息*/
+.bargain-info{padding:20rpx;border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1;margin-bottom:10rpx;background:#fff;}
+.user-name{color:#e00102;font-size:32rpx;font-weight: bold;}
+.help-num{color:#e00102;}
+.curr-price{color:#e00102;}
+.bargain-detail{background: #fff;padding:20rpx 40rpx;}
+.bargin-info-item{border:2px solid #e00102;width:120rpx;height:120rpx;border-radius:50px;font-weight: bold;margin-bottom:5px;}
+.bargin-user-photo{width:140rpx;height:140rpx;border-radius: 50px;padding: 10rpx;border: 2px solid #46cdaf;margin-bottom:5px;}
+.bargin-user-photo image{width:100%;height:100%;border-radius: 50px;}
+/*活动规则*/
+.bargain-rule{padding:20rpx;margin:20rpx 0;background: #fff;}
+/*商品规格*/
+.goods-spec{min-height: 400rpx;background:#fff;margin-bottom:100rpx;}
+.sku-kind{font-size: 28rpx;}
+.sku-choose{margin-left:20rpx;}
+.sku-item{padding:20rpx;border-bottom:1px solid #f1f1f1;}
+.sku-img{width:80rpx;height:80rpx;}
+.sku-choose .item{display:inline-block;background:#e00102;color:#fff;padding:10rpx;border-radius: 2px;}
+.sku-choose .active{border:1px solid #e00102;}
+/*商品参数*/
+.goods-attrs{min-height: 400rpx;padding:20rpx 10rpx;background: #fff;}
+.goods-attrs-item{margin-bottom:10rpx;}
+/*亲友团出刀*/
+.helps-list{min-height: 400rpx;background: #fff;margin-bottom:100rpx;}
+.helps-list-item{padding:20rpx 40rpx;}
+.helps-list-user-photo{width:80rpx;height:80rpx;border-radius: 50rpx;margin-right:20rpx;}
+.helps-list-user-name{font-weight: bold;margin-bottom:10rpx;}
+.helps-list-minus-money{color:#e00102;}
+.more-help-list{margin:20rpx 0;font-size:30rpx;}
+/*底部按钮*/
+.bottom{position: fixed;bottom:0;z-index:1000;background: #fff;width:100%;border-top:1px solid #ccc;}
+.btn{background:#e00102;height:80rpx;margin:10rpx 20rpx;color:#fff;font-size: 30rpx;border-radius:5px;}
+.btn2{margin:10rpx 20rpx;}
+.wst-bargain-success{  
+  position: fixed;
+  left:0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  display: -webkit-box;}
+  .btn-item{background:#e00102;height:80rpx;width:45%;border-radius:5px;color:#fff;margin:0 20rpx;text-align: center;line-height: 80rpx;font-size:30rpx;}
+  .btn-item-disable{background:#eaeaea;color:#b8b8b8;}
+  .wst-bargain-success image{width:518rpx;height:350rpx;}
+  .bargain-success-content{position:relative;margin-bottom:200rpx;}
+  .bargain-success-text{color:#fff;font-size:30rpx;position: absolute;top:228rpx;left:172rpx;width:150rpx}

@@ -1,0 +1,31 @@
+/*图片橱窗组*/
+.image-model{
+  width: 100%;
+  background: #fff;
+}
+
+.image-model-layout1 image{
+  width:50%;
+  height: 375rpx;
+  display: block !important;
+}
+
+.image-model-layout2 image{
+  width:calc((100vw / 3));
+  height: calc((100vw / 3));
+  display: block !important;
+}
+
+.image-model-layout3 image{
+  width:calc((100vw / 4));
+  height: calc((100vw / 4));
+  display: block !important;
+}
+
+.image-model-layout4 .layout-left{width:50%;height:375rpx;}
+.image-model-layout4 .layout-left image{width:100%;height:100%;}
+.image-model-layout4 .layout-right{width:50%;height:375rpx;}
+.image-model-layout4 .layout-right .layout-top{width:100%;height:50%;}
+.image-model-layout4 .layout-right .layout-top image{width:100%;height:100%;}
+.image-model-layout4 .layout-right .layout-bottom{width:100%;height:50%;}
+.image-model-layout4 .layout-right .layout-bottom image{width:50%;height:calc((100vw / 4));}

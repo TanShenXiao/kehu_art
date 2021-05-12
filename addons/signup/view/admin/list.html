@@ -1,0 +1,61 @@
+{extend name="../../../wstmart/admin/view/base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__ADMIN__/js/mmgrid/mmGrid.css?v={$v}" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css?v={$v}" />
+{/block}
+{block name="js"}
+<script src="__ADMIN__/js/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+<script src="__ROOT__/addons/signup/view/admin/list.js?v={$v}" type="text/javascript"></script>
+<script type='text/javascript' src='__STATIC__/plugins/webuploader/webuploader.js?v={$v}'></script>
+{/block}
+{block name="main"}
+<div id='alertTips' class='alert alert-success alert-tips fade in'>
+  <div id='headTip' class='head'><i class='fa fa-lightbulb-o'></i>操作说明</div>
+  <ul class='body'>
+    <li>显示报名信息。</li>
+  </ul>
+</div>
+<div autocomplete="off">
+<div class="wst-toolbar">
+    <!--<select id="btnSrc1"  class="query">
+      <option value="-1">请选择报名类型</option>
+      <option value="0">A</option>
+      <option value="1">B</option>
+    </select>-->
+  <input type="text" name="catName" placeholder="项目名称" id="catName" class="query">
+	<input type="text" id="startTime" name="startTime" class="laydate-icon query" maxLength="20" placeholder='支付时间开始时间'/>
+	至
+	<input type="text" id="endTime" name="endTime" class="laydate-icon query" maxLength="20" placeholder='支付时间结束时间'/>
+  <button type="button"  class='btn btn-primary btn-mright' onclick="javascript:loadGrid()"><i class="fa fa-search"></i>查询</button>
+  {if WSTGrant('XSBM_01')}
+   <button type='button' class="btn btn-success f-right  btn-fixtop" onclick="javascript:toEdit(0)"><i class='fa fa-plus'></i>新增</button>
+   {/if}
+   <button class="btn btn-primary f-right btn-fixtop" onclick='javascript:toExport1()'><i class="fa fa-sign-in"></i>导出总览</button>
+   <button class="btn btn-primary f-right btn-fixtop" style="margin-right:5px" onclick='javascript:toExport2()'><i class="fa fa-sign-in"></i>导出详情</button>
+   <div style="clear:both"></div>
+</div>
+</div>
+<div class='wst-grid'>
+<div id="mmg" class="mmg"></div>
+<div id="pg" style="text-align: right;"></div>
+</div>
+
+<div id='signInfoBox' style='display:none'>
+    <table class='wst-form wst-box-top'>
+    </table>
+  </div>
+<script>
+  $(function(){
+		var laydate = layui.laydate;
+		laydate.render({
+			elem: '#startTime',
+			type: 'datetime'
+		});
+		laydate.render({
+			elem: '#endTime',
+			type: 'datetime'
+		});
+		initGrid()
+	});
+</script>
+{/block}

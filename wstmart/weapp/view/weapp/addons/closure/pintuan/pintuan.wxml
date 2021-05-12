@@ -1,0 +1,7 @@
+
+<template name="pintuan-user">
+    <view class='model' bindtap="jumpCenter" data-url="/addons/package/pages/pintuan/users/pulist">
+      <view class='image'><image src="/addons/closure/pintuan/image/pintuan2.png" mode='AspectFit'></image></view>
+      <view class='title'>我的拼团</view>
+    </view>
+</template>

@@ -1,0 +1,84 @@
+{
+	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": false,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.4.4",
+	"appid": "wx1818952f2fe892e7",
+	"projectname": "wstmart",
+	"scripts": {},
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "秒杀详情",
+					"pathName": "addons/package/pages/seckill/goods/detail",
+					"query": "id=2",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "普通商品详情",
+					"pathName": "pages/goods-detail/goods-detail",
+					"query": "goodsId=68",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "拼团详情",
+					"pathName": "addons/package/pages/pintuan/goods/detail",
+					"query": "id=14",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "scene=13",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "addons/package/pages/integral/goods/detail",
+					"pathName": "addons/package/pages/integral/goods/detail",
+					"query": "id=3",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "addons/package/pages/groupon/goods/list",
+					"pathName": "addons/package/pages/groupon/goods/list",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

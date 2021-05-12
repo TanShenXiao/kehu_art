@@ -1,0 +1,31 @@
+<template name="shopwindow">
+  <view class='image-model wst-flex-row wst-fw image-model-layout1' style="background:{{backgroundColor}}" wx:if="{{layout==1}}">
+    <block wx:for="{{images}}" wx:for-item="item">
+      <image src="{{resourceDomain}}{{item.img}}" mode='scaleToFill' bindtap='jumpcenter' data-url="{{item.link}}" />
+    </block>
+  </view>
+  <view class='image-model wst-flex-row wst-fw image-model-layout2' style="background:{{backgroundColor}}" wx:if="{{layout==2}}">
+    <block wx:for="{{images}}" wx:for-item="item">
+      <image src="{{resourceDomain}}{{item.img}}" mode='scaleToFill' bindtap='jumpcenter' data-url="{{item.link}}" />
+    </block>
+  </view>
+  <view class='image-model wst-flex-row wst-fw image-model-layout3' style="background:{{backgroundColor}}" wx:if="{{layout==3}}">
+    <block wx:for="{{images}}" wx:for-item="item">
+      <image src="{{resourceDomain}}{{item.img}}" mode='scaleToFill' bindtap='jumpcenter' data-url="{{item.link}}" />
+    </block>
+  </view>
+  <view class='image-model wst-flex-row image-model-layout4' style="background:{{backgroundColor}}" wx:if="{{layout==4}}">
+    <view class='layout-left'>
+      <image src="{{resourceDomain}}{{images[0].img}}" mode='scaleToFill' bindtap='jumpcenter' data-url="{{images[0].link}}" />
+    </view>
+    <view class='layout-right wst-flex-column wst-jsb'>
+      <view class='layout-top'>
+          <image src="{{resourceDomain}}{{images[1].img}}" mode='scaleToFill' bindtap='jumpcenter' data-url="{{images[1].link}}" />
+      </view>
+      <view class='layout-bottom wst-flex-row'>
+          <image src="{{resourceDomain}}{{images[2].img}}" mode='scaleToFill' bindtap='jumpcenter' data-url="{{images[2].link}}" />
+          <image src="{{resourceDomain}}{{images[3].img}}" mode='scaleToFill' bindtap='jumpcenter' data-url="{{images[3].link}}" />
+      </view>
+    </view>
+  </view>
+</template>

@@ -1,0 +1,238 @@
+    <import src="../../../../../pages/common/parse/parse.wxml"/>
+    <view class="container">
+        <!-- 基本版面 -->
+        <scroll-view style="height:100%;">
+            <!-- 轮播图 -->
+            <view class='slider-model'>
+                <swiper indicator-dots='true' autoplay='{{data.goodsVideo!=null?false:true}}' circular='true' interval='5000' indicator-active-color='#ff6666' indicator-color='rgba(0,0,0,.2)'>
+                    <swiper-item wx:if="{{data.goodsVideo!=null && data.goodsVideo!=''}}">
+                        <video src="{{resourceDomain}}{{data.goodsVideo}}" autoplay="{{true}}"></video>
+                    </swiper-item>
+                    <block wx:for="{{data.gallery}}" wx:for-item="gallery">
+                        <swiper-item data-src="{{resourceDomain}}{{gallery}}" bindtap="viewImg">
+                            <image src="{{resourceDomain}}{{gallery}}" mode='aspectFill'></image>
+                        </swiper-item>
+                    </block>
+                </swiper>
+                <view class="auction-status {{ data.status == -1 && 'as-end' }} ">
+                    {{ data.status==1?'正在拍卖':(data.status == -1 ? '拍卖结束' : '尚未开始') }}
+                </view>
+            </view>
+            <!-- 商品标题 -->
+            <view class='commodity-title'>{{data.goodsName}}</view>
+            <!-- 商品信息 -->
+            <view class='commodity-info'>
+                <view class='price'>
+                    当前价：
+                    <span>¥{{currPrice}}</span>
+                </view>
+                <view class='info'>
+                    <span class="red">{{auctionNum}}</span>
+                    人出价|
+                    <span class="red">{{visitNum}}</span>
+                    人围观
+                </view>
+                <view class='f13 red'>（*拍卖结束后请在3日内支付货款）</view>
+            </view>
+            <view bindtap="auctionRecord" class='auctionNum-box f13 c999'>
+                出价记录:
+                <span class='f13 c333'>
+                    <span class='red'>{{ auctionNum }}</span>
+                    次出价
+                </span>
+                <text class="arrow-r">></text>
+            </view>
+            <!-- 拍卖流程、保证金规则、拍卖须知 -->
+            <view class='mb5 itemBox'>
+                <view class='f13 c333 itemText'>拍卖流程</view>
+                <image class='process' src='../images/luicheng.png' />
+                <view class='itemLine'></view>
+                <view class='f13 c333 itemText'>
+                    保证金规则:
+                    <span class='f13 c999'>拍卖结束后退回</span>
+                </view>
+                <view class='item' bindtap="articel" data-statu='open'>
+                    <span class='f13 c333'>拍卖须知</span>
+                    <span>></span>
+                </view>
+            </view>
+            <!-- 店铺详情 -->
+            <view class='storedetail' data-shopid="{{data.shop.shopId}}" bindtap='store'>
+                <view class='image'>
+                    <image src='{{resourceDomain}}{{data.shop.shopImg}}' mode='aspectFit'></image>
+                </view>
+                <view class='info'>
+                    <view class='name'>{{data.shop.shopName}}</view>
+                    <view class='variety'>主营：{{data.shop.cat}}</view>
+                </view>
+                <view class="wst-clear"></view>
+            </view>
+            <!-- 评分详情 -->
+            <view class='graded'>
+                <view class='content'>
+                    <view class='between' style="text-align:left;">
+                        商品评分:
+                        <text class='size'>{{data.shop.scores.goodsScore}}</text>
+                    </view>
+                    <view class='strip'>|</view>
+                    <view class='between' style="text-align:center;">
+                        时效评分:
+                        <text class='size'>{{data.shop.scores.timeScore}}</text>
+                    </view>
+                    <view class='strip'>|</view>
+                    <view class='between' style="text-align:right;">
+                        服务评分:
+                        <text class='size'>{{data.shop.scores.serviceScore}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="intro-box">
+                <view>拍卖介绍</view>
+                <template is="wxParse" data="{{wxParseData:auctionDesc.nodes}}"/>
+            </view>
+            <!-- 热门拍卖 -->
+            <view class='recommend'>
+                <view class='f12 c999 pd20'>热门拍卖</view>
+                <block wx:for="{{data.hot}}" wx:for-item="hot">
+                    <navigator open-type='navigate' url='./detail?id={{hot.auctionId}}'>
+                        <view class='commodity'>
+                            <view class='image'>
+                                <image src='{{resourceDomain}}{{hot.goodsImg}}'></image>
+                            </view>
+                            <view class='title'>{{hot.goodsName}}</view>
+                            <view class='price'>¥ {{hot.currPrice}}</view>
+                        </view>
+                    </navigator>
+                </block>
+            </view>
+        </scroll-view>
+        <view class="bottom-box">
+            <view class="bottom-tit center">
+                <view class='f13 cfff' wx:if="{{data.status==-1}}">拍卖已结束</view>
+                <view class='f13 cfff' wx:if="{{data.status!=-1}}">
+                    <span>{{data.status==1?'剩余':'还有'}}</span>
+                    <span>{{day!=undefined?day:'00'}}</span>
+                    <em>天</em>
+                    <span>{{hour!=undefined?hour:'00'}}</span>
+                    <em>小时</em>
+                    <span>{{mini!=undefined?mini:'00'}}</span>
+                    <em>分</em>
+                    <span>{{sec!=undefined?sec:'00'}}</span>
+                    <em>秒</em>
+                    <span>{{data.status==0?'开始':''}}</span>
+                </view>
+            </view>
+            <view class="bottom-main">
+                <view class="bm-l center">
+                    <view class='f13 cfff'>保证金￥{{ cautionMoney }}</view>
+                    <view class='f13 cfff'>(未拍到全额退还)</view>
+                </view>
+                <block wx:if="{{data.status==1}}">
+                    <view class="bm-r center" wx:if="{{data.payMoney > 0}}" data-statu="open" bindtap="powerDrawer">
+                        <view class='f13 cfff'>我要出价</view>
+                    </view>
+                    <view class="bm-r center" wx:else bindtap="doPay">
+                        <view class='f13 cfff'>交保证金报名</view>
+                    </view>
+                </block>
+                <block wx:if="{{( data.status==-1 || data.status==0 )}}">
+                    <view class="bm-r center disable">
+                        <view class='f13 cfff disableText'>交保证金报名</view>
+                    </view>
+                </block>
+            </view>
+        </view>
+        <!-- 出价页 -->
+        <view wx:if="{{showModalStatus}}">
+            <!-- mask -->
+            <view class="wst-mask" bindtap="powerDrawer" data-statu="close" data-type='0' wx:if="{{showModalStatus}}"></view>
+            <!-- content -->
+            <!-- 使用animation属性指定需要执行的动画 -->
+            <view animation="{{animationData}}" class="drawer_attr_box {{data.isSpec == 1?'drawer_attr_box2':''}}" wx:if="true">
+                <!-- drawer content -->
+                <view style='border-bottom: 1rpx solid #DFDEDE;'>
+                    <view class='model-top'>
+                        <view class='image'>
+                            <image src='{{resourceDomain}}{{data.goodsImg}}' mode='aspectFit'></image>
+                        </view>
+                        <view class='content'>
+                            <view class='title'>{{data.goodsName}}</view>
+                            <view class='price'>¥{{currPrice}}</view>
+                        </view>
+                        <view class='icon_out' bindtap="powerDrawer" data-statu="close" data-type="0">
+                            <icon type='cancel' color='#B1B1B1' size='28'></icon>
+                        </view>
+                    </view>
+                </view>
+                <view class='model-bottom'>
+                    <view class='border'>
+                        <view class='content'>（每次加价幅度：￥{{ data.fareInc }}）</view>
+                        <view class='surplus'>
+                            <view class='left'>竞拍价：</view>
+                            <view class='right'>
+                                <view class='icon_subtract' bindtap='changeNum' data-mode="reduce" data-min="{{ currPrice }}">
+                                    -
+                                </view>
+                                <view class='number'>{{ nextPrice }}</view>
+                                <view class='icon_add' bindtap='changeNum' data-mode="plus">+</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class='button'>
+                    <button bindtap='commit'>确定</button>
+                </view>
+            </view>
+        </view>
+
+        <!-- 出价记录 -->
+        <view wx:if="{{parameterStatus}}">
+            <!-- mask -->
+            <view class="wst-mask" bindtap="parameter" data-statu="close" data-type='0' wx:if="{{parameterStatus}}"></view>
+            <!-- content -->
+            <!-- 使用animation属性指定需要执行的动画 -->
+            <view animation="{{parameterData}}" class="record-window" wx:if="true">
+                <!-- drawer content -->
+                <view class='title'>
+                    出价记录
+                    <icon type='cancel' color='#B1B1B1' size='28' bindtap="parameter" data-statu="close" class="icon"></icon>
+                </view>
+                <view class="wst-flex-row">
+                    <scroll-view wx:if="{{ recordData && recordData.length>0 }}" class="content goods-cats-left" scroll-y="true">
+                        <view class="record-list-head">
+                            <view class="rl-h-item">竞拍人</view>
+                            <view class="rl-h-item">竞拍价</view>
+                            <view class="rl-h-item">竞拍时间</view>
+                        </view>
+                        <view wx:for="{{recordData}}" wx:for-item="item" wx:for-index="index">
+                            <view class="record-list-head  {{ item.isTop==0 && 'bg2' }}"  >
+                                <view class="rl-h-item">{{ item.loginName }}</view>
+                                <view class="rl-h-item">{{ item.payPrice }}</view>
+                                <view class="rl-h-item">{{ item.createTime }}</view>
+                            </view>
+                        </view>
+                    </scroll-view>
+                    <view class="empty" wx:if="{{ !recordData || recordData.length==0 }}">暂无相关出价记录</view>
+                </view>
+            </view>
+        </view>
+
+        <!-- 拍卖须知 -->
+        <view wx:if="{{articelStatus}}">
+            <!-- mask -->
+            <view class="wst-mask" bindtap="articel" data-statu="close" data-type='0' wx:if="{{articelStatus}}"></view>
+            <!-- content -->
+            <!-- 使用animation属性指定需要执行的动画 -->
+            <view animation="{{parameterData}}" class="record-window" wx:if="true">
+                <!-- drawer content -->
+                <view class='title'>
+                    拍卖须知
+                    <icon type='cancel' color='#B1B1B1' size='28' bindtap="articel" data-statu="close" class="icon"></icon>
+                </view>
+                <view class="wst-flex-row">
+                    {{data.article!=null?data.article:''}}
+                </view>
+            </view>
+        </view>
+
+    </view>

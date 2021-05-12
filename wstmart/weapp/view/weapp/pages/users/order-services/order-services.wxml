@@ -1,0 +1,53 @@
+<view class="container">
+    <view class="wst-or-list  {{isScroll?'':'stop'}}">
+        <view class="list" wx:for="{{orders}}" wx:for-item="or" wx:key='orderKey'>
+            <view class="goods" wx:for="{{or.glists}}" wx:for-item="li" data-id="{{or.id}}" bindtap="todetail" wx:key='index'>
+                <view class="img">
+                    <image mode="aspectFit" src="{{resourceDomain}}{{li.goodsImg}}"></image>
+                </view>
+                <view class="names">
+                    <view class="name-box">
+                        <view class="name">{{li.goodsName}}</view>
+                        <view class="num">x {{ li.goodsNum }}</view>
+                        <view class="wst-clear"></view>
+                    </view>
+                    <view class="spec" wx:if="{{li.goodsSpecNames}}">规格：{{li.goodsSpecNames}}</view>
+                </view>
+                <view class="wst-clear"></view>
+            </view>
+            <view>{{ or.goodsServiceTypeText }} {{ or.statusText }}</view>
+            <view class="operate">
+                <button type="default" size="mini" bindtap="detail" data-id="{{or.id}}" class="button os-detail-btn">
+                    查看详情
+                </button>
+                <button type="default" size="mini" bindtap="confirm" data-id="{{or.id}}" class="button" wx:if="{{or.isClose!=1 && or.serviceStatus==4}}">
+                    确认收货
+                </button>
+                <button type="default" size="mini" bindtap="reject" data-id="{{or.id}}" class="button" wx:if="{{or.isClose!=1 && or.serviceStatus==4}}">
+                    拒收
+                </button>
+            </view>
+        </view>
+        <view class='remind-model' wx:if="{{orders==''}}">
+            <view class='image'>
+                <image src='/image/nothing-order.png' class="img"></image>
+            </view>
+            <view class='content'>暂无相关售后单 ~</view>
+        </view>
+    </view>
+    <view class="wst-mask" wx:if="{{rejectFrame}}">
+        <view class="wst-or-frame">
+            <view class="title">拒收订单</view>
+            <picker class="menu" bindchange="rejectMenu" value="0" range="{{rejectData}}">
+            <view class="weui-input">{{rejectWords}}</view>
+            </picker>
+            <view class="text" wx:if="{{rejectId==10000}}">
+            <textarea bindinput="rejectText" maxlength="200" auto-height placeholder="请填写原因" />
+            </view>
+            <view class="button">
+                <button type="default" size="mini" bindtap="hide" class="cancel">取消</button>
+                <button type="default" size="mini" bindtap="toReject" class="confirm">确定</button>
+            </view>
+        </view>
+    </view>
+</view>

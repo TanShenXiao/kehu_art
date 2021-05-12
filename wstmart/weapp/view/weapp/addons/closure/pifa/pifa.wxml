@@ -1,0 +1,17 @@
+<template name="pifa-goods-box">
+  <view wx:if="{{pifabox.isPifa==1}}" style='width:100%;padding:0 10rpx 10rpx 10rpx'>
+     <view class="pifa" wx:for="{{pifabox.pifa}}" wx:for-item="co">
+        <view class='pifa-price'>￥{{co.goodsPrice}}</view>
+        <view class='pifa-num'>{{co.buyNum}}起</view>
+     </view>
+     <view class='wst-clear'></view>
+  </view>
+</template>
+<template name="pifa-goods">
+  <view wx:if="{{pifa.isPifa==1}}">
+     <view class="pifa" wx:for="{{pifa.pifa}}" wx:for-item="co">
+        <view class='pifa-price'>￥{{co.goodsPrice}}</view>
+        <view class='pifa-num'>{{co.buyNum}}{{pifa.goodsUnit}}起</view>
+     </view>
+  </view>
+</template>

@@ -1,0 +1,81 @@
+<view class="container">
+  <scroll-view scroll-y="true" class="chat-list" id="chat-list" scroll-top="{{scrollTop}}" bindscroll="scrollChange">
+    <block wx:for="{{chatList}}" wx:for-item="item">
+      <view class="chat-item" wx:if="{{item.groupName != undefined && item.groupName!=''}}">
+        <view class="chat-time">客服 {{item.groupName}} 接待了您</view>
+      </view>
+      <view class="chat-item " wx:if="{{item.noGroup}}">
+        <view class="no-group">
+          <view class="chat-time" style="color:#777">{{item.noGroupText}}</view>
+        </view>
+      </view>
+      <!--客服-->
+      <view class="chat-item" wx:if="{{item.from && item.from==serviceId}}">
+        <view class="chat-time">{{item.time}}</view>
+        <view class="chat-area1">
+          <view>
+            <view class="chat-content1" bindtap="jumpDetail" wx:if="{{item.type!='image'}}" data-gid="{{item.goodsId}}" data-oid="{{item.orderId}}">{{item.content}}</view>
+            <view class="chat-content1" bindtap="jumpDetail" wx:if="{{item.type=='image'}}">
+              <image class="sendImage" src="{{item.content}}"></image>
+            </view>
+            <view class="r-arrow"></view>
+          </view>
+          <view class="chat-img">
+            <image src="{{userData.userPhoto}}"></image>
+          </view>
+        </view>
+      </view>
+      <!--客户-->
+      <view class="chat-item" wx:if="{{item.from && item.from==userId}}">
+        <view class="chat-time">{{item.time}}</view>
+        <view class="chat-area2">
+          <view class="chat-img">
+            <image src="{{userPhoto}}" mode='aspectFill'></image>
+          </view>
+          <view>
+            <view class="l-arrow"></view>
+            <view class="chat-content2" bindtap="jumpDetail" wx:if="{{item.type!='image'}}" data-gid="{{item.goodsId}}" data-oid="{{item.orderId}}">{{item.content}}</view>
+            <view class="chat-content2" bindtap="jumpDetail" wx:if="{{item.type=='image'}}">
+              <image class="sendImage" src="{{item.content}}"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="chat-item" wx:if="{{item.goodsInfo}}">
+        <view class="chat-content3">
+          <view class="good-item" bindtap="jumpDetail" data-gid="{{item.goodsId}}">
+            <view class="item-left">
+              <image class="good-img" src="{{item.goodsImg}}"></image>
+            </view>
+            <view class="item-right">
+              <text class="good-title">{{item.goodsName}}</text>
+              <text class="good-price">￥{{item.shopPrice}}</text>
+            </view>
+          </view>
+          <view class="send-link" bindtap="closeGoodsItem" data-goodsId="{{item.goodsId}}" data-goodsName="{{item.goodsName}}" >
+            <text class="send-link-text">关闭</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+  <view id="flag"></view>
+  <view class="tool-bar">
+    <view class="input">
+      <input placeholder='请输入您要咨询的问题' value="{{message}}" bindinput="bindChange"></input>
+      <view class="send-msg" bindtap="send">
+        <text class="btn-link"></text>
+      </view>
+    </view>
+    <view class="tool-nav">
+      <view bindtap="chooseImg">
+        <image class="tool-nav-img" src="{{domain}}wstmart/weapp/view/weapp/image/chat_photo.png"></image>
+      </view>
+    </view>
+    <!--自定义底部导航栏-->
+    <import src="../../../../templates/tabBar/tabBar.wxml" />
+    <template is="tabBar" data="{{tabBar}}" />
+  </view>
+
+</view>
+

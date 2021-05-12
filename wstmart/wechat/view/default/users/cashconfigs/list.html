@@ -1,0 +1,59 @@
+{extend name="default/base" /}
+{block name="title"}我的提现账户 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__WECHAT__/css/cashconfigs.css?v={$v}">
+{/block}
+{block name="header"}
+	<div id="info_list">
+    <header style="background:#ffffff;" class="ui-header ui-header-positive wst-header js-account">
+        <i class="ui-icon-return" onclick="history.back()"></i><h1>我的提现账户</h1>
+        <span class="add" onclick="editAddress()">添加</span>
+    </header>
+{/block}
+{block name="main"}
+<input type="hidden" name="" value="" id="currPage" autocomplete="off">
+<input type="hidden" name="" value="" id="totalPage" autocomplete="off">
+<script type="text/html" id="list">
+    {{# for(var i=0;i<d.length;++i){ }}
+     <ul class="ui-row" >
+         <li class="ui-col ui-col-100 " >
+             <input type="hidden" id="addr_{{d[i].id}}" value="{{d[i].areaName}}">
+             <div class="wst-flex-column bank-content">
+                 <div class="wst-flex-row wst-jsb wst-ac bank-info" onclick="editAddress({{d[i].id}})">
+                     <div class="wst-flex-row wst-ac " >
+                         <div class="{{# if(d[i].bankImg){ }}bank-img{{# }else{ }}bank-no-img{{# } }}">
+                             {{# if(d[i].bankImg){ }}
+                             <img src="__RESOURCE_PATH__/{{d[i].bankImg}}" alt="">
+                             {{# } }}
+                         </div>
+                         <div>
+                             <p class="wst-ca-info"> {{d[i].bankName}}</p>
+                             <p class="wst-ca-user"> {{d[i].accUser}}</p>
+                         </div>
+                     </div>
+                     <div class="wst-ca-accno">{{d[i].accNo}}</div>
+                 </div>
+                 <div class="delete-btn" onclick="del({{d[i].id}})">
+                     <p class="c-tr" >删除</p>
+                 </div>
+             </div>
+         </li>
+     </ul>
+    {{# } }}
+</script>
+<section class="ui-container js-account" id="listBox"></section>
+{include file="default/dialog" /}<!-- 对话框模板 -->
+{include file="default/users/cashconfigs/edit" /}<!-- 新增/编辑收货地址模板 -->
+
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__WECHAT__/js/jquery.min.js'></script>
+<script type='text/javascript' src='__WECHAT__/users/cashconfigs/cashconfigs.js?v={$v}'></script>
+{/block}
+
+
+
+
+
+
+

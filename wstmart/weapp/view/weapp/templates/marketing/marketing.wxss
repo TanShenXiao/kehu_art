@@ -1,0 +1,112 @@
+/*营销活动*/
+.marketing-model{
+  width: 100%;
+  background: #F6F6F8;
+}
+.marketing-title{display: flex;flex-direction: row;justify-content: space-between;align-items:center;padding:5px;}
+.marketing-title-text{font-weight: bold;color:#000;font-size:32rpx;}
+.marketing-remind-box{
+  width: 100vw;
+  height: 10vw;
+  line-height: 10vw;
+  font-size: 24rpx;
+  text-align: center;
+  color: #222;
+  background: #fff;
+}
+/*拼团样式开始*/
+.assify-commodity{
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+  margin-bottom: 8rpx;
+  font-size: 28rpx;
+  color: #232326;
+  font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+}
+.assify-commodity.left{
+  border-right: 4rpx solid #f6f6f8;
+}
+.assify-commodity.right{
+  border-left: 4rpx solid #f6f6f8;
+}
+.assify-commodity:nth-child(odd) {
+  padding-right: 4rpx;
+}
+.assify-commodity:nth-child(2n) {
+  padding-left: 4rpx;
+}
+.assify-commodity .image{
+  display: block;
+  width: calc(100%);
+	width: -webkit-calc(100%);
+	width: -moz-calc(100%);
+	width: -ms-calc(100%);
+	width: -o-calc(100%);
+  height: calc((100vw - 48rpx)/2);
+	height: -webkit-calc((100vw - 48rpx)/2);
+	height: -moz-calc((100vw - 48rpx)/2);
+	height: -ms-calc((100vw - 48rpx)/2);
+	height: -o-calc((100vw - 48rpx)/2);
+  margin: 0rpx;
+}
+.assify-commodity .image image{
+  width: 100%;
+  height: 100%;
+}
+.assify-commodity .content{
+  width: 100%;
+  height: 66rpx;
+  margin-top: 6rpx;
+  line-height: 33rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.assify-commodity .price text{
+  font-size: 33rpx;
+}
+.assify-commodity .info{
+  width: 100%;
+  margin-top: 10rpx;
+  font-size: 23rpx; 
+  line-height: 50rpx;
+}
+.assify-commodity .info .pin-price{
+  font-size: 26rpx;
+  color: #e00102;
+}
+.assify-commodity .info .pin-num{
+  color: #999;
+}
+.assify-commodity .ginfo{background: #fff}
+/*拼团样式结束*/
+
+/*秒杀样式开始*/
+.sec-title{background:#ff0000;height:30px;line-height:30px;color:#fff;margin-left:5px;padding:0 5px;}
+.sec-time{color:#ff0000;border:1px solid #ff0000;height:28px;line-height: 28px;padding:0 5px;}
+.sec-sec-price{
+  font-size: 26rpx;
+  color: #e00102;
+}
+.sec-shop-price{
+  font-size: 26rpx;
+  color: #999;
+  text-decoration: line-through;
+}
+/*秒杀样式结束*/
+
+/*拍卖样式开始*/
+.offer-num{background:#ef2a2a;color:#fff;width:50%;text-align: center;font-size: 28rpx;}
+.current-price-content{font-size: 28rpx;}
+.current-price{color:#e00102;}
+/*拍卖样式结束*/
+
+/*砍价样式开始*/
+.market-price{font-size: 26rpx;}
+.market-price-decoration{text-decoration: line-through;}
+.bargain-num{font-size: 26rpx;}
+.floor-price{color:#e00102;font-weight: bold;}
+/*砍价样式开始*/

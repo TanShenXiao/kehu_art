@@ -1,0 +1,106 @@
+{extend name="$LAYOUT_MOBILE_BASE" /}
+{block name="title"}报名简介 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__ROOT__/addons/signup/view/mobile/signup.css?v={$v}">
+<link rel="stylesheet"  href="__MOBILE__/js/share/nativeShare.css?v={$v}">
+{/block}
+{block name="header"}
+    <header class="ui-header ui-header-positive wst-header">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+		<div class="wst-in-search tit">
+			报名简介
+		</div>
+		<span class="share" onclick="javascript:shareShow();"></span>
+    </header>
+{/block}
+{block name="footer"}
+    
+    <div class="ui-loading-wrap wst-Load" id="Load">
+	    <i class="ui-loading"></i>
+	</div>
+	<input type="hidden" name="" value="" id="goodsId" autocomplete="off">
+	<input type="hidden" name="" value="" id="goodsType" autocomplete="off">
+    <footer class="ui-footer wst-footer-btns" style="height:42px;" id="footer">
+        <div class="wst-toTop" id="toTop">
+	  	<i class="wst-toTopimg"></i>
+		</div>
+		<div class="ui-row-flex">
+	    <div class="ui-col ui-col-4 wst-goods_buy">
+			{if($cat['status']==0)}
+				<button class="wst-goods_buyl" type="button" style="background-color:#999999">未开始</button>
+			{elseif($cat['status']==-1)}
+				<button class="wst-goods_buyl" type="button" style="background-color:#999999">已结束</button>
+			{else}
+				<button class="wst-goods_buyl" type="button" onclick="javascript:toSubmit({$cat['catId']});" >去报名</button>
+			{/if}
+			<button class="wst-goods_buyr" type="button" onclick="javascript:history.go(-1);" >返回</button>
+	    </div>
+	    </div>
+    </footer>
+{/block}
+{block name="main"}
+{/*分享 */}
+<?php if(!(Request()->isSsl())){?>
+<div class="wst-cart-box" id="frame-share" style="padding-top:10px;">
+	<div class="content" id="nativeShare" style="padding-bottom:50px;">
+		<div class="bshare-custom icon-medium-plus">
+			<div class="ui-form-item ui-form-item-show" style="font-size:0.15rem;">    
+				<a title="分享到QQ空间" class="bshare-qzone"><span style="margin-top:5px;"></span><span>分享到QQ空间</span></a>
+			</div>
+			<div class="ui-form-item ui-form-item-show" style="font-size:0.15rem;">    
+				<a title="分享到QQ好友" class="bshare-qqim"><span style="margin-top:5px;"></span><span>分享到QQ好友</span></a>
+			</div>
+			<div class="ui-form-item ui-form-item-show" style="font-size:0.15rem;">
+				<a title="分享到新浪微博" class="bshare-sinaminiblog"><span style="margin-top:5px;"></span><span>分享到新浪微博</span></a>
+			</div>
+			<div class="ui-form-item ui-form-item-show" style="font-size:0.15rem;">
+				<a title="分享到腾讯微博" class="bshare-qqmb"><span style="margin-top:5px;"></span><span>分享到腾讯微博</span></a>
+			</div>
+			<div class="ui-form-item ui-form-item-show" style="font-size:0.15rem;">
+				<a title="分享到人人网" class="bshare-renren"><span style="margin-top:5px;"></span><span>分享到人人网</span></a>
+			</div>
+		</div>
+	</div>
+	<div class="determine"><button class="button" onclick="javascript:shareHide();">取消</button></div>
+</div>
+<script type='text/javascript' src='__MOBILE__/js/share/nativeShare.js?v={$v}'></script>
+<script>
+	var config = {
+		url: "WST.AU('signup://signup/mdesc','catId='+{$cat['catId']})",
+		title:"{$cat['catName']}",
+	  	desc:"{$cat['catName']}",
+	  	img:"{:WSTConf('CONF.mallLogo')}"
+	};
+	var share_obj = new nativeShare('nativeShare',config);
+	$(function(){
+		if(bShare){
+			bShare.addEntry({  
+				url:  "{:url('addon/signup-signup-mdesc',array('catId'=>$cat['catId']),true,true)}",
+				title:"{:WSTConf('CONF.mallName')}",
+				summary:"{$cat['catName']}",
+				pic: "{:WSTDomain()}/{:WSTConf('CONF.mallLogo')}"
+			});
+	    }
+	});
+</script>
+<?php } ?>
+     
+    <section class="ui-container" id="goods2">
+    	<div class="wst-go-details">{$cat['catDesc']}</div>
+    </section>
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__MOBILE__/js/jquery.min.js'></script>
+<script type='text/javascript' src='__ROOT__/addons/signup/view/mobile/catdesc.js'></script>
+<script>
+//弹框
+function shareShow(){
+	jQuery('#cover').attr("onclick","javascript:shareHide();").show();
+	jQuery('#frame-share').animate({"bottom": 0}, 500);
+}
+function shareHide(){
+	jQuery('#frame-share').animate({'bottom': '-1200px'}, 500);
+	jQuery('#cover').hide();
+}
+</script>
+{/block}

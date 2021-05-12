@@ -1,0 +1,35 @@
+{volist name="customPageData" id="vo"}
+    {if condition="$vo['name'] == 'swiper'"}
+        {include file='custompagedecoration/wechattemplates/swiper' /}
+    {elseif condition="$vo['name'] == 'image'"}
+        {include file='custompagedecoration/wechattemplates/image' /}
+    {elseif condition="$vo['name'] == 'goods_group'"}
+        {include file='custompagedecoration/wechattemplates/goods-group' /}
+    {elseif condition="$vo['name'] == 'nav'"}
+        {include file='custompagedecoration/wechattemplates/nav' /}
+    {elseif condition="$vo['name'] == 'search'"}
+        {include file='custompagedecoration/wechattemplates/search' /}
+    {elseif condition="$vo['name'] == 'notice'"}
+        {include file='custompagedecoration/wechattemplates/notice' /}
+    {elseif condition="$vo['name'] == 'coupon'"}
+        {include file='custompagedecoration/wechattemplates/coupon' /}
+    {elseif condition="$vo['name'] == 'video'"}
+        {include file='custompagedecoration/wechattemplates/video' /}
+    {elseif condition="$vo['name'] == 'shopwindow'"}
+        {include file='custompagedecoration/wechattemplates/shopwindow' /}
+    {elseif condition="$vo['name'] == 'text'"}
+        {include file='custompagedecoration/wechattemplates/text' /}
+    {elseif condition="$vo['name'] == 'txt'"}
+        {include file='custompagedecoration/wechattemplates/txt' /}
+    {elseif condition="$vo['name'] == 'image_text'"}
+        {include file='custompagedecoration/wechattemplates/image-text' /}
+    {elseif condition="$vo['name'] == 'blank'"}
+        {include file='custompagedecoration/wechattemplates/blank' /}
+    {elseif condition="$vo['name'] == 'shop'"}
+        {include file='custompagedecoration/wechattemplates/shop' /}
+    {elseif condition="$vo['name'] == 'new'"}
+        {include file='custompagedecoration/wechattemplates/new' /}
+    {elseif condition="$vo['name'] == 'marketing'"}
+        {include file='custompagedecoration/wechattemplates/marketing' /}
+    {/if}
+{/volist}

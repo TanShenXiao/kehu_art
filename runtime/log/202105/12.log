@@ -1,0 +1,1209 @@
+---------------------------------------------------------------
+[2021-05-12T09:49:06+08:00] 127.0.0.1 GET artthree.com/
+[运行时间：0.259492s] [吞吐率：3.85req/s] [内存消耗：1,562.53kb] [文件加载：98]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; CNZZDATA1263804910=1794985214-1620362228-null%7C1620644638',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\wstmart\home\view\default\index.html [ array (
+  0 => 'v',
+  1 => 'floors',
+  2 => 'hideCategory',
+  3 => 'object',
+  4 => 'shopStreet1',
+  5 => 'shopStreet0',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.004764s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.009191s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.003702s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.002034s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.002433s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_data_cats` [ RunTime:0.001911s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.001870s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000493s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods_cats` [ RunTime:0.001789s ]
+[ sql ] [ SQL ] SELECT `catName`,`catId`,`subTitle` FROM `wst_goods_cats` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `parentId` = 0  AND `isFloor` = 1 ORDER BY `catSort` LIMIT 10 [ RunTime:0.002660s ]
+[ sql ] [ SQL ] SELECT `parentId`,`catName`,`catId`,`subTitle` FROM `wst_goods_cats` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `parentId` IN (365,366,367,368,369,370)  AND `isFloor` = 1 ORDER BY `catSort` ASC [ RunTime:0.000332s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_users` [ RunTime:0.002779s ]
+[ sql ] [ SQL ] SELECT `userScore` FROM `wst_users` WHERE  `userId` = 0  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.003006s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shops` [ RunTime:0.002668s ]
+[ sql ] [ SQL ] SELECT `s`.`shopId`,`s`.`shopName`,`s`.`shopAddress`,`sc`.`shopStreetImg`,`s`.`shopImg`,`s`.`shopType` FROM `wst_shops` `s` INNER JOIN `wst_shop_configs` `sc` ON `s`.`shopId`=`sc`.`shopId` INNER JOIN `wst_recommends` `r` ON `s`.`shopId`=`r`.`dataId` WHERE  `r`.`goodsCatId` = '0'  AND `s`.`shopStatus` = '1'  AND `s`.`dataFlag` = '1'  AND `r`.`dataSrc` = '1'  AND `r`.`dataType` = '0'  AND `s`.`shopType` = '1' ORDER BY `r`.`dataSort` ASC LIMIT 8 [ RunTime:0.007822s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_navs` [ RunTime:0.001903s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_navs` WHERE  `isShow` = 1  AND `navType` = 0 ORDER BY `navSort` ASC [ RunTime:0.002116s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_ads` [ RunTime:0.001342s ]
+[ sql ] [ SQL ] SELECT `adId`,`adName`,`adURL`,`subTitle`,`adFile`,`positionWidth`,`positionHeight` FROM `wst_ads` `a` LEFT JOIN `wst_ad_positions` `ap` ON `a`.`adPositionId`=ap.positionId and ap.dataFlag=1 WHERE  ( a.dataFlag=1 and ap.positionCode='ads-index' and adStartDate<= '2021-05-12' and adEndDate>='2021-05-12' ) ORDER BY `adSort` LIMIT 99 [ RunTime:0.004167s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods` [ RunTime:0.002049s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_goods` WHERE  `isSale` = 1  AND `goodsStatus` = 1  AND `dataFlag` = 1  AND `goodsCatId` IN (365,366,367,368,369,370) ORDER BY `saleNum` DESC LIMIT 8 [ RunTime:0.003861s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_goods` WHERE  `isSale` = 1  AND `goodsStatus` = 1  AND `dataFlag` = 1  AND `goodsCatId` IN (365,366,367,368,369,370)  AND `isBest` = 1 ORDER BY `saleNum` DESC LIMIT 4 [ RunTime:0.000484s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_shops` ORDER BY `shopId` LIMIT 1 [ RunTime:0.000365s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_shops` ORDER BY `shopId` LIMIT 1,12 [ RunTime:0.000379s ]
+[ sql ] [ SQL ] SELECT `adId`,`adName`,`adURL`,`subTitle`,`adFile`,`positionWidth`,`positionHeight` FROM `wst_ads` `a` LEFT JOIN `wst_ad_positions` `ap` ON `a`.`adPositionId`=ap.positionId and ap.dataFlag=1 WHERE  ( a.dataFlag=1 and ap.positionCode='index-top-ads' and adStartDate<= '2021-05-12' and adEndDate>='2021-05-12' ) ORDER BY `adSort` LIMIT 99 [ RunTime:0.000445s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_article_cats` [ RunTime:0.001191s ]
+[ sql ] [ SQL ] SELECT `catName`,`catId` FROM `wst_article_cats` WHERE  `catType` = 1  AND `dataFlag` = 1  AND `isShow` = 1  AND `parentId` = 7 ORDER BY `catSort` ASC LIMIT 5 [ RunTime:0.002385s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_articles` [ RunTime:0.001524s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 5 ORDER BY `createTime` ASC LIMIT 6 [ RunTime:0.002954s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 9 ORDER BY `createTime` ASC LIMIT 6 [ RunTime:0.000319s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 1 ORDER BY `createTime` ASC LIMIT 6 [ RunTime:0.000243s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 10 ORDER BY `createTime` ASC LIMIT 6 [ RunTime:0.000242s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 6 ORDER BY `createTime` ASC LIMIT 6 [ RunTime:0.000235s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:06+08:00] 127.0.0.1 POST artthree.com/home/carts/getCartInfo.html
+[运行时间：0.059615s] [吞吐率：16.77req/s] [内存消耗：994.71kb] [文件加载：91]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; CNZZDATA1263804910=1794985214-1620362228-null%7C1620644638; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/',
+  'origin' => 'http://artthree.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'accept' => '*/*',
+  'content-length' => '0',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001831s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001809s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000685s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001284s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_data_cats` [ RunTime:0.001857s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000565s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000432s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_carts` [ RunTime:0.002838s ]
+[ sql ] [ SQL ] SELECT `c`.`goodsSpecId`,`c`.`cartId`,`g`.`goodsId`,`g`.`goodsName`,`g`.`shopPrice`,`g`.`goodsStock`,`g`.`isSpec`,`gs`.`specPrice`,`gs`.`specStock`,`g`.`goodsImg`,`c`.`isCheck`,`gs`.`specIds`,`c`.`cartNum`,`g`.`saleType` FROM `wst_carts` `c` INNER JOIN `wst_goods` `g` ON `c`.`goodsId`=`g`.`goodsId` LEFT JOIN `wst_goods_specs` `gs` ON `c`.`goodsSpecId`=`gs`.`id` WHERE  `c`.`userId` = '0' [ RunTime:0.003857s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:07+08:00] 127.0.0.1 POST artthree.com/home/carts/getCartInfo.html
+[运行时间：0.036253s] [吞吐率：27.58req/s] [内存消耗：993.37kb] [文件加载：91]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; CNZZDATA1263804910=1794985214-1620362228-null%7C1620644638; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/',
+  'origin' => 'http://artthree.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'accept' => '*/*',
+  'content-length' => '0',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002172s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.002308s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000611s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001416s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000552s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_data_cats` [ RunTime:0.001159s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000485s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000387s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_carts` [ RunTime:0.001592s ]
+[ sql ] [ SQL ] SELECT `c`.`goodsSpecId`,`c`.`cartId`,`g`.`goodsId`,`g`.`goodsName`,`g`.`shopPrice`,`g`.`goodsStock`,`g`.`isSpec`,`gs`.`specPrice`,`gs`.`specStock`,`g`.`goodsImg`,`c`.`isCheck`,`gs`.`specIds`,`c`.`cartNum`,`g`.`saleType` FROM `wst_carts` `c` INNER JOIN `wst_goods` `g` ON `c`.`goodsId`=`g`.`goodsId` LEFT JOIN `wst_goods_specs` `gs` ON `c`.`goodsSpecId`=`gs`.`id` WHERE  `c`.`userId` = '0' [ RunTime:0.000893s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:08+08:00] 127.0.0.1 GET artthree.com/shop/index/login.html
+[运行时间：0.058508s] [吞吐率：17.09req/s] [内存消耗：890.51kb] [文件加载：88]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; CNZZDATA1263804910=1794985214-1620362228-null%7C1620644638; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\wstmart\shop\view\default\\login.html [ array (
+  0 => 'v',
+  1 => 'loginName',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002044s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001708s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000553s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001371s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000553s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_friendlinks` [ RunTime:0.003362s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_friendlinks` WHERE  `dataFlag` = 1 ORDER BY `friendlinkSort` ASC [ RunTime:0.003064s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:08+08:00] 127.0.0.1 GET artthree.com/upload/adspic/2019-01/5c36f8de66f2f.jpg
+[运行时间：0.016884s] [吞吐率：59.23req/s] [内存消耗：342.50kb] [文件加载：55]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+---------------------------------------------------------------
+[2021-05-12T09:49:08+08:00] 127.0.0.1 GET artthree.com/admin/index/getverify.html
+[运行时间：0.061324s] [吞吐率：16.31req/s] [内存消耗：1,410.79kb] [文件加载：87]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; CNZZDATA1263804910=1794985214-1620362228-null%7C1620644638; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/index/login.html',
+  'accept' => 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001173s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.002929s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.001645s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001323s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000457s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:15+08:00] 127.0.0.1 POST artthree.com/shop/index/checkLogin.html
+[运行时间：0.064981s] [吞吐率：15.39req/s] [内存消耗：898.64kb] [文件加载：86]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/index/login.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '54',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'loginName' => 'xiaomi',
+  'loginPwd' => '123456',
+  'verifyCode' => 'wsj8',
+  'typ' => '2',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011099s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001411s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000519s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001217s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000508s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_users` [ RunTime:0.002378s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_users` WHERE  ( `loginName` = 'xiaomi' OR `userEmail` = 'xiaomi' OR `userPhone` = 'xiaomi' )  AND `dataFlag` = 1  AND `userStatus` = 1 LIMIT 1 [ RunTime:0.002928s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_user_ranks` [ RunTime:0.001967s ]
+[ sql ] [ SQL ] SELECT `rankId`,`rankName`,`userrankImg` FROM `wst_user_ranks` WHERE  `dataFlag` = 1  AND `startScore` <= 0  AND `endScore` >= 0 LIMIT 1 [ RunTime:0.003351s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_users` WHERE  `dataFlag` = 1  AND `userStatus` = 1  AND `userType` = 1  AND `userId` = 4 LIMIT 1 [ RunTime:0.000585s ]
+[ sql ] [ SQL ] UPDATE `wst_users`  SET `lastTime` = '2021-05-12 09:49:15' , `lastIP` = '127.0.0.1' , `errTimes` = 0  WHERE  `userId` = 4 [ RunTime:0.002320s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shops` [ RunTime:0.002170s ]
+[ sql ] [ SQL ] SELECT `s`.*,`su`.`roleId`,`sr`.`roleName`,`sr`.`privilegeUrls` FROM wst_shops s INNER JOIN `wst_shop_users` `su` ON `s`.`shopId`=`su`.`shopId` LEFT JOIN `wst_shop_roles` `sr` ON `sr`.`id`=`su`.`roleId` WHERE  `su`.`userId` = '4'  AND `s`.`dataFlag` = '1'  AND `s`.`shopStatus` = '1' LIMIT 1 [ RunTime:0.005152s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_user_scores` [ RunTime:0.001223s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_user_scores` WHERE  `userId` = 4  AND `dataSrc` = 5  AND `createTime` LIKE '2021-05%' ORDER BY `createTime` DESC LIMIT 1 [ RunTime:0.002313s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_log_user_logins` [ RunTime:0.001782s ]
+[ sql ] [ SQL ] INSERT INTO `wst_log_user_logins` (`userId` , `loginTime` , `loginIp` , `loginSrc`) VALUES (4 , '2021-05-12 09:49:15' , '127.0.0.1' , 0) [ RunTime:0.003993s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:16+08:00] 127.0.0.1 GET artthree.com/shop/index/index.html
+[运行时间：0.031333s] [吞吐率：31.92req/s] [内存消耗：960.15kb] [文件加载：88]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/index/login.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\wstmart\shop\view\default\\index.html [ array (
+  0 => 'v',
+  1 => 'sysMenus',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000800s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001313s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000726s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001566s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000395s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:16+08:00] 127.0.0.1 GET artthree.com/shop/index/main.html
+[运行时间：0.132637s] [吞吐率：7.54req/s] [内存消耗：1,041.64kb] [文件加载：89]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\wstmart\shop\view\default\\main.html [ array (
+  0 => 'v',
+  1 => 'data',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000844s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.002726s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000928s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001105s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000350s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shops` [ RunTime:0.001646s ]
+[ sql ] [ SQL ] SELECT `s`.`shopMoney`,`s`.`noSettledOrderFee`,`s`.`paymentMoney`,`s`.`shopId`,`shopImg`,`shopName`,`shopAddress`,`shopQQ`,`shopTel`,`serviceStartTime`,`serviceEndTime`,`cs`.* FROM `wst_shops` `s` LEFT JOIN `wst_shop_scores` `cs` ON `cs`.`shopId`=`s`.`shopId` WHERE  `s`.`shopId` = '4'  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.004913s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shop_accreds` [ RunTime:0.001901s ]
+[ sql ] [ SQL ] SELECT `a`.`accredName`,`a`.`accredImg` FROM `wst_shop_accreds` `sa` LEFT JOIN `wst_accreds` `a` ON `a`.`accredId`=`sa`.`accredId` WHERE  `sa`.`shopId` = '4' [ RunTime:0.005001s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_messages` [ RunTime:0.001556s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_messages` WHERE  `receiveUserId` = 4  AND `msgStatus` = 0  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.002771s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_orders` [ RunTime:0.003692s ]
+[ sql ] [ SQL ] SELECT SUM(`goodsMoney`) AS tp_sum FROM `wst_orders` WHERE  `orderStatus` >= 0  AND `shopId` = 4  AND `dataFlag` = 1  AND `createTime` BETWEEN '2021-05-12 00:00:00' AND '2021-05-12 23:59:59' LIMIT 1 [ RunTime:0.005802s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `orderStatus` >= 0  AND `shopId` = 4  AND `dataFlag` = 1  AND `createTime` BETWEEN '2021-05-12 00:00:00' AND '2021-05-12 23:59:59' LIMIT 1 [ RunTime:0.000447s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `shopId` = 4  AND `orderStatus` = 0  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000748s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `shopId` = 4  AND `orderStatus` = 1  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000388s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `orderStatus` IN (-1,-3)  AND `shopId` = 4  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000305s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods` [ RunTime:0.001607s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods` WHERE  ( shopId =4 and dataFlag = 1 and goodsStock <= warnStock and isSpec = 0 and warnStock>0 ) LIMIT 1 [ RunTime:0.001564s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods_specs` [ RunTime:0.002423s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods_specs` WHERE  ( shopId =4 and dataFlag = 1 and specStock <= warnStock and warnStock>0 ) LIMIT 1 [ RunTime:0.001446s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods` WHERE  `shopId` = 4  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000439s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods` WHERE  `shopId` = 4  AND `dataFlag` = 1  AND `goodsStatus` = 1  AND `isSale` = 1 LIMIT 1 [ RunTime:0.000841s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods` WHERE  `shopId` = 4  AND `dataFlag` = 1  AND `goodsStatus` = 0 LIMIT 1 [ RunTime:0.001329s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods` WHERE  `shopId` = 4  AND `dataFlag` = 1  AND `goodsStatus` = 1  AND `isSale` = 0 LIMIT 1 [ RunTime:0.000783s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods` WHERE  `shopId` = 4  AND `dataFlag` = 1  AND `goodsStatus` = -1 LIMIT 1 [ RunTime:0.000827s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods` WHERE  `shopId` = 4  AND `dataFlag` = 1  AND `goodsStatus` = 1  AND `isSale` = 1  AND `isNew` = 1 LIMIT 1 [ RunTime:0.001044s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `shopId` = 4  AND `orderStatus` = -2  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000642s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `shopId` = 4  AND `orderStatus` = 2  AND `dataFlag` = 1  AND `isClosed` = 0 LIMIT 1 [ RunTime:0.000640s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` `o` INNER JOIN `wst_order_refunds` `orf` ON `orf`.`orderId`=`o`.`orderId` WHERE  `shopId` = 4  AND `refundStatus` = '0'  AND `o`.`dataFlag` = '1' LIMIT 1 [ RunTime:0.001897s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `shopId` = 4  AND `orderStatus` = 2  AND `dataFlag` = 1  AND `isAppraise` = 0 LIMIT 1 [ RunTime:0.000591s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_order_complains` [ RunTime:0.002738s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_order_complains` WHERE  `respondTargetId` = 4  AND `complainStatus` = 1 LIMIT 1 [ RunTime:0.003605s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_order_goods` [ RunTime:0.001448s ]
+[ sql ] [ SQL ] SELECT og.goodsId,g.goodsName,goodsSn,sum(og.goodsNum) goodsNum,g.goodsImg FROM `wst_order_goods` `og` INNER JOIN `wst_orders` `o` ON `og`.`orderId`=`o`.`orderId` INNER JOIN `wst_goods` `g` ON `og`.`goodsId`=`g`.`goodsId` WHERE  `o`.`createTime` BETWEEN '2021-04-12 09:49:16' AND '2021-05-12 09:49:16'  AND ( (payType=0 or (payType=1 and isPay=1)) and o.dataFlag=1 and o.shopId=4 ) GROUP BY `og`.`goodsId` ORDER BY `goodsNum` DESC LIMIT 10 [ RunTime:0.001542s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_articles` [ RunTime:0.001208s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle`,`articleContent`,`coverImg`,`createTime` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 300 ORDER BY `catSort` ASC,`createTime` DESC LIMIT 8 [ RunTime:0.000630s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle`,`articleContent`,`coverImg`,`createTime` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 51 ORDER BY `catSort` ASC,`createTime` DESC LIMIT 5 [ RunTime:0.000910s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:16+08:00] 127.0.0.1 POST artthree.com/shop/index/getSysMessages.html
+[运行时间：0.080218s] [吞吐率：12.47req/s] [内存消耗：885.64kb] [文件加载：84]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/index/index.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '83',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'tasks' => 'message,shoporder24,shoporder55,shoporder45,shoporder25,shoporder54',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001460s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.002256s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000915s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.002268s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.001314s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_messages` [ RunTime:0.001183s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_messages` WHERE  `receiveUserId` = 4  AND `msgStatus` = 0  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000608s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_orders` [ RunTime:0.001443s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `shopId` = 4  AND `orderStatus` = 0  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000590s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_order_complains` [ RunTime:0.001172s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_order_complains` WHERE  `respondTargetId` = 4  AND `complainStatus` = 1 LIMIT 1 [ RunTime:0.000578s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `shopId` = 4  AND `orderStatus` = -2  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000555s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` `o` INNER JOIN `wst_order_refunds` `orf` ON `orf`.`orderId`=`o`.`orderId` WHERE  `shopId` = 4  AND `refundStatus` = '0'  AND `o`.`dataFlag` = '1' LIMIT 1 [ RunTime:0.000716s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods` [ RunTime:0.002462s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods` WHERE  ( shopId =4 and dataFlag = 1 and goodsStock <= warnStock and isSpec = 0 and warnStock>0 ) LIMIT 1 [ RunTime:0.000685s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods_specs` [ RunTime:0.001706s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods_specs` WHERE  ( shopId =4 and dataFlag = 1 and specStock <= warnStock and warnStock>0 ) LIMIT 1 [ RunTime:0.000490s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:16+08:00] 127.0.0.1 GET artthree.com/upload/accreds/2019-02/5c6f74197968c.png
+[运行时间：0.007537s] [吞吐率：132.68req/s] [内存消耗：340.91kb] [文件加载：55]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+---------------------------------------------------------------
+[2021-05-12T09:49:16+08:00] 127.0.0.1 POST artthree.com/shop/reports/getStatSales.html
+[运行时间：0.031224s] [吞吐率：32.03req/s] [内存消耗：934.60kb] [文件加载：85]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/index/main.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '39',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'startDate' => '2021-04-12',
+  'endDate' => '2021-05-12',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000808s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001388s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000531s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001411s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000713s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_orders` [ RunTime:0.001427s ]
+[ sql ] [ SQL ] SELECT left(createTime,10) createTime,sum(totalMoney) totalMoney,count(orderId) orderNum FROM `wst_orders` WHERE  `createTime` BETWEEN '2021-04-12 00:00:00' AND '2021-05-12 23:59:59'  AND `shopId` = 4  AND ( (payType=0 or (payType=1 and isPay=1)) and dataFlag=1  ) GROUP BY left(createTime,10) ORDER BY `createTime` ASC [ RunTime:0.000492s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:19+08:00] 127.0.0.1 GET artthree.com/
+[运行时间：0.080580s] [吞吐率：12.41req/s] [内存消耗：1,171.17kb] [文件加载：98]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\wstmart\home\view\default\index.html [ array (
+  0 => 'v',
+  1 => 'floors',
+  2 => 'hideCategory',
+  3 => 'object',
+  4 => 'shopStreet1',
+  5 => 'shopStreet0',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011178s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001983s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000809s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001485s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000526s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_data_cats` [ RunTime:0.001251s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000573s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000778s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods_cats` [ RunTime:0.001695s ]
+[ sql ] [ SQL ] SELECT `catName`,`catId`,`subTitle` FROM `wst_goods_cats` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `parentId` = 0  AND `isFloor` = 1 ORDER BY `catSort` LIMIT 10 [ RunTime:0.000981s ]
+[ sql ] [ SQL ] SELECT `parentId`,`catName`,`catId`,`subTitle` FROM `wst_goods_cats` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `parentId` IN (365,366,367,368,369,370)  AND `isFloor` = 1 ORDER BY `catSort` ASC [ RunTime:0.000558s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_users` [ RunTime:0.001359s ]
+[ sql ] [ SQL ] SELECT `userScore` FROM `wst_users` WHERE  `userId` = 4  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000549s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_navs` [ RunTime:0.001371s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_navs` WHERE  `isShow` = 1  AND `navType` = 0 ORDER BY `navSort` ASC [ RunTime:0.000578s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods` [ RunTime:0.001990s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_goods` WHERE  `isSale` = 1  AND `goodsStatus` = 1  AND `dataFlag` = 1  AND `goodsCatId` IN (365,366,367,368,369,370) ORDER BY `saleNum` DESC LIMIT 8 [ RunTime:0.001241s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_goods` WHERE  `isSale` = 1  AND `goodsStatus` = 1  AND `dataFlag` = 1  AND `goodsCatId` IN (365,366,367,368,369,370)  AND `isBest` = 1 ORDER BY `saleNum` DESC LIMIT 4 [ RunTime:0.000710s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shops` [ RunTime:0.001467s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_shops` ORDER BY `shopId` LIMIT 1 [ RunTime:0.000635s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_shops` ORDER BY `shopId` LIMIT 1,12 [ RunTime:0.000523s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_ads` [ RunTime:0.001309s ]
+[ sql ] [ SQL ] SELECT `adId`,`adName`,`adURL`,`subTitle`,`adFile`,`positionWidth`,`positionHeight` FROM `wst_ads` `a` LEFT JOIN `wst_ad_positions` `ap` ON `a`.`adPositionId`=ap.positionId and ap.dataFlag=1 WHERE  ( a.dataFlag=1 and ap.positionCode='index-top-ads' and adStartDate<= '2021-05-12' and adEndDate>='2021-05-12' ) ORDER BY `adSort` LIMIT 99 [ RunTime:0.000834s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_article_cats` [ RunTime:0.001276s ]
+[ sql ] [ SQL ] SELECT `catName`,`catId` FROM `wst_article_cats` WHERE  `catType` = 1  AND `dataFlag` = 1  AND `isShow` = 1  AND `parentId` = 7 ORDER BY `catSort` ASC LIMIT 5 [ RunTime:0.000605s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_articles` [ RunTime:0.003081s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 5 ORDER BY `createTime` ASC LIMIT 6 [ RunTime:0.000731s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 9 ORDER BY `createTime` ASC LIMIT 6 [ RunTime:0.000511s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 1 ORDER BY `createTime` ASC LIMIT 6 [ RunTime:0.000517s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 10 ORDER BY `createTime` ASC LIMIT 6 [ RunTime:0.000432s ]
+[ sql ] [ SQL ] SELECT `articleId`,`catId`,`articleTitle` FROM `wst_articles` WHERE  `dataFlag` = 1  AND `isShow` = 1  AND `catId` = 6 ORDER BY `createTime` ASC LIMIT 6 [ RunTime:0.000461s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:19+08:00] 127.0.0.1 POST artthree.com/home/index/getSysMessages.html
+[运行时间：0.033096s] [吞吐率：30.22req/s] [内存消耗：998.42kb] [文件加载：89]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '20',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'tasks' => 'message,cart',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000901s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.002019s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000802s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.002442s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000769s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_data_cats` [ RunTime:0.001263s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000632s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000364s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_messages` [ RunTime:0.001355s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_messages` WHERE  `receiveUserId` = 4  AND `msgStatus` = 0  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000656s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_carts` [ RunTime:0.000932s ]
+[ sql ] [ SQL ] SELECT `cartNum` FROM `wst_carts` WHERE  `userId` = 4 [ RunTime:0.000367s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:19+08:00] 127.0.0.1 POST artthree.com/home/carts/getCartInfo.html
+[运行时间：0.039819s] [吞吐率：25.11req/s] [内存消耗：1,006.34kb] [文件加载：91]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/',
+  'origin' => 'http://artthree.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'accept' => '*/*',
+  'content-length' => '0',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000825s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001758s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000743s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001830s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.001219s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_data_cats` [ RunTime:0.001243s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000617s ]
+[ sql ] [ SQL ] SELECT `catId` FROM `wst_data_cats` WHERE  `catCode` = 'ADS_TYPE' LIMIT 1 [ RunTime:0.000417s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_carts` [ RunTime:0.001624s ]
+[ sql ] [ SQL ] SELECT `c`.`goodsSpecId`,`c`.`cartId`,`g`.`goodsId`,`g`.`goodsName`,`g`.`shopPrice`,`g`.`goodsStock`,`g`.`isSpec`,`gs`.`specPrice`,`gs`.`specStock`,`g`.`goodsImg`,`c`.`isCheck`,`gs`.`specIds`,`c`.`cartNum`,`g`.`saleType` FROM `wst_carts` `c` INNER JOIN `wst_goods` `g` ON `c`.`goodsId`=`g`.`goodsId` LEFT JOIN `wst_goods_specs` `gs` ON `c`.`goodsSpecId`=`gs`.`id` WHERE  `c`.`userId` = '4' [ RunTime:0.000705s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:23+08:00] 127.0.0.1 GET artthree.com/index.php/admin/index
+[运行时间：0.025087s] [吞吐率：39.86req/s] [内存消耗：1,378.75kb] [文件加载：85]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001524s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.002964s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000786s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001184s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000476s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:23+08:00] 127.0.0.1 GET artthree.com/index.php/admin/index/login.html
+[运行时间：0.052729s] [吞吐率：18.96req/s] [内存消耗：1,495.34kb] [文件加载：95]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\wstmart\admin\view\login.html [ array (
+  0 => 'v',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010589s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001634s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000553s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001144s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000549s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_orders` [ RunTime:0.001608s ]
+[ sql ] [ SQL ] SELECT `o`.`orderId`,`o`.`orderNo`,`o`.`userId`,`o`.`shopId`,`o`.`useScore`,s.userId shopUserId,`orderCode` FROM `wst_orders` `o` LEFT JOIN `wst_shops` `s` ON `o`.`shopId`=`s`.`shopId` WHERE  `o`.`createTime` < '2021-05-11 09:49:23'  AND `o`.`orderStatus` = '-2'  AND `o`.`dataFlag` = '1'  AND `o`.`payType` = '1'  AND `o`.`isPay` = '0' [ RunTime:0.000919s ]
+[ sql ] [ SQL ] SELECT `orderId`,`orderNo`,`shopId`,`userId`,`orderScore`,`commissionFee` FROM `wst_orders` WHERE  `deliveryTime` < '2021-05-05 00:00:00'  AND `orderStatus` = 1  AND `dataFlag` = 1 [ RunTime:0.000454s ]
+[ sql ] [ SQL ] SELECT `orderId`,`userId`,`orderScore`,`shopId`,`orderNo` FROM `wst_orders` WHERE  `receiveTime` < '2021-05-02 00:00:00'  AND `orderStatus` = 2  AND `dataFlag` = 1  AND `isAppraise` = 0 [ RunTime:0.000298s ]
+[ sql ] [ SQL ] UPDATE `wst_orders`  SET `isAppraise` = 1  WHERE  `orderId` IN ('') [ RunTime:0.000691s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_message_queues` [ RunTime:0.002974s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_message_queues` WHERE  `sendStatus` = 0 ORDER BY `id` ASC LIMIT 500 [ RunTime:0.002319s ]
+[ sql ] [ SQL ] DELETE FROM `wst_message_queues` WHERE  `sendStatus` = 1  AND `sendTime` <= '2021-05-10 23:59:59' [ RunTime:0.000539s ]
+---------------------------------------------------------------
+[2021-05-12T09:49:23+08:00] 127.0.0.1 GET artthree.com/index.php/admin/index/getverify.html
+[运行时间：0.032438s] [吞吐率：30.83req/s] [内存消耗：1,356.29kb] [文件加载：87]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/index.php/admin/index/login.html',
+  'accept' => 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001180s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.002348s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000764s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.002012s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000982s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:07+08:00] 127.0.0.1 POST artthree.com/index.php/admin/index/checkLogin.html
+[运行时间：0.072508s] [吞吐率：13.79req/s] [内存消耗：1,568.23kb] [文件加载：92]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/index.php/admin/index/login.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '49',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'loginName' => 'admin',
+  'loginPwd' => '1q2w#E',
+  'verifyCode' => '37rf',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011363s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001833s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000543s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001002s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000394s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_staffs` [ RunTime:0.001580s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_staffs` WHERE  `loginName` = 'admin'  AND `staffStatus` = 1  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.004152s ]
+[ sql ] [ SQL ] UPDATE `wst_staffs`  SET `lastTime` = '2021-05-12 09:50:07'  WHERE  `staffId` = 1 [ RunTime:0.000512s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_log_staff_logins` [ RunTime:0.001620s ]
+[ sql ] [ SQL ] INSERT INTO `wst_log_staff_logins` (`staffId` , `loginTime` , `loginIp`) VALUES (1 , '2021-05-12 09:50:07' , '127.0.0.1') [ RunTime:0.002635s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_roles` [ RunTime:0.001182s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_roles` WHERE  `dataFlag` = 1  AND `roleId` = 3 LIMIT 1 [ RunTime:0.001846s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_privileges` [ RunTime:0.001152s ]
+[ sql ] [ SQL ] SELECT `privilegeCode` FROM `wst_privileges` WHERE  `dataFlag` = 1 [ RunTime:0.002627s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_menus` [ RunTime:0.001099s ]
+[ sql ] [ SQL ] SELECT `menuId` FROM `wst_menus` WHERE  `dataFlag` = 1 [ RunTime:0.001832s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:09+08:00] 127.0.0.1 GET artthree.com/index.php/admin/index/index.html
+[运行时间：0.067104s] [吞吐率：14.90req/s] [内存消耗：2,172.97kb] [文件加载：95]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/index.php/admin/index/login.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\wstmart\admin\view\index.html [ array (
+  0 => 'v',
+  1 => 'sysMenus',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000882s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001016s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000447s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.002249s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000575s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_menus` [ RunTime:0.001121s ]
+[ sql ] [ SQL ] SELECT `m`.`menuId`,`m`.`menuName`,`privilegeUrl`,`m`.`parentId`,`m`.`menuIcon` FROM `wst_menus` `m` LEFT JOIN `wst_privileges` `p` ON `m`.`menuId`=p.menuId and isMenuPrivilege=1 and p.dataFlag=1 WHERE  `m`.`dataFlag` = '1' ORDER BY `menuSort` ASC [ RunTime:0.001693s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:09+08:00] 127.0.0.1 GET artthree.com/upload/staffs/2015-04/55306cf76bc1f.jpg
+[运行时间：0.007242s] [吞吐率：138.08req/s] [内存消耗：340.89kb] [文件加载：55]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+---------------------------------------------------------------
+[2021-05-12T09:50:09+08:00] 127.0.0.1 GET artthree.com/index.php/admin/index/main.html
+[运行时间：0.058803s] [吞吐率：17.01req/s] [内存消耗：1,665.17kb] [文件加载：93]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/index.php/admin/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\wstmart\admin\view\main.html [ array (
+  0 => 'v',
+  1 => 'object',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000863s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001063s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000411s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001019s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000332s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_orders` [ RunTime:0.001497s ]
+[ sql ] [ SQL ] SELECT SUM(`totalMoney`) AS tp_sum FROM `wst_orders` WHERE  `orderStatus` <> -1  AND `dataFlag` = 1  AND `createTime` LIKE '2021-05-12%' LIMIT 1 [ RunTime:0.000495s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `orderStatus` <> -1  AND `dataFlag` = 1  AND `createTime` LIKE '2021-05-12%' LIMIT 1 [ RunTime:0.000279s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shops` [ RunTime:0.001154s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_shops` WHERE  `dataFlag` = 1  AND `applyTime` LIKE '2021-05-12%'  AND `applyStatus` = 2 LIMIT 1 [ RunTime:0.000418s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_users` [ RunTime:0.000974s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_users` WHERE  `userType` = 0  AND `createTime` LIKE '2021-05-12%'  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000627s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_order_refunds` [ RunTime:0.000911s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_order_refunds` WHERE  `createTime` LIKE '2021-05-12%' LIMIT 1 [ RunTime:0.001519s ]
+[ sql ] [ SQL ] SELECT SUM(`totalMoney`) AS tp_sum FROM `wst_orders` WHERE  `orderStatus` <> -1  AND `dataFlag` = 1  AND `createTime` LIKE '2021-05-11%' LIMIT 1 [ RunTime:0.000417s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_orders` WHERE  `orderStatus` <> -1  AND `dataFlag` = 1  AND `createTime` LIKE '2021-05-11%' LIMIT 1 [ RunTime:0.000281s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_shops` WHERE  `dataFlag` = 1  AND `applyTime` LIKE '2021-05-11%'  AND `applyStatus` = 2 LIMIT 1 [ RunTime:0.000403s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_users` WHERE  `userType` = 0  AND `createTime` LIKE '2021-05-11%'  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.000462s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_order_refunds` WHERE  `createTime` LIKE '2021-05-12%' LIMIT 1 [ RunTime:0.000326s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_shops` WHERE  `dataFlag` = 1  AND `applyStatus` = 1 LIMIT 1 [ RunTime:0.000523s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shop_applys` [ RunTime:0.003728s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_shop_applys` WHERE  `dataFlag` = 1  AND `applyStatus` = 0 LIMIT 1 [ RunTime:0.002509s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods` [ RunTime:0.001829s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods` WHERE  `dataFlag` = 1  AND `goodsStatus` = 0  AND `isSale` = 1  AND `createTime` LIKE '2021-05-12%' LIMIT 1 [ RunTime:0.000457s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_cash_draws` [ RunTime:0.001517s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_cash_draws` WHERE  `cashSatus` = 0 LIMIT 1 [ RunTime:0.003110s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_order_refunds` WHERE  `refundStatus` = 1 LIMIT 1 [ RunTime:0.000489s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_order_complains` [ RunTime:0.001219s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_order_complains` WHERE  `complainTime` LIKE '2021-05-12%'  AND `complainStatus` IN (0,3) LIMIT 1 [ RunTime:0.000847s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_informs` [ RunTime:0.002903s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_informs` WHERE  `informStatus` = 0  AND `dataFlag` = 1 LIMIT 1 [ RunTime:0.002115s ]
+[ sql ] [ SQL ] select VERSION() as sqlversion [ RunTime:0.000236s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:09+08:00] 127.0.0.1 POST artthree.com/index.php/admin/index/getSysMessages.html
+[运行时间：0.032690s] [吞吐率：30.59req/s] [内存消耗：1,585.05kb] [文件加载：90]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/index.php/admin/index/index.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '55',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'tasks' => 'shopapply,goodsaudit,ordercomplains,informs',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001039s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001581s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000489s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.002156s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000342s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shops` [ RunTime:0.002331s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_shops` WHERE  `dataFlag` = 1  AND `applyStatus` = 1 LIMIT 1 [ RunTime:0.000531s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods` [ RunTime:0.001221s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_goods` WHERE  `dataFlag` = 1  AND `goodsStatus` = 0  AND `isSale` = 1 LIMIT 1 [ RunTime:0.000612s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_order_complains` [ RunTime:0.001834s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_order_complains` WHERE  `complainStatus` IN (0,3) LIMIT 1 [ RunTime:0.000824s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_informs` [ RunTime:0.001516s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `wst_informs` WHERE  `dataFlag` = 1  AND `informStatus` = 0 LIMIT 1 [ RunTime:0.000694s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:09+08:00] 127.0.0.1 POST artthree.com/index.php/admin/reports/topSaleGoodsByPage.html
+[运行时间：0.040676s] [吞吐率：24.58req/s] [内存消耗：1,623.56kb] [文件加载：95]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/index.php/admin/index/main.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '39',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'startDate' => '2021-04-12',
+  'endDate' => '2021-05-12',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000843s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001011s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000370s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001101s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000281s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_log_operates` [ RunTime:0.002538s ]
+[ sql ] [ SQL ] INSERT INTO `wst_log_operates` (`staffId` , `operateTime` , `menuId` , `operateDesc` , `content` , `operateUrl` , `operateIP`) VALUES (1 , '2021-05-12 09:50:09' , 72 , '查看销售排行' , '{\"startDate\":\"2021-04-12\",\"endDate\":\"2021-05-12\"}' , '/index.php/admin/reports/topSaleGoodsByPage.html' , '127.0.0.1') [ RunTime:0.002387s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_order_goods` [ RunTime:0.001242s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_orders` [ RunTime:0.001180s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM ( SELECT count(*) AS think_count FROM `wst_order_goods` `og` INNER JOIN `wst_orders` `o` ON `og`.`orderId`=`o`.`orderId` INNER JOIN `wst_goods` `g` ON `og`.`goodsId`=`g`.`goodsId` INNER JOIN `wst_shops` `s` ON `g`.`shopId`=`s`.`shopId` WHERE  `o`.`createTime` BETWEEN '2021-04-12 00:00:00' AND '2021-05-12 23:59:59'  AND ( (o.payType=0 or (o.payType=1 and o.isPay=1)) and o.dataFlag=1 ) GROUP BY `og`.`goodsId`,`g`.`goodsName`,`goodsSn`,`s`.`shopId`,`shopName`,`og`.`goodsImg` ) `_group_count_` LIMIT 1 [ RunTime:0.001125s ]
+[ sql ] [ SQL ] SELECT og.goodsId,g.goodsName,goodsSn,s.shopId,shopName,sum(og.goodsNum) goodsNum,og.goodsImg FROM `wst_order_goods` `og` INNER JOIN `wst_orders` `o` ON `og`.`orderId`=`o`.`orderId` INNER JOIN `wst_goods` `g` ON `og`.`goodsId`=`g`.`goodsId` INNER JOIN `wst_shops` `s` ON `g`.`shopId`=`s`.`shopId` WHERE  `o`.`createTime` BETWEEN '2021-04-12 00:00:00' AND '2021-05-12 23:59:59'  AND ( (o.payType=0 or (o.payType=1 and o.isPay=1)) and o.dataFlag=1 ) GROUP BY `og`.`goodsId`,`g`.`goodsName`,`goodsSn`,`s`.`shopId`,`shopName`,`og`.`goodsImg` ORDER BY `goodsNum` DESC LIMIT 0,15 [ RunTime:0.000546s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:09+08:00] 127.0.0.1 POST artthree.com/index.php/admin/reports/getOrders.html
+[运行时间：0.044852s] [吞吐率：22.30req/s] [内存消耗：1,586.02kb] [文件加载：90]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/index.php/admin/index/main.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '39',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'startDate' => '2021-04-12',
+  'endDate' => '2021-05-12',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000987s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001459s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000406s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001254s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000318s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_orders` [ RunTime:0.001532s ]
+[ sql ] [ SQL ] SELECT left(createTime,10) createTime,orderSrc,count(orderId) orderNum FROM `wst_orders` WHERE  `createTime` BETWEEN '2021-04-12 00:00:00' AND '2021-05-12 23:59:59'  AND ( ((payType=0 or (payType=1 and isPay=1)) and dataFlag=1)  ) GROUP BY left(createTime,10),`orderSrc` ORDER BY `createTime` ASC [ RunTime:0.000727s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:09+08:00] 127.0.0.1 POST artthree.com/index.php/admin/reports/getNewUser.html
+[运行时间：0.054310s] [吞吐率：18.41req/s] [内存消耗：1,576.70kb] [文件加载：90]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/index.php/admin/index/main.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '39',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'startDate' => '2021-04-12',
+  'endDate' => '2021-05-12',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000987s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.000985s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000371s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001063s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000296s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_users` [ RunTime:0.001190s ]
+[ sql ] [ SQL ] SELECT left(createTime,10) createTime,count(userId) userNum FROM `wst_users` WHERE  `createTime` BETWEEN '2021-04-12 00:00:00' AND '2021-05-12 23:59:59'  AND `dataFlag` = 1  AND `userType` = 0 GROUP BY left(createTime,10) ORDER BY `createTime` ASC [ RunTime:0.000526s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shops` [ RunTime:0.001109s ]
+[ sql ] [ SQL ] SELECT left(createTime,10) createTime,count(shopId) userNum FROM `wst_shops` WHERE  `createTime` BETWEEN '2021-04-12' AND '2021-05-12'  AND `dataFlag` = 1 GROUP BY left(createTime,10) ORDER BY `createTime` ASC [ RunTime:0.000349s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:09+08:00] 127.0.0.1 POST artthree.com/index.php/admin/index/getVersion.html
+[运行时间：0.640957s] [吞吐率：1.56req/s] [内存消耗：1,469.74kb] [文件加载：89]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/index.php/admin/index/main.html',
+  'origin' => 'http://artthree.com',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'accept' => '*/*',
+  'content-length' => '0',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000964s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001254s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000330s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001013s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000323s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:16+08:00] 127.0.0.1 GET artthree.com/shop/shops/info.html
+[运行时间：0.053383s] [吞吐率：18.73req/s] [内存消耗：1,085.30kb] [文件加载：89]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\wstmart\shop\view\default\shop\view.html [ array (
+  0 => 'v',
+  1 => 'object',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010126s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001191s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000462s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001094s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000404s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shops` [ RunTime:0.001516s ]
+[ sql ] [ SQL ] SELECT `s`.*,`b`.`bankName` FROM `wst_shops` `s` LEFT JOIN `wst_banks` `b` ON `b`.`bankId`=`s`.`bankId` WHERE  `s`.`dataFlag` = '1'  AND `shopId` = 4 LIMIT 1 [ RunTime:0.002531s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_areas` [ RunTime:0.001058s ]
+[ sql ] [ SQL ] SELECT `areaId`,`areaName` FROM `wst_areas` WHERE  `areaId` IN (6,76,693)  AND `dataFlag` = 1 [ RunTime:0.002568s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods_cats` [ RunTime:0.001045s ]
+[ sql ] [ SQL ] SELECT `catId`,`catName` FROM `wst_goods_cats` WHERE  `parentId` = 0  AND `isShow` = 1  AND `dataFlag` = 1 [ RunTime:0.000373s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_cat_shops` [ RunTime:0.000997s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_cat_shops` WHERE  `shopId` = 4 [ RunTime:0.002271s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shop_accreds` [ RunTime:0.000857s ]
+[ sql ] [ SQL ] SELECT `accredName`,`accredImg` FROM `wst_shop_accreds` `sac` INNER JOIN `wst_accreds` `a` ON `sac`.`accredId`=a.accredId and a.dataFlag=1 WHERE  `sac`.`shopId` = '4' [ RunTime:0.000851s ]
+[ sql ] [ SQL ] SELECT `parentId`,`areaName` FROM `wst_areas` WHERE  `areaId` = 500 LIMIT 1 [ RunTime:0.000405s ]
+[ sql ] [ SQL ] SELECT `parentId`,`areaName` FROM `wst_areas` WHERE  `areaId` = 52 LIMIT 1 [ RunTime:0.000344s ]
+[ sql ] [ SQL ] SELECT `parentId`,`areaName` FROM `wst_areas` WHERE  `areaId` = 2 LIMIT 1 [ RunTime:0.000255s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_banks` [ RunTime:0.000932s ]
+[ sql ] [ SQL ] SELECT `bankId`,`bankName` FROM `wst_banks` WHERE  `dataFlag` = 1 [ RunTime:0.000551s ]
+[ sql ] [ SQL ] SELECT `areaId`,`areaName` FROM `wst_areas` WHERE  `isShow` = 1  AND `dataFlag` = 1  AND `parentId` = 0 ORDER BY `areaSort` DESC [ RunTime:0.001569s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:16+08:00] 127.0.0.1 POST artthree.com/shop/areas/listQuery.html
+[运行时间：0.027689s] [吞吐率：36.12req/s] [内存消耗：885.20kb] [文件加载：85]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/shops/info.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '10',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'parentId' => '2',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010932s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001051s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000437s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001038s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000412s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_areas` [ RunTime:0.001047s ]
+[ sql ] [ SQL ] SELECT `areaId`,`areaName`,`parentId` FROM `wst_areas` WHERE  `isShow` = 1  AND `dataFlag` = 1  AND `parentId` = 2 ORDER BY `areaSort` DESC [ RunTime:0.000694s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:16+08:00] 127.0.0.1 POST artthree.com/shop/areas/listQuery.html
+[运行时间：0.025010s] [吞吐率：39.98req/s] [内存消耗：886.39kb] [文件加载：85]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/shops/info.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '11',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'parentId' => '52',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000885s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.000956s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000366s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001021s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000320s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_areas` [ RunTime:0.001025s ]
+[ sql ] [ SQL ] SELECT `areaId`,`areaName`,`parentId` FROM `wst_areas` WHERE  `isShow` = 1  AND `dataFlag` = 1  AND `parentId` = 52 ORDER BY `areaSort` DESC [ RunTime:0.000558s ]
+---------------------------------------------------------------
+[2021-05-12T09:50:16+08:00] 127.0.0.1 POST artthree.com/shop/areas/listQuery.html
+[运行时间：0.028152s] [吞吐率：35.52req/s] [内存消耗：884.50kb] [文件加载：85]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/shops/info.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '12',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'parentId' => '500',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011328s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.001153s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000415s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.000987s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000556s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_areas` [ RunTime:0.001836s ]
+[ sql ] [ SQL ] SELECT `areaId`,`areaName`,`parentId` FROM `wst_areas` WHERE  `isShow` = 1  AND `dataFlag` = 1  AND `parentId` = 500 ORDER BY `areaSort` DESC [ RunTime:0.001031s ]
+---------------------------------------------------------------
+[2021-05-12T09:51:09+08:00] 127.0.0.1 GET artthree.com/shop/shops/info.html
+[运行时间：0.048581s] [吞吐率：20.58req/s] [内存消耗：1,083.84kb] [文件加载：89]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+  'content-length' => '',
+  'content-type' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\wstmart\shop\view\default\shop\view.html [ array (
+  0 => 'v',
+  1 => 'object',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010299s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.000986s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000372s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001085s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000309s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shops` [ RunTime:0.001428s ]
+[ sql ] [ SQL ] SELECT `s`.*,`b`.`bankName` FROM `wst_shops` `s` LEFT JOIN `wst_banks` `b` ON `b`.`bankId`=`s`.`bankId` WHERE  `s`.`dataFlag` = '1'  AND `shopId` = 4 LIMIT 1 [ RunTime:0.000816s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_areas` [ RunTime:0.000981s ]
+[ sql ] [ SQL ] SELECT `areaId`,`areaName` FROM `wst_areas` WHERE  `areaId` IN (6,76,693)  AND `dataFlag` = 1 [ RunTime:0.000457s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_goods_cats` [ RunTime:0.000915s ]
+[ sql ] [ SQL ] SELECT `catId`,`catName` FROM `wst_goods_cats` WHERE  `parentId` = 0  AND `isShow` = 1  AND `dataFlag` = 1 [ RunTime:0.000430s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_cat_shops` [ RunTime:0.000881s ]
+[ sql ] [ SQL ] SELECT * FROM `wst_cat_shops` WHERE  `shopId` = 4 [ RunTime:0.000409s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_shop_accreds` [ RunTime:0.000797s ]
+[ sql ] [ SQL ] SELECT `accredName`,`accredImg` FROM `wst_shop_accreds` `sac` INNER JOIN `wst_accreds` `a` ON `sac`.`accredId`=a.accredId and a.dataFlag=1 WHERE  `sac`.`shopId` = '4' [ RunTime:0.000478s ]
+[ sql ] [ SQL ] SELECT `parentId`,`areaName` FROM `wst_areas` WHERE  `areaId` = 500 LIMIT 1 [ RunTime:0.000230s ]
+[ sql ] [ SQL ] SELECT `parentId`,`areaName` FROM `wst_areas` WHERE  `areaId` = 52 LIMIT 1 [ RunTime:0.000277s ]
+[ sql ] [ SQL ] SELECT `parentId`,`areaName` FROM `wst_areas` WHERE  `areaId` = 2 LIMIT 1 [ RunTime:0.000276s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_banks` [ RunTime:0.000888s ]
+[ sql ] [ SQL ] SELECT `bankId`,`bankName` FROM `wst_banks` WHERE  `dataFlag` = 1 [ RunTime:0.000392s ]
+[ sql ] [ SQL ] SELECT `areaId`,`areaName` FROM `wst_areas` WHERE  `isShow` = 1  AND `dataFlag` = 1  AND `parentId` = 0 ORDER BY `areaSort` DESC [ RunTime:0.000323s ]
+---------------------------------------------------------------
+[2021-05-12T09:51:09+08:00] 127.0.0.1 POST artthree.com/shop/areas/listQuery.html
+[运行时间：0.016451s] [吞吐率：60.79req/s] [内存消耗：884.59kb] [文件加载：85]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/shops/info.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '10',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'parentId' => '2',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000817s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.000915s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000369s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.000939s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000310s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_areas` [ RunTime:0.000982s ]
+[ sql ] [ SQL ] SELECT `areaId`,`areaName`,`parentId` FROM `wst_areas` WHERE  `isShow` = 1  AND `dataFlag` = 1  AND `parentId` = 2 ORDER BY `areaSort` DESC [ RunTime:0.000466s ]
+---------------------------------------------------------------
+[2021-05-12T09:51:09+08:00] 127.0.0.1 POST artthree.com/shop/areas/listQuery.html
+[运行时间：0.015302s] [吞吐率：65.35req/s] [内存消耗：886.39kb] [文件加载：85]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/shops/info.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '11',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'parentId' => '52',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000841s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.000986s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000296s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001030s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000237s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_areas` [ RunTime:0.000997s ]
+[ sql ] [ SQL ] SELECT `areaId`,`areaName`,`parentId` FROM `wst_areas` WHERE  `isShow` = 1  AND `dataFlag` = 1  AND `parentId` = 52 ORDER BY `areaSort` DESC [ RunTime:0.000447s ]
+---------------------------------------------------------------
+[2021-05-12T09:51:09+08:00] 127.0.0.1 POST artthree.com/shop/areas/listQuery.html
+[运行时间：0.018356s] [吞吐率：54.48req/s] [内存消耗：884.50kb] [文件加载：85]
+[ info ] [ LANG ] D:\soft\phpstudy\phpstudy_pro\WWW\three\www.art.com\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'UM_distinctid=17945604cb384b-029fcda461c1a4-d7e1739-fa000-17945604cb4acb; WSTMART_loginName=xiaomi; WSTMART_wx_history_goods=think%3A%5B%22126%22%2C%22127%22%2C%22122%22%5D; WSTMART_history_goods=think%3A%5B%22129%22%2C%22122%22%5D; PHPSESSID=ggatd624p0js5ucf6kf5bq8sc4; CNZZDATA1263804910=1794985214-1620362228-null%7C1620782908',
+  'accept-language' => 'zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://artthree.com/shop/shops/info.html',
+  'origin' => 'http://artthree.com',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => '*/*',
+  'content-length' => '12',
+  'connection' => 'keep-alive',
+  'host' => 'artthree.com',
+)
+[ info ] [ PARAM ] array (
+  'parentId' => '500',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001073s ] mysql:host=127.0.0.1;port=3306;dbname=artthree;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_hooks` [ RunTime:0.002088s ]
+[ sql ] [ SQL ] SELECT `name`,`addons` FROM `wst_hooks` WHERE  ( addons != '' ) [ RunTime:0.000772s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_addons` [ RunTime:0.001461s ]
+[ sql ] [ SQL ] SELECT `addonId`,`name` FROM `wst_addons` WHERE  ( status =1 and dataFlag = 1 ) [ RunTime:0.000428s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `wst_areas` [ RunTime:0.001149s ]
+[ sql ] [ SQL ] SELECT `areaId`,`areaName`,`parentId` FROM `wst_areas` WHERE  `isShow` = 1  AND `dataFlag` = 1  AND `parentId` = 500 ORDER BY `areaSort` DESC [ RunTime:0.000563s ]

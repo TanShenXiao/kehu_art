@@ -1,0 +1,372 @@
+<!doctype html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>WSTMart自营超市 - 商淘软件多用户商城系统</title>
+<meta name="description" content=",商淘软件多用户商城系统">
+<meta name="Keywords" content="WSTMart官方自营,商淘软件多用户商城系统">
+
+<link href="/wstmartp/wstmart/home/view/default/css/common.css?v=2.1.1_190220_1" rel="stylesheet">
+<link href="/wstmartp/static/plugins/lazyload/skin/laypage.css?v=2.1.1_190220_1" rel="stylesheet">
+<link href="/wstmartp/static/plugins/slide/css/slide.css?v=2.1.1_190220_1" rel="stylesheet">
+<link href="/wstmartp/wstmart/home/view/default/css/style.css?v=2.1.1_190220_1" rel="stylesheet">
+<link href="/wstmartp/wstmart/home/view/default/css/shophome.css?v=2.1.1_190220_1" rel="stylesheet">
+<style id="style_nav"></style>
+<script type="text/javascript" src="/wstmartp/static/js/jquery.min.js?v=2.1.1_190220_1"></script>
+<script type="text/javascript" src="/wstmartp/static/plugins/layer/layer.js?v=2.1.1_190220_1"></script>
+<script type="text/javascript" src="/wstmartp/static/plugins/lazyload/jquery.lazyload.min.js?v=2.1.1_190220_1"></script>
+<script type='text/javascript' src='/wstmartp/static/js/common.js?v=2.1.1_190220_1'></script>
+<script type='text/javascript' src='/wstmartp/wstmart/home/view/default/js/common.js?v=2.1.1_190220_1'></script>
+
+
+
+<link href="/wstmartp/static/plugins/validator/jquery.validator.css?v=2.1.1_190220_1" rel="stylesheet">
+<link href="/wstmartp/wstmart/home/view/default/css/login.css?v=2.1.1_190220_1" rel="stylesheet">
+<script type="text/javascript" src="/wstmartp/static/plugins/validator/jquery.validator.min.js?v=2.1.1_190220_1"></script>
+<script type='text/javascript' src='/wstmartp/wstmart/home/view/default/js/login.js?v=2.1.1_190220_1'></script>
+<script>
+window.conf = {"ROOT":"/wstmartp","APP":"/wstmartp","STATIC":"/wstmartp/static","SUFFIX":"html","SMS_VERFY":"1","SMS_OPEN":"1","GOODS_LOGO":"upload/sysconfigs/2016-10/5804802a4b162.png","SHOP_LOGO":"upload/sysconfigs/2016-10/58048008993ed.png","MALL_LOGO":"upload/sysconfigs/2016-10/580480413c986.png","USER_LOGO":"upload/sysconfigs/2016-10/5804800d5841e.png","IS_LOGIN":"1","TIME_TASK":"1","ROUTES":'{"\\think\\addons\\addonscontroller@execute":"addon\/<module>-<action>-<method>","mobile\/brands\/index":"mbrands","mobile\/shops\/shopstreet":"mstreet","mobile\/users\/login":"mlogin","mobile\/users\/toregister":"mregister","mobile\/users\/forgetpass":"mforget","mobile\/goods\/detail":"mgoods-<goodsId>","mobile\/shops\/index":"mshop-<shopId>","mobile\/shops\/view":"mshopview-<shopId>","mobile\/goods\/lists":"mlist","mobile\/goods\/search":"msearch","mobile\/news\/view":"mnews","mobile\/goodscats\/index":"mcategoty","mobile\/shops\/goods":"mshopgoods-<shopId>","home\/index\/download":"download","home\/index\/index":"index","home\/goods\/lists":"category-<cat>","home\/goods\/search":"search","home\/goods\/detail":"goods-<goodsId>","home\/brands\/index":"brands","home\/shops\/shopstreet":"street","home\/helpcenter\/view":"service-<id>","home\/news\/view":"news-<id>","home\/news\/nlist":"cats-news-<catId>","home\/users\/login":"login","home\/users\/regist":"register","home\/users\/forgetpass":"forget","home\/users\/forgetpasst":"find-forget","home\/users\/forgetpassf":"success-forget","home\/users\/resetpass":"reset-forget","home\/shops\/index":"shop-<shopId>","home\/shops\/goods":"shopgoods-<shopId>"}','RESOURCE_PATH':'/wstmartp'}
+$(function() {
+	WST.dropDownLayer(".j-dorpdown",".j-dorpdown-layer");
+	WST.dropDownLayer(".drop-info",".wst-tag");
+	WST.dropDownLayerCart(".wst-cart-box",".wst-cart-boxs");	
+	WST.searchIpt();
+	WST.showCategoryNavs();
+	WST.Sidebar();
+});
+</script>
+</head>
+
+<body>
+{include file="../../wstmart/home/view/default/top" /}<div id="header-split" style="display:none"></div>
+<script>
+$(function(){
+	WST.conf.IS_LOGIN = 0;
+	//二维码
+	//参数1表示图像大小，取值范围1-10；参数2表示质量，取值范围'L','M','Q','H'
+	var a = qrcode(8, 'M');
+	var url = window.location.host+window.conf.APP;
+	a.addData(url);
+	a.make();
+	$('#qrcodea').html(a.createImgTag());
+});
+function goShop(id){
+  location.href=WST.U('home/shops/index','shopId='+id);
+}
+</script>
+<script type='text/javascript' src='/wstmartp/wstmart/home/view/default/js/qrcode.js?v=2.1.1_190220_1'></script>
+	<div class="wst-container" >
+		<div class="wst-shop-h">
+		<div class="wst-shop-img"><a href="http://localhost/wstmartp/shop-1.html"><img class="shopsImg" data-original="/wstmartp/upload/shops/2019-02/5c6fd1074ce70.png" title="WSTMart自营超市"></a></div>
+		<div class="wst-shop-info">
+			<p>WSTMart自营超市</p>
+			<div class="wst-shop-info2">
+						<img src="/wstmartp/upload/accreds/2019-02/5c6f74197968c.png"><span>七天无条件退款</span>
+						<img src="/wstmartp/upload/accreds/2019-02/5c6f74289d057.png"><span>消保认证商家</span>
+						<a href="tencent://message/?uin=153289970&Site=QQ交谈&Menu=yes">
+		        <img border="0" style="width:65px;height:24px;" src="http://wpa.qq.com/pa?p=1:153289970:7">
+		    </a>
+						</div>
+			<div class="wst-shop-info3">
+				<span class="wst-shop-eva">商品评价：<span class="wst-shop-red">5</span></span>
+				<span class="wst-shop-eva">时效评价：<span class="wst-shop-red">5</span></span>
+				<span class="wst-shop-eva">服务评价：<span class="wst-shop-red">5</span></span>
+								<a href='javascript:void(0);' onclick='addFavorite(this,1,1,0)' class="wst-shop-evaa j-fav2">关注店铺</a>
+								<span class="wst-shop-eva">用手机逛本店  &nbsp;&nbsp;|</span>
+				<a class="wst-shop-code"><span class="wst-shop-codes hide"><div id='qrcode' style='width:142px;height:142px;'></div></span></a>
+			</div>
+		</div>
+		<div class="wst-shop-sea">
+			<input type="text" id="goodsName" value="" placeholder="输入商品名称">
+			<a class="search" href="javascript:void(0);" onclick="javascript:WST.goodsSearch($('#goodsName').val());">搜全站</a>
+			<a class="search" href="javascript:void(0);" onclick="javascript:searchShopsGoods(0);">搜本店</a>
+			<div class="wst-shop-word">
+						<a href='http://localhost/wstmartp/shop-1/goodsName/wstmart%E8%87%AA%E8%90%A5.html'>wstmart自营</a>&nbsp;|&nbsp;						<a href='http://localhost/wstmartp/shop-1/goodsName/%E7%BB%B4%E8%BE%BE%E7%BA%B8%E5%B7%BE.html'>维达纸巾</a>&nbsp;|&nbsp;						<a href='http://localhost/wstmartp/shop-1/goodsName/%E7%BE%8E%E9%A3%9F.html'>美食</a>						</div>
+					      	<div style="clear: both;"></div>
+		      	<div class="bshare-custom icon-medium-plus">
+		          <a title="分享到QQ空间" class="bshare-qzone"></a>
+		          <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+		          <a title="分享到QQ好友" class="bshare-qqim"></a>
+		          <a title="分享到微信" class="bshare-weixin"></a>
+		        </div>
+		        <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&pophcol=2&lang=zh"></script>
+		        <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+		    			<div style="clear: both;"></div>
+			
+		</div>
+		<div class="wst-clear"></div>
+		</div>
+	</div>
+		 <div class='wst-header'>
+		<div class="wst-shop-nav">
+			<div class="wst-nav-box">
+				<a href="http://localhost/wstmartp/shop-1.html"><li class="liselect wst-lfloat wst-nav-boxa">店铺首页</li></a>{wst:shopcats cat="0" num="10" shop="1" id="ca"}<a href="{:url("home/shops/goods",array("shopId"=>$ca["shopId"],"ct1"=>$ca["catId"]))}"><li class="liselect wst-lfloat">{$ca["catName"]}</li></a>{/wst:shopcats}<a class="homepage" href='http://localhost/wstmartp'>返回商城首页</a>
+				<div class="wst-clear"></div>
+			</div>
+		</div>
+		<div class="wst-clear"></div>
+	</div>
+	
+	
+<input type="hidden" id="msort" value="0" autocomplete="off"/>
+<input type="hidden" id="mdesc" value="1" autocomplete="off"/>
+<input type="hidden" id="shopId" value="1" autocomplete="off"/>
+<input type="hidden" id="ct1" value="0" autocomplete="off"/>
+<input type="hidden" id="ct2" value="0" autocomplete="off"/>
+<div  style="">
+	<div class="wst-container" style="background-color: #ffffff;">
+		<div id="shop_decoration_area" class="store-decoration-page wst-shop-list" style="padding:0;">
+	
+	    	
+	</div>
+</div>
+</div>
+
+<div class="footer-line"></div>
+<ul class="wst-footer-info">
+	<li><div class="wst-footer-info-img wst-fimg1"></div>
+		<div class="wst-footer-info-text">
+			<h1>支付宝支付</h1>
+			<p>支付宝签约商家</p>
+		</div>
+	</li>
+	<li><div class="wst-footer-info-img wst-fimg2"></div>
+		<div class="wst-footer-info-text">
+			<h1>正品保证</h1>
+			<p>100%原产地</p>
+		</div>
+	</li>
+	<li><div class="wst-footer-info-img wst-fimg3"></div>
+		<div class="wst-footer-info-text">
+			<h1>退货无忧</h1>
+			<p>七天退货保障</p>
+		</div>
+	</li>
+	<li><div class="wst-footer-info-img wst-fimg4"></div>
+		<div class="wst-footer-info-text">
+			<h1>免费配送</h1>
+			<p>满98元包邮</p>
+		</div>
+	</li>
+	<li><div class="wst-footer-info-img wst-fimg5"></div>
+		<div class="wst-footer-info-text">
+			<h1>货到付款</h1>
+			<p>400城市送货上门</p>
+		</div>
+	</li>
+</ul>
+<div class="wst-footer-help">
+	<div class="wst-footer">
+		<div class="wst-footer-hp-ck1">
+						<div class="wst-footer-wz-ca">
+				<div class="wst-footer-wz-pt">
+					<span class="wst-footer-wz-pn">购物指南</span>
+					<ul style='margin-left:25px;'>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-1.html">购物流程</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-2.html">会员介绍</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-3.html">常见问题</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-32.html">优惠政策</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-33.html">发票制度</a>
+						</li>
+											</ul>
+				</div>
+			</div>
+						<div class="wst-footer-wz-ca">
+				<div class="wst-footer-wz-pt">
+					<span class="wst-footer-wz-pn">售后服务</span>
+					<ul style='margin-left:25px;'>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-8.html">售后政策</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-9.html">退款/换货</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-10.html">退款维权流程</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-27.html">价格保护</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-29.html">取消订单</a>
+						</li>
+											</ul>
+				</div>
+			</div>
+						<div class="wst-footer-wz-ca">
+				<div class="wst-footer-wz-pt">
+					<span class="wst-footer-wz-pn">支付方式</span>
+					<ul style='margin-left:25px;'>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-4.html">在线支付</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-5.html">货到付款</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-6.html">分期付款</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-7.html">邮局汇款</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-28.html">公司转账</a>
+						</li>
+											</ul>
+				</div>
+			</div>
+						<div class="wst-footer-wz-ca">
+				<div class="wst-footer-wz-pt">
+					<span class="wst-footer-wz-pn">商务合作</span>
+					<ul style='margin-left:25px;'>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-14.html">商家加盟</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-15.html">广告推广</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-16.html">wstmart线</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-17.html">供货商合作</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-18.html">新闻媒体合作</a>
+						</li>
+											</ul>
+				</div>
+			</div>
+						<div class="wst-footer-wz-ca">
+				<div class="wst-footer-wz-pt">
+					<span class="wst-footer-wz-pn">商城快讯</span>
+					<ul style='margin-left:25px;'>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-11.html">配送查询</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-12.html">211限时达</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-13.html">wstmart商</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-30.html">配送费用说明</a>
+						</li>
+												<li style='list-style:disc;color:#999;font-size:13px;'>
+						<a href="http://localhost/wstmartp/service-31.html">入驻商家配送说明</a>
+						</li>
+											</ul>
+				</div>
+			</div>
+			
+			<div class="wst-contact">
+				<ul>
+					<li style="height:30px;">
+						<div class="icon-phone"></div><p class="call-wst">服务热线：</p>
+					</li>
+					<li style="height:38px;">
+						<p class="email-wst">020-85289921</p>					</li>
+					<li style="height:85px;">
+						<div class="qr-code" style="position:relative;">
+						    							<div class="focus-wst">
+							    								<p class="focus-wst-qr">在线客服：</p>
+								<p class="focus-wst-qra">
+						          <a href="tencent://message/?uin=153289970&Site=QQ交谈&Menu=yes">
+									  <img border="0" src="http://wpa.qq.com/pa?p=1:153289970:7" alt="QQ交谈" width="71" height="24" />
+								  </a>
+								</p>
+          														<p class="focus-wst-qr">商城邮箱：</p>
+								<p class="focus-wst-qre">wstmart@qq.com</p>
+															</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+
+			<div class="wst-clear"></div>
+		</div>
+		<div class="wst-footer-flink">
+			<div class="wst-footer" >
+		
+				<div class="wst-footer-cld-box">
+					<div style="text-align:center;">
+						<span class="wst-footer-fl" style="margin-right: 30px;">友情链接</span>
+												<a class="flink-hover" href="http://www.wstmart.net"  target="_blank">WSTMart多商户商城</a>
+												<a class="flink-hover" href="http://bbs.shangtao.net"  target="_blank">WSTMart论坛</a>
+												<a class="flink-hover" href="http://www.shangtao.net"  target="_blank">商淘软件</a>
+												<a class="flink-hover" href="http://www.wstmall.net"  target="_blank">WSTMall社区O2O系统</a>
+												<a class="flink-hover" href="http://bbs.shangtao.net"  target="_blank">WSTMall论坛</a>
+												<div class="wst-clear"></div>
+					</div>
+				</div>
+		
+			</div>
+		</div>
+	    <div class="wst-footer-hp-ck3">
+	        <div class="links">
+	                          <a href="/wstmartp/#" >关于我们</a>
+               &nbsp;&nbsp;|&nbsp;&nbsp;                              <a href="/wstmartp/#" >WST百科</a>
+               &nbsp;&nbsp;|&nbsp;&nbsp;                              <a href="/wstmartp/#" >帮助中心</a>
+               &nbsp;&nbsp;|&nbsp;&nbsp;                              <a href="/wstmartp/#" >交易条款</a>
+               &nbsp;&nbsp;|&nbsp;&nbsp;                              <a href="/wstmartp/#" >诚征英才</a>
+               &nbsp;&nbsp;|&nbsp;&nbsp;                              <a href="/wstmartp/#" >网站地图</a>
+                              	        </div>
+	        <div class="copyright">
+	        COPYRIGHT 2013-2099 广州商淘信息科技有限公司 版权所有<script src="https://s13.cnzz.com/z_stat.php?id=1263804910&web_id=1263804910" language="JavaScript"></script><br/>	        <div>
+				Copyright©2016 Powered By <a target="_blank" href="http://www.wstmart.net">WSTMart</a>
+			</div>
+				        </div>
+	    </div>
+	</div>
+</div>
+<img style='display:none' src='http://localhost/wstmartp/addon/cron-cron-runCrons.html'>
+
+<script type="text/javascript" src="/wstmartp/static/plugins/slide/js/slide.js?v=2.1.1_190220_1"></script>
+<script type='text/javascript' src='/wstmartp/wstmart/home/view/default/js/shophome.js?v=2.1.1_190220_1'></script>
+<script type='text/javascript' src='/wstmartp/wstmart/home/view/default/js/qrcode.js?v=2.1.1_190220_1'></script>
+<script>
+$(function(){
+	if(5>1){
+	laypage({
+	    cont: 'shopPage',
+	    pages: 5, //总页数
+	    curr: 1,
+	    skip: true, //是否开启跳页
+	    skin: '#fd6148',
+	    groups: 3, //连续显示分页数
+	   	prev: '<<',
+		next: '>>',
+	    jump: function(e, first){ //触发分页后的回调
+	        if(!first){ //一定要加此判断，否则初始时会无限刷新
+	        	var nuewurl = WST.splitURL("page");
+	        	var ulist = nuewurl.split("?");
+	        	if(ulist.length>1){
+	        		location.href = nuewurl+'&page='+e.curr;
+	        	}else{
+	        		location.href = '?page='+e.curr;
+	        	}
+	            
+	        }
+	    }
+	});
+	}
+	var qr = qrcode(10, 'M');
+	var url = window.location.href;
+	qr.addData(url);
+	qr.make();
+	$('#qrcode').html(qr.createImgTag());
+});
+</script>
+
+</body>
+</html>

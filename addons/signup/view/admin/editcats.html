@@ -1,0 +1,190 @@
+{extend name="../../../wstmart/admin/view/base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css?v={$v}" />
+<style>
+.goodsCat{display:inline-block;width:150px}
+</style>
+{/block}
+{block name="js"}
+<script src="__STATIC__/plugins/webuploader/webuploader.js?v={$v}" type="text/javascript" ></script>
+<script src="__STATIC__/plugins/kindeditor/kindeditor.js?v={$v}" type="text/javascript" ></script>
+<script>
+function toEdit(id){
+    var params = WST.getParams('.ipt');
+    var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
+	$.post(WST.AU('signup://cats/'+((id==0)?"addCat":"editCat")),params,function(data,textStatus){
+		  layer.close(loading);
+		  var json = WST.toAdminJson(data);
+		  if(json.status=='1'){
+				WST.msg("操作成功",{icon:1});
+		        setTimeout(function(){ 
+					location.href=WST.AU('signup://cats/pageCatsByAdmin');
+		        },1000);
+		  }else{
+				WST.msg(json.msg,{icon:2});
+		  }
+	});
+}
+$(function () {
+	   {if condition="$catInfo['catId'] !=0"}
+			$('#catName').val("{$catInfo['catName']}");
+			$('#startDate').val("{$catInfo['startDate']}");
+			$('#endDate').val("{$catInfo['endDate']}");
+			$('#catSort').val("{$catInfo['catSort']}");
+			$('#signupFee').val("{$catInfo['signupFee']}");
+			$('#signupLimit').val("{$catInfo['signupLimit']}");
+			if({$catInfo['needPay']}){
+				$('#needPay1').attr('checked','checked');
+				$('#needPay2').attr('checked',false);
+				$('#snFee').show();
+			}else{
+				$('#needPay1').attr('checked',false);
+				$('#needPay2').attr('checked','checked');
+				$('#snFee').hide();
+			}
+			$('#needPay').val("{$catInfo['needPay']}");
+	   {/if}
+		$('#signupForm').validator({
+		    fields: {
+		    	catName: {
+		    		tip: "请输入报名项目名称",
+		    		rule: '项目名称:required;'
+		    	},
+		    	startDate: {
+		    		tip: "请选择开始时间",
+		    		rule: '开始时间:required;'
+		    	},
+		    	endDate:{
+	                tip:"请选择结束时间",
+	                rule:"结束时间:required;",
+		    	}
+		    },
+		    valid: function(form){
+		    	var catId = $('#catId').val();
+		    	toEdit(catId);
+		    }
+		});
+		
+	var laydate = layui.laydate;
+    form = layui.form; 
+    laydate.render({
+        elem: '#startDate'
+    });
+    laydate.render({
+        elem: '#endDate'
+    });
+	$(':radio').change(function(){
+		if($("input[name='needPay']:checked").val()==1)
+			$('#snFee').show();
+		else $('#snFee').hide();
+	});
+});
+</script>
+{/block}
+{block name="main"}
+
+<div id='signupDlg'>
+    <form id='signupForm' method="post" autocomplete="off">
+	<input id='catId' type='hidden' class='ipt' value='{$catInfo['catId']}'/>
+    <table class='wst-form wst-box-top'>
+       <tr>
+          <th width='150'>项目名称<font color='red'>*</font>：</th>
+          <td><input type='text' style="width:350px" id='catName' name="catName"  class='ipt' /></td>
+       </tr>
+       <tr>
+          <th width='150'>开始时间<font color='red'>*</font>：</th>
+          <td><input type='text' id='startDate' name="startDate"  class='ipt' /></td>
+       </tr>
+       <tr>
+          <th width='150'>结束时间<font color='red'>*</font>：</th>
+          <td><input type='text' id='endDate' name="endDate"  class='ipt' /></td>
+       </tr>
+       <tr>
+          <th width='150'>人数限制<font color='red'>*</font>：</th>
+          <td><input type='text' id='signupLimit' name="signupLimit" value='0'  class='ipt' /><span>&nbsp;&nbsp;0表示不限制报名人数</span></td>
+       </tr>
+       <tr>
+          <th width='150'>是否收费<font color='red'>*</font>：</th>
+          <td>
+			<input type='radio' id='needPay1' name="needPay"  class='ipt wst-radio' value='1' />是
+			<input type='radio' id='needPay2' name="needPay"  class='ipt wst-radio' value='0' />否
+		  </td>
+       </tr>
+       <tr id='snFee' style="display:none">
+          <th width='150'>收费金额<font color='red'>*</font>：</th>
+          <td><input type='text' id='signupFee' name="signupFee"  class='ipt' /></td>
+       </tr>
+       <tr>
+          <th width='150'>项目描述：</th>
+          <td><textarea id='catDesc' name="catDesc" style="width:300px;height:60px" class='ipt' >{if($catInfo['catId'] !=0)}{$catInfo['catDesc']}{/if}</textarea></td>
+       </tr>
+	   <tr>
+          <th width='150'>报名完成展示内容：</th>
+          <td><textarea id='afterSignup' name="afterSignup" style="width:300px;height:50px" class='ipt' />{if($catInfo['catId'] !=0)}{$catInfo['afterSignup']}{/if}</textarea></td>
+		</tr>
+       <tr>
+          <th>排序号：</th>
+          <td>
+            <input type="text" id="catSort" class="ipt" />
+          </td>
+       </tr>
+     <tr>
+       <td colspan='2' align='center'>
+           <button type="submit" class="btn btn-primary btn-mright"><i class="fa fa-check"></i>保&nbsp;存</button>
+           <button type="button" class="btn" onclick="javascript:history.go(-1)"><i class="fa fa-angle-double-left"></i>返&nbsp;回</button>
+       </td>
+     </tr>
+    </table>
+    </form>
+  </div>
+ <script>
+$(function(){
+  //文件上传
+	WST.upload({
+  	  pick:'#filePicker',
+  	  formData: {dir:'brands',mWidth:500,mHeight:250},
+  	  accept: {extensions: 'gif,jpg,jpeg,png',mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif'},
+  	  callback:function(f){
+  		  var json = WST.toAdminJson(f);
+  		  if(json.status==1){
+        	$('#preview').html('<img src="'+WST.conf.ROOT+"/"+json.savePath+json.thumb+'" height="200" />');
+        	$('#brandImg').val(json.savePath+json.thumb);
+  		  }
+	  }
+    });
+  //编辑器
+    KindEditor.ready(function(K) {
+		editor1 = K.create('textarea[name="catDesc"]', {
+			height:'350px',
+			allowFileManager : false,
+			allowImageUpload : true,
+			items:[
+			        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+			        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+			        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+			        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+			        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+			        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image','table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+			        'anchor', 'link', 'unlink', '|', 'about'
+			],
+			afterBlur: function(){ this.sync(); }
+		});
+		editor2 = K.create('textarea[name="afterSignup"]', {
+			height:'350px',
+			allowFileManager : false,
+			allowImageUpload : true,
+			items:[
+			        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+			        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+			        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+			        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+			        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+			        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image','table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+			        'anchor', 'link', 'unlink', '|', 'about'
+			],
+			afterBlur: function(){ this.sync(); }
+		});
+	});
+});
+</script>
+{/block}

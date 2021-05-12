@@ -1,0 +1,192 @@
+{extend name="default/shops/tpl/3/base" /}
+{block name="title"}{$data['shop']['shopName']} - {:WSTConf('CONF.mallName')}{__block__}{/block}
+<meta name="description" content="{$data['shop']['shopDesc']},{:WSTConf('CONF.mallName')}">
+<meta name="Keywords" content="{$data['shop']['shopKeywords']},{:WSTConf('CONF.mallName')}">
+{block name="css"}
+<link href="__STATIC__/plugins/lazyload/skin/laypage.css?v={$v}" rel="stylesheet">
+<link href="__STATIC__/plugins/slide/css/slide.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/shops/tpl/3/css/index.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="shop_header"}
+<div style="width:100%;border-top:1px solid #b2b2b2;border-bottom:1px solid #b2b2b2;height:40px;text-align:center">
+	<div class="wst-shop-catt">
+		<a href="{:url('home/shops/home',array('shopId'=>$data['shop']['shopId']))}">
+			<li style="background-color:#9e000b;color:#fff;">首页</li>
+		</a>
+		<a href="{:url('home/shops/cat',array('shopId'=>$data['shop']['shopId']))}">
+			<li style="">所有分类</li>
+		</a>
+		{volist name="$data['shopcats']" id="sc1"}
+		<li style="width:5px">/</li>
+		<a href="{:url('home/shops/cat',array('shopId'=>$sc1['shopId'],'ct1'=>$sc1['catId']))}">
+			<li style="">{:WSTMSubstr($sc1['catName'],0,15)}</li>
+		</a>
+		<!--{if($sc1['children'])}
+		<div class="wst-shop-catts tree_{$sc1['catId']}" style="display:none">
+		{volist name="sc1['children']" id="sc2"}
+			<a href="{:url('home/shops/cat',array('shopId'=>$sc1['shopId'],'ct1'=>$sc1['catId'],'ct2'=>$sc2['catId']))}" style="width:90px;float:left">
+				<li">{:WSTMSubstr($sc2['catName'],0,15)}</li>
+			</a>
+		{/volist}
+		</div>
+		{/if}-->
+		{/volist}
+		<div class="wst-clear"></div>
+	</div>
+</div>
+<div class="ck-slide">
+	<ul class="ck-slide-wrapper">
+		{volist name="$data['shop']['shopAds']" id="ads"}
+		<li>
+			<a {if ($ads['isOpen'])}target='_blank'{/if}  href="{$ads['adUrl']}" ><img class='goodsImg' src="__RESOURCE_PATH__/{$ads['adImg']}" width="1920px" height="680px"/></a>
+		</li>
+		{/volist}
+	</ul>
+	<!-- <a href="javascript:;" class="ctrl-slide ck-prev" ></a> 
+	<a href="javascript:;" class="ctrl-slide ck-next" ></a> -->
+	<div class="ck-slidebox">
+		<div class="slideWrap">
+			<ul class="dot-wrap">
+			{volist name="$data['shop']['shopAds']" id="ads" key="i"}
+				{if condition="$i eq 1"}
+					<li class="current"><em>{$i}</em></li>
+				{else}
+					<li><em>{$i}</em></li>
+				{/if}
+			{/volist}
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="wst-clear"></div>
+<div class="wst-container">
+	<div class="sbanner" style="height:auto;">
+		<div style="height:100%;width:110px;">
+			<div class="bkspk"></div>
+			<div class="tzone-title" style="float:left">公告</div>
+		</div>
+		<div class="" style="padding-top:17px;padding-bottom:17px;margin-left:80px">{$data['shop']['shopNotice']}</div>
+	</div>
+	<div class="wst-clear"></div>
+	<div class="sbanner" style="height:362px;margin-top:20px;display:inline-block" id="keeper1">
+		<div style="width:650px;height:317px;margin:20px;float:left;display:table-cell;vertical-align:middle;text-align:center;">
+				<a href="{:url('home/shops/home',array('shopId'=>$data['shop']['shopId']))}">
+					<img class="shopsImg" data-original="__RESOURCE_PATH__/{$data['shop']['shopImg']}" title="{$data['shop']['shopName']}" style="max-width:100%;max-height:100%;margin:0"/>
+				</a>
+		</div>
+		<div class="wst-shop-keeper" id="keeper2">
+			<div style="line-height:18px;font-size:18px;color:#515151;border-left:2px solid #d30322;padding-left:16px;margin-top:30px">店铺介绍</div>
+			<div id="keeper-info" style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$data['shop']['shopBrief']}</div>
+			<div><a id="keeper-showmore1" class="keeper-more" href="javascript:;">更多>></a><a id="keeper-exmore1" class="keeper-more" style="display:none" href="javascript:;">收起<<</a></div>
+		</div>
+	</div>
+	<div class="wst-clear"></div>
+	<div class="sbanner" style="height:110px;margin-top:20px">
+		<div class="cls-area">
+			<a href="{:url('home/shops/cat',array('shopId'=>$data['shop']['shopId']))}" class="cls-title">全部商品</a>
+		</div>
+		{volist name="$data['shopcats']" id="sc1" length="3"}
+		<div class="cls-area">
+			<a href="{:url('home/shops/cat',array('shopId'=>$sc1['shopId'],'ct1'=>$sc1['catId']))}" class="cls-title">{:WSTMSubstr($sc1['catName'],0,4)}</a>
+		</div>
+		{/volist}
+	</div>
+	<div class="sbanner floor-area" style="">
+		<div style="width:10%;height:100%;float:left"></div>
+		<div class="floor-title">店铺推荐</div>
+		<!--<a class="keeper-more" style="margin-top:60px;color:#fff;float:right;width:10%" href="javascript:;">更多>></a>-->
+	</div>
+	<div class="sbanner" style="height:700px;margin-top:10px;">
+		<div style="width:920px;margin-left:20px">
+			{php}$i=0;{/php}
+			{wst:shopgoods type='recom' num='5' id='re' shop="$data['shop']['shopId']"}
+			{if($i==0)}
+				<div class="trecom" style="float:left">
+			{elseif($i==1)}
+				<div class="trecom" style="float:right">
+			{elseif($i==2)}
+				<div class="brecom" style="float:left">
+			{elseif($i>2)}
+				<div class="brecom" style="margin-left:10px;margin-bottom:30px;float:left">
+			{/if}
+					<a href="{:url('home/goods/detail',array('goodsId'=>$re['goodsId']))}" target="_blank" style="width:100%;height:300px;display:inline-block;text-align:center">
+						<img class="goodsImg trecom-img" data-original="__ROOT__/{$re['goodsImg']}" title="{$re['goodsName']}" style="">
+					</a>
+					<div class="recom-title">{$re['goodsName']}</div>
+				</div>
+			{php}$i++;{/php}
+			{/wst:shopgoods}
+		</div>
+	</div>
+</div>
+<div class="sbanner" style="height:420px;margin-top:20px;text-align:center">
+	<img class="shopsImg" data-original="__RESOURCE_PATH__/{$data['shop']['shopBanner']}" title="{$data['shop']['shopName']}" style="height:420px"/>
+</div>
+<div class="wst-container" style="margin-top:30px">
+	<div class="sbanner floor-area" style="margin-top:30px">
+		<div style="width:10%;height:100%;float:left"></div>
+		<div class="floor-title">所有商品</div>
+		<a id="keeper-showmore1" class="keeper-more" style="margin-top:60px;color:#fff;float:right;width:10%" href="{:url('home/shops/cat',array('shopId'=>$data['shop']['shopId']))}">更多>></a>
+	</div>
+</div>
+<div class="wst-container" style="margin-top:30px;">
+		<div style="width:1000px;">
+			{volist name="$data['list']['data']" id="li"}
+			<div class="ag-box">
+				<a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank" style="width:100%;height:240px;display:inline-block;text-align:center">
+					<img class="goodsImg trecom-img" data-original="__ROOT__/{$li['goodsImg']}" title="{$li['goodsName']}" style="">
+				</a>
+				<p style="margin-top:16px;margin-left:10px;font-size:18px;color:#333333;display:inline-block;float:left">{:WSTMSubstr($li['goodsName'],0,10)}</p>
+				<a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" class="aglook">点击查看</a>
+			</div>
+			{/volist}
+			<div class="wst-clear"></div>
+			<div class="wst-shop-pa">
+				<div id="shopPage"></div>
+			</div>
+		</div>
+</div>
+<div class="wst-clear"></div>
+{/block}
+{block name="main"}
+<input type="hidden" id="msort" value="{$msort}" autocomplete="off"/>
+<input type="hidden" id="mdesc" value="{$mdesc}" autocomplete="off"/>
+<input type="hidden" id="shopId" value="{$data['shop']['shopId']}" autocomplete="off"/>
+<input type="hidden" id="ct1" value="{$ct1}" autocomplete="off"/>
+<input type="hidden" id="ct2" value="{$ct2}" autocomplete="off"/>
+
+</div>
+	<div class="wst-clear"></div>
+
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__STATIC__/plugins/slide/js/slide.js?v={$v}"></script>
+<script type='text/javascript' src='__STYLE__/js/shophome.js?v={$v}'></script>
+<script type='text/javascript' src='__STYLE__/js/qrcode.js?v={$v}'></script>
+<script>
+$(function(){
+	var qr = qrcode(10, 'M');
+	var url = '{:url("mobile/shops/home",array("shopId"=>$data["shop"]["shopId"]),true,true)}';
+	qr.addData(url);
+	qr.make();
+	$('#qrcode').html(qr.createImgTag());
+
+	$('#keeper-showmore1').click(function(){
+		$('#keeper-info').css({'height': 'auto'});
+		$('#keeper1').css({'height': 'auto'});
+		$('#keeper2').css({'height': 'auto'});
+		$('#keeper-info').css({'-webkit-line-clamp': '999'});
+		$('#keeper-showmore1').hide(),$('#keeper-exmore1').show();
+	});
+	$('#keeper-exmore1').click(function(){
+		$('#keeper-info').css({'height': '164px'});
+		$('#keeper1').css({'height': '362px'});
+		$('#keeper2').css({'height': '317px'});
+		$('#keeper-info').css({'-webkit-line-clamp': '8'});
+		$('#keeper-exmore1').hide(),$('#keeper-showmore1').show();
+	});
+});
+</script>
+{/block}
+{block name="footer"}{__block__}
+{/block}

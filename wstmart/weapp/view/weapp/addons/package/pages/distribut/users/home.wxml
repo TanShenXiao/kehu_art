@@ -1,0 +1,73 @@
+<wxs module="wstUtil" src="../../../../../utils/util.wxs"></wxs>
+<view class="wst-container">
+    <view class="wst-us-user" style="background-image:url({{domain}}wstmart/weapp/view/weapp/image/user.png);background-size:cover;">
+      <image class="img" src="{{(data.userPhoto)?data.userPhoto:userLogo}}" data-img="{{(data.userPhoto)?data.userPhoto:userLogo}}" mode='scaleToFill' bindtap="preview"></image>
+      <view class="info">
+        <view class="name" wx:if="{{data.userName || userName}}">
+        {{(data.userName)?data.userName:userName}}<image wx:if="{{data.ranks.userrankImg}}" src="{{resourceDomain}}{{data.ranks.userrankImg}}"></image>
+        <view class="rkname">{{data.ranks.rankName}}</view>
+        </view>
+        <button class="binding" plain="true" wx:if="{{!tokenId}}" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">激活会员</button>
+        <view class="phone" wx:if="{{data.userPhone}}"><i></i>{{data.userPhone}}</view>
+      </view>
+    </view>
+    <view class="user-share">
+      <view class="wst-flex">
+          <view class="wst-flex-item">
+             <button type="button" class="ui-btn-lg button" bindtap='showQrcode' data-isnew="0">二维码分享</button>
+          </view>
+          <view class="wst-flex-item">
+            <button type="button" class="ui-btn-lg button" open-type='share'>立刻赚钱</button>
+          </view>
+        </view>
+    </view>
+
+    <view class="user-share" style="margin-top: 20rpx;">
+      <view class="wst-flex">
+          <view class="wst-flex-item">
+            <view class="money">¥ <text>{{duser.distributMoney?duser.distributMoney:0}}</text></view>
+            <view class="get">累计获得佣金</view>
+          </view>
+          <view class="wst-flex-item">
+            <view class="money"><text>{{duser.userCnt?duser.userCnt:0}}</text> 人</view>
+            <view class="get">团队总人数</view>
+          </view>
+        </view>
+    </view>
+
+  <view class='container'>
+    <view class='main-model' bindtap="jumpCenter" data-url="/addons/package/pages/distribut/users/money_list">
+      <view class='between'>佣金信息</view>
+      <view class='right'>
+      <view class='arrow'></view>
+      </view>
+      <view class='wst-clear'></view>
+    </view>
+    <view class='main-model' bindtap="jumpCenter" data-url="/addons/package/pages/distribut/users/user_list">
+      <view class='between'>用户列表</view>
+      <view class='right'>
+      <view class='arrow'></view>
+      </view>
+      <view class='wst-clear'></view>
+    </view>
+  </view>
+</view>
+    
+<!--二维码对话框-->
+<view class="ui-dialog" id="wst-di-qrcod" wx:if="{{isShowQrcode}}">
+    <view class="ui-dialog-cnt wst-dialog-cnt5">
+        <view class="wst-dialog-bd">
+            <view id="qrcodes">
+              <i class="weui-icon-cancel ui-dialog-close" bindtap="hideQrcode"></i>
+              <view class="reload-btn-box" bindtap="showQrcode" data-isnew="1"><image mode='scaleToFill' src="/addons/package/pages/distribut/images/reload.png" class="reload-icon"></image>重新生成</view>
+              <view id="shareImg"><image mode='scaleToFill' src="{{domain}}{{shareImg}}" class='shareImg'></image></view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class='bottom'>
+  <icon type='warn' color='red' size='16' style='margin:30rpx;'></icon>
+  <view class='left'>
+    <view class='remind1'><view>说明：订单佣金信息会根据用户的退款，退货情况有变动；</view></view>
+  </view>
+</view>

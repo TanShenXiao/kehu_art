@@ -1,0 +1,20 @@
+<view class="tuser">推广用户数：{{dusers.length}}人</view>
+<view class="wst-container">
+		
+    <view class="ui-container" >
+    	<ul class="ui-tab-content">
+	        <li id="data-list">
+            <view class="ui-row-flex wst-sha-user"  wx:for="{{dusers}}" wx:for-item="vo">
+              <view class="ui-col"><image src="{{vo.userPhoto}}"></image></view>
+              <view class="ui-col ui-col-3">
+                <view class="name">
+                  {{vo.userName?vo.userName:vo.loginName}}
+                  <span style='float:right;font-weight:normal;'>用户数：{{vo.userCnt}}</span>
+                </view>
+                <view class="time">{{vo.createTime}}</view>
+              </view>
+            </view>
+          </li>
+	    </ul>
+    </view>
+</view>

@@ -1,0 +1,1 @@
+delete from `wst_navs` where navUrl='index.php/addon/vote-vote-lists.html';

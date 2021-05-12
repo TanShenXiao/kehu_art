@@ -1,0 +1,144 @@
+{extend name="default/base" /}
+{block name="title"}{$data['shop']['shopName']} - {:WSTConf('CONF.mallName')}{__block__}{/block}
+<meta name="description" content="{$data['shop']['shopDesc']},{:WSTConf('CONF.mallName')}">
+<meta name="Keywords" content="{$data['shop']['shopKeywords']},{:WSTConf('CONF.mallName')}">
+{block name="css"}
+<link href="__STATIC__/plugins/lazyload/skin/laypage.css?v={$v}" rel="stylesheet">
+<link href="__STATIC__/plugins/slide/css/slide.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/shophome.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/goodslist.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="shop_header"}
+<div style="width:100%;"></div>
+<div class="wst-clear"></div>
+	<div class="wst-container">
+	<div class='wst-filters'>
+   <div class='item' style="border-left:2px solid #df2003;padding-left: 8px;">
+      <a class='link' href='__ROOT__'>首页</a>
+      <i class="arrow">></i>
+   </div>
+	{if($ct1)}
+   <div class='wst-lfloat'>
+   	<div class='item dorpdown'>
+     <div >
+        <a class='link' href='__ROOT__'>{$ctName}</a>
+     </div>
+	</div>
+   </div>
+   {else}
+   <div class='item'>
+      <a class='link' href='javascript:void(0);'>全部商品分类</a>
+   </div>
+   {/if}
+   <div class='wst-clear'></div>
+</div>
+		<div class='goods-side' style="width:160px">
+			<div class="guess-like">
+				{volist name="$data['shopcats']" id="vo" key="k"}
+					 <div id="cat-{$k}" class="g-cat">
+						<a href="{:url('home/shops/topicshop',array('ct1'=>$vo['catId'],'ctName'=>$vo['catName']))}" style="height:80px;font-size:20px;font-weight:bold;color:#666666;padding-top:30px;display:block">{$vo['catName']}</a>
+					 </div>
+					 {/volist}
+			</div>
+		</div>
+		<div class="wst-shop-contr" style="width:825px;margin-top:10px">
+			<div class="wst-shop-list">
+				<div class="wst-shop-listg">
+					{volist name="$data['list']['data']" id="li"}
+					<div class="wst-shop-goods">
+						<div class="wst-shop-goimg"><a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank"><img class="goodsImg" data-original="__ROOT__/{$li['goodsImg']}" title="{$li['goodsName']}"></a></div>
+						<p class="wst-shop-gonam"><a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank" style="font-size:14px">{:WSTMSubstr($li['goodsName'],0,15)}</a></p>
+						<p class="wst-shop-goodp1"><span class="wst-shop-goodpr">￥{$li['shopPrice']}</span></p>
+					</div>
+					{/volist}
+					<div class="wst-clear"></div>
+				</div>
+				<div class="wst-shop-pa">
+					<div id="shopPage"></div>
+				</div>
+			</div>
+		</div>
+		<div class="wst-clear"></div>
+	</div>
+	{if($data['shop']['shopBanner'])}<div class="wst-shop-tu" style="background: url(__ROOT__/{$data['shop']['shopBanner']}) no-repeat  scroll center top;background-size:cover;"></div>{/if}
+	
+	{if($data['shop']['shopAds'])}
+	<div class="ck-slide">
+		<ul class="ck-slide-wrapper">
+			{volist name="$data['shop']['shopAds']" id="ads"}
+			<li>
+				<a {if ($ads['isOpen'])}target='_blank'{/if}  href="{$ads['adUrl']}" ><img class='goodsImg' data-original="__ROOT__/{$ads['adImg']}" width="100%" height="400"/></a>
+			</li>
+			{/volist}
+		</ul>
+		<!-- <a href="javascript:;" class="ctrl-slide ck-prev" ></a> 
+		<a href="javascript:;" class="ctrl-slide ck-next" ></a> -->
+		<div class="ck-slidebox">
+			<div class="slideWrap">
+				<ul class="dot-wrap">
+				{volist name="$data['shop']['shopAds']" id="ads" key="i"}
+					{if condition="$i eq 1"}
+						<li class="current"><em>{$i}</em></li>
+					{else}
+						<li><em>{$i}</em></li>
+					{/if}
+				{/volist}
+				</ul>
+			</div>
+		</div>
+	</div>
+	{/if}
+{/block}
+{block name="main"}
+<input type="hidden" id="msort" value="{$msort}" autocomplete="off"/>
+<input type="hidden" id="mdesc" value="{$mdesc}" autocomplete="off"/>
+<input type="hidden" id="shopId" value="{$data['shop']['shopId']}" autocomplete="off"/>
+<input type="hidden" id="ct1" value="{$ct1}" autocomplete="off"/>
+<input type="hidden" id="ct2" value="{$ct2}" autocomplete="off"/>
+
+</div>
+	<div class="wst-clear"></div>
+
+{include file="default/right_cart"/}
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__STATIC__/plugins/slide/js/slide.js?v={$v}"></script>
+<script type='text/javascript' src='__STYLE__/js/shophome.js?v={$v}'></script>
+<script type='text/javascript' src='__STYLE__/js/goodslist.js?v={$v}'></script>
+<script type='text/javascript' src='__STYLE__/js/qrcode.js?v={$v}'></script>
+<script>
+$(function(){
+	if({$data['list']['last_page']}>1){
+	laypage({
+	    cont: 'shopPage',
+	    pages: {$data['list']['last_page']}, //总页数
+	    curr: {$data['list']['current_page']},
+	    skip: true, //是否开启跳页
+	    skin: '#fd6148',
+	    groups: 3, //连续显示分页数
+	   	prev: '<<',
+		next: '>>',
+	    jump: function(e, first){ //触发分页后的回调
+	        if(!first){ //一定要加此判断，否则初始时会无限刷新
+	        	var nuewurl = WST.splitURL("page");
+	        	var ulist = nuewurl.split("?");
+	        	if(ulist.length>1){
+	        		location.href = nuewurl+'&page='+e.curr;
+	        	}else{
+	        		location.href = '?page='+e.curr;
+	        	}
+	            
+	        }
+	    }
+	});
+	}
+	var qr = qrcode(10, 'M');
+	var url = '{:url("mobile/shops/home",array("shopId"=>$data["shop"]["shopId"]),true,true)}';
+	qr.addData(url);
+	qr.make();
+	$('#qrcode').html(qr.createImgTag());
+});
+</script>
+{/block}
+{block name="footer"}{__block__}
+{/block}

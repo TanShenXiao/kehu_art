@@ -1,0 +1,23 @@
+  <import src="../common/parse/parse.wxml"/>
+    <scroll-view scroll-y="true" style='height:100%;width:100vw;'>
+      <view class='detailBox'>
+        <view class='wst-main .wst-main2'>
+          <view class='wst-border'>
+            <view class='title'>{{articleTitle}}</view>
+            <view class='time'>{{createTime}}</view>
+            <view class='main'>
+              <template is="wxParse" data="{{wxParseData:articleContent.nodes}}" />
+            </view>
+          </view>
+          <view class='like-model'>
+            <view class='box' bindtap='actionLike' data-newsId="{{articleId}}">
+              <view class='image'>
+                <image src='/image/icon_like1.png' wx:if="{{likeStatus == 0}}"></image>
+                <image src='/image/icon_like2.png' wx:if="{{likeStatus == 1}}"></image>
+              </view>
+              <text>{{likeNum}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>

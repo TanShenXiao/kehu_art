@@ -1,0 +1,132 @@
+{extend name="default/base" /}
+{block name="title"}售后申请页 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__WECHAT__/css/orders.css?v={$v}">
+<link rel="stylesheet"  href="__WECHAT__/css/osapply.css?v={$v}">
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css?v={$v}" />
+{/block}
+{block name="header"}
+	<div id="info_list">
+    <header style="background:#ffffff;position: relative;" class="ui-header ui-header-positive wst-header wst-headero">
+        <i class="ui-icon-return" onclick="javascript:history.go(-1)"></i><h1>售后申请页</h1>
+    </header>
+{/block}
+{block name="main"}
+    {volist name="goods" id="li"}
+        {if($li.goodsNum>0)}
+        <div class="wst-ca-layout goods j-g{$li["id"]}">
+            <div class="wst-ca-10 goodsl" onclick="switchChk(this)">
+                <i id="gchk_{$li["id"]}" class="ui-icon-chooseg ui-icon-unchecked-s clist os-chk"
+                    style="padding-top: 20px;"
+                    gid="{$li["id"]}" mval="{$li['goodsPrice']}"></i>&nbsp;</div>
+            <div class="wst-ca-90">
+                <div class="wst-ca-24 goodsr">
+                    <div class="img j-imgAdapt">
+                        <a href="javascript:void(0);" onclick="javascript:WST.intoGoods({$li['goodsId']});">
+                            <img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{:WSTImg($li['goodsImg'],3)}"
+                                title="{$li['goodsName']|WSTStripTags}">
+                        </a>
+                    </div>
+                </div>
+                <div class="wst-ca-76">
+                    <div class="info">
+                        <a href="javascript:void(0);" onclick="javascript:WST.intoGoods({$li['goodsId']});">
+                            <p class="name">{$li['goodsName']}</p>
+                        </a>
+                        <p class="price" id='gprice_{$li['id']}'>¥ {$li['goodsPrice']}</p>
+                        {if($li['goodsSpecNames'])}
+                        <p class="spec">规格：
+                            {volist name="li['specNames']" id="sp"}
+                            {$sp['catName']}:{$sp['itemName']}
+                            {/volist}
+                        </p>
+                        {/if}
+                        <div class="wst-buy_l">
+                            <input class="wst-buy_l1" type="button" value="-" onclick='javascript:changeNum(-1,"#goodsNum",{$li["id"]})'><input
+                                id="goodsNum_{$li['id']}" class="wst-buy_l2" data-min='1' data-max='{$li["goodsNum"]}' type="number"
+                                value="1" autocomplete="off" onkeyup='changeNum(0,"#goodsNum",{$li["id"]})'><input
+                                class="wst-buy_l3" type="button" value="+" onclick='javascript:changeNum(1,"#goodsNum",{$li["id"]})'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/if}
+    {/volist}
+
+    <div class="opa-item opa-flex-item" onclick="dataShow('stTypeBox')">
+        售后类型
+        <span style="font-size: 14px;font-weight: bold;"> <span id="sTypeText">退货退款</span>  > </span>
+    </div>
+    <div class="opa-item opa-flex-item" onclick="dataShow('stBox')">
+        申请原因
+        <span style="font-size: 14px;font-weight: bold;"> <span id="sTText">请选择</span>  > </span>
+    </div>
+    <div id="refundBox">
+        <div class="opa-item opa-flex-item">
+            退款金额不能超过
+            <span id="maxRefundMoney" style="font-size: 14px;color:red;">￥0</span>
+        </div>
+        <div class="opa-item opa-flex-item">
+            退款金额
+            <input type="text" id="refundMoney" placeholder="请输入退款金额" onkeyup="javascript:WST.isChinese(this,1)" onkeypress="return isNumberdoteKey(event,true)" onblur='javascript:WST.limitDecimal(this,2)' />
+        </div>
+    </div>
+    <div class="opa-item">
+        <textarea class="service-remark" placeholder="请输入问题描述" name="" id="serviceRemark"></textarea>
+    </div>
+    <div class="ui-col uploadfile-box">
+        <ul class="complainFileBox" id="edit_chart">
+        </ul>
+        <div id="filePicker" style='margin-left:10px;width:250px;overflow:hidden;height:35px;font-size:.13rem;'>上传凭证(最多5张)</div>
+    </div>
+    <div class="wst-clear"></div>
+    <div class="btn-box" onclick="commitOrderService()">提交</div>
+
+{/* 售后类型 */}
+<div class="wst-fr-box frame" id="stTypeBox">
+	<div class="title"><span>售后类型</span><i class="ui-icon-close-page" onclick="javascript:dataHide('stTypeBox');"></i><div class="wst-clear"></div></div>
+	<div class="content" id="content">
+         <ul class="ui-list" onclick="javascript:onSwitch(this);">
+             <li><div class="wst-list-infose1"><span>退货退款</span></div></li>
+             <i class="ui-icon-push ui-icon-checked-s wst-active " val="0" word="退货退款"></i>
+         </ul>
+         <div class="wst-se-line"><p></p></div>
+         <ul class="ui-list" onclick="javascript:onSwitch(this);">
+             <li><div class="wst-list-infose1"><span>退款</span></div></li>
+             <i class="ui-icon-push ui-icon-unchecked-s" val="1" word="退款"></i>
+         </ul>
+         <div class="wst-se-line"><p></p></div>
+         <ul class="ui-list" onclick="javascript:onSwitch(this);">
+             <li><div class="wst-list-infose1"><span>换货</span></div></li>
+             <i class="ui-icon-push ui-icon-unchecked-s" val="2" word="换货"></i>
+         </ul>
+	</div>
+	<button class="button" onclick="javascript:choseType('stTypeBox');">确定</button>
+</div>
+
+{/* 申请原因 */}
+<div class="wst-fr-box frame" id="stBox">
+	<div class="title"><span>申请原因</span><i class="ui-icon-close-page" onclick="javascript:dataHide('stBox');"></i><div class="wst-clear"></div></div>
+	<div class="content" id="content">
+        {volist name="reasons" id="item" key="k"}
+         <ul class="ui-list" onclick="javascript:onSwitch(this);">
+             <li><div class="wst-list-infose1"><span>{$item.dataName}</span></div></li>
+             <i class="ui-icon-push {if($k==1)} ui-icon-checked-s wst-active {else /} ui-icon-unchecked-s {/if}" val="{$item.dataVal}" word="{$item.dataName}"></i>
+         </ul>
+         <div class="wst-se-line"><p></p></div>
+         {/volist}
+	</div>
+	<button class="button" onclick="javascript:choseReason('stBox');">确定</button>
+</div>
+
+<input type="hidden" name="" value="-1" id="serviceType">
+<input type="hidden" name="" id="orderId" value="{$orderId}">
+{/block}
+{block name="footer"}
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__WECHAT__/js/jquery.min.js'></script>
+<script type='text/javascript' src='__WECHAT__/users/orderservices/apply.js?v={$v}'></script>
+<script type='text/javascript' src='__STATIC__/plugins/webuploader/webuploader.js?v={$v}'></script>
+{/block}

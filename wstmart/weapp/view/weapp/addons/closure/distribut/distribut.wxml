@@ -1,0 +1,48 @@
+<template name="distribut-user">
+  <view class="user-share">
+    <ul class="ui-row">
+      <view class="ui-col">
+        <view class="money">￥<span>{{distribut["distributMoney"]?distribut["distributMoney"]:'0.00'}}</span></view>
+        <view class="get">累计获得佣金</view>
+      </view>
+      <view class="ui-col">
+        <view class="money"><span>{{distribut["userCnt"]?distribut["userCnt"]:0}}</span>人</view>
+        <view class="get">总用户数</view>
+      </view>
+      <view class="clear"></view>
+    </ul>
+    <button class="button" bindtap="jumpCenter" data-url="/addons/package/pages/distribut/users/home">分享赚钱</button>
+  </view>
+</template>
+
+
+<template name="distribut-tips">
+  <view class="user-share tip-box">
+    <view class='wst-share-tips' bindtap="shareTips" >
+      分享可获佣金
+      <image src="/image/tips.png"></image>
+    </view> 
+  </view>
+</template>
+
+<template name="distribut-share">
+  <view class="wst-mask" wx:if="{{isShowShareTips}}" bindtap="hideTips" data-types="0" catchtouchmove="true"></view>
+  <view class='share-tip' wx:if="{{isShowShareTips}}">
+    <view class='main'></view>
+    <view class='title'>
+      <view>分佣比例说明</view>
+      <view class='close' bindtap='hideTips'>x</view>
+    </view>
+    <view class='share-content'>
+      <view class="item">
+        <view>购买者分成：{{ distributConfig.buyerRate }}%</view>
+      </view>
+      <view class="item">
+        <view>购买者上级分成：{{ distributConfig.secondRate }}%</view>
+      </view>
+      <view class="item">
+        <view>购买者上上级分成：{{ distributConfig.thirdRate }}%</view>
+      </view>
+    </view>
+  </view>
+</template>

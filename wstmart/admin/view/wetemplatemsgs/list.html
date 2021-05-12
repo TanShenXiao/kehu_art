@@ -1,0 +1,24 @@
+{extend name="base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/mmgrid/mmGrid.css?v={$v}" />
+{/block}
+{block name="js"}
+<script src="__STATIC__/plugins/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+<script src="__ADMIN__/wetemplatemsgs/wetemplatemsgs.js?v={$v}" type="text/javascript"></script>
+{/block}
+{block name="main"}
+<style>.body li{height:22px;}</style>
+<div id='alertTips' class='alert alert-success alert-tips fade in'>
+	<div id='headTip' class='head'><i class='fa fa-lightbulb-o'></i>操作说明</div>
+	<ul class='body'>
+		<li>本功能使用微信小程序消息接口，需在“微信公众号平台|小程序 - 功能 - 消息模板”中事先添加消息模板，<a class='wst-wiki' href='https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/template-message.html#%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF%E7%AE%A1%E7%90%86' target="_blank">小程序模板消息</a>。</li>
+		<li>同时拥有微信端和小程序端的用户可以在微信公众号消息模板和小程序消息模板可选择其中一个进行设置。</li>
+	</ul>
+</div>
+<div class='wst-grid'>
+ <div id="mmg" class="mmg layui-form"></div>
+ <div id="pg" style="text-align: right;"></div>
+</div>
+<script>$(function(){initGrid({$p});})</script>
+{/block}
+

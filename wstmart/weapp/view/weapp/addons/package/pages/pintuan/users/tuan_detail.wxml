@@ -1,0 +1,243 @@
+<wxs module="wstUtil" src="../../../../../utils/util.wxs"></wxs>
+<view class="group">
+	 	<view class="group-detail-goods-info-wrapper">
+		 	<image class="group-detail-goods-img" wx:if="{{tuan.goodsImg}}" src="{{resourceDomain + tuan.goodsImg}}"></image>
+		 	<view class="group-detail-goods-info">
+			 	<view class="group-detail-goods-title">
+			 		{{tuan.goodsName}}
+			 		<view class="icon-bg"></view>
+			 	</view>
+			 	<view class="group-detail-goods-group-info"></view>
+			 	<view class="group-detail-goods-sales-info">
+				 	<span class="group-member-num">{{tuan["tuanNum"]}}人拼单</span>
+				 	<span class="sales-num">· 已拼{{tuan["orderNum"]}}件</span>
+			 	</view>
+			 	<view class="group-detail-goods-price-info">
+				 	<view class="price">
+				 		<span class="unit"></span><span class="num">￥{{tuan["tuanPrice"]}}</span>
+				 		<span class="group-member-num group-price-gap">拼单省{{tuan["economizePrice"]}}元</span>
+				 	</view>
+			 	</view>
+		 	</view>
+	 	</view>
+	 	<view class="group-detail-buy"  id="wst-di-tuan">
+	 		
+		 	<block wx:if="{{tuan['tuanStatus']==2}}">
+        <block wx:if="{{tuan['hasTuan']==1}}">
+		 			<view class="group-detail-user-wrapper">
+				 		<view class="ui-tips ui-tips-success">
+						    <i></i><span class="green">拼单成功</span>
+						</view>
+					 	<view class="group-detail-users">
+              <block wx:for="{{tuan['pusers']}}" wx:for-item="vo" wx:key="key">
+						 	<view class="group-detail-user" style="background: url('{{wstUtil.userPhotoFormat(resourceDomain,vo['userPhoto'])}}') 0% 0% / 100% 100%;">
+						 	<span wx:if="{{vo['isHead']}}" class="leader">拼主</span>
+						 	</view>
+						 	</block>
+              <block wx:for="{{tuan['needNum']}}" wx:for-item="vo" wx:key="key">
+								<view class="group-detail-user" style="background: url('') 0% 0% / 100% 100%;"></view>
+							</block>
+					 	</view>
+					 	<view class="group-user-pop-wrapper"></view>
+				 	</view>
+		 		</block>
+        <block wx:if="{{tuan['hasTuan']!=1}}">
+		 			<view class="group-detail-user-wrapper">
+					 	<view class="group-detail-users">
+					 		
+              <block wx:for="{{tuan['pusers']}}" wx:for-item="vo" wx:key="key">
+						 	<view class="group-detail-user" style="background: url('{{wstUtil.userPhotoFormat(resourceDomain,vo['userPhoto'])}}') 0% 0% / 100% 100%;">
+						 	<span wx:if="{{vo['isHead']==1}}" class="leader">拼主</span>
+						 	</view>
+						 	</block>
+              <block wx:for="{{tuan['needNum']}}" wx:for-item="vo" wx:key="key">
+								<view class="group-detail-user" style="background: url('') 0% 0% / 100% 100%;"></view>
+              </block>
+					 	</view>
+					 	<view class="group-user-pop-wrapper"></view>
+				 	</view>
+		 			<view class="group-detail-buy-tip">
+					 	<view class="tip-text">
+					 		<view class="ui-tips ui-tips-info">
+							    <i></i><span>团已满</span>
+							</view>
+					 	</view>
+				 	</view>
+				 	<view class="tuan-btnbox">
+				 		<button id="buyBtn" class="tuan-btn" type="button" bindtap="powerDrawer" data-statu="open" data-type="1">一键开团</button>
+				 	</view>
+		 		</block>
+      </block>
+		 	<block wx:if="{{tuan['tuanStatus']!=2}}">
+		 		<view class="tuan-notice">
+				 	<view class="title">拼单须知</view>
+				 	<ul class="detail">
+					 	<li class="content gift">
+					 		<view class="icon gift">·人不满退款</view>
+					 	</li>
+					 	<li class="content logistics">
+					 		<view class="icon logistics">·人满发货</view>
+					 	</li>
+					 	<li class="content invite-user">
+					 		<view class="icon invite-user">·好友拼单</view>
+					 	</li>
+				 	</ul>
+				 	<view class="wst-clear"></view>
+			 	</view>
+			 	<view class="group-detail-user-wrapper">
+				 	<view class="group-detail-users">
+            <block wx:for="{{tuan['pusers']}}" wx:for-item="vo" wx:key="key">
+					 	<view class="group-detail-user" style="background: url('{{wstUtil.userPhotoFormat(resourceDomain,vo['userPhoto'])}}') 0% 0% / 100% 100%;">
+					 	<span wx:if="{{vo['isHead']==1}}" class="leader">拼主</span>
+					 	</view>
+					 	</block>
+            <block wx:for="{{tuan['needNum']}}" wx:for-item="vo" wx:key="key">
+							<view class="group-detail-user" style="background: url('') 0% 0% / 100% 100%;"></view>
+						</block>
+				 	</view>
+				 	<view class="group-user-pop-wrapper"></view>
+			 	</view>
+			 	
+			 	<block wx:if="{{tuan['tuanStatus']==-1}}">	
+		 			<view wx:if="{{tuan['hasTuan']==1}}" class="ui-tips ui-tips-warn">
+					    <i></i><span class="red">拼团不成功，款项将退回至您的钱包</span>
+					</view>
+					<view wx:if="{{tuan['hasTuan']!=1}}" class="ui-tips ui-tips-warn">
+					    <i></i><span class="red">拼团不成功，拼团已结束</span>
+					</view>
+				</block>
+				<block wx:if="{{tuan['tuanStatus']!=-1}}">
+			 		<view wx:if="{{tuan['needNum']>0}}" class="group-detail-buy-tip">
+					 	<view class="tip-text">
+					 		<view class="ui-tips ui-tips-info">
+							   
+                 <block wx:if="{{tuan['ptime']>0}}">
+							   仅剩<span class="red">{{tuan["needNum"]}}</span>个名额，
+							   <span class="timer" data-sv="{{tuan['createTime']}}" data-ev="{{tuan['endTime']}}">剩余<span class="countDown bold">{{hour}}:{{mini}}:{{sec}}:{{msec}}</span></span>后结束
+							   </block>
+                 <block wx:if="{{tuan['ptime']<=0}}">
+							   <span class="red">拼团已结束，拼团失败</span>
+							   </block>
+							</view>
+					 	</view>
+				 	</view>
+		 		</block>
+        <block wx:if="{{tuan['hasTuan']==1}}">
+          <block wx:if="{{tuan['ptime']>0}}">
+			 			<view class="tuan-btnbox">
+					 		<button id="buyBtn" class="tuan-btn" open-type="share" >邀请好友参团</button>
+					 	
+					 		<button id="buyBtn" class="shao-btn" type="button" style="display:none;"><image src="{{domain}}/addons/pintuan/view/images/shaoma.png" style="width: 40rpx;height: 40rpx;vertical-align: middle;"></image> 面对面扫码参团</button>
+					 	</view>
+					 	
+			 		</block>
+          <block wx:if="{{tuan['ptime']<=0}}">
+					 	<view class="tuan-btnbox">
+					 		<button id="buyBtn" class="tuan-btn" type="button" bindtap="powerDrawer" data-statu="open" data-type="1">一键开团</button>
+					 	</view>
+				 	</block>
+					
+			 	</block>
+        <block wx:if="{{tuan['hasTuan']!=1}}">
+          <block wx:if="{{tuan['ptime']>0}}">
+            <block wx:if="{{tuan['pself'] && tuan['pself']['tuanStatus']==0}}">
+			 			<view class="tuan-btnbox">
+					 		<button id="buyBtn" class="tuan-btn" type="button" bindtap="choicePay" data-pkey="{{tuan['pkey']}}">立即支付</button>
+					 	</view>
+			 			</block>
+            <block wx:if="{{!(tuan['pself'] && tuan['pself']['tuanStatus']==0)}}">
+				 		<view class="tuan-btnbox">
+					 		<button id="buyBtn" class="tuan-btn" bindtap="powerDrawer" data-statu="open" data-type="0" >参与拼单</button>
+					 	</view>
+					 	</block>
+			 		</block>
+          <block wx:if="{{tuan['ptime']<=0}}">
+					 	<view class="tuan-btnbox">
+					 		<button id="buyBtn" class="tuan-btn" bindtap="powerDrawer" data-statu="open" data-type="1">一键开团</button>
+					 	</view>
+				 	</block>
+			 	</block>
+		 	</block>
+	 	</view>
+	 </view>
+<!--推荐商品-->
+ <view class='recommend'>
+<!--分隔栏-->
+  <view class='background'>
+   <view class='image'>
+    <image src='/image/img_titlebg.png'><view class='content'>猜你喜欢</view></image>
+   </view>
+  </view>
+</view>
+<view class="ui-container">
+  <view class="wst-shl-ads">
+      <view class="ui-container">
+        <ul class="ui-tab-content" id="pintuan-container">
+            <li id="goods-list">
+              <block wx:if="{{totalCnt>0}}">
+                <block wx:for="{{glikes}}" wx:for-item="vo" wx:key="key">
+                <view class="wst-in-goods" onclick="goGoods({{ vo.tuanId }})">
+                    <view class="img j-imgAdapt">
+                        <navigator open-type='navigate' url='/addons/package/pages/pintuan/goods/detail?id={{vo.tuanId}}'>
+                            <image src="{{resourceDomain + vo.goodsImg }}" ></image>
+                        </navigator>
+                    </view>
+                <view class="name ui-nowrap-multi">{{ vo.goodsName }}</view>
+                <view class="tags ui-nowrap-multi">
+                <span wx:if="{{vo.isSelf==1}}" class='tag'>自营</span>
+                <span wx:if="{{vo.isFreeShipping==1}}" class='tag'>包邮</span>
+                </view>
+                <view class="info">
+                    <span class="price">¥{{ vo.tuanPrice }}</span>
+                    <span class="deal">已拼{{ vo.orderNum }}件</span>
+                </view>
+                </view>
+                </block>
+                <view class="wst-clear"></view>
+                </block>
+                <block wx:if="{{totalCnt==0}}">
+                    <ul class="ui-row-flex wst-flexslp">
+                        <li class="ui-col ui-flex ui-flex-pack-center">
+                        <p>没有相关商品。</p>
+                        </li>
+                    </ul>
+                </block>
+            </li>
+        </ul>
+      </view>
+    <view class="wst-clear"></view>
+  </view>
+</view>
+
+
+
+<!--加入购物车-->
+ <view wx:if="{{showModalStatus}}">
+<!--mask-->
+  <view class="wst-mask" bindtap="powerDrawer" data-statu="close" data-type='0' wx:if="{{showModalStatus}}"></view>  
+<!--content-->  
+<!--使用animation属性指定需要执行的动画-->  
+ <view animation="{{animationData}}" class="drawer_attr_box" wx:if="true">
+<!--drawer content-->
+  <view style='border-bottom: 1rpx solid #DFDEDE;'>  
+   <view class='model-top'>
+    <view class='image'><image src='{{resourceDomain}}{{descImage}}' mode='aspectFit'></image></view>
+    <view class='content'>
+       <view class='title'>{{tuan.goodsName}}</view>
+       <view class='price'>¥{{goodsPrice}}<p class='old-price'>¥{{tuan.goods.marketPrice}}</p></view>
+    </view>
+    <view class='icon_out' bindtap="powerDrawer" data-statu="close" data-type="0"><icon type='cancel' color='#B1B1B1' size='28'></icon></view>
+   </view>
+  </view>
+    
+   <view class='model-bottom'>
+    <view class='border'>
+     <view class='content'>数量</view>
+     <view class='surplus'><view class='left'>库存：<view class='number1'>{{maxStock}}{{tuan.goodsUnit}}</view></view><view class='right'><view class='icon_subtract' bindtap='changeNum' data-mode="reduce" data-min="{{minStock}}" data-max="{{maxStock}}">-</view><view class='number'>{{num}}</view><view class='icon_add' bindtap='changeNum' data-mode="plus" data-min="{{minStock}}" data-max="{{maxStock}}">+</view></view></view>
+    </view>
+   </view>
+   <view class='button'>
+    <button bindtap='join' data-type="{{cartsType}}" >确定</button>
+   </view>
+  </view>  
+ </view>

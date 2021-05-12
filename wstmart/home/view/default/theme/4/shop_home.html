@@ -1,0 +1,156 @@
+{extend name="default/theme/4/base" /}
+{block name="title"}{$data['shop']['shopName']} - {:WSTConf('CONF.mallName')}{__block__}{/block}
+<meta name="description" content="{$data['shop']['shopDesc']},{:WSTConf('CONF.mallName')}">
+<meta name="Keywords" content="{$data['shop']['shopKeywords']},{:WSTConf('CONF.mallName')}">
+{block name="css"}
+<link href="__STATIC__/plugins/lazyload/skin/laypage.css?v={$v}" rel="stylesheet">
+<link href="__STATIC__/plugins/slide/css/slide.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/theme/4/css/index.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="shop_header"}
+<div style="width:100%;background-color:#000;height:40px;">
+	<div class="wst-shop-catt">
+		<a href="{:url('home/shops/cat',array('shopId'=>$data['shop']['shopId']))}">
+			<div class="wst-home">首页</div>
+		</a>
+		<a href="{:url('home/shops/home',array('shopId'=>$data['shop']['shopId']))}">
+			<li>所有分类</li>
+		</a>
+		{volist name="$data['shopcats']" id="sc1"}
+		<a href="{:url('home/shops/cat',array('shopId'=>$sc1['shopId'],'ct1'=>$sc1['catId']))}">
+			<li>{:WSTMSubstr($sc1['catName'],0,15)}</li>
+		</a>
+		<!--{if($sc1['children'])}
+		<div class="wst-shop-catts tree_{$sc1['catId']}" style="display:none">
+		{volist name="sc1['children']" id="sc2"}
+			<a href="{:url('home/shops/cat',array('shopId'=>$sc1['shopId'],'ct1'=>$sc1['catId'],'ct2'=>$sc2['catId']))}" style="width:90px;float:left">
+				<li">{:WSTMSubstr($sc2['catName'],0,15)}</li>
+			</a>
+		{/volist}
+		</div>
+		{/if}-->
+		{/volist}
+		<div class="wst-clear"></div>
+	</div>
+</div>
+{/block}
+{block name="main"}
+<input type="hidden" id="msort" value="{$msort}" autocomplete="off"/>
+<input type="hidden" id="mdesc" value="{$mdesc}" autocomplete="off"/>
+<input type="hidden" id="shopId" value="{$data['shop']['shopId']}" autocomplete="off"/>
+<input type="hidden" id="ct1" value="{$ct1}" autocomplete="off"/>
+<input type="hidden" id="ct2" value="{$ct2}" autocomplete="off"/>
+
+<div class="ck-slide">
+	<ul class="ck-slide-wrapper">
+		{volist name="$data['shop']['shopAds']" id="ads"}
+		<li>
+			<a {if ($ads['isOpen'])}target='_blank'{/if}  href="{$ads['adUrl']}" ><img class='goodsImg' src="__RESOURCE_PATH__/{$ads['adImg']}" width="1920px" height="550px"/></a>
+		</li>
+		{/volist}
+	</ul>
+	<!-- <a href="javascript:;" class="ctrl-slide ck-prev" ></a> 
+	<a href="javascript:;" class="ctrl-slide ck-next" ></a> -->
+	<div class="ck-slidebox">
+		<div class="slideWrap">
+			<ul class="dot-wrap">
+			{volist name="$data['shop']['shopAds']" id="ads" key="i"}
+				{if condition="$i eq 1"}
+					<li class="current"><em>{$i}</em></li>
+				{else}
+					<li><em>{$i}</em></li>
+				{/if}
+			{/volist}
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="sbanner" style="height:1390px">
+	<div class="wst-container">
+		<div class="ban-title">热门主推/POPULAR FAST</div>
+	</div>
+	<div class="wst-container" style="background-color:#ebece7;height:1290px">
+		<div style="width:940px;margin:0 auto">
+			{wst:shopgoods type='hot' num='8' id='li' shop="$data['shop']['shopId']" key="k"}
+				{if $k==0 || $k==1}
+				<div style="{if $k==0}float:left;{elseif $k==1}float:right;{/if}width:460px;height:470px;margin-top:20px">
+					<a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank">
+						<div class="mImg" style="width:460px;height:370px;">
+							<img class="mnImg" src="__RESOURCE_PATH__/{$li['goodsImg']}" title="{$data['shop']['shopName']}" style=""/>
+						</div>
+					</a>
+					<div class="wst-shop-gonam" style="">{:WSTMSubstr($li['goodsName'],0,25)}</div>
+					{if($li['saleType']==1)}
+					<div class="hot-price" style=""><span style="font-size:25px;font-weight:bold">议价</span></div>
+					{elseif($li['saleType']==2)}
+					<div class="hot-price" style=""><span style="font-size:25px;font-weight:bold">仅展示</span></div>
+					{else}
+					<div class="hot-price" style="">￥<span style="font-size:25px;font-weight:bold">{$li['shopPrice']}</span></div>
+					{/if}
+				</div>
+				{else}
+				<div class="wst-shop-gozone">
+					<div class="wst-shop-goimg"><a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank"><img class="goodsImg" data-original="__ROOT__/{$li['goodsImg']}" title="{$li['goodsName']}"></a></div>
+					<p class="wst-shop-gonam"><a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank">{:WSTMSubstr($li['goodsName'],0,15)}</a></p>
+					<div style="width:200px;height:25px;margin-top:12px;">
+						{if($li['saleType']==1)}
+						<p class="wst-shop-goodp1">议价</p>
+						<p class="wst-shop-goodp2"></p>
+						{elseif($li['saleType']==2)}
+						<p class="wst-shop-goodp1">仅展示</p>
+						<p class="wst-shop-goodp2"></p>
+						{else}
+						<p class="wst-shop-goodp1">￥<span style="font-size:20px;font-weight:bold">{$li['shopPrice']}</span></p>
+						<a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank"><p class="wst-shop-goodp2"></p></a>
+						{/if}
+					</div>
+				</div>
+				{/if}
+			{/wst:shopgoods}
+		</div>
+	</div>
+</div>
+<div class="wst-clear"></div>
+<div class="wst-container" style="background-color:#fff;margin-top:20px;height:790px">
+	<div class="ban-title">人气热卖/POPULAR HOT</div>
+		{wst:shopgoods type='hot' num='6' id='li' shop="$data['shop']['shopId']"}
+			<div class="wst-shop-gozone" style="width:230px;height:310px;border:1px solid #eeeeee;margin:0 5px 20px 5px">
+				<div class="wst-shop-goimg" style="width:190px;height:190px;margin-top:20px;margin-left:20px"><a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank"><img class="goodsImg" data-original="__ROOT__/{$li['goodsImg']}" title="{$li['goodsName']}"></a></div>
+				<p class="wst-shop-gonam" style="margin-left:20px"><a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank">{:WSTMSubstr($li['goodsName'],0,15)}</a></p>
+				<div style="width:200px;height:25px;margin-top:12px;margin-left:20px">
+					{if($li['saleType']==1)}
+					<p class="wst-shop-goodp1"></p>
+					<p class="wst-shop-goodp3">议价</p>
+					{elseif($li['saleType']==2)}
+					<p class="wst-shop-goodp1"></p>
+					<p class="wst-shop-goodp3">仅展示</p>
+					{else}
+					<p class="wst-shop-goodp1" style="float:left">￥<span style="font-size:20px;font-weight:bold">{$li['shopPrice']}</span></p>
+					<a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank"><p class="wst-shop-goodp3">立即购买</p></a>
+					{/if}
+				</div>
+			</div>
+		{/wst:shopgoods}
+	</div>
+</div>
+<div class="wst-clear"></div>
+<div class="wst-container" style="height:20px;"></div>
+<div class="wst-clear"></div>
+<div class="wst-container" style="height:50px;"></div>
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__STATIC__/plugins/slide/js/slide.js?v={$v}"></script>
+<script type='text/javascript' src='__STYLE__/js/shophome.js?v={$v}'></script>
+<script type='text/javascript' src='__STYLE__/js/qrcode.js?v={$v}'></script>
+<script>
+$(function(){
+	var qr = qrcode(10, 'M');
+	var url = '{:url("mobile/shops/home",array("shopId"=>$data["shop"]["shopId"]),true,true)}';
+	qr.addData(url);
+	qr.make();
+	$('#qrcode').html(qr.createImgTag());
+});
+</script>
+{/block}
+{block name="footer"}{__block__}
+{/block}

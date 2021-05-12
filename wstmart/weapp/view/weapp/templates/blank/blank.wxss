@@ -1,0 +1,7 @@
+/*辅助空白组*/
+.blank-model{
+  width: 100%;
+  background: #fff;
+}
+
+

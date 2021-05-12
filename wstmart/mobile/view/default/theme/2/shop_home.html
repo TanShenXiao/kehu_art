@@ -1,0 +1,328 @@
+{extend name="default/base" /}
+{block name="title"}店铺详情 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__MOBILE__/css/swiper.min.css">
+<link rel="stylesheet"  href="__MOBILE__/theme/2/shop_home.css?v={$v}">
+{/block}
+{block name="header"}{/block}
+
+{block name="main"}
+<input type="hidden" name="" value="" id="condition" autocomplete="off">
+<input type="hidden" name="" value="" id="desc" autocomplete="off">
+<input type="hidden" name="" value="{$shopId}" id="shopId" autocomplete="off">
+<input type="hidden" name="" value="{$goodsName}" id="keyword" autocomplete="off">
+<input type="hidden" name="" value="{$ct1}" id="ct1" autocomplete="off">
+<input type="hidden" name="" value="{$ct2}" id="ct2" autocomplete="off">
+<input type='hidden' name="" value="0" id="currPage" autocomplete="off">
+<input type='hidden' name="" value="0" id="totalPage" autocomplete="off">
+<input type="hidden" name="" value="{$data.shop.shopName}" id="shopName" autocomplete="off">
+     <section class="ui-container">
+     	<div class="wst-sh-banner">
+     	    <header class="ui-header ui-header-positive wst-se-header2 wst-se-header3">
+			  <div>
+				<i class="ui-icon-return" onclick="history.back()"></i>
+				<div class="wst-se-search wst-se-search2" onclick="javascript:WST.searchPage('shops',1);">
+				    <i class="ui-icon-search" style="top:-5px;" onclick="javascript:WST.searchPage('shops',1);"></i>
+				    <form action＝"" class="input-form">
+					<input type="search" value="{$goodsName}" placeholder="搜索" onsearch="WST.search(2)" autocomplete="off" disabled="disabled">
+					</form>
+				</div>
+				 <div class="wst-sh-term" id="j-top">
+					<section class="ui-container" style="line-height:0.3rem">
+						<div class="ui-tab">
+							<ul class="ui-tab-nav brands-tab" style="background:transparent">
+								<li id="j-top1" class="tab-item active"><a href="{:url('mobile/index/index')}" style="color:#fff">首页</a></li>
+								<li id="j-top0" class="tab-item" onclick="javascript:getGoodsList(0);">全部商品</li>
+								{volist name="$data['shopcats']" key="k" id="go"}
+								<li class="tab-item" onclick="javascript:getGoodsList({$go['catId']});">{$go['catName']}</li>
+								{/volist}
+							</ul>
+						</div>
+					 </section>
+				 </div>
+			  </div>
+			</header>
+			
+			 {if !empty($data['shop']['shopAds'])}
+			 <div class="shop-ads">
+				<div class="ui-slider" style="padding-top:46%;border-radius:10px">
+				<ul class="ui-slider-content" style="width: 300%">
+					{volist name="$data['shop']['shopAds']" id="ads"}
+					<li><span><a href="{$ads.adUrl}"><img style="width:100%; height:100%; display:block;" src="__RESOURCE_PATH__/{$ads.adImg}"></a></span></li>
+					{/volist}
+				</ul>
+				</div>
+			 </div>
+			 {/if}
+     	</div>
+		{if($data['shop']['shopNotice'])}
+		<div class="shop-notice">
+			<p class="desc-title">店铺公告</p>
+			<p style="color: #aeaeae;" class="shop-brief" id="shop-brief1">{$data['shop']['shopNotice']}</p>
+			<div id="showMore1">更多>></div><div id="exMore1" style="display:none">收起<<</div>
+		</div>
+		<div class="wst-clear"></div>
+		{/if}
+		{if($data['shop']['shopBrief'])}
+		<div class="shop-notice">
+			<p class="desc-title">店铺介绍</p>
+			<p style="color: #aeaeae;" class="shop-brief" id="shop-brief">{$data['shop']['shopBrief']}</p>
+			<div id="showMore">更多>></div><div id="exMore" style="display:none">收起<<</div>
+		</div>
+		<div class="wst-clear"></div>
+		{/if}
+
+		<div class="floor">
+			<div class="cat-title">
+				<p class="title">所有分类</p>
+				<p class="more" onclick="javascript:getGoodsList(0);">更多>></p>
+			</div>
+			<div class="wst-in-adst">
+				<div class="swiper-container swiper-container-t">
+				  <div class="swiper-wrapper" style="height:200px;">
+					{volist name="$data['shopcats']" key="k" id="go"}
+						<div class="swiper-slide">
+						  <div class="goodsinfo-container" style="position:relative">
+							{wst:shopfloorgoods shop="data['shop']['shopId']" cat="go['catId']" cache="86400" num='1'}
+							<a class="advert3" onclick="javascript:getGoodsList({$go['catId']});">
+								<img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{$vo['goodsImg']}" title="{$go['catName']}" style="width:100%;height:100%">
+								<div style="position:absolute;font-size:22px;color:#fff;top:85px;text-align:center;width:100%">{$go['catName']}</div>
+							</a>
+							{/wst:shopfloorgoods}
+						  </div>
+						</div>
+					{/volist}
+				  </div>
+				</div>
+			</div>
+			<div class="wst-clear"></div>
+		</div>
+		<div class='wst-clear'></div>
+
+		<div class="floor">
+			<div class="cat-title">
+				<p class="title">商品推荐</p>
+				<p class="more" onclick="javascript:getGoodsList(0);">更多>></p>
+			</div>
+			<div class="wst-in-adsb">
+				<div class="swiper-container swiper-container-b">
+				  <div class="swiper-wrapper" style="height:25x%">
+					{wst:shopgoods type='recom' num='6' id='re' shop="$data['shop']['shopId']" key="rk"}
+						<div class="swiper-slide" style="width:33.33%;">
+							<div class="goodsinfo-container">
+								<div class="wst-in-goods" onclick="WST.intoGoods({$re['goodsId']})">
+									<div class="wst-in-goods img j-imgIndex" onclick="WST.intoGoods({$re['goodsId']})">
+										<a class="advert3" href=""><img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{$re['goodsImg']}" title="{$re['goodsName']}"/></a>
+									</div>
+									<div class="name ui-nowrap-multi">{$re['goodsName']}</div>
+									<div class="info">
+									{if($re['saleType']==1)}
+										<span class="price">议价</span></a>
+									{elseif($re['saleType']==2)}
+										<span class="price">仅展示</span></a>
+									{else}
+										<span class="price" style="float:left">¥ {$re['shopPrice']}</span>
+										<div class="info2" style="float:right">
+											<span class="price">¥ {$re['marketPrice']}</span>
+										</div>
+									{/if}
+									</div>
+								</div>
+						  </div>
+						</div>
+					{/wst:shopgoods}
+				  </div>
+				</div>
+			</div>
+			<div class="wst-clear"></div>
+		</div>
+		<div class='wst-clear'></div>
+
+		<div class="floor">
+			<div class="cat-title">
+				<p class="title">热卖商品</p>
+				<p class="more" onclick="javascript:getGoodsList(0);">更多>></p>
+			</div>
+			{wst:shopgoods type='hot' num='4' id='re' shop="$data['shop']['shopId']" key="rk"}
+				{if $rk==0}
+				<div style="width:99%">
+					<div class="wst-in-goods" style="width:45%" onclick="WST.intoGoods({$re['goodsId']})">
+						<div class="img j-imgIndex1" onclick="WST.intoGoods({$re['goodsId']})">
+							<a href="javascript:void(0)" onclick="WST.intoGoods({$re['goodsId']})">
+								<img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{$re['goodsImg']}" title="{$re['goodsName']}"/>
+							</a>
+						</div>
+					</div>
+					<div class="aname ui-nowrap-multi" style="-webkit-line-clamp: 3;font-size:0.16rem;padding:0.1rem">{$re['goodsName']}</div>
+					<div class="wst-in-goods" style="width:auto;padding:0 0.1rem">
+						<div class="info" style="">
+						{if($re['saleType']==1)}
+							<span class="price">议价</span></a>
+						{elseif($re['saleType']==2)}
+							<span class="price">仅展示</span></a>
+						{else}
+							<span class="price">¥ <span>{$re['shopPrice']}</span></span><br/><br/>
+							<span class="buy-now">立即购买</div>
+						{/if}
+						</div>
+					</div>
+				</div>
+				<div class="wst-clear"></div>
+				{else}
+        		<div class="wst-in-goods" style="width:33%" onclick="WST.intoGoods({$re['goodsId']})">
+	            <div class="img j-imgIndex" onclick="WST.intoGoods({$re['goodsId']})">
+	            <a href="javascript:void(0)" onclick="WST.intoGoods({$re['goodsId']})">
+	            <img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{$re['goodsImg']}" title="{$re['goodsName']}"/>
+	            </a>
+	            </div>
+	            <div class="aname ui-nowrap-multi">{$re['goodsName']}</div>
+				<div class="info" style="text-align:center">
+				{if($re['saleType']==1)}
+					<span class="price">议价</span></a>
+				{elseif($re['saleType']==2)}
+					<span class="price">仅展示</span></a>
+				{else}
+					<span class="price" style="float:left">¥ {$re['shopPrice']}</span>
+				{/if}
+				</div>
+	            </div>
+				{/if}
+			{/wst:shopgoods}
+			<div class="wst-clear"></div>
+		</div>
+		<div class='wst-clear'></div>
+        
+        <div class="wst-sh-list" id="j-index0" style="">
+        <div class="ui-row-flex wst-shl-head">
+            <div class="ui-col ui-col sorts active" status="down" onclick="javascript:orderCondition(this,2);">
+                 <p class="pd0">销量</p><i class="down2"></i>
+            </div>
+            <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,3);">
+                 <p class="pd0">价格</p><i class="down"></i>
+            </div>
+            <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,1);">
+                 <p class="pd0">人气</p><i class="down"></i>
+            </div>
+            <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,6);">
+                 <p>上架时间</p><i class="down"></i>
+            </div>
+        </div>
+        <script id="shopList" type="text/html">
+         {{# for(var i=0; i<d.length; i++){ }}
+             <div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}" onclick="WST.intoGoods({{d[i].goodsId}})">
+             <div class="img j-imgAdapt" onclick="WST.intoGoods({{d[i].goodsId}})">
+             <a href="javascript:void(0)" onclick="WST.intoGoods({{d[i].goodsId}})">
+             <img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{{d[i].goodsImg }}" title="{{d[i].goodsName}}"/>
+             </a>
+             </div>
+             <div class="name ui-nowrap-multi">{{ d[i].goodsName}}</div>
+			 <div class="info"><span class="price"><span>{{# if(d[i].saleType==1){ }}议价{{# }else if(d[i].saleType==2){ }}仅展示{{# }else{ }}¥ {{ d[i].shopPrice }}{{# } }}</span></span></div>
+			 <div class="info3">{{ d[i].thumbsNum }}</div>
+             </div>
+          {{# } }}
+        </script>
+
+        <div id="shops-list" class="wst-sh-goods"></div>
+		</div>
+
+     </section>
+{/block}
+
+
+{block name="footer"}
+<div class="wst-toTop" id="toTop">
+	<i class="wst-toTopimg"></i>
+</div>
+{/* 遮盖层  */}
+<div class="wst-cover" id="cover"></div>
+{/* 地图层  */}
+<div class="wst-fr-box" id="container">
+    <div class="title">{$data.shop.shopName} - 店铺地址<i class="ui-icon-close-page" onclick="javascript:mapHide();"></i><div class="wst-clear"></div></div>
+    <div id="map"></div>
+</div>
+{/* 分类层  */}
+<div class="wst-fr-box" id="frame">
+    <div class="title">商品分类<i class="ui-icon-close-page" onclick="javascript:dataHide();"></i><div class="wst-clear"></div></div>
+    <div class="content" id="content">
+
+
+       <div class="ui-scrollerl" id="ui-scrollerl">
+            <ul>
+                {volist name="$data['shopcats']" key="k" id="go"}
+                <li id="goodscate" class="wst-goodscate {if($k==1)}wst-goodscate_selected{/if}" onclick="javascript:showRight(this,{$k-1});">{$go['catName']}</li>
+                {/volist}
+            </ul>
+        </div>
+        {volist name="$data['shopcats']" key="k" id="go"}
+        <div class="wst-scrollerr goodscate1" {if($k!=1)}style="display:none;"{/if}>
+            <ul>
+                <li class="wst-goodsca">
+                    <a href="javascript:void(0);" onclick="javascript:getGoodsList({$go['catId']});"><span>&nbsp;{$go.catName}</span></a>
+                    <a href="javascript:void(0);" onclick="javascript:getGoodsList({$go['catId']});"><i class="ui-icon-arrow"></i></a>
+                </li>
+                <li>
+                    <div class="wst-goodscat">
+                        {volist name="$go['children']" id="go1"}
+                        <span><a href="javascript:void(0);" onclick="javascript:getGoodsList({$go['catId']},{$go1['catId']});">{$go1.catName}</a></span>
+                        {/volist}
+                    </div>
+                </li>
+            </ul>
+            <div class="wst-clear"></div>
+        </div>
+        {/volist}
+    </div>
+</div>
+{/block}
+{block name="include"}
+    <div class="wst-co-search" id="wst-shops-search" style="background-color: #f6f6f8;">
+    <header class="ui-header ui-header-positive wst-se-header2" style="border-bottom: 1px solid #f6f6f8;">
+		<i class="ui-icon-return" onclick="javascript:WST.searchPage('shops',0);"></i>
+		<div class="wst-se-search">
+		    <i class="ui-icon-search" onclick="javascript:WST.search(2);"></i>
+		    <form action＝"" class="input-form">
+			<input type="search" value="" placeholder="按关键字搜索本店商品" onsearch="WST.search(2)" autocomplete="off" id="wst-search">
+			</form>
+		</div>
+		<a class="btn" href="javascript:void(0);" onclick="javascript:WST.search(2);">搜索</a>
+	</header>
+	<div class="classify">
+		<ul class="ui-list ui-list-text ui-list-link ui-list-active shops">
+		    <li onclick="javascript:getGoodsList(0);">
+		        <h4 class="ui-nowrap">全部商品</h4>
+		    </li>
+		</ul>
+		<ul class="ui-list ui-list-text ui-list-active shops2">
+            {volist name="$data['shopcats']" key="k" id="g"}
+		    <li onclick="javascript:getGoodsList({$g['catId']});">
+		        <h4 class="ui-nowrap">{$g['catName']}</h4>
+		        <div class="ui-txt-info">查看全部</div>
+		    </li>
+		    {/volist}
+		</ul>
+	</div>
+	</div>
+{/block}
+{block name="footer"}
+	{include file="default/footer" /}
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__MOBILE__/js/jquery.min.js'></script>
+<script type='text/javascript' src='__MOBILE__/js/swiper.jquery.min.js'></script>
+<script type='text/javascript' src='__MOBILE__/theme/2/shop_home.js'></script>
+<script type="text/javascript" src="{:WSTProtocol()}map.qq.com/api/js?v=2.exp&key={:WSTConf('CONF.mapKey')}"></script>
+
+<script>
+$(function(){
+   // 广告不为空时
+   {if !empty($data['shop']['shopAds'])}
+    shopAds();
+   {/if}
+  
+	WST.initFooter('');
+	$('#home').empty();
+	$('#home').css("background","url(/{$data.shop.shopImg}) no-repeat center");
+	$('#home').css("background-size","cover");
+});
+</script>
+{/block}

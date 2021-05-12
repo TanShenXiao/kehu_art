@@ -1,0 +1,38 @@
+<link href="__STYLE__/css/carts.css?v={$v}" rel="stylesheet">
+<script src="__ROOT__/addons/signup/view/home/pay.js?v={$v}" type="text/javascript"></script>
+<div class="wst-shop-head"><span> &nbsp;</span></div>
+<div class='wst-shop-content'>
+    <div class='pay-sbox'>
+    	<div>
+    		<div>
+				<div class='wst-tips-box'>
+				<div class='icon'></div>
+					<div class='tips'>
+						缴纳费用￥{$signupFee}元。<br/>
+					</div>
+				<div style="clear:both"></div>
+	           	</div>
+    		</div>
+	   		<div class="wst-form">
+				<input id='needPay' type='hidden' value='{$signupFee}'/>
+	    	</div>
+
+		    <div>
+			    <div class="pay-type">选择支付方式</div>
+			    <div class="pay-list">
+			    	<input type="hidden" id="payCode" name="payCode" />
+			    	{volist name="payments" id="payment"}
+	                 	{if condition="$payment['isOnline'] eq 1"}
+	                    	<div class="wst-payCode-{$payment['payCode']}" data="{$payment['payCode']}"></div>
+	                 	{/if}
+	                 {/volist}
+			         <div class="wst-clear"></div>
+			    </div>
+			    <div class="bnt-box">
+			    	<div onclick='javascript:getPayUrl();' class="wst-pay-bnt"></div>
+			    </div>
+	    	</div>
+        </div>
+    </div>
+</div>
+<div id="alipayform" style="display:none;"></div>

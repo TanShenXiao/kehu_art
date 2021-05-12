@@ -1,0 +1,53 @@
+<view class="container">
+  <view wx:if="{{chatList.length>0 || userChatList.length>0}}">
+    <scroll-view scroll-y="true" class="chat-list" id="chat-list">
+      <view wx:if="{{userChatList.length > 0}}">
+        <block wx:for="{{userChatList}}" wx:for-item="item">
+          <view class="chat-item" bindtap="goShopChat" data-userId="{{item.userId}}" data-userName="{{item.userName}}" data-userPhoto="{{item.userPhoto}}">
+            <view class="item-left">
+              <image src="{{item.userPhoto}}" class="{{item.offline}}"></image>
+              <view class="un-read-num" wx:if="{{item.unReadNum>0}}">{{item.unReadNum}}</view>
+            </view>
+            <view class="item-right">
+              <view class="item-right-top">
+                <text class="chat-name">{{item.userName}}</text>
+                <text class="chat-time">{{item.createTime}}</text>
+              </view>
+              <view class="item-right-bottom">
+                <text class="chat-content">{{item.content}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+
+      <view wx:if="{{chatList.length > 0}}">
+        <block wx:for="{{chatList}}" wx:for-item="item">
+          <view class="chat-item" bindtap="goWstim" data-shopId="{{item.shopId}}" data-shopName="{{item.shopName}}" data-shopImg="{{item.shopImg}}">
+            <view class="item-left">
+              <image src="{{item.shopImg}}"></image>
+              <view class="un-read-num" wx:if="{{item.unReadNum>0}}">{{item.unReadNum}}</view>
+            </view>
+            <view class="item-right">
+              <view class="item-right-top">
+                <text class="chat-name">{{item.shopName}}</text>
+                <text class="chat-time">{{item.createTime}}</text>
+              </view>
+              <view class="item-right-bottom">
+                <text class="chat-content">{{item.content.content}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="empty" wx:if="{{loading==false && chatList.length==0 && userChatList.length==0}}">
+    <image class="empty-image" src="{{domain}}wstmart/weapp/view/weapp/image/empty.png"></image>
+    <text class="empty-text">暂无会话记录</text>
+  </view>
+</view>
+
+<!--自定义底部导航栏-->
+<import src="../../../../../templates/tabBar/tabBar.wxml" />
+<template is="tabBar" data="{{tabBar}}" />

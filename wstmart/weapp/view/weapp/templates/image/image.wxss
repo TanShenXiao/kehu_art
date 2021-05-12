@@ -1,0 +1,10 @@
+/*单图组*/
+.image-model{
+  width: 100%;
+  background: #fff;
+}
+
+.image-model image{
+  height: 374rpx;
+  display: block !important;
+}

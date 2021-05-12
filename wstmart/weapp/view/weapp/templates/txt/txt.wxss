@@ -1,0 +1,18 @@
+/*单文本*/
+.txt-model{
+  width: 100%;
+  background: #fff;
+}
+.txt-content{
+  display: flex;
+  flex-direction: row;
+}
+.txt-content.text-left{
+  justify-content: flex-start;
+}
+.txt-content.text-center{
+  justify-content: center;
+}
+.txt-content.text-right{
+  justify-content: flex-end;
+}

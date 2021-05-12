@@ -1,0 +1,22 @@
+<template name="coupon">
+    <view class='coupon-model wst-flex-row wst-jsb wst-ac' style="background:{{backgroundColor}};padding:{{verticalPadding}}px 0;" wx:if="{{style==1}}">
+      <block wx:for="{{coupons}}" wx:for-item="item">
+        <view class='coupon-item1 wst-flex-column wst-jsb wst-ac' style="background-image:url({{resourceDomain}}wstmart/weapp/view/weapp/image/coupon_1.jpg);background-size:100%;background-repeat: no-repeat;" >
+          <view class='coupon-value-content-1'>￥<text class='coupon-value-1'>{{item.couponValue}}</text></view>
+          <view class='coupon-condition-1'>{{item.useCondition == 1?'满'+item.useMoney+'使用':'无金额门槛'}}</view>
+          <view class='coupon-get-1' bindtap='collar' data-couponid="{{item.couponId}}">立即领取</view>
+        </view>
+      </block>
+    </view>
+    <view class='coupon-model wst-flex-row wst-jsa wst-ac' style="background:{{backgroundColor}};padding:{{verticalPadding}}px 0;" wx:if="{{style==2}}">
+      <block wx:for="{{coupons}}" wx:for-item="item">
+        <view class='coupon-item2 wst-flex-row wst-jc wst-ac' style="background-image:url({{resourceDomain}}wstmart/weapp/view/weapp/image/coupon_2.png);background-size:100%;background-repeat: no-repeat;" >
+          <view class='coupon-value-content-2'>￥<text class='coupon-value-2'>{{item.couponValue}}</text></view>
+            <view class='wst-flex-column wst-ac coupon-area'>
+            <view class='coupon-condition-2'>{{item.useCondition == 1?'满'+item.useMoney+'使用':'无金额门槛'}}</view>
+            <view class='coupon-get-2' bindtap='collar' data-couponid="{{item.couponId}}">立即领取</view>
+          </view>
+        </view>
+      </block>
+    </view>
+</template>

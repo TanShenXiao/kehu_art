@@ -1,0 +1,7 @@
+
+<template name="bargain-user">
+    <view class='model' bindtap="jumpCenter" data-url="/addons/package/pages/bargain/users/list">
+      <view class='image'><image src="/addons/closure/bargain/image/bargain.png"mode='AspectFit'></image></view>
+      <view class='title'>我的砍价</view>
+    </view>
+</template>

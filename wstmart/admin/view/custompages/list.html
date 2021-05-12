@@ -1,0 +1,105 @@
+{extend name="base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/mmgrid/mmGrid.css?v={$v}" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css?v={$v}" />
+<style>
+   .none{display: none;}
+   .page-poster-bg{margin:20px;position:relative;width:241px;height:505px;background:url('__ADMIN__/img/page/phone.png') no-repeat;background-size:100%;}
+   .page-poster{position:absolute;top:74px;left:20px;width:204px;height:362px;}
+   .page-poster-hover{opacity: 1;background: rgba(0,0,0,.66);width:204px;height:362px;position: absolute;top:74px;left:20px;}
+   .custom-page-add{position:absolute;top:50%;left:37%;}
+   .page-detail{height:100%;padding:20px 0;}
+   .page-name{color:#fff;text-align: center;}
+   .page-btn{width:100%;padding:0 20px;}
+   .page-btn img{width:40px;height:40px;cursor: pointer;}
+</style>
+{/block}
+{block name="js"}
+<script src="__STATIC__/plugins/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+<script src="__ADMIN__/custompages/custompages.js?v={$v}" type="text/javascript"></script>
+{/block}
+{block name="main"}
+<div id='alertTips' class='alert alert-success alert-tips fade in'>
+   <div id='headTip' class='head'><i class='fa fa-lightbulb-o'></i>操作说明</div>
+   <ul class='body'>
+      <li>自定义页面列表管理, 可创建和编辑自定义页面</li>
+      <li>可将自定义页面设为首页,若没有设置自定义首页,系统将启用系统默认首页</li>
+      <li>使用中的自定义页面只能编辑，不可删除</li>
+      <li>未使用的自定义页面可编辑，可删除</li>
+   </ul>
+</div>
+<div class="layui-tab layui-tab-brief" lay-filter="msgTab">
+   <ul class="layui-tab-title">
+      <li class="{if $type==1}layui-this{/if}" onclick="javascript:changeCustomPageType(1)">手机端</li>
+      <li class="{if $type==2}layui-this{/if}" onclick="javascript:changeCustomPageType(2)">微信端</li>
+      <li class="{if $type==3}layui-this{/if}" onclick="javascript:changeCustomPageType(3)">小程序端</li>
+   </ul>
+   <div class="layui-tab-content" style="padding: 10px 0;">
+      <div class="layui-tab-item {if $type==1}layui-show{/if} layui-form" >
+         <div class="wst-flex-row wst-fw">
+            <div id="page_type_1"></div>
+            {if WSTGrant('CPGL_01')}
+            <div class="page-poster-bg" >
+                <button class="btn btn-success custom-page-add" onclick='javascript:toEdit(0,1)'><i class='fa fa-plus'></i>新增</button>
+            </div>
+            {/if}
+         </div>
+      </div>
+      <div class="layui-tab-item layui-form {if $type==2}layui-show{/if}">
+         <div class="wst-flex-row wst-fw">
+            <div id="page_type_2"></div>
+            {if WSTGrant('CPGL_01')}
+            <div class="page-poster-bg" >
+               <button class="btn btn-success custom-page-add" onclick='javascript:toEdit(0,2)'><i class='fa fa-plus'></i>新增</button>
+            </div>
+            {/if}
+         </div>
+      </div>
+      <div class="layui-tab-item layui-form {if $type==3}layui-show{/if}">
+         <div class="wst-flex-row wst-fw">
+            <div id="page_type_3"></div>
+            {if WSTGrant('CPGL_01')}
+            <div class="page-poster-bg" >
+               <button class="btn btn-success custom-page-add" onclick='javascript:toEdit(0,3)'><i class='fa fa-plus'></i>新增</button>
+            </div>
+            {/if}
+         </div>
+      </div>
+   </div>
+</div>
+<script id="tblist" type="text/html">
+   <div class="wst-flex-row wst-fw">
+   {{# var dl = d['list'];for(var i = 0; i < dl.length; i++){ }}
+      <div class="page-poster-bg" style="{{# if(dl[i]['isIndex']==1){}} background:url('__ADMIN__/img/page/phone_use.png') no-repeat;{{# } }}" onmouseover="showCustomPageDetail(this)" onmouseout="hideCustomPageDetail(this)">
+         {{# if(dl[i]['pagePoster']){ }}
+            <img class="page-poster" src="__RESOURCE_PATH__/{{dl[i]['pagePoster']}}" />
+         {{# }else{ }}
+            <img class="page-poster" src="__ADMIN__/img/page/default_poster.png" />
+         {{# } }}
+         <div class="page-poster-hover none">
+            <div class="page-detail wst-flex-column wst-jsb wst-ac">
+               <div class="page-name">{{dl[i]['pageName']}}</div>
+               <div class="page-btn wst-flex-row wst-jsb">
+                  <img src="__ADMIN__/img/page/edit.png" onclick="javascript:toEdit({{dl[i]['id']}},{{dl[i]['pageType']}})">
+                  <img src="__ADMIN__/img/page/del.png" onclick="javascript:toDel({{dl[i]['id']}},{{dl[i]['pageType']}},{{dl[i]['isIndex']}})">
+               </div>
+               <div class="page-btn wst-flex-row wst-jsb">
+                  {{# if(dl[i]['isIndex']==1){}}
+                  <button class="btn btn-disabled" onclick="javascript:isIndexToggle({{dl[i]['id']}},0,{{dl[i]['pageType']}})"><i class='fa'></i>取消使用</button>
+                  {{# }else{ }}
+                  <button class="btn btn-success" onclick="javascript:isIndexToggle({{dl[i]['id']}},1,{{dl[i]['pageType']}})"><i class='fa'></i>设为首页</button>
+                  {{# } }}
+                  <button class="btn btn-success" onclick="javascript:copy({{dl[i]['id']}},{{dl[i]['pageType']}})"><i class='fa'></i>复制</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   {{#}}}
+   </div>
+</script>
+<script>
+   $(function (){
+      listQuery({$type});
+   });
+</script>
+{/block}

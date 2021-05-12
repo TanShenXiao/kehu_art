@@ -1,0 +1,155 @@
+{extend name="default/base" /}
+{block name="title"}艺术家 - {:WSTConf('CONF.mallName')}{__block__}{/block}
+<meta name="description" content="{:WSTConf('CONF.seoMallDesc')},艺术家">
+<meta name="Keywords" content="{:WSTConf('CONF.seoMallKeywords')}">
+{block name="css"}
+<link href="__STATIC__/plugins/lazyload/skin/laypage.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/shopstreet.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="main"}
+<div class="wst-ads" style="position:relative;" >
+	<div class="wst-slide" id="wst-slide">
+		<ul class="wst-slide-items">
+			{wst:ads code="ads-index" cache='86400'}
+				<a href="{$vo.adURL}" {if ($vo['isOpen'])}target='_blank'{/if} {if ($vo['adURL']!='')}onclick="WST.recordClick({$vo['adId']})"{/if}><li style="background: url(__RESOURCE_PATH__/{$vo.adFile}) no-repeat  scroll center top;background-size:cover;" ></li></a>
+			{/wst:ads}
+		</ul>
+		<div class="wst-slide-numbox">
+			<div style="position:absolute;right:0;top:-420px;">
+			</div>
+			<div style="width: 1000px;position: relative;margin:0 auto;">
+				<div class="wst-slide-controls">
+					{wst:ads code="ads-index" cache='86400' key='k'}
+						{if condition="$k+1 eq 1"}
+							<span class="curr"></span>
+						{else/}
+							<span class=""></span>
+						{/if}
+					{/wst:ads}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input type='hidden' id='keyword' value='{:isset($keyword)?$keyword:""}'/>
+<div class="wst-container">
+	<div class="wst-route wst-route-street">
+		当前位置：
+		<a href="{:url('home/index/index')}" ><img style="float:left;margin-right:10px"/>首页</a> > 
+			{if 1!=input('type')}
+			<a href="{:url('home/shops/shopstreet','type=0')}">艺术家</a>
+			{else}
+			<a href="{:url('home/shops/shopstreet','type=1')}">艺廊</a>
+			{/if}
+	</div>
+	
+	<div style="background-color:rgb(238, 238, 238);">
+		<div style="">
+			<div style="padding:23px;font-size:16px;color:#6c6c6c"><span style="font-size: 22px;">推荐</span>/艺术家</span></div>
+		</div>
+		<div style="padding:20px;overflow: hidden;">
+		{wst:shop cat='0' cache='86400' num='8'}
+		<div class="wst-ysj-list" style="float: left;margin-bottom: 20px;box-sizing: border-box;padding: 15px;border-radius: 5px;">
+			<div class="wst-shopstr-shopl"  style="width:80px;height:80px;float:left">
+				<a target='_blank' href="{:url('home/shops/index',array('shopId'=>$vo['shopId']))}" style="width:80px;height:80px">
+					<img class="shopsImg" data-original="__ROOT__/{$vo['shopImg']}" title="{$vo['shopName']}" alt="{$vo['shopName']}" style="border-radius: 40px; max-width:100%;max-height:100%;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto"/>
+				</a>
+			</div>
+			<div class="wst-shopstr-shopi" style="width:130px;height:80px;box-sizing: border-box;padding:10px;margin:0;">
+				<div class="wst-shopstr-pr" style="margin-top:0">
+					<span class="wst-lfloat" style="margin-left:3px;"><a class="company" style="color:#6c6c6c;font-size: 18px;text-decoration: none;;" target='_blank' href="{:url('home/shops/index',array('shopId'=>$vo['shopId']))}">{$vo['shopName']}</a></span>
+				</div>
+				<div class="wst-shopstr-pr" style="margin-top:0">
+					<span class="wst-lfloat" style="margin-left:3px;">类别：{:WSTMSubstr($vo['catshops'],0,12)}</span>
+				</div>
+				<div class="wst-shopstr-pr" style="margin-top:0">
+					<span class="wst-lfloat" style="margin-left:3px;">商品数：{$vo['shopNum']}</span>
+				</div>
+			</div>
+		</div>
+		{/wst:shop}
+		</div>
+	</div>
+	<div class="wst-ysj-sy" style="padding:8px;line-height: 40px;border:1px solid #9c9a9a;margin:20px 0;color:#9c9a9a;overflow: hidden;border-radius: 4px;">
+		<span style="float: left;">艺术家索引：</span>
+		<ul>
+			<li><a href="#">A</a></li>
+			<li><a href="#">B</a></li>
+			<li><a href="#">C</a></li>
+			<li><a href="#">D</a></li>
+			<li><a href="#">E</a></li>
+			<li><a href="#">F</a></li>
+			<li><a href="#">G</a></li>
+			<li><a href="#">H</a></li>
+			<li><a href="#">I</a></li>
+			<li><a href="#">J</a></li>
+			<li><a href="#">K</a></li>
+			<li><a href="#">L</a></li>
+			<li><a href="#">M</a></li>
+			<li><a href="#">N</a></li>
+			<li><a href="#">O</a></li>
+			<li><a href="#">P</a></li>
+			<li><a href="#">Q</a></li>
+			<li><a href="#">R</a></li>
+			<li><a href="#">S</a></li>
+			<li><a href="#">T</a></li>
+			<li><a href="#">U</a></li>
+			<li><a href="#">V</a></li>
+			<li><a href="#">W</a></li>
+			<li><a href="#">X</a></li>
+			<li><a href="#">Y</a></li>
+			<li><a href="#">Z</a></li>
+		</ul>
+	</div>
+	<div style="overflow: hidden;border:1px solid #9c9a9a;">
+	{volist name="list['data']" id="v1" key="k"}
+	<div class="wst-shopstr-shop">
+		<div class="wst-shopstr-shopl"><a target='_blank' href="{:url('home/shops/index',array('shopId'=>$v1['shopId']))}"><img class="shopsImg" data-original="__RESOURCE_PATH__/{$v1['shopImg']}" src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" title="{$v1['shopName']|WSTStripTags}" alt="{$v1['shopName']|WSTStripTags}"/></a></div>
+		<div class="wst-shopstr-name">
+			<a class="name" target='_blank' href="{:url('home/shops/index',array('shopId'=>$v1['shopId']))}">{:WSTMSubstr($v1['shopName'],0,12)}</a>
+			<div class="wst-clear"></div>
+		</div>
+		<div class="wst-clear"></div>
+	</div>
+	{/volist}
+	<div class="shopstrPaging">
+		<div id="shopstrPaging"></div>
+	</div>
+	</div>
+</div>
+{include file="default/right_cart"/}
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__STYLE__/js/jquery.als.js?v={$v}'></script>
+<script type='text/javascript' src='__STYLE__/js/shopstreet.js?v={$v}'></script>
+<script>
+$(function(){
+	if({$list['last_page']}>1){
+	laypage({
+	    cont: 'shopstrPaging',
+	    pages: {$list['last_page']}, //总页数
+	    curr: {$list['current_page']},
+	    skip: true, //是否开启跳页
+	    skin: '#fd6148',
+	    groups: 4, //连续显示分页数
+	   	prev: '上一页',
+		next: '下一页',
+	    jump: function(e, first){ //触发分页后的回调
+	        if(!first){ //一定要加此判断，否则初始时会无限刷新
+	        	var nuewurl = WST.splitURL("page");
+	        	var ulist = nuewurl.split("?");
+	        	if(ulist.length>1){
+	        		location.href = nuewurl+'&page='+e.curr;
+	        	}else{
+	        		location.href = '?page='+e.curr;
+	        	}
+	            
+	        }
+	    }
+	});
+	}
+});
+</script>
+{/block}
+{block name="footer"}{__block__}
+{/block}

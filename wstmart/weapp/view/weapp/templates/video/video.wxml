@@ -1,0 +1,5 @@
+<template name="video">
+    <view class='video-model' style="padding:{{verticalPadding}}px 0;">
+      <video controls="{{true}}" src="{{link}}" poster="{{resourceDomain}}{{img}}" ></video>
+    </view>
+</template>

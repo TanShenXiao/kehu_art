@@ -1,0 +1,130 @@
+{extend name="$LAYOUT_HOME_BASE" /}
+{block name="title"}线上报名 - {:WSTConf('CONF.mallName')}{__block__}{/block}
+{block name="meta"}
+<meta name="description" content="{:WSTConf('CONF.seoMallDesc')},线上报名">
+<meta name="Keywords" content="{:WSTConf('CONF.seoMallKeywords')}">
+{/block}
+{block name="css"}
+<link href="__STYLE__/css/common.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/user.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/security.css?v={$v}" rel="stylesheet">
+<link href="__STATIC__/plugins/validator/jquery.validator.css?v={$v}" rel="stylesheet">
+<link href="__ROOT__/addons/signup/view/home/list.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="top"}
+	{include file="$LAYOUT_HOME_TOP" /}
+{/block}
+{block name="header"}
+	{include file="$LAYOUT_HOME_HEADER" /}
+{/block}
+{block name="main"}
+<script type="text/javascript" src="__STATIC__/plugins/validator/jquery.validator.min.js?v={$v}"></script>
+<script src="__ROOT__/addons/signup/view/home/list.js?v={$v}" type="text/javascript"></script>
+<script>
+</script>
+
+<div class="wst-container">
+<div class="wst-route">
+	<a href="{:url('home/index/index')}" ><img style="float:left;margin-right:10px"/>首页</a> > 
+	<a href="{:url('addon/signup-signup-lists')}">线上报名</a>
+</div>
+<div class="wst-wrap">
+          <div class='wst-nav'></div>
+          <div class='wst-main' style='width:1000px'>
+            <div class='wst-menu' style='min-height:600px'>
+				{$catName = "";$catDesc = "";$afterSignup = "";$needPay=0;$signupFee=0;$catStatus=0;}
+              	<span class='wst-menu-title'>进行中<img src="__STYLE__/img/user_icon_sider_zhankai.png"></span>
+				{volist name="$cats" id="vo"}
+				{if($vo['status']==1)}
+              	<ul>
+                  	<li class="{if($vo['catId']==$curCatId)}
+									{$catName=$vo['catName'];
+									$catDesc=$vo['catDesc'];
+									$afterSignup=$vo['afterSignup'];
+									$needPay=$vo['needPay'];
+									$catStatus = $vo['status'];
+									$signupFee=$vo['signupFee'];} wst-menua{/if} wst-menuas"
+									style="height:auto;line-height:18px;margin:15px 0;padding:0 5px"
+									onclick="toCat('{$vo['catId']}')">
+					{$vo['catName']}
+                  	</li>
+              	</ul>
+				{/if}
+				{/volist}
+              	<span class='wst-menu-title'>未开始<img src="__STYLE__/img/user_icon_sider_zhankai.png"></span>
+				{volist name="$cats" id="vo"}
+				{if($vo['status']==0)}
+              	<ul>
+                  	<li class="{if($vo['catId']==$curCatId)}
+									{$catName=$vo['catName'];
+									$catDesc=$vo['catDesc'];
+									$afterSignup=$vo['afterSignup'];
+									$needPay=$vo['needPay'];
+									$catStatus = $vo['status'];
+									$signupFee=$vo['signupFee'];} wst-menua{/if} wst-menuas"
+									style="height:auto;line-height:18px;margin:15px 0;padding:0 5px"
+									onclick="toCat('{$vo['catId']}')">
+					{$vo['catName']}
+                  	</li>
+              	</ul>
+				{/if}
+				{/volist}
+              	<span class='wst-menu-title'>已结束<img src="__STYLE__/img/user_icon_sider_zhankai.png"></span>
+				{volist name="$cats" id="vo"}
+				{if($vo['status']==-1)}
+              	<ul>
+                  	<li class="{if($vo['catId']==$curCatId)}
+									{$catName=$vo['catName'];
+									$catDesc=$vo['catDesc'];
+									$afterSignup=$vo['afterSignup'];
+									$needPay=$vo['needPay'];
+									$catStatus = $vo['status'];
+									$signupFee=$vo['signupFee'];} wst-menua{/if} wst-menuas"
+									style="height:auto;line-height:18px;margin:15px 0;padding:0 5px"
+									onclick="toCat('{$vo['catId']}')">
+					{$vo['catName']}
+                  	</li>
+              	</ul>
+				{/if}
+				{/volist}
+            </div>
+            <div class='wst-content' style='width:790px;min-height:600px'>
+			  <div class="wst-user-head"><span id='tabname'>项目介绍</span></div>
+					<div class="wst-tab-content" style='width:99%;margin-bottom: 10px;border:0px;'>
+					  <div id='editform' autocomplete='off'>
+						<div id='catdesctab' class="wst-tab-item" style="width:780px;position: relative;{if $step==3}display:none{/if}">
+						{include file='home/catdesc'/}
+						</div>
+						<div id='submittab' class="wst-tab-item" style="width:780px;position: relative;display:none">
+						{include file='home/signupsubmit'/}
+						</div>
+						<div id='paystep1' class="wst-tab-item" style="width:780px;position: relative;display:none">
+						{include file='home/paystep1'/}
+						</div>
+						<div id='paystep2' class="wst-tab-item" style="width:780px;position: relative;display:none">
+						{include file='home/paystep2'/}
+						</div>
+						<div id='aftersignuptab' class="wst-tab-item" style="width:780px;position: relative;{if $step!=3}display:none{/if}">
+						{include file='home/aftersignup'/}
+						</div>
+					 </div>
+					</div>
+            </div>
+          </div>
+          <div style='clear:both;'></div>
+          <br/>
+</div>
+</div>
+{include file="$LAYOUT_HOME_RIGHT_CART"/}
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__STYLE__/js/brandslist.js?v={$v}'></script>
+<script>
+function toCat(catId){
+    location.href=WST.U('addon/signup-signup-lists','catId='+catId);
+}
+</script>
+{/block}
+{block name="footer"}
+	{include file="$LAYOUT_HOME_FOOTER" /}
+{/block}

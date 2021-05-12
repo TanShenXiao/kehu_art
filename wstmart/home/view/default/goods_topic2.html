@@ -1,0 +1,128 @@
+<!DOCTYPE>
+{extend name="default/base" /}
+{block name="title"}艺术大市场活动专区{__block__}{/block}
+{block name="meta"}
+<meta name="description" content="艺术大市场活动专区">
+<meta name="keywords" content="艺术大市场活动专区">
+{/block}
+{block name="css"}
+<link href="__STATIC__/plugins/lazyload/skin/laypage.css?v={$v}" rel="stylesheet">
+<link href="__STATIC__/plugins/slide/css/slide.css?v={$v}" rel="stylesheet">
+<link href="__STYLE__/css/shophome.css?v={$v}" rel="stylesheet">
+<style type="text/css">
+</style>
+{/block}
+{block name="shop_header"}
+<div style="width:100%;"></div>
+<div class="wst-clear"></div>
+	<div class="wst-container">
+		<div class="wst-shop-contl">
+			<div class="wst-shop-cat">
+				<p class="wst-shop-conlp">商品分类</p>
+				<div class="wst-shop-catt">
+				{volist name="$data['goodscats']" id="sc1"}
+					{if($key>0)}<li onclick="javascript:dropDown(this,{$key});" class="js-shop-plus">{:WSTMSubstr($sc1['catName'],0,15)}</li>{/if}
+					{if(isset($sc1['children']))}
+					<div class="wst-shop-catts tree_{$key}">
+					{volist name="sc1['children']" id="sc2"}
+						<a href="{:url('/topicgoods',array('catId'=>$key))}" style="width:90px;float:left">
+							<li">{:WSTMSubstr($sc2,0,15)}</li>
+						</a>
+					{/volist}
+					</div>
+					{/if}
+					<div class="wst-clear"></div>
+				{/volist}
+				</div>
+			</div>
+		</div>
+		<div class="wst-shop-contr">
+			<div class='wst-header' style="width:740px;margin-top:20px">
+				<div class="wst-shop-nav">
+					<div class="wst-nav-box">
+						<!--<a href="{:url('/topicgoods')}"><li class="liselect wst-lfloat {if condition="$ct1 eq 0"}wst-nav-boxa{/if}">全部</li></a>-->
+						{volist name="$data['goodscats']" id="sc" offset="0" length='8'}
+							{if condition="$i neq 1"}<li class="liselect wst-lfloat {if condition="$ct1 eq $key"}wst-nav-boxa{/if}">|</li>{/if}
+							<a href="{:url('/topicgoods',array('catId'=>$key))}"><li class="liselect wst-lfloat {if condition="$ct1 eq $key"}wst-nav-boxa{/if}">{$sc['catName']}</li></a>
+						{/volist}
+						<a class="homepage" href='{$Request.root.true}'>返回首页</a>
+						<div class="wst-clear"></div>
+					</div>
+				</div>
+				<div class="wst-clear"></div>
+			</div>
+			<div class="wst-shop-list">
+				<div class="wst-shop-listg">
+					{volist name="$data['list']['data']" id="li"}
+					<div class="wst-shop-goods">
+						<div class="wst-shop-goimg"><a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank"><img class="goodsImg" data-original="__ROOT__/{$li['goodsImg']}" title="{$li['goodsName']}"></a></div>
+						<p class="wst-shop-gonam"><a href="{:url('home/goods/detail',array('goodsId'=>$li['goodsId']))}" target="_blank" style="font-size:14px">{:WSTMSubstr($li['goodsName'],0,15)}</a></p>
+						<p class="wst-shop-goodp1"><span class="wst-shop-goodpr">{if($li['saleType']==1)}议价{elseif($li['saleType']==2)}仅展示{else}￥{$li['shopPrice']}{/if}</span></p>
+						<div class="rar_gthumb">{:WSTMSubStr($li['thumbsNum'],0,20,'utf-8')}</div>
+					</div>
+					{/volist}
+					<div class="wst-clear"></div>
+				</div>
+				<div class="wst-shop-pa">
+					<div id="shopPage"></div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="wst-clear"></div>
+{/block}
+{block name="main"}
+<input type="hidden" id="msort" value="{$msort}" autocomplete="off"/>
+<input type="hidden" id="mdesc" value="{$mdesc}" autocomplete="off"/>
+<input type="hidden" id="ct1" value="{$ct1}" autocomplete="off"/>
+<input type="hidden" id="ct2" value="{$ct2}" autocomplete="off"/>
+{include file="default/right_cart"/}
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__STATIC__/plugins/slide/js/slide.js?v={$v}"></script>
+<script type='text/javascript' src='__STYLE__/js/shophome.js?v={$v}'></script>
+<script type='text/javascript' src='__STYLE__/js/qrcode.js?v={$v}'></script>
+<script type="text/javascript" src="{:WSTProtocol()}map.qq.com/api/js?v=2.exp&key={:WSTConf('CONF.mapKey')}"></script>
+<script>
+$(function(){
+	$(document).keypress(function(e) { 
+          if(e.which == 13) {  
+            searchShopsGoods();  
+          }
+    }); 
+	if({$data['list']['last_page']}>1){
+	laypage({
+	    cont: 'shopPage',
+	    pages: {$data['list']['last_page']}, //总页数
+	    curr: {$data['list']['current_page']},
+	    skip: true, //是否开启跳页
+	    skin: '#fd6148',
+	    groups: 3, //连续显示分页数
+	   	prev: '<<',
+		next: '>>',
+	    jump: function(e, first){ //触发分页后的回调
+	        if(!first){ //一定要加此判断，否则初始时会无限刷新
+	        	var nuewurl = WST.splitURL("page");
+	        	var ulist = nuewurl.split("?");
+	        	if(ulist.length>1){
+	        		location.href = nuewurl+'&page='+e.curr;
+	        	}else{
+	        		location.href = '?page='+e.curr;
+	        	}
+	            
+	        }
+	    }
+	});
+	}
+	var qr = qrcode(10, 'H');
+	var url = '{:url("mobile/goods/topicgoods",array("catId"=>$catId),true,true)}';
+	qr.addData(url);
+	qr.make();
+	$('#qrcode').html(qr.createImgTag());
+	var width = $(window).width();
+	$('.wst-shop-tu').css('width',width);
+});
+</script>
+{/block}
+{block name="footer"}{__block__}
+{/block}

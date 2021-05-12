@@ -1,0 +1,99 @@
+<wxs module="numberUtil" src="../../../../../utils/util.wxs"></wxs>
+
+<view class="container" >
+  <view class='slide-model' wx:if="{{ads!=''}}">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{continuous}}" indicator-active-color="#fff">
+      <swiper-item wx:for="{{ads}}" wx:for-item="swiper">
+        <image src="{{domain}}{{swiper.adFile}}" class="slide-image" mode='scaleToFill' bindtap='jumpcenter' data-url="{{swiper.adURL}}" />
+      </swiper-item>
+    </swiper>
+  </view>
+  <view class="header wst-flex-row wst-jsb wst-ac">
+    <view class="search wst-flex-row wst-jsb wst-ac">
+      <image src="../images/search_icon.png" bindtap="searchGood"></image>
+      <input placeholder='请输入商品名称' bindinput='keywordInput' placeholder-class="wst-head-placeholder"></input>
+    </view>
+    <view class="category wst-flex-row wst-center" bindtap='parameter' data-statu="open">
+      <image src="../images/classify-top.png"></image>
+    </view>
+  </view>
+  <scroll-view class="content" scroll-y="true" wx:if="{{goods.length>0}}">
+      <view id="goods-list" class="goods-list">
+        <view wx:for="{{goods}}" wx:for-item="go" wx:key="k" class="goods-item wst-flex-row" data-bargainId="{{go.bargainId}}" bindtap="viewGoodsDetail">
+            <view class="goods-item-left">
+                <image src="{{domain}}{{go.goodsImg}}" title="{{ go.goodsName }}" ></image>
+            </view>
+            <view class="goods-item-right wst-flex-column wst-jsb">
+              <view class="goods-name">{{go.goodsName}}</view>
+              <view class="wst-flex-row wst-jsb wst-ac">
+                <view class="market-price">原价：￥{{go.startPrice}}</view>
+                <view class="joinnum">{{go.joinNum}}人参与</view>
+              </view>
+              <view class="floor-price">低价：￥{{go.floorPrice}}</view>
+              <view class="time wst-flex-row wst-ac">
+                <image src="../images/icon_time.png"></image>
+                <label class="lab_timer" wx:if="{{go.status!=-1}}">
+                  <span>{{go.status==1?'剩余':'还有'}}</span>
+                  <span>{{go.day!=undefined?go.day:'00'}}</span><em>天</em>
+                  <span>{{go.hour!=undefined?go.hour:'00'}}</span><em>小时</em>
+                  <span>{{go.mini!=undefined?go.mini:'00'}}</span><em>分</em>
+                  <span>{{go.sec!=undefined?go.sec:'00'}}</span><em>秒</em>
+                  <span>{{go.status==0?'开始':''}}</span>
+                </label>
+                <label class="lab_timer" wx:if="{{go.status==-1}}">
+                  <span>砍价活动已结束</span>
+                </label>
+              </view>
+            </view>
+        </view>
+      </view>
+      <view class="wst-flex-row wst-center more-text">{{moreText}}</view>
+  </scroll-view>
+  <view class='remind-model' wx:if="{{totalCnt==0}}">
+    <view class='image' ><image src='../images/bargain-goods.png' class="img"></image></view>
+    <view class='content'>对不起，没有相关砍价商品</view>
+</view>
+</view>
+
+<!--自定义底部导航栏-->
+<import src="/templates/tabBar/tabBar.wxml" />
+<template is="tabBar" data="{{tabBar}}" />
+
+<!--商品分类-->
+ <view wx:if="{{parameterStatus}}">
+<!--mask-->  
+  <view class="wst-mask" bindtap="parameter" data-statu="close" data-type='0' wx:if="{{parameterStatus}}"></view>  
+<!--content-->  
+<!--使用animation属性指定需要执行的动画-->  
+ <view animation="{{parameterData}}" class="wst-go-window" wx:if="true">
+<!--drawer content-->  
+   <view class='title'>商品分类
+    <icon type='cancel' color='#B1B1B1' size='28' bindtap="parameter" data-statu="close" class="icon"></icon>
+   </view>
+   <view class="wst-flex-row">
+      <scroll-view class="content goods-cats-left" scroll-y="true" >
+        <view wx:for="{{goodsCats}}" wx:for-item="item" wx:for-index="index">
+          <view class="goods-cats {{item.isSelected==1?'goods-cats-active':''}}" bindtap="showRight" data-index="{{index}}">
+            <text>{{item.catName}}</text>
+          </view>
+        </view>
+      </scroll-view>
+      <scroll-view class="goods-cats-right" scroll-y="true">
+        <view wx:for="{{goodsCatsChildList}}" wx:for-item="item" >
+          <view>
+            <view class="wst-flex-row wst-jsb wst-ac" data-catId="{{item.catId}}" bindtap="goodsCat">
+                <view class="son-cat-name">{{item.catName}}</view>
+                <view class="chevron-right-icon"></view>
+            </view>
+            <view class="wst-flex-row wst-fw">
+                <view wx:for="{{item.childList}}" wx:for-item="item2" class="goods-cats-son-item" data-catId="{{item2.catId}}" bindtap="goodsCat">
+                  <text>{{item2.catName}}</text>
+                </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+   </view>
+  </view>  
+ </view>
+

@@ -1,0 +1,67 @@
+.wst-search{
+  width: 100%;
+  height: 66rpx;
+  /* background: -webkit-linear-gradient(top,rgba(0,0,0,.7),rgba(0,0,0,0));
+  background: linear-gradient(top,rgba(0,0,0,.7),rgba(0,0,0,0)); */
+  background: #f4f4f4;
+  -webkit-transition: background-color .2s linear;
+  -moz-transition: background-color .2s linear;
+  -o-transition: background-color .2s linear;
+  transition: background-color .2s linear;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.wst-search-input{
+  width: 100%;
+  height: 80rpx;
+}
+.wst-search-input .icon{
+  display: block;
+  width: 40rpx;
+  height: 66rpx;
+}
+.wst-search-input .input{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  background: rgba(255,255,255,0.5);
+  color:#fff;
+  height: 56rpx;
+  line-height: 56rpx;
+  margin:10rpx;
+  border: none;
+} 
+.wst-search-input .input text{
+  width: 100%;
+  box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  color:#999;
+  font-size: 28rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  letter-spacing: 1px;
+  border: none;
+}
+.wst-search-input .input .icon{
+    padding:15rpx 0 15rpx 15rpx ;
+}
+.angle-square{
+  border-radius: 0px;
+}
+.angle-circular {
+  border-radius: 5px;
+}
+.angle-arc {
+  border-radius: 100rpx;
+}
+.input.text-left{
+  justify-content: flex-start;
+}
+.input.text-center{
+  justify-content: center;
+}
+.input.text-right{
+  justify-content: flex-end;
+}

@@ -1,0 +1,172 @@
+page{background-color: #fff}
+i, em{font-style: normal;}
+.wst-container{border-top: 0px;margin-bottom:100rpx;}
+.weui_icon_cancel::before{color: #999}
+.weui-popup__modal{overflow-x: inherit;overflow-y: inherit;}
+.block{ display: block;}
+.none{display: none;}
+/*头部*/
+.wst-go-headerl { position: fixed;top: 20rpx;left: 20rpx; width: 60rpx;height: 60rpx;background-color: rgba(0,0,0,.4);border-radius: 100%; z-index: 10;line-height:60rpx;text-align:center;font-size:40rpx;color:#fff;font-weight:normal;}
+.wst-go-headerl i {position: absolute;top: 1px;left: 5px;font-size: 36rpx;color: #fff;}
+.wst-go-headerr {position: fixed;top: 20rpx;right: 20rpx;width: 60rpx;height: 60rpx;background-color: rgba(0,0,0,.4);border-radius: 100%; z-index: 10;line-height:60rpx;text-align:center;font-size:33rpx;color:#fff;font-weight:normal;}
+.wst-go-headerr i {position: absolute;top: 0px;left: 6px;font-size: 36rpx;color: #fff;}
+
+/*轮播图*/
+.wst-go-swiper, .wst-go-swiper swiper, .wst-go-swiper swiper image{width: calc(100%); width: -webkit-calc(100%); width: -moz-calc(100%); width: -ms-calc(100%); width: -o-calc(100%); height: calc(100vw); height: -webkit-calc(100vw); height: -moz-calc(100vw); height: -ms-calc(100vw); height: -o-calc(100vw);}
+.wst-go-title{padding: 20rpx 20rpx 0 20rpx; font-size: 35rpx; color: #051B28; background: #fff; line-height: 46rpx;}
+
+
+.wst-go-title{padding: 20rpx; font-size: 35rpx; color: #051B28; background: #fff; line-height: 1.5; font-weight: 600;}
+.wst-go-term .spec{ width: 85%;margin: 0 20rpx;overflow: hidden;-webkit-line-clamp: 1;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;font-weight: 600;}
+.wst-go-term .spec image{width: 60rpx;height: 60rpx;vertical-align: middle;}
+.wst-go-term .spec image.img{display: inline-block;}
+.lab_bgred{background: red;padding: 0 4px;border-radius: 4px;color: #fff;font-weight: normal;margin-right:20rpx}
+
+.wst-go-info{padding:0;position: relative;display: -webkit-box;display: -webkit-flex;display: flex; -webkit-box-align: center;-webkit-align-items: center;align-items: center;}
+.wst-go-info .price{font-size:50rpx;-webkit-box-flex: 1;-webkit-flex: 1;flex: 1;padding:20rpx;color: #fff;   height: 80rpx;}
+.wst-go-info .price0{background: linear-gradient(to right, #32A060 , #00FB68); }
+.wst-go-info .price1{background: linear-gradient(to right, #FF4EA7 , #FFE9ED); }
+.wst-go-info .price2{background: linear-gradient(to left, #E0C9C6,#EFBDA0); }
+.wst-go-des{padding: 0 20rpx 20rpx 20rpx;font-size: 24rpx;text-decoration: underline;color: #DE4F4F;}
+.wst-go-info .price i{font-size: 26rpx;}
+.wst-go-info .price .market{margin-left: 24rpx;font-size: 26rpx;color: #fff;text-decoration: line-through;}
+.wst-go-info .reduce{position: absolute;}
+
+
+
+/*倒计时*/
+.wst-go-info .timer{width:240rpx;padding:20rpx;height: 80rpx;}
+.wst-go-info .timer0{background: #00FB68;}
+.wst-go-info .timer1{background: #ffeae9;}
+.wst-go-info .timer2{background: #E0C9C6;}
+
+.wst-go-info .timer .seckill-time {color: #f2315f;line-height: 28rpx;}
+.wst-go-info .timer .seckill-time label { text-align: center;display: block;}
+.wst-go-info .timer .seckill-time span{background: #f2315f;color: #fff;height: 36rpx; line-height: 36rpx;padding: 0 4px;border-radius: 6rpx;font-size: 24rpx;display: inline-block;font-weight: 400;margin-bottom: 0px;}
+.wst-go-info .timer .seckill-time em {padding: 0 0 0 6rpx;font-size: 20rpx;}
+.wst-go-info .timer .status {color: #f2315f;font-size: 24rpx;text-align: center;}
+.wst-go-term .term{height: 40px;padding:10rpx 20rpx;background: white; font-size: 26rpx; display: flex;position: relative;border-top: 20rpx solid #f5f5f5;}
+
+.wst-go-term .term:active{background-color: #f2f2f2;}
+.wst-go-term .term .title{display: flex; width: 95%;line-height: 40px;}
+.wst-go-term .term .radius{width: 15%;font-size: 0.400rpx;line-height: 70rpx;text-align: right;position: relative;}
+.wst-go-term .term .radius:after{content: " "; display: inline-block; -webkit-transform: rotate(135deg); transform: rotate(135deg); height: 16rpx; width: 16rpx; border-width: 1px 0 0 1px; border-color: #C8C8CD; border-style: solid; position: absolute; top: 35rpx; right:20rpx;}
+
+
+/*店铺信息*/
+.wst-go-shop{padding:20rpx; border-top: 20rpx solid #f5f5f5; position: relative;}
+.wst-go-shop image{float:left; width: 100rpx; height: 100rpx;}
+.wst-go-shop .info{float:left; width:500rpx; height: 100rpx; padding-left:15rpx; color: #333; position: relative;}
+.wst-go-shop .info .name{font-size: 28rpx;}
+.wst-go-shop .info .camp{font-size: 24rpx;}
+.wst-go-shop .enter{position: absolute; top:20rpx; right:20rpx; color: #fff; font-size: 24rpx; padding: 10rpx 20rpx; background: #1cc4ad; border-radius: 50rpx;}
+.wst-go-shop .authentication{ padding-top: 20rpx;}
+.wst-go-shop span{float:left; font-size: 24rpx; margin-right: 20rpx; color: #666;}
+.wst-go-shop span i{float:left; margin-right: 5rpx; width:35rpx; height:35rpx;}
+.wst-go-shop span i image{width:35rpx; height:35rpx;}
+.wst-go-more{background: #fff; border-bottom: 1px solid #f5f5f5;}
+.wst-go-more.active{position: fixed; top:0; left:0; width:100%;}
+.wst-go-more .more{width:50%; height: 70rpx; line-height: 70rpx; margin: 0 auto; text-align: center; font-size: 28rpx;}
+.wst-go-more .more.active{border-bottom: 1px solid #de0202;}
+.wst-go-detail{padding:0 20rpx 20rpx 20rpx;}
+.wst-go-detail.active{padding-top:70rpx;}
+.wst-go-detail image{width: 100%; height:auto;}
+.wst-go-evaluate{padding:0 20rpx 20rpx 20rpx;}
+.wst-nowrap{overflow: inherit}
+
+/*评价*/
+.wst-appr .atitle{border-bottom: 1px solid #f5f5f5}
+.wst-appr .percent{ width: 280rpx;margin: 0 20rpx; text-align: right; position: absolute;right: 70rpx;top: 16rpx;}
+.wst-appr .percent span{color: #DE4F4F}
+.wst-appr .appr-items{padding-left: 20rpx;}
+.wst-appr .appr-items .item{border-bottom: 1px solid #f5f5f5;padding:0 20rpx 20rpx 0;}
+.appr-list .item{border-top: 1px solid #f5f5f5;padding:0 20rpx 20rpx 0;}
+.appr-items .item .uinfo{display: flex;padding:20rpx 0;}
+.appr-items .item .uinfo .uphoto{ width: 80rpx; }
+.appr-items .item .uinfo .uphoto image{width: 60rpx;height: 60rpx; border-radius: 200rpx;}
+
+.appr-items .item .pcontent{line-height: 1.3;font-size: 26rpx;overflow: hidden;-webkit-line-clamp: 2;text-overflow: ellipsis;display: -webkit-box; -webkit-box-orient: vertical;}
+.appr-items .item .imgs{padding-top: 20rpx;}
+.appr-items .item .imgs image{width: 130rpx;height:130rpx;}
+.wst-appr .appr-footer{text-align: center;padding: 20rpx;}
+.wst-appr .appr-footer .check-more{border:1px solid #ddd;font-weight:600;border-radius:200rpx;margin:0 auto;font-size:26rpx;width:200rpx;height:70rpx;line-height:70rpx;background:#fff;}
+
+.appr-list{padding: 0 20rpx 0  20rpx;margin-top: 90rpx;border-bottom:1px solid #f5f5f5}
+
+.wst-goods-desc{padding:20rpx;border-top: 20rpx solid #f5f5f5}
+.wst-goods-desc image{width: 100%;}
+
+/*规格*/
+.wst-check-spec{position: fixed; z-index: 1002; bottom:-1200rpx; left:0; max-height: 900rpx;min-height: 600rpx; width: 100%; background: #fff;}
+.wst-check-spec.active{animation: spec 0.5s 1; animation-fill-mode: forwards;}
+@keyframes spec{from{bottom: -1200rpx;} to{bottom: 0rpx;}}
+.wst-check-spec.active2{animation: spec2 0.5s 1; animation-fill-mode: forwards;}
+@keyframes spec2{from{bottom: 0rpx;} to{bottom: -1200rpx;}}
+.wst-check-spec .head{line-height: 90rpx;position: relative;}
+.wst-check-spec .head .title{font-size: 30rpx;line-height: 90rpx;padding-left: 30rpx;text-align: center;background:#f7f7f8;}
+.wst-check-spec .head .close{line-height: 90rpx;font-size: 40rpx;position: absolute;right: 0;top:0; padding: 0 20rpx;color: #B5B5B5;z-index:1000;}
+
+.wst-check-spec .spec-head{position: relative;height: 100rpx;background: #fff;}
+.wst-check-spec .spec-head image{width: 240rpx;height: 240rpx;position: absolute;top: -80rpx;left:20rpx;z-index: 100}
+.wst-check-spec .spec-head .price{padding: 50rpx 0 0 300rpx;z-index: 100;position: relative;color: #e4393c;font-size: 24rpx;}
+.wst-check-spec .spec-head .price span{font-size: 36rpx;}
+.wst-check-spec .spec-head .prop{position: relative;z-index: 100;padding-right: 20rpx;font-size: 24rpx;color:#333;}
+.wst-check-spec .spec-head .prop label {color: #999;}
+
+.wst-check-spec .spec-items{max-height: 580rpx;min-height: 400rpx;background: #fff;padding-bottom: 120rpx;margin-top:100rpx;}
+.wst-check-spec .spec-items .sku-kind {font-size: 24rpx;color: #999;margin: 0 20rpx;height: 80rpx;line-height: 80rpx;}
+.wst-check-spec .spec-items .sku-choose{overflow: hidden;margin-bottom: 3px;}
+.wst-check-spec .spec-items .sku-choose .item{display: inline-block; padding: 0 20rpx;max-width: 400rpx;overflow: hidden;height: 60rpx;line-height: 60rpx;text-align: center;margin-left: 20rpx;margin-bottom: 20rpx;border-radius: 4px;color: #333;background-color: #f7f7f7;font-size: 28rpx;}
+.wst-check-spec .spec-items .sku-choose .item.active{background-color: #1ac0aa;color: #fff;}
+.wst-check-spec .count-choose {padding: 0 20rpx;font-size: 24rpx;}
+.wst-check-spec .count-choose .count {color: #999;height: 60rpx;line-height: 60rpx;}
+.wst-check-spec .btn-box{position: absolute;bottom: 0;width: 100%;}
+.wst-check-spec .btn-box .button{background: #f81719;color: #fff;line-height: 100rpx;font-weight: 600;font-size: 36rpx;width: 100%}
+.wst-check-spec .btn-box .button:hover{opacity: 0.8}
+/*计数器*/
+.wst-check-spec .count-choose .num_wrap_v2 {position: relative; z-index: 0; width: 200rpx;float: right;vertical-align: middle;display: flex;}
+.wst-check-spec .count-choose .num_wrap_v2 span {position: relative;max-width: 60rpx;min-width: 60rpx;height: 60rpx;line-height: 60rpx;background: #f7f7f7;text-align: center;display: block;width: 100%;-webkit-box-flex: 1;-webkit-flex: 1;flex: 1;}
+.wst-check-spec .count-choose .num_wrap_v2 span .row { border-radius: 20px; position: absolute;top: 50%;left: 50%; margin-left: -7px;margin-top: -1px;width: 14px; height: 2px;background-color: #999;}
+.wst-check-spec .count-choose .num_wrap_v2 span .col {border-radius: 20px;position: absolute;top: 50%;left: 50%;margin-left: -1px;margin-top: -7px;width: 2px;height: 14px;background-color: #999;}
+.wst-check-spec .count-choose .num_wrap_v2 span.disable .col, 
+.wst-check-spec .count-choose .num_wrap_v2 span.disable .row { background-color: #ccc; }
+.wst-check-spec .count-choose .num_wrap_v2 .text_wrap { position: relative; width: 90rpx;z-index: 0; margin: 0 1px;}
+.wst-check-spec .count-choose .num_wrap_v2 .text {height: 60rpx; width: 100%;color: #333;background: #fff;font-size: 24rpx;text-align: center; border: none;}
+.wst-check-spec .count-choose .num_wrap_v2 .text_wrap input {background: #f7f7f7;}
+
+/*导航*/
+.wst-navbar {z-index: 10;top: 0;width: 100%;background-color: #fafafa;position: fixed;opacity: 0;}
+.wst-navbar .navbar-box{margin: 0 20%; display: flex;}
+.wst-navbar  span{font-size: 30rpx;color: #333;padding: 8rpx 0;}
+.wst-navbar .active span{font-weight: 600;border-bottom: 2px solid red;}
+.wst-navbar .item{position: relative;display: block; -webkit-box-flex: 1;-webkit-flex: 1; flex: 1;padding: 13px 0;text-align: center; font-size: 15px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+
+
+/*底部*/
+.wst-sh-footer{ position: fixed;z-index: 1001;bottom: 0;left: 0;width: 100%;height: 100rpx;background: #fff;border-top: 1px solid #f1f1f1;display: flex;line-height: 1;}
+.wst-sh-footer .item{text-align: center;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;}
+.wst-sh-footer image{width:50rpx;height:50rpx;}
+.wst-sh-footer .title{font-size:26rpx;position:relative; }
+
+.wst-sh-footer .button{height: 100%;width:100%;border-radius:0}
+.wst-sh-footer .button:hover{opacity: 0.8}
+.wst-sh-footer .home{width: 20%;padding-top:6px;border-right:1px solid #f1f1f1;}
+.wst-sh-footer .cart{width:20%;padding-top:6px; }
+.wst-sh-footer .tobuy0{background:linear-gradient(to left, #6EFFAB,#4CC37D);color:#fff;line-height: 100rpx;font-weight: 600;font-size: 36rpx;}
+.wst-sh-footer .tobuy1{background:linear-gradient(to right,#ee5b5c,#f81719);color:#fff;line-height: 100rpx;font-weight: 600;font-size: 36rpx;}
+.wst-sh-footer .tobuy2{background:linear-gradient(to left, #CAB6B3,#D2D6D5);color:#fff;line-height: 100rpx;font-weight: 600;font-size: 36rpx;}
+
+button{border-radius: 0;}
+
+/*参数*/
+.wst-go-parameter{position: fixed; z-index: 1002; bottom:-900rpx; left:0; max-height: 880rpx; padding-bottom:20rpx; width: 100%; background: #fff;}
+.wst-go-parameter.active{animation: parameter 0.5s 1; animation-fill-mode: forwards;}
+@keyframes parameter{from{bottom: -900rpx;} to{bottom: 0;}}
+.wst-go-parameter.active2{animation: parameter2 0.5s 1; animation-fill-mode: forwards;}
+@keyframes parameter2{from{bottom: 0;} to{bottom: -900rpx;}}
+.wst-go-parameter .head{line-height: 90rpx;position: relative;}
+.wst-go-parameter .head .title{font-size: 30rpx;line-height: 90rpx;padding-left: 30rpx;text-align: center;background:#f7f7f8;}
+.wst-go-parameter .head .close{line-height: 90rpx;font-size: 40rpx;position: absolute;right: 0;top:0; padding: 0 20rpx;color: #B5B5B5;}
+.wst-go-parameter .item{line-height: 90rpx;padding: 0 20rpx;}
+
+.loadmore{line-height:80rpx;text-align:center;}

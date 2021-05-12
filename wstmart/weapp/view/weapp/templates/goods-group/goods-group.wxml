@@ -1,0 +1,29 @@
+<template name="goods-group">
+  <view class="goods-page wst-flex-row wst-jc" wx:if="{{showColumnsTitle==1}}" >
+    <block wx:for='{{columnsTitle}}' wx:for-item="title" wx:for-index="key">
+        <view class="columns-title {{currentPage==(key+1)?'page-active':''}}" bindtap="pageSwitch" data-id="{{key+1}}" data-gid="{{goodsGroupId}}">{{title}}</view>
+    </block>
+  </view>
+  <block wx:for='{{goods}}' wx:for-item="go" wx:for-index="key">
+    <view class='goods-group-model' wx:if="{{currentPage==(key+1)}}">
+      <!--columns=1列表式，2橱窗式，3海报式 -->
+      <block wx:for='{{go}}' wx:for-item="go2" wx:for-index="key2">
+        <navigator open-type='navigate' url='../goods-detail/goods-detail?goodsId={{go2.goodsId}}'>
+          <view class="assify-commodity {{(key2)%2==0 ? 'left' : 'right'}} {{columns==1?'vertical':'transverse'}} {{columns==3?'assify-commodity-three':'assify-commodity'}}" >
+            <view class='image'>
+              <image src='{{resourceDomain+go2.goodsImg}}' mode='aspectFill' lazy-load='true'></image>
+            </view>
+            <view class='content' wx:if="{{showGoodsName==1}}">{{go2.goodsName}}</view>
+            <view class='price' wx:if="{{showGoodsPrice==1}}">¥
+              <text>{{go2.shopPrice}}</text>
+            </view>
+            <view class='info'>
+                <text wx:if="{{showPraiseRate==1}}" class="praise">{{go2.praiseRate}}</text>
+                <text wx:if="{{showSaleNum==1}}" class="deal">成交数: {{go2.saleNum}}</text>
+            </view>
+          </view>
+        </navigator>
+      </block>
+    </view>
+  </block>
+</template>

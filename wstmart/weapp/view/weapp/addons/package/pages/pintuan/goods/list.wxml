@@ -1,0 +1,108 @@
+<view>
+  <view class="wst-head active"></view>
+  <view class="wst-head-input active-input">
+    <view class="classify">
+      <i class="icon" bindtap="parameter"  data-statu="open"></i>
+    </view>
+    <view class="input">
+      <icon class="icon" type="search" size="13" color="{{select == 0 ? '#fff' : '#666'}}" bindtap="onSearch" />
+      <input placeholder='按关键字搜索商品' placeholder-class='wst-head-placeholder' bindconfirm="onSearch" bindinput="nameInput" ></input>
+    </view>
+  </view>
+  <view class='container index' > 
+   
+    <!--分类商品独立显示-->
+    <scroll-view>
+      <view class='assify-model'>
+        <!--商品列表-->
+        <block wx:for='{{goods}}' wx:for-item="go" wx:for-index="key2" wx:key="k">
+          
+            <view class='assify-commodity'>
+            <navigator open-type='navigate' url='/addons/package/pages/pintuan/goods/detail?id={{go.tuanId}}'>
+              <view class='ginfo'>
+                <view class='image'>
+                  <image src='{{resourceDomain+go.goodsImg}}' mode='aspectFill' lazy-load='true'></image>
+                </view>
+                <view class='content gtext'>{{go.goodsName}}</view>
+                
+                <view class="tags gtext">
+                  <span class='tag' wx:if='{{go.isSelf==1}}'>自营</span>
+                  <span class='tag' wx:if='{{go.isFreeShipping==1}}'>包邮</span>
+                  {{ go.tags!=undefined?go.tags.join(' '):'' }}
+                </view>
+                <view class='price gtext'>¥
+                  <text>{{go.tuanPrice}}</text>
+                </view>
+                <view class='info gtext'>
+                  <text class="praise">{{go.praiseRate}}</text>
+                  <text class="deal">成交数: {{go.saleNum}}</text>
+                </view>
+                <view class="wst-clear"></view>
+              </view>
+              </navigator>
+            </view>
+          
+        </block>
+      </view>
+    </scroll-view>
+    <button class="wst-load" loading="true" disabled="true" wx:if="{{load==0}}">加载中</button>
+    <button class="wst-load" disabled="true" wx:if="{{load==1}}">加载完啦</button>
+
+    <view class="wst-prompt-icon" wx:if="{{totalCnt==0}}">
+      <image src="{{domain}}/addons/pintuan/view/images/pintuan-goods.png"></image>
+      <view class="tipText">对不起，没有相关拼团商品。</view>
+    </view>
+
+  </view>
+</view>
+
+<!--自定义底部导航栏-->
+<import src="/templates/tabBar/tabBar.wxml" />
+<template is="tabBar" data="{{tabBar}}" />
+
+
+
+<!--商品分类-->
+ <view wx:if="{{parameterStatus}}">
+<!--mask-->  
+  <view class="wst-mask" bindtap="parameter" data-statu="close" data-type='0' wx:if="{{parameterStatus}}"></view>  
+<!--content-->  
+<!--使用animation属性指定需要执行的动画-->  
+ <view animation="{{parameterData}}" class="wst-go-window" wx:if="true">
+<!--drawer content-->  
+   <view class='title'>商品分类
+    <icon type='cancel' color='#B1B1B1' size='28' bindtap="parameter" data-statu="close" class="icon"></icon>
+   </view>
+   <view class="wst-flex-row">
+      <scroll-view class="content goods-cats-left" scroll-y="true" >
+        <view wx:for="{{goodsCats}}" wx:for-item="item" wx:for-index="index"  wx:key="k">
+          <view class="goods-cats {{item.isSelected==1?'goods-cats-active':''}}" bindtap="showRight" data-index="{{index}}">
+            <text>{{item.catName}}</text>
+          </view>
+        </view>
+      </scroll-view>
+      <scroll-view class="goods-cats-right" scroll-y="true">
+        <view wx:for="{{goodsCatsChildList}}" wx:for-item="item"  wx:key="k2">
+          <view>
+            <view class="wst-flex-row wst-jsb wst-ac" data-catId="{{item.catId}}" bindtap="goodsCat">
+                <view class="son-cat-name">{{item.catName}}</view>
+                <view class="chevron-right-icon"></view>
+            </view>
+            <view class="wst-flex-row wst-fw">
+                <view wx:for="{{item.childList}}" wx:for-item="item2"  wx:key="k3" class="goods-cats-son-item" data-catId="{{item2.catId}}" bindtap="goodsCat">
+                  <text>{{item2.catName}}</text>
+                </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+   </view>
+  </view>  
+ </view>
+<!--购买提醒-->  
+<view id="tuantip" class="ui-newstips-wrap" wx:if="{{isShow}}">
+    <view class="ui-newstips">
+        <image src="{{userPhoto}}" style="width:60rpx;height:60rpx;border-radius: 100rpx;"></image>
+        <view id="tuanMsg">{{tuanMsg}}</view>
+    </view>
+</view>

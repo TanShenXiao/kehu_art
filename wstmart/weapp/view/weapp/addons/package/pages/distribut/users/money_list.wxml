@@ -1,0 +1,31 @@
+<view class="wst-container">
+		<view class="wst-sha-head">
+			<view class="wst-flex">
+        <view class="wst-flex-item choose {{isActive?'active':''}}" bindtap='inChoice' data-type='2'>
+          <p class="get">推广</p>
+        </view>
+        <view class="wst-flex-item choose {{!isActive?'active':''}}" bindtap='inChoice' data-type='1'>
+          <p class="get">购买</p>
+        </view>
+      </view>
+    </view>
+    <view class="tmoney">佣金总额：¥{{duser.distributMoney?duser.distributMoney:'0.00'}}</view>
+    <view class="ui-container" >
+      
+    	<ul class="ui-tab-content">
+	        <li id="data-list">
+            <view class="ui-row-flex wst-sha-com" wx:for="{{dmoneys}}" wx:for-item="vo" wx:key="k">
+              <view class="ui-col ui-col-2">
+                <view class="info ui-nowrap-multi">{{vo.remark}}</view>
+                <view>购买金额：¥{{ vo.money }}</view>
+              </view>
+              <view class="ui-col">
+              <view class="money"><span>+</span> ¥{{ vo.distributMoney }}</view>
+              <view class="status">{{ vo.moneyStatus?"<span class='success'>已结算</span>":"未结算" }}</view>
+              </view>
+              <view class="time">{{ vo.createTime }}</view>
+            </view>
+          </li>
+	    </ul>
+    </view>
+</view>

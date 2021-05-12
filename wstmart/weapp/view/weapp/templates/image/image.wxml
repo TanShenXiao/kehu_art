@@ -1,0 +1,7 @@
+<template name="image">
+    <view class='image-model' style="background:{{backgroundColor}}">
+      <block wx:for="{{images}}" wx:for-item="item">
+        <image src="{{resourceDomain}}{{item.img}}" mode='scaleToFill' bindtap='jumpcenter' data-url="{{item.link}}" style="padding:{{item.paddingTop}}px {{item.paddingRight}}px {{item.paddingBottom}}px {{item.paddingLeft}}px;"/>
+      </block>
+    </view>
+</template>

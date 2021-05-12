@@ -1,0 +1,371 @@
+.container{
+  height: 100%;
+  width: 100%;
+}
+view{box-sizing: border-box;}
+.index{padding-top:80rpx;
+  width: 100%;
+    overflow: hidden;
+  font-size: 0;
+}
+/*滚动监听*/
+scroll-view{
+  width: 100%;
+  box-sizing: border-box;
+  margin-top:80rpx;
+}
+/*导航条*/
+.wst-head{
+  position: fixed;
+  z-index: 100;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 66rpx;
+  background: -webkit-linear-gradient(top,rgba(0,0,0,.7),rgba(0,0,0,0));
+  background: linear-gradient(top,rgba(0,0,0,.7),rgba(0,0,0,0));
+  -webkit-transition: background-color .2s linear;
+  -moz-transition: background-color .2s linear;
+  -o-transition: background-color .2s linear;
+  transition: background-color .2s linear;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.wst-head-input{
+  position: fixed;
+  z-index: 102;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 80rpx;
+}
+.wst-head-input .classify{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 13.25%;
+  text-align: center;
+}
+
+.wst-head-input .input{
+  display: block;
+  width: 70.5%;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 30rpx;
+  background: rgba(255,255,255,0.5);
+  color: #fff;
+  height: 56rpx;
+  line-height: 56rpx;
+  margin-top:12rpx;
+  border: none;
+}
+.wst-head-input .input .icon{
+  position: absolute;
+  left:15rpx;
+  top:12rpx;
+}
+.wst-head-input .input input{
+  width: 100%;
+  padding: 0 0 0 25px;
+  box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-radius: 30rpx;
+  color: #fff;
+  font-size: 28rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  letter-spacing: 1px;
+  border: none;
+}
+.wst-head-input .user{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 13.25%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 26rpx;
+}
+.wst-head-input .user{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 13.25%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 26rpx;
+}
+.wst-head-input .classify .icon{
+  display: block;
+  margin: 0 auto;
+  width: 66rpx;
+  height: 66rpx;
+  background-size: 60%;
+  position: relative;
+  top: 6rpx;
+}
+.wst-head-placeholder{
+  color: #fff;
+}
+.active{
+  height: 80rpx;
+  background: #e50e0f;
+/*opacity: 0.87;*/
+}
+.active-input .input{
+  background: #fff;
+}
+.active-input .input input,.active-input .wst-head-placeholder{
+  color: #666;
+}
+/*轮播图*/
+.slide-model{
+  width: 100%;
+  height: 374rpx;
+  background: #fff;
+}
+.slide-model swiper{
+  width: 100%;
+  height: 374rpx;
+}
+.slide-model image{
+  width: 100%;
+  height: 374rpx;
+}
+/*模块选择*/
+.choose-model{
+  padding: 10rpx 0 24rpx 0;
+  background: #fff;
+  display: block;
+  overflow: hidden;
+}
+.choose-model .term{
+  float: left;
+  width: 20%;
+  box-sizing: border-box;
+}
+.choose-model .btns{
+  width: 57.14285714%;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.choose-model .btns image{
+  width: 75rpx;
+  height: 75rpx;
+  margin-top: 10rpx;
+}
+.choose-model .term text{
+  font-size: 26rpx;
+  color: #666;
+  display: block;
+  text-align: center;
+}
+
+
+/*分类商品独立显示*/
+.assify-model{
+  position: relative;
+  height: auto;
+  border: 1px solid transparent;
+  overflow: hidden;
+  background: #F6F6F8;
+  margin: 20rpx 20rpx 0 20rpx;
+
+}
+.assify-type{
+  height: 60rpx;
+  padding: 10rpx 0;
+  text-align: center;
+  color: #addd2d;
+  background: #fff;
+  border-bottom: 2rpx solid #f2f1f1;
+  position: relative;
+}
+.assify-type .line{
+  display: block;
+  margin: 0 auto;
+  margin-top: 28rpx;
+  width: 66%;
+  height: 2rpx;
+  background: #addd2d;
+}
+.assify-type .text{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 80rpx;
+}
+.assify-type .text p{
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  height: 80rpx;
+  font: bold 30rpx/80rpx verdana;
+  background: #fff;
+}
+.assify-type .text span{
+  padding-left: 40rpx;
+  position: relative;
+}
+.assify-type-image{
+  height: 150rpx;
+  border: 1rpx solid transparent;
+}
+.assify-type-image image{
+  height: 150rpx;
+  width: 100%;
+}
+.assify-commodity{
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+  margin-bottom: 8rpx;
+  font-size: 28rpx;
+  color: #232326;
+  font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+}
+.assify-commodity.left{
+  border-right: 4rpx solid #f6f6f8;
+}
+.assify-commodity.right{
+  border-left: 4rpx solid #f6f6f8;
+}
+.assify-commodity .image{
+  display: block;
+  width: calc(100%);
+	width: -webkit-calc(100%);
+	width: -moz-calc(100%);
+	width: -ms-calc(100%);
+	width: -o-calc(100%);
+  height: calc((100vw - 48rpx)/2);
+	height: -webkit-calc((100vw - 48rpx)/2);
+	height: -moz-calc((100vw - 48rpx)/2);
+	height: -ms-calc((100vw - 48rpx)/2);
+	height: -o-calc((100vw - 48rpx)/2);
+  margin: 0rpx;
+}
+.assify-commodity .image image{
+  width: 100%;
+  height: 100%;
+}
+.assify-commodity .content{
+  width: 100%;
+  height: 66rpx;
+  margin-top: 6rpx;
+  line-height: 33rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.assify-commodity .price{
+  float: left;
+  width: 50%;
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: #e00102;
+  line-height: 50rpx;
+
+}
+.assify-commodity .price text{
+  font-size: 33rpx;
+}
+.assify-commodity .info{
+  float: left;
+  width: 50%;
+  margin-top: 10rpx;
+  font-size: 23rpx; 
+  line-height: 50rpx;
+
+}
+.assify-commodity .info .praise{
+  float: left;
+  color: #999;
+}
+.assify-commodity .info .deal{
+  float: right;
+  color: #999;
+}
+.assify-commodity .tags{height: 40rpx;}
+.assify-commodity .tags .tag {
+    background: #f23030;
+    color: #fff;
+    border-radius: 2px;
+    font-size: 11px;
+    padding: 0 2px 0 2px;
+}
+.assify-commodity:nth-child(odd) {
+    padding-right: 4rpx;
+}
+.assify-commodity:nth-child(2n) {
+    padding-left: 4rpx;
+}
+.assify-commodity .ginfo{background: #fff}
+.assify-commodity .ginfo .gtext{padding:0 12rpx;}
+.wst-or-frame .button{
+  height:80rpx;
+  border-top: 2rpx solid #f2f1f1;
+}
+
+.wst-or-frame .button .cancel{
+  width: 50%;
+  height:80rpx;
+  color:#000000;
+  background: #fff;
+  font-size: 32rpx;
+  border-right: 1rpx solid #f2f1f1;
+}
+.wst-or-frame .button .authorize{
+  width: 50%;
+  height:80rpx;
+  color:#1AAD19;
+  background:#fff;
+  font-size: 32rpx;
+}
+.wst-or-frame .button button::after{
+  content:" ";
+  width:200%;
+  height:200%;
+  position:absolute;
+  top:0;
+  left:0;
+  border:1rpx solid #fff;
+  -webkit-transform:scale(0.5);
+  transform:scale(0.5);
+  -webkit-transform-origin:0 0;
+  transform-origin:0 0;
+  box-sizing:border-box;
+  border-radius: 0rpx;
+}
+.wst-or-frame .button button:active{
+  background:#efefef;
+  border-radius: 0rpx;
+}
+
+/*排序条*/
+.sortStrip{width: 100%; height: 88rpx;position: fixed;top: 80rpx;z-index: 100;}
+.sortStrip .main-case{width: 25%; height: 84rpx; display: inline-block; background: white;}
+.sortStrip .main-case1{color: #de0202;}
+.sortStrip .main-case .border{width: 100%; margin-top: 24rpx; font-size: 28rpx; display: flex;}
+.top{margin-top: 35rpx;}
+.sortStrip .main-case .border .left{width: 130rpx; height: 100%; text-align: center;}
+.sortStrip .main-case .border .right{width: 25rpx; height: 35rpx; margin-top: 5rpx;}
+.sortStrip .main-case2{width: 25%; height: 84rpx; display: inline-block; background: white;position: relative}
+.sortStrip .main-case2 .border{width: 100%; margin-top: 24rpx; font-size: 28rpx; display: flex;}
+.sortStrip .main-case2 .border .right{width: 25rpx; height: 35rpx; margin-top: 5rpx;}
+.sortStrip .main-case2 .border .scr-right{width: 35rpx; height: 50rpx; margin-left: 30rpx;position: absolute;top: 26rpx}
+.sortStrip .main-case2 .border .left{width: 95rpx; height: 100%; text-align: center;margin-left:58rpx}
+.strip{position: absolute; left: 75%; top: 100rpx; width:2rpx; height:50rpx; background-color: #ccc;z-index: 12;}
+.sortStrip .main-case2 .border image{width: 100%; height: 70%;}
+.sortStrip .main-case .border image{width: 100%; height: 70%;}

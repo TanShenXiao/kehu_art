@@ -1,0 +1,9 @@
+.wst-tab-content img {width:100%}
+.goods-list .goods{width:233px;margin:5px 4px 5px 6px;border:1px solid #eee;float:left;height:390px;}
+.goods-list .goods:hover{border:1px solid #ddd;-webkit-box-shadow:0 0 10px #ddd;  -moz-box-shadow:0 0 10px #ddd;  box-shadow:0 0 10px #ddd;}
+.goods-list .goods .desc{color:#aaaaaa;font-size:12px;margin-left:10px;margin-right:10px;height:63px;
+						display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;
+						overflow: hidden;text-overflow:ellipsis
+.goods-list .goods .desc:hover{color:#000000;font-size:12px;margin-left:10px;margin-right:10px;min-height:63px;
+						display: block;height: auto;background-color: #fff;
+						overflow: visible;z-index:9999;}

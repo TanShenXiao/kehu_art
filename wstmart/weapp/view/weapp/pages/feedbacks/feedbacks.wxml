@@ -1,0 +1,56 @@
+<scroll-view scroll-y="{{allStatus}}" style='height:100%;'>
+  <view class='container'>
+    <view class='wst-bor-all'>
+      <view class='strip mar-t'>
+        <view class='title'>反馈问题类型</view>
+        <view class='status exart' bindtap="powerDrawer" data-statu="open">{{feedbackTypeText}}
+          <view class='arr'> </view>
+        </view>
+      </view>
+      <view class='fb-content'>
+        <view class='wst-bor'>
+          <view class='strip'>
+            <view class='title'>反馈内容</view>
+          </view>
+          <view class='content'>
+            <textarea bindinput="getText" placeholder='请填写反馈内容'></textarea>
+          </view>
+        </view>
+      </view>
+      <view class='contact'>
+        <view class='strip'>
+          <view class='title'>联系方式</view>
+          <view style='width:78%;margin-left:10rpx;'>
+            <input class='contact-input' placeholder='手机/QQ/微信' type="text" bindinput='changeContact' />
+          </view>
+        </view>
+      </view>
+      <view class="submit">
+        <button type="default" class="button" bindtap="submit">提交</button>
+      </view>
+    </view>
+
+    <!--动画模块-->
+    <!--mask-->
+    <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{modelStatus}}"></view>
+    <view animation="{{animationData}}" class='model-1' wx:if="{{modelStatus}}">
+      <view class='top'>
+        <view style='width:20px;'></view>
+        <view class='title'>反馈问题类型</view>
+        <icon type='cancel' color='#918991' bindtap='powerDrawer' data-statu="close"></icon>
+      </view>
+      <view class='border'>
+        <scroll-view class='content' scroll-y="{{true}}">
+          <view class='list2' wx:for="{{feedbackTypes}}" bindtap='selectId' data-id="{{item.dataVal}}" style="{{index == 0 ? 'border-top:2rpx solid #EAEAEA':''}}">
+            <view class='title'>{{item.dataName}}</view>
+            <icon type='success' color='red' wx:if="{{selectId == item.dataVal}}" size='20'></icon>
+            <icon type='circle' color='#918991' wx:else size='20'></icon>
+          </view>
+        </scroll-view>
+      </view>
+      <view class="submit" bindtap="selectIded" style='margin-top:0;padding:0;border-bottom:0;'>
+        <button type="default" class="button" bindtap='powerDrawer' data-statu="close">确定</button>
+      </view>
+    </view>
+  </view>
+</scroll-view>

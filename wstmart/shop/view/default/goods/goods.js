@@ -29,7 +29,9 @@ function lastGoodsCatCallback(opts){
 		$('#specsAttrBox').empty();
 	}
 }
+
 /**初始化**/
+var editor1 = null;
 function initEdit(){
 	$('#tab').TabPanel({tab:0,callback:function(no){
 		if(no==1){
@@ -78,6 +80,36 @@ function initEdit(){
         	});
 		})
 	}});
+
+
+initBatchUpload = true;
+var uploader = batchUpload({uploadPicker:'#batchUpload',uploadServer:WST.U('shop/index/uploadPic'),formData:{dir:'goods',isWatermark:1,isThumb:1},uploadSuccess:function(file,response){
+		var json = WST.toJson(response);
+		if(json.status==1){
+			$li = $('#'+file.id);
+			$li.append('<input type="hidden" class="j-gallery-img" iv="'+json.savePath + json.thumb+'" v="' +json.savePath + json.name+'"/>');
+			//$li.append('<span class="btn-setDefault">默认</span>' );
+			var delBtn = $('<span class="btn-del">删除</span>');
+			$li.append(delBtn);
+			delBtn.on('click',function(){
+				delBatchUploadImg($(this),function(){
+					if($('.filelist').find('li').length==0){
+						$("#batchUpload").find('.placeholder').removeClass( 'element-invisible' );
+						$('.filelist').parent().removeClass('filled');
+						$('.filelist').hide();
+						$("#batchUpload").find('.statusBar').addClass( 'element-invisible' );
+					}
+					uploader.removeFile(file);
+					uploader.refresh();
+				});
+			});
+			$('.filelist li').css('border','1px solid rgb(59, 114, 165)');
+		}else{
+			WST.msg(json.msg,{icon:2});
+		}
+	}});
+
+
 	WST.upload({
 	  	  pick:'#goodsImgPicker',
 	  	  formData: {dir:'goods',isWatermark:1,isThumb:1},
@@ -134,6 +166,46 @@ function initEdit(){
 		  afterBlur: function(){ this.sync(); }
 		});
 	});
+	KindEditor.ready(function(K) {
+		editor2 = K.create('textarea[name="goodsAuthorDesc"]', {
+			height:'350px',
+			width:'800px',
+			uploadJson : WST.conf.ROOT+'/shop/goods/editorUpload',
+			allowFileManager : false,
+			allowImageUpload : true,
+			allowMediaUpload : false,
+			items:[
+				'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+				'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+				'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+				'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+				'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+				'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image','multiimage','media','table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+				'anchor', 'link', 'unlink', '|', 'about'
+			],
+			afterBlur: function(){ this.sync(); }
+		});
+	});
+	KindEditor.ready(function(K) {
+		editor3 = K.create('textarea[name="zznb"]', {
+			height:'350px',
+			width:'800px',
+			uploadJson : WST.conf.ROOT+'/shop/goods/editorUpload',
+			allowFileManager : false,
+			allowImageUpload : true,
+			allowMediaUpload : false,
+			items:[
+				'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+				'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+				'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+				'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+				'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+				'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image','multiimage','media','table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+				'anchor', 'link', 'unlink', '|', 'about'
+			],
+			afterBlur: function(){ this.sync(); }
+		});
+	});
 	if(OBJ.goodsId>0){
 		var goodsCatIds = OBJ.goodsCatIdPath.split('_');
 		getBrands('brandId',goodsCatIds[0],OBJ.brandId);
@@ -146,6 +218,85 @@ function initEdit(){
 		getShopsCats('shopCatId2',OBJ.shopCatId1,OBJ.shopCatId2);
 	}
 }
+
+
+/**
+ * 下一步和上一步
+ */
+function prevNext( type ){
+	var opts = {tab: 0};
+	var lthis = this;
+	var valsindex = $("#vals").html();
+
+	if( type == 'next' ){
+		if( valsindex == 3  ){
+			return false;
+		}
+		var index = parseInt(valsindex) + 1;
+		$(".wst-goods-edit-jincheng li").eq(index).addClass("wancheng").addClass("on");//加上点击的
+	}else{
+		if( valsindex == 0  ){
+			return false;
+		}
+		$(".wst-goods-edit-jincheng li").eq(valsindex).removeClass("wancheng");//加上点击的
+		var index = parseInt(valsindex) - 1;
+	}
+	if( index == 2 ){
+		editor1.html(getGoodsDescInfo());
+	}
+
+
+
+	$("#tab").find('.wst-tab-content .wst-tab-item').eq(index).show().siblings().hide();
+
+	if( index == 3 ){
+		$("#nextFlbtn").hide();
+		$("#saveFlbtn").show();
+	}else{
+		$("#saveFlbtn").hide();
+		$("#nextFlbtn").show();
+	}
+	$("#vals").html(index);
+}
+
+/**
+ * 自动获取详情信息
+ */
+function getGoodsDescInfo(){
+	var goodsName = $("#goodsName").val();
+	var goodsSn = $("#goodsSn").val();
+	var goodsType = $("#goodsType").val();
+	var goodsCats = $("#cat_0").val();
+	var goodsImg = $("#goodsImg").val();
+	var goodsVideo = $("#goodsVideo").val();
+	var goodsAuthor = $("#goodsAuthor").val();
+	var goodsTips = $("#goodsTips").val();
+	var createTime = $("#createTime").val();
+	var str = "";
+	if( goodsName )
+		str += "<p>商品名称："+goodsName+"</p>";
+	if( goodsAuthor )
+		str += "<p>作者："+goodsAuthor+"</p>";
+	if( goodsTips )
+		str += "<p>尺寸："+goodsTips+"</p>";
+	if( createTime )
+		str += "<p>创作时间："+createTime+"</p>";
+	if( goodsSn )
+		str += "<p>商品编号："+goodsSn+"</p>";
+	// str += "<p>商品类型："+goodsType+"</p>";
+	// str += "<p>商城分类："+goodsCats+"</p>";
+	if( goodsImg )
+		str += "<p><img src='/"+goodsImg+"'></p>";
+
+	$('.j-gallery-img').each(function(){
+		str += "<p><img src='/"+$(this).attr('v')+"'></p>";
+	});
+
+	if( goodsVideo )
+		str += "<p><video src='"+goodsVideo+"'></p>";
+	return str;
+}
+
 function clearVedio(obj){
 	$(obj).hide();
 	$('#goodsVideoPlayer').attr('src','');

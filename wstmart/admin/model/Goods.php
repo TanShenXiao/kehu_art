@@ -63,9 +63,19 @@ class Goods extends Base{
 	 * 审核中的商品
 	 */
     public function auditByPage(){
+
     	$where[] = ['goodsStatus','=',0];
 		$where[] = ['g.dataFlag','=',1];
 		$where[] = ['isSale','=',1];
+        $roleName = session("WST_STAFF.roleName");
+		if( $roleName == '销售经理' ){
+            $where[] = ['shenhe','=',0];
+        }else if( $roleName == '总经理' ){
+            $where[] = ['shenhe','=',1];
+        }else{
+            $where[] = ['shenhe','=',99];
+        }
+
 		$areaIdPath = input('areaIdPath');
 		$goodsCatIdPath = input('goodsCatIdPath');
 		$goodsName = input('goodsName');
@@ -84,7 +94,7 @@ class Goods extends Base{
 		$keyCats = model('GoodsCats')->listKeyAll();
 		$rs = $this->alias('g')->join('__SHOPS__ s','g.shopId=s.shopId','left')
 		    ->where($where)
-			->field('goodsId,goodsName,goodsSn,saleNum,shopPrice,goodsImg,s.shopName,s.shopId,goodsCatIdPath')
+			->field('goodsId,goodsName,goodsSn,saleNum,shopPrice,goodsImg,s.shopName,s.shopId,goodsCatIdPath,checkStatus')
 			->order($order)
 			->paginate(input('limit/d'))->toArray();
         foreach ($rs['data'] as $key => $v){
@@ -234,6 +244,9 @@ class Goods extends Base{
 		            model("common/MessageQueues")->add($msg);
 				}
 				hook('afterChangeGoodsStatus',['goodsId'=>$id]);
+
+                model("common/logRecord")->add(array('staffId'=> session("WST_STAFF.staffId"),'operateDesc'=>'商品违规下架','recordId'=>$id,'type'=>1,'label'=>$rs['goodsName']));//记录
+
 				Db::commit();
 				return WSTReturn('操作成功',1);
 			}
@@ -267,7 +280,16 @@ class Goods extends Base{
 		if((int)$rs['goodsStatus']==1)return WSTReturn("操作失败，商品状态已发生改变，请刷新后再尝试");
 		Db::startTrans();
 		try{
-			$res = $this->setField(['goodsId'=>$id,'goodsStatus'=>1]);
+            $roleName = session("WST_STAFF.roleName");
+            if( $roleName == '销售经理' ){
+                $res = $this->setField(['goodsId'=>$id,'shenhe'=>1]);
+                model("common/logRecord")->add(array('staffId'=> session("WST_STAFF.staffId"),'operateDesc'=>'销售经理通过商品审核','recordId'=>$id,'type'=>1,'label'=>$rs['goodsName']));//记录
+                Db::commit();
+                return WSTReturn('操作成功',1);
+            }else if( $roleName == '总经理' ){
+                $res = $this->setField(['goodsId'=>$id,'goodsStatus'=>1,'shenhe'=>2]);
+                model("common/logRecord")->add(array('staffId'=> session("WST_STAFF.staffId"),'operateDesc'=>'总经理通过商品审核','recordId'=>$id,'type'=>1,'label'=>$rs['goodsName']));//记录
+            }
 			if($res!==false){
 				//发送一条商家信息
 				$shopId = $rs["shopId"];

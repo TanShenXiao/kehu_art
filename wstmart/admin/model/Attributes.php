@@ -39,6 +39,28 @@ class Attributes extends Base{
         	return WSTReturn($this->getError(),-1);
         }
 	}
+
+    /**
+     * 新增
+     */
+    public function addAttributes($data){
+        $data['createTime'] = date('Y-m-d H:i:s');
+        $data['attrVal'] = str_replace('，',',',$data['attrVal']);
+        $data["dataFlag"] = 1;
+        $data["attrSort"] = 0;
+        $goodsCats = model('GoodsCats')->getParentIs($data['goodsCatId']);
+        krsort($goodsCats);
+        if(!empty($goodsCats))$data['goodsCatPath'] = implode('_',$goodsCats)."_";
+        $validate = new validate();
+        if(!$validate->scene('add')->check($data))return WSTReturn($validate->getError());
+        $result = $this->allowField(true)->save($data);
+        if(false !== $result){
+            return WSTReturn("新增成功", 1);
+        }else{
+            return WSTReturn($this->getError(),-1);
+        }
+    }
+
     /**
 	 * 编辑
 	 */

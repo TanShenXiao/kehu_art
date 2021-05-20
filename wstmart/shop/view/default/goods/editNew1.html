@@ -1,0 +1,53 @@
+
+<table class='wst-form' style="margin-top: 40px">
+    <tr>
+        <th>
+            <div style="font-size: 13px;font-weight: bold;margin: 10px 0 0 10px;">自定义作者信息(选填)</div>
+        </th>
+        <td></td>
+    </tr>
+    <tr>
+        <th>作者头像<font color='red'>*</font>：</th>
+        <td>
+            <input type="text" id='goodsImg' readonly="readonly" value='{if $object["goodsImg"]!=''}{$object["goodsImg"]}{else}{:WSTConf('CONF.goodsLogo')}{/if}' class="j-ipt" style="float: left; width: 655px;" />
+            <div id='goodsImgPicker' style="float: left;margin-top: 5px;">上传</div><span id='uploadMsg'></span>
+            <div id='goodsImgBox' style='margin-bottom:5px; float: left; height: 30px; margin-left: 5px;'>
+            <span class='weixin'>
+                  <img class='img' style='height:16px;width:18px;' src='__STATIC__/images/upload-common-select.png'>
+                  <img class='imged'  id='preview'  style='max-height:150px;max-width: 200px; border:1px solid #dadada; background:#fff' src="__RESOURCE_PATH__/{if $object['goodsImg']!=''}{$object['goodsImg']}{else}{:WSTConf('CONF.goodsLogo')}{/if}">
+                </span>
+            </div>
+            <div class="f-clear"></div>
+            <span class='msg-box' id='msg_goodsImg'></span>
+        </td>
+    </tr>
+    <tr>
+        <th>作者简介<font color='red'>*</font>：</th>
+        <td>
+            <textarea rows="2" cols="60" id='goodsAuthorDesc' class='j-ipt' name='goodsAuthorDesc' data-rule='商品描述:required;'>{$object['goodsAuthorDesc']}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <th>作者年表：</th>
+        <td>
+            <textarea rows="2" cols="60" id='zznb' class='j-ipt' name='zznb' >{$object['zznb']}</textarea>
+        </td>
+
+    </tr>
+    <tr>
+        <th>所在院系：</th>
+        <td>
+            <input type="text" class='j-ipt ipwd' id='szyx' maxLength='150'  value="{$object["szyx"]}">
+        </td>
+    </tr>
+    <tr>
+        <th>指导老师：</th>
+        <td>
+            <input type="text" class='j-ipt ipwd' id='zdls' maxLength='150'  value="{$object["zdls"]}">
+        </td>
+    </tr>
+
+    <tr>
+        <td align='center' style='text-align:center;padding-top:10px;'></td>
+    </tr>
+</table>

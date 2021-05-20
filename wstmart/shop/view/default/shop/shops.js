@@ -45,6 +45,9 @@ function editInfo(){
 	$('#editFrom_1').isValid(function(v){
 		if(v){
 			var params = WST.getParams('.ipt_1');
+			params.areaId = WST.ITGetAreaVal('j-areaIdPath');
+			params.areaIdPath = WST.ITGetAllAreaVals('areaId','j-areaIdPath').join('_');
+			// console.log(params)
 			var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
 		    $.post(WST.U('shop/shops/editInfo'),params,function(data,textStatus){
 		    	layer.close(loading);

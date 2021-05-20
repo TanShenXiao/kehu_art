@@ -261,26 +261,33 @@ class Goods extends Base{
     	                $this->where('goodsId',$goodsId)->update(['isSpec'=>1,'shopPrice'=>$defaultPrice,'goodsStock'=>$totalStock]);
 		    		}
     	        }
-
     	        //保存商品属性
 		    	$attrsArray = [];
 		    	$attrRs = Db::name('attributes')->where([['goodsCatId','in',$goodsCats],['isShow','=',1],['dataFlag','=',1]])
 		    		            ->field('attrId')->select();
-		    	foreach ($attrRs as $key =>$v){
-		    		$attrs = [];
-		    		$attrs['attrVal'] = input('attr_'.$v['attrId']);
-		    		if($attrs['attrVal']=='')continue;
-		    		$attrs['shopId'] = $shopId;
-		    		$attrs['goodsId'] = $goodsId;
-		    		$attrs['attrId'] = $v['attrId'];
-		    		$attrs['createTime'] = date('Y-m-d H:i:s');
-		    		$attrsArray[] = $attrs;
-		    	}
-		    	if(count($attrsArray)>0)Db::name('goods_attributes')->insertAll($attrsArray);
+		    	if( !empty( $attrRs ) ){
+                    foreach ($attrRs as $key =>$v){
+                        $attrs = [];
+                        $attrs['attrVal'] = input('attr_'.$v['attrId']);
+                        if($attrs['attrVal']=='')continue;
+                        $attrs['shopId'] = $shopId;
+                        $attrs['goodsId'] = $goodsId;
+                        $attrs['attrId'] = $v['attrId'];
+                        $attrs['createTime'] = date('Y-m-d H:i:s');
+                        $attrsArray[] = $attrs;
+                    }
+                    if(count($attrsArray)>0){
+                        Db::name('goods_attributes')->insertAll($attrsArray);
+                    }
+                }
+
 		    	//保存关键字
         	    $searchKeys = WSTGroupGoodsSearchKey($goodsId);
         	    $this->where('goodsId',$goodsId)->update(['goodsSerachKeywords'=>implode(',',$searchKeys)]);
     	        hook('afterEditGoods',['goodsId'=>$goodsId]);
+
+                model("common/logRecord")->add(array('staffId'=> session('WST_USER.userId'),'operateDesc'=>'添加商品','recordId'=>$goodsId,'type'=>1,'label'=>$data['goodsName']));//记录
+
     	        Db::commit();
 				return WSTReturn("新增成功", 1,['id'=>$goodsId]);
 			}else{
@@ -309,7 +316,7 @@ class Goods extends Base{
         }else{
             $data['goodsStatus'] = 1;
         }
-		$data['checkStatus'] = 0;
+		$data['checkStatus'] = 1;
 		if(isset($data['goodsName'])){
 			if(!WSTCheckFilterWords($data['goodsName'],WSTConf("CONF.limitWords"))){
 				return WSTReturn("商品名称包含非法字符");
@@ -347,9 +354,9 @@ class Goods extends Base{
                 $data['goodsStatus'] = 0;
             }
         }
-        if((int)$ogoods['goodsType']==0 && (int)$data['isFreeShipping']==0 && (int)$data['shopExpressId']==0){
-        	return WSTReturn("请选择快递公司");
-        }
+//        if((int)$ogoods['goodsType']==0 && (int)$data['isFreeShipping']==0 && (int)$data['shopExpressId']==0){
+//        	return WSTReturn("请选择快递公司");
+//        }
 
 		//不允许修改商品类型
 		$data['goodsType'] = $ogoods['goodsType'];

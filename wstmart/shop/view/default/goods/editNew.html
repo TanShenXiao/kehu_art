@@ -1,0 +1,125 @@
+{extend name="default/base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css?v={$v}" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/batchupload.css?v={$v}" />
+<link href="__STATIC__/plugins/validator/jquery.validator.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="main"}
+<style>
+#specsAttrBox .webuploader-container,#specsAttrBox .webuploader-container .webuploader-pick{width:80px;height:27px;line-height:27px;overflow:hidden;}
+#specTby td{padding-bottom:5px;}
+#spec-sale-tby td{padding:2px;}
+.attr-table td{padding:2px;}
+label{font-weight: normal;}
+.wst-goods-edit-jincheng{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    background: white;
+    position: fixed;
+    z-index:1000;
+}
+.wst-goods-edit-jincheng li{
+    display: flex;
+    align-items: center;
+}
+.wst-goods-edit-jincheng li div:nth-child(1){
+    padding: 1px 5px;
+    border-radius: 50%;
+    background: #888585;
+    color: white;
+}
+.wst-goods-edit-jincheng .wancheng div:nth-child(1){
+    background: #1890ff;
+}
+.wst-goods-edit-jincheng li div:nth-child(2){
+    color:#888585 ;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.wst-goods-edit-jincheng .wancheng div:nth-child(2){
+    color:#1890ff ;
+}
+.wst-goods-edit-jincheng li div:nth-child(3){
+    width: 70px;
+    background: #888585;
+    height: 1px;
+    margin-left:5px;
+    margin-right: 8px;
+}
+.wst-goods-edit-jincheng .wancheng div:nth-child(3){
+    background:#1890ff ;
+}
+
+</style>
+<div id='tab' class="wst-tab-box">
+	<!--<ul class="wst-tab-nav">
+	   <li>商品基本信息</li>
+	   <li>作者信息</li>
+	   <li>商品描述</li>
+	</ul>-->
+    <ul class="wst-goods-edit-jincheng wst-tab-nav-two">
+       <li class="wancheng">
+           <div>1</div>
+           <div>填写商品信息</div>
+           <div>&nbsp;</div>
+       </li>
+        <li>
+            <div>2</div>
+            <div>自定义作者信息</div>
+            <div>&nbsp;</div>
+        </li>
+        <li>
+            <div>3</div>
+            <div>自定议商品描述</div>
+            <div>&nbsp;</div>
+        </li>
+        <li>
+            <div>4</div>
+            <div>完成</div>
+        </li>
+    </ul>
+    <div id="vals">0</div>
+    <div class="wst-tab-content" style='width:100%;margin-bottom: 60px;border: 1px solid #f1f1f1; border-top: 0px;margin-top: 0px;'>
+      <form id='editform' autocomplete='off'>
+        <div class="wst-tab-item" style="position: relative;">
+        {include file='default/goods/editNew0'/}
+        </div>
+        <div class="wst-tab-item" style="position: relative;display:none">
+        {include file='default/goods/editNew1'/}
+        </div>
+        <div class="wst-tab-item" style="position: relative;display:none">
+        {include file='default/goods/editNew2'/}
+        </div>
+          <div class="wst-tab-item" style="position: relative;display:none">
+              {include file='default/goods/editNew3'/}
+          </div>
+     </form>
+         <div id="nextFlbtn" class="flbtn">
+             <button type='button' class="btn btn-primary btn-mright" onclick='javascript:prevNext("prev")' style="margin-left: 40%;"><i class="fa fa-angle-double-left"></i>上一步</button>
+             <button type='button' class="btn" onclick="prevNext('next')" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>下一步</button>
+        <!--<button type='button' class="btn btn-primary btn-mright" onclick='javascript:save({$p})' style="margin-left: 40%;"><i class="fa fa-check"></i>保&nbsp;存</button>
+        <button type='button' class="btn" onclick="toBack({$p},'{$src}')" style="margin-left: 10px;"><i class="fa fa-angle-double-left"></i>返&nbsp;回</button>-->
+        </div>
+        <div id="saveFlbtn" class="flbtn" style="display: none">
+            <button type='button' class="btn btn-primary btn-mright" onclick='javascript:prevNext("prev")' style="margin-left: 40%;"><i class="fa fa-angle-double-left"></i>上一步</button>
+            <button type='button' class="btn" onclick="save({$p})" style="margin-left: 10px;"><i class="fa fa-angle-double-left"></i>保存</button>
+        </div>
+    </div>
+</div>
+{/block}  
+{block name="js"}
+<script type='text/javascript' src='__STATIC__/plugins/webuploader/webuploader.js?v={$v}'></script>
+<script src="__STATIC__/plugins/kindeditor/kindeditor.js?v={$v}" type="text/javascript" ></script>
+<script type="text/javascript" src="__STATIC__/plugins/validator/jquery.validator.min.js?v={$v}"></script>
+<script type='text/javascript' src='__STATIC__/plugins/webuploader/batchupload.js?v={$v}'></script>
+<script type='text/javascript' src='__SHOP__/goods/goods.js?v={$v}'></script>
+<script>
+var initBatchUpload = false,editor1 = null,specNum = 0,src='{$src}';
+{php}unset($object['goodsDesc']);{/php}
+var OBJ = <?=json_encode($object)?>;
+$(function(){initEdit()});
+</script>
+{/block}

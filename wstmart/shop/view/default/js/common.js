@@ -337,6 +337,19 @@ $.fn.TabPanel = function(options){
     });
     $(t).find('.wst-tab-nav li').eq(opts.tab).click();
 }
+$.fn.TabPanelTwo = function(options){
+	var defaults = {tab: 0};
+	var opts = $.extend(defaults, options);
+	var t = this;
+
+	$(t).find('.wst-tab-nav-two li').click(function(){
+		$(this).addClass("on").siblings().removeClass();
+		var index = $(this).index();
+		$(t).find('.wst-tab-content .wst-tab-item').eq(index).show().siblings().hide();
+		if(opts.callback)opts.callback(index);
+	});
+	$(t).find('.wst-tab-nav-two li').eq(opts.tab).click();
+}
 /**
  * 循环创建地区
  * @param id            当前分类ID

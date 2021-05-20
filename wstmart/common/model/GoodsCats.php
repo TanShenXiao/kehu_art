@@ -46,6 +46,18 @@ class GoodsCats extends Base{
         	return $data;
         }
 	}
+
+    /**
+     *获取商品分类名值对
+     */
+    public function listKeyAll(){
+        $rs = $this->field("catId,catName")->where(['dataFlag'=>1])->order('catSort asc,catName asc')->select();
+        $data = array();
+        foreach ($rs as $key => $cat) {
+            $data[$cat["catId"]] = $cat["catName"];
+        }
+        return $data;
+    }
 	
 	/**
 	 * 根据子分类获取其父级分类

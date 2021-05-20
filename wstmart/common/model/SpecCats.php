@@ -1,6 +1,6 @@
 <?php
 namespace wstmart\common\model;
-use wstmart\common\validate\SpecCats as validate;
+use wstmart\common\validate\ShopCats as validate;
 /**
  * ============================================================================
  * WSTMart多用户商城

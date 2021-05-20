@@ -82,14 +82,14 @@
       <input type='text' id='goodsVideo' class='j-ipt'  value='{$object["goodsVideo"]}' readonly="readonly" style="float: left; width: 655px;" />
       <div id='goodsVideoPicker' style="float: left;margin-top: 5px;">上传</div>
       <span id='uploadVideoMsg'></span>
-      
+
       <div id='goodsVedioBox' style='margin-bottom:5px; float: left; height: 30px; margin-left: 5px;'>
           <span  class='weixin'>
             <img class='img' style='height:16px;width:18px;' src='__STATIC__/images/upload-common-select.png'>
             <video  class='imged' id='goodsVideoPlayer' src="__RESOURCE_PATH__/{$object["goodsVideo"]}" controls="controls"  style='max-height:150px;max-width: 200px; border:1px solid #dadada; background:#fff'></video>
             <span class="vedio-del" {if $object["goodsVideo"]!=''}style='display:inline-block'{/if} onclick="javascript:clearVedio(this)"></span>
           </span>
-          
+
       </div>
     </td>
   </tr>
@@ -190,7 +190,7 @@
         <label><input type='radio' name='shippingFeeType' lay-filter="shippingFeeType" class='j-ipt' value='1' {if $object['shippingFeeType']==1}checked{/if} title='计件'/></label>
         <label><input type='radio' name='shippingFeeType' lay-filter="shippingFeeType" class='j-ipt' value='2' {if $object['shippingFeeType']==2}checked{/if} title='重量'/></label>
         <label><input type='radio' name='shippingFeeType' lay-filter="shippingFeeType" class='j-ipt' value='3' {if $object['shippingFeeType']==3}checked{/if} title='体积'/></label>
-        
+
      </td>
   </tr>
   <tr id="shopExpressTr" {if $object['isFreeShipping']==1}style='display:none'{/if}>

@@ -147,6 +147,52 @@ th{height:25px;}
 			     	<textarea rows="4" class="ipt_1" id="shopBrief" style='width:60%'>{$object['shopBrief']}</textarea>
 			     </td>
 			  </tr>
+			   <tr>
+				   <th>公司紧急联系人：</th>
+				   <td>
+					   <input class="ipt_1" id="shopkeeper" type="text" value="{$object['shopkeeper']} ">
+				   </td>
+			   </tr>
+			   <tr>
+				   <th>公司紧急联系人手机：</th>
+				   <td>
+					   <input class="ipt_1" id="telephone" type="text" value="{$object['telephone']} ">
+				   </td>
+			   </tr>
+			   <tr>
+				   <th>公司名称：</th>
+				   <td>
+					   <input class="ipt_1" id="shopCompany" type="text" value="{$object['shopCompany']} ">
+				   </td>
+			   </tr>
+			   <!--<tr>
+				   <th>经营类目：</th>
+				   <td>
+					   {volist name="$object['catshopNames']" id="vo"}
+					   <div style='width:200px;float:left;line-height: 18px;'>
+						   {$vo}
+					   </div>
+					   {/volist}
+				   </td>
+			   </tr>-->
+			   <tr>
+				   <th>店铺地址：</th>
+				   <td>
+					   <select id="areaId" class="j-areaIdPath" data-name="areaIdPath" level="0" onchange="WST.ITAreas({id:'areaId',val:this.value,isRequire:true,className:'j-areaIdPath'});" data-value="{$object['areaIdPath']}">
+						   <option value="">-请选择-</option>
+						   {php}
+						   $areas = WSTTable('areas',['isShow'=>1,'dataFlag'=>1,'parentId'=>0],'areaId,areaName',100,'areaSort desc');
+						   foreach($areas as $aky => $area){
+						   {/php}
+						   <option value="{$area['areaId']}">{$area['areaName']}</option>
+						   {php}}{/php}
+					   </select>
+				   </td>
+			   </tr>
+			   <tr>
+				   <th>店铺详细地址：</th>
+				   <td><input class="ipt_1" id="shopAddress" value="{$object['shopAddress']}" type="text"></td>
+			   </tr>
 			  <tr>
 			     <th>客服QQ：</th>
 			     <td>
@@ -220,7 +266,6 @@ th{height:25px;}
               <tr>
 			     <th width='150'>开卡银行：</th>
 			     <td>{$object['bankName']}<a class="btn btn-blue" onclick="javascript:toEdit(2)"><i class="fa fa-pencil"></i>编辑</a></td>
-
 			  </tr>
 			  <tr>
 			     <th width='150'>开卡地区：</th>
@@ -254,7 +299,7 @@ th{height:25px;}
 					<tr>
 						<th>开卡地区：</th>
 						<td>
-							<select id="bankAreaId" class="j-bankAreaIdPath" data-name="bankAreaIdPath" level="0" onchange="WST.ITAreas({id:'bankAreaId',val:this.value,isRequire:true,className:'j-bankAreaIdPath'});" data-value="{$object['areaIdPath']}">
+							<select id="bankAreaId" class="j-bankAreaIdPath" data-name="bankAreaIdPath" level="0" onchange="WST.ITAreas({id:'bankAreaId',val:this.value,isRequire:true,className:'j-bankAreaIdPath'});" data-value="{$object['bankAreaIdPath']}">
 							<option value="">-请选择-</option>
 								{php}
 								$areas = WSTTable('areas',['isShow'=>1,'dataFlag'=>1,'parentId'=>0],'areaId,areaName',100,'areaSort desc');
@@ -300,6 +345,12 @@ $(function(){
 		$('#bankAreaId').val(bankAreaIdPath[0]);
 		var aopts = {id:'bankAreaId',val:bankAreaIdPath[0],childIds:bankAreaIdPath,className:'j-bankAreaIdPath',isRequire:true}
 		WST.ITSetAreas(aopts);
+
+		var areaIdPath = "{$object['areaIdPath']}";
+		var areaIdPath = areaIdPath.split("_");
+		$('#areaId').val(areaIdPath[0]);
+		var areaAopts = {id:'areaId',val:areaIdPath[0],childIds:areaIdPath,className:'j-areaIdPath',isRequire:true}
+		WST.ITSetAreas(areaAopts);
 	})
 //	$('#tab').TabPanel({tab:0,callback:function(no){}});
 })

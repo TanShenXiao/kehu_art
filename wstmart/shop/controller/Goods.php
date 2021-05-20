@@ -141,7 +141,7 @@ class Goods extends Base{
         $data = ['object'=>$object,'src'=>$src];
         $shopExpressList = model("common/express")->shopExpressList();
         $this->assign("shopExpressList",$shopExpressList);
-        return $this->fetch('goods/edit',$data);
+        return $this->fetch('goods/editNew',$data);
     }
 
     /**
@@ -162,7 +162,7 @@ class Goods extends Base{
         $data = ['object'=>$object,'src'=>input('src')];
         $shopExpressList = model("common/express")->shopExpressList();
         $this->assign("shopExpressList",$shopExpressList);
-        return $this->fetch('goods/edit',$data);
+        return $this->fetch('goods/editNew',$data);
     }
 
     /**

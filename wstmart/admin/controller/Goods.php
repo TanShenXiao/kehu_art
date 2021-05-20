@@ -84,6 +84,7 @@ class Goods extends Base{
     public function auditByPage(){
 		$m = new M();
 		$rs = $m->auditByPage();
+
 		$rs['status'] = 1;
 		return WSTGrid($rs);
 	}

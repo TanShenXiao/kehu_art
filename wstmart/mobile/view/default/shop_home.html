@@ -47,7 +47,17 @@
 						</div>
 						<p class="wst-intro-lb">类别：绘画艺术</p>
 						<p class="wst-intro-lb">商品：{$data['goodsNum']}</p>
-						<div class="wst-intro-sub"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">关注店铺</div>
+
+						{:hook('mobileDocumentContact',['type'=>'shopIndex','shopId'=>$data['shop']['shopId']])}
+						<button class="ui-btn-lg shop-home-btn ui-col ui-col-50 f-btn" style="background: none;padding:0;" id="fBtn" onclick="{if ($data['shop']['isfollow']>0)}WST.cancelFavorite({$data['shop']['isfollow']},1){else /}WST.favorites({$data.shop.shopId},1){/if}">
+							{if ($data['shop']['isfollow']>0)}
+							<div class="wst-intro-sub" style="line-height: 22px;"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">已关注</div>
+							{else /}
+							<div class="wst-intro-sub" style="line-height: 22px;"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">关注店铺</div>
+							{/if}
+						</button>
+
+
 					</div>
 				</div>
 				<div class="wst-intro-f">

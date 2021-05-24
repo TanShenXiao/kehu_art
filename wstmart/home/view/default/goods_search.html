@@ -26,18 +26,6 @@
 {/* 商品展示  */}
 <div class="wst-container">
    {if !empty($goodsPage["data"])}
-	<div class='goods-side'>
-		<div class="guess-like">
-		    <div class="title">猜你喜欢</div>
-			{wst:goods type='best' num='3'}
-			<div class="item">
-				<div class="img"><a target='_blank' href="{:Url('home/goods/detail','goodsId='.$vo['goodsId'])}"><img class='goodsImg' data-original="__RESOURCE_PATH__/{:WSTImg($vo['goodsImg'])}" alt="{$vo['goodsName']|WSTStripTags}" title="{$vo['goodsName']|WSTStripTags}"/></a></div>
-				<div class="p-name"><a class="wst-hide wst-redlink">{$vo['goodsName']}</a></div>
-				<div class="p-price">{if($vo['saleType']==1)}议价{elseif($vo['saleType']==2)}仅展示{else}￥{$vo['shopPrice']}{/if}</div>
-			</div>
-			{/wst:goods}
-		</div>
-	</div>
 	<div class='goods-main'>
 	   <div class='goods-filters'>
 	   	  <div class='line'>

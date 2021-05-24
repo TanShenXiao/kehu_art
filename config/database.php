@@ -9,7 +9,7 @@
 			// 用户名
 			'username'       => 'root',
 			// 密码
-			'password'       => 'phpts',
+			'password'       => '123456',
 			// 端口
 			'hostport'       => '3306',
 			// 连接dsn

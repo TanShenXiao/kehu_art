@@ -177,7 +177,7 @@
 		    <div class="info">
 		    	<div class="img"><a><img src="__RESOURCE_PATH__/{:WSTImg($info['shop']['shopImg'],3)}" title="{$info['shop']['shopName']|WSTStripTags}"></a></div>
 				<div class="ui-row-flex button">
-					<div class="ui-col ui-col"><a href="{:url('mobile/shops/home',['shopId'=>$info['shopId']])}" class="shop">进入店铺</a></div>
+					<div class="ui-col ui-col"><a href="{:url('mobile/shops/index',['shopId'=>$info['shopId']])}" class="shop">进入店铺</a></div>
 				</div>
 		    	<div class="name"><p class="ui-nowrap-flex name1">{$info['shop']['shopName']}</p><p class="ui-nowrap-flex name2">共{$info['shop']['count']}件作品</p><p class="ui-nowrap-flex name2"><span>主营: {$info['shop']['cat']}</span></p></div>
 		    	<div class="wst-clear"></div>

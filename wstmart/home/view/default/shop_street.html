@@ -57,10 +57,10 @@
 			</div>
 			<div class="wst-shopstr-shopi" style="width:130px;height:80px;box-sizing: border-box;padding:10px;margin:0;">
 				<div class="wst-shopstr-pr" style="margin-top:0">
-					<span class="wst-lfloat" style="margin-left:3px;"><a class="company" style="color:#6c6c6c;font-size: 18px;text-decoration: none;;" target='_blank' href="{:url('home/shops/index',array('shopId'=>$vo['shopId']))}">{$vo['shopName']}</a></span>
+					<span class="wst-lfloat" style="margin-left:3px;"><a class="company" style="color:#6c6c6c;font-size: 18px;text-decoration: none;;" target='_blank' href="{:url('home/shops/index',array('shopId'=>$vo['shopId']))}">{if(strlen($vo['shopName'])>5)}{$vo['shopName']}{else}{:WSTMSubstr($vo['shopName'],0,5)}...{/if}</a></span>
 				</div>
 				<div class="wst-shopstr-pr" style="margin-top:0">
-					<span class="wst-lfloat" style="margin-left:3px;">类别：{:WSTMSubstr($vo['catshops'],0,12)}</span>
+					<span class="wst-lfloat" style="margin-left:3px;">类别：{if(strlen($vo['catshops'])>4)}{$vo['catshops']}{else}{:WSTMSubstr($vo['catshops'],0,4)}...{/if}</span>
 				</div>
 				<div class="wst-shopstr-pr" style="margin-top:0">
 					<span class="wst-lfloat" style="margin-left:3px;">商品数：{$vo['shopNum']}</span>
@@ -70,37 +70,7 @@
 		{/wst:shop}
 		</div>
 	</div>
-	<div class="wst-ysj-sy" style="padding:8px;line-height: 40px;border:1px solid #9c9a9a;margin:20px 0;color:#9c9a9a;overflow: hidden;border-radius: 4px;">
-		<span style="float: left;">艺术家索引：</span>
-		<ul>
-			<li><a href="#">A</a></li>
-			<li><a href="#">B</a></li>
-			<li><a href="#">C</a></li>
-			<li><a href="#">D</a></li>
-			<li><a href="#">E</a></li>
-			<li><a href="#">F</a></li>
-			<li><a href="#">G</a></li>
-			<li><a href="#">H</a></li>
-			<li><a href="#">I</a></li>
-			<li><a href="#">J</a></li>
-			<li><a href="#">K</a></li>
-			<li><a href="#">L</a></li>
-			<li><a href="#">M</a></li>
-			<li><a href="#">N</a></li>
-			<li><a href="#">O</a></li>
-			<li><a href="#">P</a></li>
-			<li><a href="#">Q</a></li>
-			<li><a href="#">R</a></li>
-			<li><a href="#">S</a></li>
-			<li><a href="#">T</a></li>
-			<li><a href="#">U</a></li>
-			<li><a href="#">V</a></li>
-			<li><a href="#">W</a></li>
-			<li><a href="#">X</a></li>
-			<li><a href="#">Y</a></li>
-			<li><a href="#">Z</a></li>
-		</ul>
-	</div>
+	
 	<div style="overflow: hidden;border:1px solid #9c9a9a;">
 	{volist name="list['data']" id="v1" key="k"}
 	<div class="wst-shopstr-shop">

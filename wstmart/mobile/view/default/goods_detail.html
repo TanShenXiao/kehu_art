@@ -149,7 +149,7 @@
 		<div class="ui-row-flex wst-go-price">
 		    <div class="ui-col ui-col-2">
 		    	<div class="price">{if($info['saleType']==1)}议价{elseif($info['saleType']==2)}仅展示{else}<i>价格 ¥ </i>{$info['shopPrice']}{/if}</div>
-				<div style="float:right;font-size:0.15rem">
+				<div style="float:right;font-size:0.15rem;margin-top: 5px;">
 					 <div {if 0==$info['haveThumb']}class='dt dzs'{else}class='dt dzs-red'{/if} id='dzs'>{$info['thumbsNum']}</div>
 						<div class='dd'>
 						<input type="hidden" name="" value="{$info['thumbsNum']}" id="thumbsNum" autocomplete="off">

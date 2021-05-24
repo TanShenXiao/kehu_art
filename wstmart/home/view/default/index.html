@@ -97,9 +97,12 @@
 						<img src="__ROOT__/{$goodInfo['goodsImg']}" alt="">
 						<div class="yh_content">
 							<p class="author">作者{$goodInfo['goodsAuthor']}</p>
-							<p class="name">{$goodInfo['goodsName']}</p>
+							<p class="name">{$goodInfo['goodsName']}{$goodInfo['saleType']}</p>
+
+							{if($goodInfo['saleType']==1)}<p class="cur_prize">议价</p>{elseif($goodInfo['saleType']==2)}<p class="cur_prize">仅展示{else}</p>
 							<p class="cur_prize">价格 ￥<span>{$goodInfo['shopPrice']}</span></p>
-							<p class="old_prize"><s>原价 ￥{$goodInfo['marketPrice']}</s></p>
+							<p class="old_prize"><s>原价 ￥{$goodInfo['marketPrice']}</s></p>{/if}
+
 							<a class="button"href="{:url('home/goods/detail','goodsId='.$goodInfo['goodsId'])}">立即进入</a>
 						</div>
 					</li>

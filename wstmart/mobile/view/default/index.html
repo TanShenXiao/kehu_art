@@ -76,7 +76,7 @@
 			</div>
 			<div class="sector_content_yh">
 				<div class="yh_big">
-					<img class="yh_big_img" src="/upload/goods/2019-04/yh.JPG" alt="">
+					<img class="yh_big_img" src="/upload/goods/2019-04/yh.jpg" alt="">
 					<div class="yh_big_tost">
 						<h2 class="yh_big_title">优惠专区</h2>
 						<p class="yh_big_desc">PREFERENTIAL ZONE</p>
@@ -94,8 +94,9 @@
 							<div class="yh_content">
 								<p class="author">作者{$goodInfo['goodsAuthor']}</p>
 								<p class="name">{$goodInfo['goodsName']}</p>
+								{if($goodInfo['saleType']==1)}<p class="cur_prize">议价</p>{elseif($goodInfo['saleType']==2)}<p class="cur_prize">仅展示{else}</p>
 								<p class="cur_prize">价格 ￥<span>{$goodInfo['shopPrice']}</span></p>
-								<p class="old_prize"><s>原价 ￥{$goodInfo['marketPrice']}</s></p>
+								<p class="old_prize"><s>原价 ￥{$goodInfo['marketPrice']}</s></p>{/if}
 								<a class="button"href="{:url('home/goods/detail','goodsId='.$goodInfo['goodsId'])}">立即进入</a>
 							</div>
 						</li>
@@ -162,19 +163,19 @@
 	<div class="brand_content">
 		<ul>
 			<li>
-				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<img src="/upload/goods/2021-04/5cc561b111a01.jpg" alt="">
 				<p>艺术家张海峰国画专场</p>
 			</li>
 			<li>
-				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<img src="/upload/goods/2021-04/5cc561b111a01.jpg" alt="">
 				<p>艺术家张海峰国画专场</p>
 			</li>
 			<li>
-				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<img src="/upload/goods/2021-04/5cc561b111a01.jpg" alt="">
 				<p>艺术家张海峰国画专场</p>
 			</li>
 			<li>
-				<img src="/upload/goods/2021-04/5cc561b111a01.JPG" alt="">
+				<img src="/upload/goods/2021-04/5cc561b111a01.jpg" alt="">
 				<p>艺术家张海峰国画专场</p>
 			</li>
 		</ul>

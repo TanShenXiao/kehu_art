@@ -29,7 +29,7 @@
 .wst-go-name{padding:0.1rem 0.1rem 0 0.1rem;font-size: 0.165rem;color: #051B28;background:#fff;line-height:0.23rem;}
 .wst-go-price{padding:0.1rem 0.1rem 0.05rem 0.1rem;background:#fff;position: relative;}
 .wst-go-price p{font-size:.15rem;color:#707070}
-.wst-go-price .price{font-size:.25rem;color:#de0202}
+.wst-go-price .price{font-size:.25rem;color:#de0202;width: 60%;float: left;}
 .wst-go-price .price i{font-size:.13rem;color: #3d3d3d;}
 .wst-go-price .market{margin-left:12px;font-size:.13rem;color:#999;text-decoration:line-through}
 .wst-go-price .info{padding-top:0.05rem;font-size: 0.13rem;color: #999;}

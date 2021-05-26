@@ -125,10 +125,11 @@ function initAuditGrid(p){
             {title:'操作', name:'' ,width:160, align:'center', renderer: function(val,item,rowIndex){
                 var h = "";
 	            h += "<a class='btn btn-blue' target='_blank' href='"+WST.U("home/goods/detail","goodsId="+item['goodsId']+"&key="+item['verfiycode'])+"'><i class='fa fa-search'></i>查看</a> ";
-				var step = "";
-				if(item['checkStatus'] == 1) step = '二级';
-				else step = '一级';
-	            if(WST.GRANT.DSHSP_04 || WST.GRANT.DSHSP_04_02)h += "<a class='btn btn-blue' href='javascript:allow(" + item['goodsId'] + ",0)'><i class='fa fa-check'></i>" + step + "审核通过</a> ";
+				 var step = "";
+				// if(item['checkStatus'] == 1) step = '二级';
+				// else step = '一级';
+	            if(WST.GRANT.DSHSP_04_03 && item['shenhe'] == 1)h += "<a class='btn btn-blue' href='javascript:allow(" + item['goodsId'] + ",0)'><i class='fa fa-check'></i>" + step + "一级审核通过</a> ";
+	            if(WST.GRANT.DSHSP_04_04 && item['shenhe'] == 0)h += "<a class='btn btn-blue' href='javascript:allow(" + item['goodsId'] + ",0)'><i class='fa fa-check'></i>" + step + "二级审核通过</a> ";
 	            if(WST.GRANT.DSHSP_04 || WST.GRANT.DSHSP_04_02)h += "<a class='btn btn-red' href='javascript:illegal(" + item['goodsId'] + ",0)'><i class='fa fa-ban'></i>审核不通过</a> ";
 	            if(WST.GRANT.DSHSP_03)h += "<a class='btn btn-red' href='javascript:del(" + item['goodsId'] + ",0)'><i class='fa fa-trash-o'></i>删除</a>"; 
 	            return h;

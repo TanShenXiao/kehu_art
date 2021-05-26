@@ -14,6 +14,9 @@
 <div style="width:100%;"></div>
 <style type="text/css">
     #preview ul li:nth-child(n+2) {display: none;}
+    .goods-desc img{
+        width: 100%;
+    }
 </style>
 
 <div class="wst-w-top">
@@ -257,7 +260,7 @@
                 </div>
                 <div class='title shop-name'>{$shop['shopName']}</div>
                 <div class='title shop-coun'>共11件作品</div>
-                <a href="#">艺术家完整资料 > </a>
+                <a href="{:url('home/shops/index',array('shopId'=>$shop['shopId']))}">艺术家完整资料 > </a>
            </div>
       </div>
     </div>

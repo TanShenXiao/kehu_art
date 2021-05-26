@@ -32,7 +32,7 @@ class Goods extends CGoods{
 		$c2Id = (int)input('cat2');
 		$goodsName = input('goodsName');
 		if($goodsName != ''){
-			$where[] = ['goodsName|goodsSn','like',"%$goodsName%"];
+			$where[] = ['goodsName|goodsSn|goodsAuthor','like',"%$goodsName%"];
 		}
 		if($c2Id!=0 && $c1Id!=0){
 			$where[] = ['shopCatId2',"=",$c2Id];

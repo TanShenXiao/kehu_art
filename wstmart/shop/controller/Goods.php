@@ -138,6 +138,9 @@ class Goods extends Base{
 		$object['shopId'] = $shopId;
 		$object['isDB'] = $isDB;
         $src=input("src")?input("src"):'add';
+
+        model( "common/attributes" )->attridToAttrval("","",$object);
+
         $data = ['object'=>$object,'src'=>$src];
         $shopExpressList = model("common/express")->shopExpressList();
         $this->assign("shopExpressList",$shopExpressList);
@@ -159,7 +162,26 @@ class Goods extends Base{
         $m = new M();
         $object = $m->getById(input('get.id'));
         $this->assign("p",(int)input("p"));
+
+
+        //获取商品属性
+        $goods_attr = model("common/attributes")->getGoodsAttributeByGoodsId( input('get.id') );
+        $attr_ids = [];
+        if( !empty( $goods_attr ) ){
+            foreach( $goods_attr as $k => $v ){
+                $attr_ids[] = $v['attrId'];
+            }
+        }
+
+        //获取属性值
+        $attr_infos = model("common/attributes")->getAttributeByIds( $attr_ids );
+
+
+
+        model("common/attributes")->attridToAttrval( $goods_attr , $attr_ids , $object );
+
         $data = ['object'=>$object,'src'=>input('src')];
+
         $shopExpressList = model("common/express")->shopExpressList();
         $this->assign("shopExpressList",$shopExpressList);
         return $this->fetch('goods/editNew',$data);

@@ -262,9 +262,10 @@ class Goods extends Base{
 		    		}
     	        }
     	        //保存商品属性
-		    	$attrsArray = [];
+		    	$attrsArray = [];//通过id
+		    	$attrsArrayName = [];//通过属性名称
 		    	$attrRs = Db::name('attributes')->where([['goodsCatId','in',$goodsCats],['isShow','=',1],['dataFlag','=',1]])
-		    		            ->field('attrId')->select();
+		    		            ->field('attrId,attrName')->select();
 		    	if( !empty( $attrRs ) ){
                     foreach ($attrRs as $key =>$v){
                         $attrs = [];
@@ -279,6 +280,42 @@ class Goods extends Base{
                     if(count($attrsArray)>0){
                         Db::name('goods_attributes')->insertAll($attrsArray);
                     }
+
+                    //通过名称匹配
+                    foreach ($attrRs as $key =>$v){
+                        $attrs = [];
+                        switch( $v['attrName'] ){
+                            case "材质":
+                                $attrs['attrVal'] = $data['goodsCz'];
+                                break;
+                            case "题材":
+                                $attrs['attrVal'] = $data['goodsTc'];
+                                break;
+                            case "作者年表":
+                                $attrs['attrVal'] = $data['zznb'];
+                                break;
+                            case "所有院系":
+                                $attrs['attrVal'] = $data['szyx'];
+                                break;
+                            case "指导老师":
+                                $attrs['attrVal'] = $data['zdls'];
+                                break;
+                            default:
+                                $attrs['attrVal'] = "";
+                                break;
+                        }
+
+                        if($attrs['attrVal']=='')continue;
+                        $attrs['shopId'] = $shopId;
+                        $attrs['goodsId'] = $goodsId;
+                        $attrs['attrId'] = $v['attrId'];
+                        $attrs['createTime'] = date('Y-m-d H:i:s');
+                        $attrsArrayName[] = $attrs;
+                    }
+                    if(count($attrsArrayName)>0){
+                        Db::name('goods_attributes')->insertAll($attrsArrayName);
+                    }
+
                 }
 
 		    	//保存关键字
@@ -538,7 +575,7 @@ class Goods extends Base{
     	        //新增商品属性
 		    	$attrsArray = [];
 		    	$attrRs = Db::name('attributes')->where([['goodsCatId','in',$goodsCats],['isShow','=',1],['dataFlag','=',1]])
-		    		            ->field('attrId')->select();
+		    		            ->field('attrId,attrName')->select();
 		    	foreach ($attrRs as $key =>$v){
 		    		$attrs = [];
 		    		$attrs['attrVal'] = input('attr_'.$v['attrId']);
@@ -550,6 +587,43 @@ class Goods extends Base{
 		    		$attrsArray[] = $attrs;
 		    	}
 		    	if(count($attrsArray)>0)Db::name('goods_attributes')->insertAll($attrsArray);
+
+                //通过名称匹配
+                $attrsArrayName = [];
+                foreach ($attrRs as $key =>$v){
+                    $attrs = [];
+                    switch( $v['attrName'] ){
+                        case "材质":
+                            $attrs['attrVal'] = $data['goodsCz'];
+                            break;
+                        case "题材":
+                            $attrs['attrVal'] = $data['goodsTc'];
+                            break;
+                        case "作者年表":
+                            $attrs['attrVal'] = $data['zznb'];
+                            break;
+                        case "所有院系":
+                            $attrs['attrVal'] = $data['szyx'];
+                            break;
+                        case "指导老师":
+                            $attrs['attrVal'] = $data['zdls'];
+                            break;
+                        default:
+                            $attrs['attrVal'] = "";
+                            break;
+                    }
+
+                    if($attrs['attrVal']=='')continue;
+                    $attrs['shopId'] = $shopId;
+                    $attrs['goodsId'] = $goodsId;
+                    $attrs['attrId'] = $v['attrId'];
+                    $attrs['createTime'] = date('Y-m-d H:i:s');
+                    $attrsArrayName[] = $attrs;
+                }
+                if(count($attrsArrayName)>0){
+                    Db::name('goods_attributes')->insertAll($attrsArrayName);
+                }
+
 		    	//保存关键字
         	    $searchKeys = WSTGroupGoodsSearchKey($goodsId);
         	    $this->where('goodsId',$goodsId)->update(['goodsSerachKeywords'=>implode(',',$searchKeys)]);

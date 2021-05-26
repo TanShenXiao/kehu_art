@@ -516,6 +516,22 @@ function WSTGoodsCatsList($catId = ['365','366','367','368','369','370'], $where
 }
 
 /**
+ * 获取精选信息
+ * @param $dataType
+ * @param int $limit
+ * @return mixed
+ */
+function WSTGoodsRecommends( $dataType , $dataSrc = 0 , $limit = 6 ){
+    $where = [];
+    $where[] = ['r.dataType','=',$dataType];	//热销商品
+    $where[] = ['r.dataSrc','=',$dataSrc];	//热销商品
+
+    return Db::name('goods')->alias('g')->join('__RECOMMENDS__ r','g.goodsId=r.dataId')
+        ->join('__SHOPS__ s','g.shopId=s.shopId')
+        ->where($where)->field('*')->limit($limit)->select();
+}
+
+/**
  * 获取指定商品分类的子分类列表/获取指定的商品分类，靠$isSelf=-1判断
  */
 function WSTGoodsCats($parentId = 0,$isFloor = -1,$isSelf = 0){

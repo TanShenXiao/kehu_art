@@ -60,7 +60,7 @@
 			<div class="zp_litter">
 				<ul>
 					<?php
-						$goodsInfo = WSTGoodsCatsList();
+						$goodsInfo = WSTGoodsRecommends(2,0);
 						foreach ($goodsInfo as $k => $goodInfo) {
 					?>
 					<li>
@@ -90,7 +90,7 @@
 			<div class="yh_litter">
 				<ul>
 					<?php
-						$goodsInfo = WSTGoodsCatsList(['365','366','367','368','369','370'], [['isBest','=',1]], 'saleNum desc', '4');
+						$goodsInfo = WSTGoodsRecommends(0,0);
 						foreach ($goodsInfo as $k => $goodInfo) {
 					?>
 					<li>
@@ -140,7 +140,7 @@
 			<?php } ?>
 			<ul>
 				<?php
-					$shopList = WSTShopList('1,12');
+					$shopList = WSTGoodsRecommends(0,1);
 					foreach ($shopList as $k => $shopIfo) {
 				?>
 				<li>

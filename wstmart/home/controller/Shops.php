@@ -220,6 +220,7 @@ class Shops extends Base{
     	$this->assign('ct2',$ct2);//二级分类
     	$this->assign('goodsName',urldecode($goodsName));//搜索
     	$this->assign('data',$data);
+    	$this->assign('shopId',$shopId);
     	return $this->fetch('shop_home');
     }
 	/**

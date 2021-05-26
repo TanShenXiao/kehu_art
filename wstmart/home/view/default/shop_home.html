@@ -30,7 +30,7 @@
 					</div>
 					<p class="wst-intro-lb">类别：绘画艺术</p>
 					<p class="wst-intro-lb">商品：{$data['goodsNum']}</p>
-					<div class="wst-intro-f">
+					<!-- <div class="wst-intro-f">
 						<div class="wst-intro-ff">描述 
 							<img src="/upload/goods/2019-04/rwu.png" alt="">
 							<img src="/upload/goods/2019-04/rwu.png" alt="">
@@ -52,7 +52,7 @@
 							<img src="/upload/goods/2019-04/rwu.png" alt="">
 							<img src="/upload/goods/2019-04/hwu.png" alt="">
 						</div>
-					</div>
+					</div> -->
 					<div class="wst-intro-sub"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">关注店铺</div>
 				</div>
 			</div>
@@ -74,8 +74,8 @@
 			<a class='link' href='{:url('home/index/index')}'>首页</a>
 			<i class="arrow">></i>
 			<a class='link' href='#'>艺术家</a>
-			<i class="arrow">></i>
-			<a class='link' href='#'>艺术家主页</a>
+<!--			<i class="arrow">></i>-->
+<!--			<a class='link' href='#'>艺术家主页</a>-->
 		</div>
 	</div>
 	<div class='wst-clear'></div>
@@ -84,7 +84,7 @@
 		   <div class='item dorpdown'>
 		 <div class="wst-pos">
 			 <div>作品类别：</div>
-			 {volist name=":WSTGoodsCats(0)" id='vo2'}
+			 {volist name=":WSTShopApplyGoodsCats(0,$shopId)" id='vo2'}
 			 <div class="cat1 cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"])}'>{$vo2['catName']}</a></div>
 			 {/volist}
 		</div>

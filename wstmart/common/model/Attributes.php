@@ -57,4 +57,79 @@ class Attributes extends Base{
 		}
 		return $attrs;
 	}
+
+    /**
+     * 通过商品id获取商品相关属性
+     * @param $goodsId
+     */
+	public function getGoodsAttributeByGoodsId( $goodsId ){
+	    if( empty( $goodsId ) )
+	        return array();
+       $result = Db::name('goods_attributes')->where(['goodsId'=>$goodsId])->select();
+       if( $result ){
+           return $result;
+       }else{
+           return array();
+       }
+    }
+
+    /**
+     * 通过id批量返回数据
+     * @param $ids
+     */
+    public function getAttributeByIds($ids){
+        if( empty( $ids ) )
+            return [];
+        $where = [];
+        $where[] = ['attrId','in',$ids];
+        return  Db::name('attributes')->where($where)->select();
+    }
+
+    /**
+     * 转换
+     * @param $goods_attr
+     * @param $attr
+     * @param $data
+     * @return array
+     */
+    public function attridToAttrval( $goods_attr , $attr , &$data ){
+        $data['goodsCz'] = "";
+        $data['goodsTc'] = "";
+        $data['zznb'] = "";
+        $data['szyx'] = "";
+        $data['zdls'] = "";
+
+        if( empty( $goods_attr ) or empty( $attr ) ){
+            return [];
+        }
+
+        $goods_attr_val = [];
+        foreach( $goods_attr as $k => $v ){
+            $goods_attr_val[$v['attrId']] = $v['attrVal'];
+        }
+
+
+
+        foreach( $attr as $k => $v ){
+            switch( $v['attrName'] ){
+                case "材质":
+                    $data['goodsCz'] = $goods_attr_val[$v['attrId']];
+                    break;
+                case "题材":
+                    $data['goodsTc'] = $goods_attr_val[$v['attrId']];
+                    break;
+                case "作者年表":
+                    $data['zznb'] = $goods_attr_val[$v['attrId']];
+                    break;
+                case "所有院系":
+                    $data['szyx'] = $goods_attr_val[$v['attrId']];
+                    break;
+                case "指导老师":
+                    $data['zdls'] = $goods_attr_val[$v['attrId']];
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

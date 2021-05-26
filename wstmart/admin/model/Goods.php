@@ -29,7 +29,7 @@ class Goods extends Base{
 		$shopName = input('shopName');
 		if($areaIdPath !='')$where[] = ['areaIdPath','like',$areaIdPath."%"];
 		if($goodsCatIdPath !='')$where[] = ['goodsCatIdPath','like',$goodsCatIdPath."%"];
-		if($goodsName != '')$where[] = ['goodsName|goodsSn','like',"%$goodsName%"];
+		if($goodsName != '')$where[] = ['goodsName|goodsSn|goodsAuthor','like',"%$goodsName%"];
 		if($shopName != '')$where[] = ['shopName|shopSn','like',"%$shopName%"];
 		// 排序
 		$sort = input('sort');
@@ -67,11 +67,17 @@ class Goods extends Base{
     	$where[] = ['goodsStatus','=',0];
 		$where[] = ['g.dataFlag','=',1];
 		$where[] = ['isSale','=',1];
-        $roleName = session("WST_STAFF.roleName");
-		if( $roleName == '销售经理' ){
-            $where[] = ['shenhe','=',0];
-        }else if( $roleName == '总经理' ){
+        //roleName = session("WST_STAFF.roleName");
+        $user_info = session("WST_STAFF");
+        $roleName = $user_info['roleName'];
+        //一级审核
+        if( in_array("DSHSP_04_03" , $user_info['privileges'])  &&  in_array("DSHSP_04_04" , $user_info['privileges'])  ){
+            $where[] = ['shenhe','in',[1,0]];
+        }else if( in_array("DSHSP_04_03" , $user_info['privileges']) ){
             $where[] = ['shenhe','=',1];
+        }else if( in_array("DSHSP_04_04" , $user_info['privileges']) ){
+		    //二级审核
+            $where[] = ['shenhe','=',0];
         }else{
             $where[] = ['shenhe','=',99];
         }
@@ -91,16 +97,18 @@ class Goods extends Base{
 			$sortArr = explode('.',$sort);
 			$order = $sortArr[0].' '.$sortArr[1];
 		}
+
 		$keyCats = model('GoodsCats')->listKeyAll();
 		$rs = $this->alias('g')->join('__SHOPS__ s','g.shopId=s.shopId','left')
 		    ->where($where)
-			->field('goodsId,goodsName,goodsSn,saleNum,shopPrice,goodsImg,s.shopName,s.shopId,goodsCatIdPath,checkStatus')
+			->field('goodsId,goodsName,goodsSn,saleNum,shopPrice,goodsImg,s.shopName,s.shopId,goodsCatIdPath,shenhe')
 			->order($order)
 			->paginate(input('limit/d'))->toArray();
         foreach ($rs['data'] as $key => $v){
 			$rs['data'][$key]['verfiycode'] =  WSTShopEncrypt($v['shopId']);
 			$rs['data'][$key]['goodsCatName'] = self::getGoodsCatNames($v['goodsCatIdPath'],$keyCats);
 		}
+        //echo $this->getLastSql();die;
 		return $rs;
 	}
 	/**
@@ -275,21 +283,26 @@ class Goods extends Base{
 		$id = ($goodsId==0)?(int)input('post.id'):$goodsId;
 		//判断商品状态
 		$rs = $this->alias('g')->join('__SHOPS__ s','g.shopId=s.shopId','left')->where('goodsId',$id)
-		           ->field('s.userId,g.goodsName,g.goodsSn,g.goodsStatus,g.goodsId,g.shopId')->find();
+		           ->field('s.userId,g.goodsName,g.goodsSn,g.goodsStatus,g.goodsId,g.shopId,g.shenhe')->find();
 		if((int)$rs['goodsId']==0)return WSTReturn("无效的商品");
-		if((int)$rs['goodsStatus']==1)return WSTReturn("操作失败，商品状态已发生改变，请刷新后再尝试");
+		if((int)$rs['shenhe']==2)return WSTReturn("操作失败，商品状态已发生改变，请刷新后再尝试");
 		Db::startTrans();
 		try{
-            $roleName = session("WST_STAFF.roleName");
-            if( $roleName == '销售经理' ){
-                $res = $this->setField(['goodsId'=>$id,'shenhe'=>1]);
-                model("common/logRecord")->add(array('staffId'=> session("WST_STAFF.staffId"),'operateDesc'=>'销售经理通过商品审核','recordId'=>$id,'type'=>1,'label'=>$rs['goodsName']));//记录
-                Db::commit();
-                return WSTReturn('操作成功',1);
-            }else if( $roleName == '总经理' ){
-                $res = $this->setField(['goodsId'=>$id,'goodsStatus'=>1,'shenhe'=>2]);
-                model("common/logRecord")->add(array('staffId'=> session("WST_STAFF.staffId"),'operateDesc'=>'总经理通过商品审核','recordId'=>$id,'type'=>1,'label'=>$rs['goodsName']));//记录
+            $user_info = session("WST_STAFF");
+            $roleName = $user_info['roleName'];
+            //查看商品当前状态
+            $shenhe = $rs['shenhe'];
+            switch( $shenhe ){
+                case "0":
+                    $update_shenhe = 1;
+                    break;
+                case "1":
+                    $update_shenhe = 2;
+                    break;
             }
+            $res = $this->setField(['goodsId'=>$id,'shenhe'=>$update_shenhe]);
+            model("common/logRecord")->add(array('staffId'=> session("WST_STAFF.staffId"),'operateDesc'=>'通过商品审核','recordId'=>$id,'type'=>1,'label'=>$rs['goodsName']));//记录
+
 			if($res!==false){
 				//发送一条商家信息
 				$shopId = $rs["shopId"];

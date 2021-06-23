@@ -1,0 +1,29 @@
+{extend name="default/base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/mmgrid/mmGrid.css?v={$v}" />
+<style type="text/css">
+  #mmg td:nth-last-child(7){color: red;}
+</style>
+{/block}
+{block name="js"}
+<script src="__STATIC__/plugins/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+<script src="__SHOP__/invoice/invoice.js?v={$v}" type="text/javascript"></script>
+{/block}
+{block name="main"}
+<input type="hidden" id="userId" class="j-ipt" value='{$userId}' autocomplete="off"/>
+<input type="text" name="orderNo" style="width: 200px;"  placeholder='订单编号' id="orderNo" class='j-ipt'/>
+<input type="text" name="goodsName" style="width: 200px;"  placeholder='商品名称' id="goodsName" class='j-ipt'/>
+<input type="text" name="freight_no" style="width: 200px;"  placeholder='快递单号' id="freight_no" class='j-ipt'/>
+
+   <button class="btn btn-primary" onclick='javascript:loadGrid(0)'><i class="fa fa-search"></i>查询</button>
+   {if($userId>0)}<button class="btn f-right btn-fixtop" onclick="javascript:location.href='{:Url(\'admin/users/index\',\'p=\'.$p)}'" style="margin-left: 10px;"><i class="fa fa-angle-double-left"></i>返回</button>{/if}
+   <div style='clear:both'></div>
+</div>
+<div class='wst-grid'>
+ <div id="mmg" class="mmg"></div>
+ <div id="pg" style="text-align: right;"></div>
+</div>
+<script>
+$(function(){initGrid({$p});})
+</script>
+{/block}

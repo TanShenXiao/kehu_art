@@ -1,7 +1,7 @@
 <?php
 namespace wstmart\common\model;
 use think\Db;
-use wstmart\common\validate\Invoices as Validate;
+
 /**
  * ============================================================================
  * WSTMart多用户商城

@@ -62,6 +62,7 @@ class Shops extends CShops{
         $distance = input("distance");
         $desc = input("desc");
         $totalScore = input('totalScore');
+        $shopNameOne = input("shopNameOne");
         $datas = array('sort'=>array('1'=>'ss.totalScore/ss.totalUsers'),'desc'=>array('desc','asc'));
         $datas1 = array('sort'=>array('1'=>'distince'),'desc'=>array('desc','asc'));
         $rs = $this->alias('s');
@@ -76,6 +77,10 @@ class Shops extends CShops{
         $where[] = ['s.shopStatus','=',1];
         $where[] = ['s.applyStatus','=',2];
         if($keyword!='')$where[] = ['s.shopName','like','%'.$keyword.'%'];
+        if( !empty( $shopNameOne ) )
+        {
+            $where[] = ['s.shopNameOne','=',$shopNameOne];
+        }
         if($catId>0){
             $rs->join('__CAT_SHOPS__ cs','cs.shopId = s.shopId','left');
             $tol->join('__CAT_SHOPS__ cs','cs.shopId = s.shopId','left');

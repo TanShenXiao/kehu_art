@@ -108,6 +108,7 @@ function addCart(goodsId){
 	     }
 	});
 }
+
 function cancelFavorite(obj,type,id,fId){
 	var param = {},str = '商品';
 	param.id = fId;

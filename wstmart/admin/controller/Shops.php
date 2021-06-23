@@ -166,6 +166,9 @@ class Shops extends Base{
         $companyFields = $sf->getFlowFieldsById(2);
         $shopFields = $sf->getFlowFieldsById(3);
         $otherFields = $sf->getFlowFieldsById(-1);
+        $bank = new MO();
+        $bankList = $bank->pageQuery();
+        $this->assign("bankList",$bankList);
         $this->assign("apply",$apply);
         $this->assign("companyFields",$companyFields);
         $this->assign("shopFields",$shopFields);

@@ -23,7 +23,8 @@ class Goods extends CGoods{
 		//查询条件
 		$keyword = input('keyword');
 		$brandId = input('brandId/d');
-		$goodsType = input('goodsType');
+        $goodsType = input('goodsType');
+        $saleType = input('saleType');
 		$searchType = input('searchType/d');
 		$where = $where2 = [];
 		$where[] = ['goodsStatus', '=', 1];
@@ -38,6 +39,8 @@ class Goods extends CGoods{
 		}
 		if($brandId>0)$where['g.brandId'] = $brandId;
 		if($goodsType!='')$where[] = ['g.goodsType', '=', $goodsType];
+        if($saleType!='')$where[] = ['g.saleType', '=', $saleType];
+
 		//排序条件
 		$orderBy = input('condition/d',0);
 		$orderBy = ($orderBy>=0 && $orderBy<=4)?$orderBy:0;

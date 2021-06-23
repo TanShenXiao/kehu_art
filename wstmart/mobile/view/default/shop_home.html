@@ -43,6 +43,7 @@
 					<div class="wst-intro-img-r">
 						<div class="wst-intro-shopname">
 							{$data['shop']['shopName']}
+
 <!--							<div class="wst-intro-shopname-qq">-->
 <!--								<img src="/upload/goods/2021-04/ysjzytb.png" alt="">-->
 <!--								有事您Q我 ！-->
@@ -50,7 +51,17 @@
 						</div>
 						<p class="wst-intro-lb">类别：绘画艺术</p>
 						<p class="wst-intro-lb">商品：{$data['goodsNum']}</p>
-						<div class="wst-intro-sub"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">关注店铺</div>
+
+						{:hook('mobileDocumentContact',['type'=>'shopIndex','shopId'=>$data['shop']['shopId']])}
+						<button class="ui-btn-lg shop-home-btn ui-col ui-col-50 f-btn" style="background: none;padding:0;" id="fBtn" onclick="{if ($data['shop']['isfollow']>0)}WST.cancelFavorite({$data['shop']['isfollow']},1){else /}WST.favorites({$data.shop.shopId},1){/if}">
+							{if ($data['shop']['isfollow']>0)}
+							<div class="wst-intro-sub" style="line-height: 22px;"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">已关注</div>
+							{else /}
+							<div class="wst-intro-sub" style="line-height: 22px;"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">关注店铺</div>
+							{/if}
+						</button>
+
+
 					</div>
 				</div>
 <!--				<div class="wst-intro-f">-->
@@ -79,6 +90,7 @@
 			</div>
 			
 			<div class="wst-intro-content-bottom">
+                {if($data['shop']['shopBrief'])}
 				<div class="wst-intro-content-title">
 					<span class="wst-intro-content-bottom-text wst-intro-content-bottom-text-title">简介</span>
 <!--                    <span class="wst-intro-content-bottom-lim">/</span>-->
@@ -86,8 +98,9 @@
 <!--					<span class="wst-intro-content-bottom-text">价值分析</span>-->
 				</div>
 				<div class="wst-intro-content-info">
-					1959年生于四川乐山，四川美术许愿教授，中国画系主任，硕士生导师，中国美术家协会会员，中国壁画学会理事，重庆市美术家协会理事，重庆市美术家协会理事，重庆市美术家协会综合材料回话艺委会副主任。作品参加“第二届全国少数民族美术作品展”优秀奖（文化部），“第六届中国体育美术作品展览”，“2012打通国际壁画双年展”，“第三届全国壁画大展”，第二届、第三届“学院·经...
+                    {$data['shop']['shopBrief']}
 				</div>
+                {/if}
 			</div>
 		</div>
 		<div class="wst-selector">

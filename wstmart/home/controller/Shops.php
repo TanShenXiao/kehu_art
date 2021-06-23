@@ -55,6 +55,11 @@ class Shops extends Base{
     	$g = model('goods');
     	$data['list'] = $g->shopGoods($shopId);
 		$data['goodsNum'] = $data['list']['goodsNum'];
+
+        //关注
+        $f = model('common/Favorites');
+        $data['isfollow'] = $f->checkFavorite($shopId,1);
+
     	$this->assign('data',$data);
         $this->assign('msort',(int)input("param.msort",0));//筛选条件
         $this->assign('mdesc',(int)input("param.mdesc",1));//升降序

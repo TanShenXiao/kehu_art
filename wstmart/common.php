@@ -528,7 +528,7 @@ function WSTGoodsRecommends( $dataType , $dataSrc = 0 , $limit = 6 ){
 
     return Db::name('goods')->alias('g')->join('__RECOMMENDS__ r','g.goodsId=r.dataId')
         ->join('__SHOPS__ s','g.shopId=s.shopId')
-        ->where($where)->field('*')->limit($limit)->select();
+        ->where($where)->field('*')->order("dataSort asc")->limit($limit)->select();
 }
 
 /**

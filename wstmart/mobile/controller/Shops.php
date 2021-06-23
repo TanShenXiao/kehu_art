@@ -161,6 +161,8 @@ class Shops extends Base{
 
         return $this->fetch('shop_goods_list');
     }
+    public function home(){
+    }
     /**
     * 获取店铺商品
     */

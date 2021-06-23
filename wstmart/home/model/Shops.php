@@ -241,6 +241,7 @@ class Shops extends CShops{
                 if(!empty($data['goodsCatIds']))$goodsCats = explode(',',$data['goodsCatIds']);
             }
         }
+
         // 删除无需入库的字段
         foreach($shopExtrasData as $k => $v){
             if(in_array($k,$unsetField)){
@@ -258,6 +259,11 @@ class Shops extends CShops{
             //$shopsData['applyStatus'] = 1;
             $shopExtrasData['shopId'] = $shopId;
             if(!$validate->scene('add')->check($data))return WSTReturn($validate->getError());
+
+            //首字母
+            if( isset( $shopsData['shopName']  ) ){
+                $shopsData['shopNameOne'] = WSTGetFirstCharter($shopsData['shopName'] );
+            }
             //判断是不是最后一个表单环节了
             $flows = $shopFlows['flows'];
             if($flows[count($flows)-1]['flowId']==$shopFlows['nextStep']['flowId']){

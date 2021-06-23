@@ -176,7 +176,7 @@ function cancelSeled(obj){
     goodsList(3);
 }
 //获取商品列表
-function goodsList(from){
+function goodsList(from,newPage){
     $('#Load').show();
     loading = true;
     var param = {};
@@ -186,9 +186,14 @@ function goodsList(from){
     param.desc = $('#desc').val();
     param.keyword = $('#keyword').val();
     param.searchType = $('#searchType').val();
+    param.saleType=$("#saleType").val();
 	param.page = Number( $('#currPage').val() ) + 1;
     param.pagesize = 10;
     param.page = Number( $('#currPage').val() ) + 1;
+    if( newPage == 'newPage' ){
+        $('#goods-list').html("");
+        param.page = 1;
+    }
     $.post(WST.U('mobile/goods/pageQuery'), param,function(data){
         var json = WST.toJson(data);
     

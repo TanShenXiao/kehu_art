@@ -251,6 +251,7 @@
 </div>
 </div>
 <div class='wst-w'>
+    <div id="goodsTabs"></div>
    <div class='wst-container'>
        <div class='wst-side'>
           <h2>店铺信息</h2>
@@ -276,15 +277,12 @@
               <li>创作时间：{$goods['createTime']}</li>
             </ul>
           </div>
+            {if($goods['goodsAuthorDesc'])}
           <h2>作者介绍</h2>
           <div class="author-intro">
-            曹钟伟 男 汉族 职务：综合艺术教研室主任。研究领域：综合绘画。1971年10月出生于重庆。1994年毕业于四川美院师范系，童年留校任教至今；四川美术许愿美术教育系综合艺术教研室主任。
-            <br/>
-            <br/>
-            个展
-            <br/>
-            2012 北京现实空间“白日梦的真实”
+              {$goods['goodsAuthorDesc']}
           </div>
+            {/if}
           <h2>作品介绍</h2>
           <div class="goods-desc">
             {$goods['goodsDesc']}
@@ -329,7 +327,7 @@ var goodsInfo = {
 
 </script>
 <script type='text/javascript' src='__STYLE__/js/cloudzoom.js?v={$v}'></script>
-<script type='text/javascript' src='__STYLE__/js/goods.js?v={$v}'></script>
+<script type='text/javascript' src='__STYLE__/js/goods.js?v={$v}1'></script>
 <script type='text/javascript' src='__STYLE__/js/qrcode.js?v={$v}'></script>
 <script>
 $(function(){

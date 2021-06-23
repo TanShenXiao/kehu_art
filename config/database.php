@@ -3,13 +3,13 @@
 			// 数据库类型
 			'type'           => 'mysql',
 			// 服务器地址
-			'hostname'       => '127.0.0.1',
+			'hostname'       => '192.168.1.52',
 			// 数据库名
-			'database'       => 'artthree',
+			'database'       => 'art',
 			// 用户名
 			'username'       => 'root',
 			// 密码
-			'password'       => 'phpts',
+			'password'       => '5723410nbaCBA..',
 			// 端口
 			'hostport'       => '3306',
 			// 连接dsn

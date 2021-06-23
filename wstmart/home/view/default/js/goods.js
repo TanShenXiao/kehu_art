@@ -75,7 +75,7 @@ $(function(){
 	$('#wx_qrcode').unbind();
 });
 function fixedbar(){
-    var offsetTop = $("#goodsTabs").offset().top;  
+    var offsetTop = $("#goodsTabs").offset().top;
     $(window).scroll(function() {  
         var scrollTop = $(document).scrollTop();  
         if (scrollTop > offsetTop){  

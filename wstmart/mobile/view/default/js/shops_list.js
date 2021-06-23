@@ -94,7 +94,7 @@ function searchCondition(id){
     getLocation();
 }
 //获取店铺列表
-function shopsList(from){
+function shopsList(from , shopNameOne , page ){
     $('#Load').show();
     loading = true;
     var param = {};
@@ -106,8 +106,14 @@ function shopsList(from){
     param.totalScore = $('#totalScore').val();
     param.minScore = $('#minScore').val();
     param.pagesize = 12;
-    param.page = Number( $('#currPage').val() ) + 1;
+    if( page == 'newPage' ){
+        param.page = 1;
+        $("#shops-list").html("");
+    }else{
+        param.page = Number( $('#currPage').val() ) + 1;
+    }
     param.type = $('#type').val();
+    param.shopNameOne = shopNameOne;
     $.post(WST.U('mobile/shops/pageQuery'), param,function(data){
         var json = WST.toJson(data);
         $('#currPage').val(json.current_page);

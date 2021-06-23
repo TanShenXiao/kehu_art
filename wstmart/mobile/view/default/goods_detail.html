@@ -149,7 +149,7 @@
 		<div class="ui-row-flex wst-go-price">
 		    <div class="ui-col ui-col-2">
 		    	<div class="price">{if($info['saleType']==1)}议价{elseif($info['saleType']==2)}仅展示{else}<i>价格 ¥ </i>{$info['shopPrice']}{/if}</div>
-				<div style="float:right;font-size:0.15rem">
+				<div style="float:right;font-size:0.15rem;margin-top: 5px;">
 					 <div {if 0==$info['haveThumb']}class='dt dzs'{else}class='dt dzs-red'{/if} id='dzs'>{$info['thumbsNum']}</div>
 						<div class='dd'>
 						<input type="hidden" name="" value="{$info['thumbsNum']}" id="thumbsNum" autocomplete="off">
@@ -177,7 +177,7 @@
 		    <div class="info">
 		    	<div class="img"><a><img src="__RESOURCE_PATH__/{:WSTImg($info['shop']['shopImg'],3)}" title="{$info['shop']['shopName']|WSTStripTags}"></a></div>
 				<div class="ui-row-flex button">
-					<div class="ui-col ui-col"><a href="{:url('mobile/shops/home',['shopId'=>$info['shopId']])}" class="shop">进入店铺</a></div>
+					<div class="ui-col ui-col"><a href="{:url('mobile/shops/index',['shopId'=>$info['shopId']])}" class="shop">进入店铺</a></div>
 				</div>
 		    	<div class="name"><p class="ui-nowrap-flex name1">{$info['shop']['shopName']}</p><p class="ui-nowrap-flex name2">共{$info['shop']['count']}件作品</p><p class="ui-nowrap-flex name2"><span>主营: {$info['shop']['cat']}</span></p></div>
 		    	<div class="wst-clear"></div>
@@ -194,12 +194,16 @@
 				<li>尺寸：{$info['goodsTips']}</li>
 			</ul>
 		</div>
+		 {if($info['goodsAuthorDesc'])}
 		<div class="author_intro">
+
 			<h2 class="_title">作者介绍</h2>
 			<div>
-				{$info['shop']['shopDesc']}
+				{$info['goodsAuthorDesc']}
 			</div>
+
 		</div>
+		 {/if}
 		{/* 详情  */}
 		<section class="_container" id="goods2">
 			<h2 class="_title">作品介绍</h2>

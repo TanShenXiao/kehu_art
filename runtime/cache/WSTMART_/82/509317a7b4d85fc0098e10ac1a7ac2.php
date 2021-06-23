@@ -1,4 +1,0 @@
-<?php
-//000000000000
- exit();?>
-think_serialize:a:6:{i:0;a:4:{s:7:"catName";s:6:"油画";s:5:"catId";i:365;s:6:"catImg";s:0:"";s:9:"catNameEn";s:12:"Oil painting";}i:1;a:4:{s:7:"catName";s:6:"国画";s:5:"catId";i:366;s:6:"catImg";s:0:"";s:9:"catNameEn";s:16:"Chinese Painting";}i:2;a:4:{s:7:"catName";s:6:"版画";s:5:"catId";i:367;s:6:"catImg";s:0:"";s:9:"catNameEn";s:9:"engraving";}i:3;a:4:{s:7:"catName";s:6:"雕塑";s:5:"catId";i:368;s:6:"catImg";s:0:"";s:9:"catNameEn";s:9:"sculpture";}i:4;a:4:{s:7:"catName";s:6:"水彩";s:5:"catId";i:369;s:6:"catImg";s:0:"";s:9:"catNameEn";s:10:"watercolor";}i:5;a:4:{s:7:"catName";s:6:"书法";s:5:"catId";i:370;s:6:"catImg";s:0:"";s:9:"catNameEn";s:11:"calligraphy";}}

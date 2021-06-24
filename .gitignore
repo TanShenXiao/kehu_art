@@ -1,3 +1,4 @@
 runtime
 upload
 .idea
+config/database.php

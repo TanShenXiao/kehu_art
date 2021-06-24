@@ -28,6 +28,7 @@ class ShopApplys extends Base{
 			$data['userId'] = $userId?$userId:0;
 			$data['linkman'] = input('linkman');
 			$data['linkPhone'] = input('linkPhone');
+			$data['cardNumber'] = input('cardNumber');
 			$data['applyIntention'] = input('applyIntention');
 			$data['applyStatus'] = 0;
 			$data['createTime'] = date('Y-m-d H:i:s');

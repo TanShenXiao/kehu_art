@@ -93,7 +93,7 @@ class Users extends Base{
     	if($rs["status"]!=1){
     		return WSTReturn("手机号已存在!");
     	}
-    	$phoneVerify = rand(100000,999999);
+    	$phoneVerify =123456;// rand(100000,999999);
     	$tpl = WSTMsgTemplates('PHONE_USER_REGISTER_VERFIY');
     	if($tpl['tplContent']!='' && $tpl['status']=='1'){
     		$params = ['tpl'=>$tpl,'params'=>['MALL_NAME'=>WSTConf("CONF.mallName"),'VERFIY_CODE'=>$phoneVerify,'VERFIY_TIME'=>10]];

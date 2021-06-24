@@ -5,7 +5,7 @@ use wstmart\common\model\Invoice as M;
 class Invoice extends Base{
 
     /**
-     * 发票列表
+     * 发票列表 s
      * @return mixed|string
      */
     public function index()

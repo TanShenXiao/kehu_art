@@ -97,10 +97,10 @@ class TaxInvoiceUsers extends Base{
     /**
      * 回传协议
      */
-    public function returnTreaty(){
+    public function returnTreaty($data){
 //        hlwptjj/yhxy
         $url = '/hlwptjj/yhxy';
-        $data = [
+       /* $data = [
             'nsrsbh'=>'',
             'nsrmc'=>'',
             'yhxybh'=>'',
@@ -108,7 +108,7 @@ class TaxInvoiceUsers extends Base{
             'yxqq'=>'',
             'yxqz'=>'',
             'xynr'=>'',
-        ];
+        ];*/
         $json_data = json_encode($data);
 
         $res = $this->posturl($url,$json_data);

@@ -79,5 +79,18 @@ class Shopapplys extends Base{
             return ['url'=>$url,'jsonData'=>$jsonParams];
         }
     }
+    public function yhhcxy(){
+        $data = [
+            'nsrsbh'=>input('nsrsbh'),
+            'nsrmc'=>input('nsrmc'),
+            'yhxybh'=>input('yhxybh'),
+            'xylx'=>input('xylx'),
+            'yxqq'=>input('yxqq'),
+            'yxqz'=>input('yxqz'),
+            'xynr'=>input('xynr'),
+        ];
+        $tax = new TAX();
+        $tax->returnTreaty($data);
+    }
 
 }

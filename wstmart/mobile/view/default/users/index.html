@@ -237,6 +237,14 @@
 				</a>
 			</li>
 			{/if}
+			{if $user['userTaxType']==0 || $user['userType']!=0}
+			<li class="ui-col ui-col-25 user-icon-box ui-center-hor">
+				<a href="{:url('mobile/shopapplys/tax_auth')}">
+					<p><i class="user-icon13"></i></p>
+					<span class="ui-flex ui-flex-align-end ui-flex-pack-center">开票认证</span>
+				</a>
+			</li>
+			{/if}
 		    {:hook('mobileDocumentUserIndexTools')}
 		</ul>
 		<div class="ui-btn-wrap logout">

@@ -2,6 +2,7 @@
 namespace wstmart\mobile\controller;
 use wstmart\common\model\ShopApplys as M;
 use wstmart\common\model\Users as UM;
+use wstmart\common\model\TaxInvoiceUsers as TAX;
 /**
  * ============================================================================
  * WSTMart多用户商城
@@ -43,4 +44,40 @@ class Shopapplys extends Base{
         $m = new M();
         return $m->add();
     }
+    //开票认证
+    public function tax_auth(){
+        $userId = (int)session('WST_USER.userId');
+        $rs = $um->getFieldsById($userId,'userPhone,cardNumber');
+        $um = new UM();
+        $tax = new TAX();
+
+        $res = $tax->taxBusinessToken(['cardNumber'=>$rs['cardNumber']]);
+        if($res['code']!=0){
+            return WSTReturn('认证失败',0);
+        }else{
+            $res['token'];
+            $params=[
+                'sfzhm'=>,
+                    'xm'=>,
+                    'zjlx'=>,
+                    'mobile'=>,
+                    'gjdqdm'=>,
+                    'ssjAddress'=>,
+                    'qxjAddress'=>,
+                    'address'=>,
+                    'email'=>
+                ];
+            $jsonParams = json_encode($data);
+            $key='123456';
+            $url = '/dzswj_wx/user/verify.html';
+            $jsonParams = $tax->encrypt($jsonParams,$key);
+            $data = [
+                'appid'=>'1',
+                'token'=>'2',
+                'params'=>$jsonParams,
+            ];
+            return ['url'=>$url,'jsonData'=>$jsonParams];
+        }
+    }
+
 }

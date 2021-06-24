@@ -29,10 +29,9 @@ class Shopapplys extends Base{
         $userId = (int)session('WST_USER.userId');
         // 获取是否已经填写商家入驻
         $isApply = $m->isApply();
-        $rs = $um->getFieldsById($userId,'userPhone,cardNumber');
+        $rs = $um->getFieldsById($userId,'userPhone');
         $this->assign('isApply',$isApply);
         $this->assign('userPhone',$rs['userPhone']);
-        $this->assign('cardNumber',$rs['cardNumber']);
         return $this->fetch('users/shopapplys/shop_applys');
     }
 

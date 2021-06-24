@@ -149,6 +149,8 @@ class Users extends Base{
                 $datawx = $we->getJsSignature(request()->scheme().'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
                 $this->assign("datawx", $datawx);
             }
+			$user['subGoods'] = 0;
+		    $user['subShop'] = 0;
         }else{
             $user['userName'] = '游客';
             $user['userPhone'] = '';
@@ -156,6 +158,8 @@ class Users extends Base{
             $user['userType'] = 0;
             $user['userMoney'] = 0;
             $user['userScore'] = 0;
+			$user['subGoods'] = 0;
+		    $user['subShop'] = 0;
         }
         $user['userId'] = $userId;
 		$this->assign('user', $user);

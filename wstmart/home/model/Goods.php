@@ -137,7 +137,7 @@ class Goods extends CGoods{
 	/**
 	 * 获取分页商品记录
 	 */
-	public function pageQuery($goodsCatIds = []){
+	public function pageQuery($goodsCatIds = [], $fl = ''){
 		//查询条件
 		$isStock = input('isStock/d');
 		$isNew = input('isNew/d');
@@ -196,12 +196,24 @@ class Goods extends CGoods{
 		}elseif($maxPrice!=''){
 			$where[] = ['g.shopPrice','<=',(int)$maxPrice];
 		}
-		$list = Db::name("goods")->alias('g')->join("__SHOPS__ s","g.shopId = s.shopId")
-			->where($where)
-            ->where($condition)
-			->field('goodsId,goodsName,goodsSn,goodsStock,isNew,saleNum,shopPrice,marketPrice,isSpec,goodsImg,appraiseNum,visitNum,s.shopId,shopName,isSelf,isFreeShipping,gallery,goodsAuthor,saleType,thumbsNum,goodsType')
-			->order($pageBy[$orderBy]." ".$pageOrder[$order].",goodsId desc")
-			->paginate(input('pagesize/d',15))->toArray();
+		
+		if ($fl) {
+			$where[] = ['r.dataType','=',$fl['dataType']];	//热销商品
+			$where[] = ['r.dataSrc','=',$fl['dataSrc']];	//热销商品
+			$list = Db::name("goods")->alias('g')->join("__SHOPS__ s","g.shopId = s.shopId")->join('__RECOMMENDS__ r','g.goodsId=r.dataId')
+				->where($where)
+				->where($condition)
+				->field('goodsId,goodsName,goodsSn,goodsStock,isNew,saleNum,shopPrice,marketPrice,isSpec,goodsImg,appraiseNum,visitNum,s.shopId,shopName,isSelf,isFreeShipping,gallery,goodsAuthor,saleType,thumbsNum,goodsType')
+				->order($pageBy[$orderBy]." ".$pageOrder[$order].",goodsId desc")
+				->paginate(input('pagesize/d',20))->toArray();
+		} else {
+			$list = Db::name("goods")->alias('g')->join("__SHOPS__ s","g.shopId = s.shopId")
+				->where($where)
+				->where($condition)
+				->field('goodsId,goodsName,goodsSn,goodsStock,isNew,saleNum,shopPrice,marketPrice,isSpec,goodsImg,appraiseNum,visitNum,s.shopId,shopName,isSelf,isFreeShipping,gallery,goodsAuthor,saleType,thumbsNum,goodsType')
+				->order($pageBy[$orderBy]." ".$pageOrder[$order].",goodsId desc")
+				->paginate(input('pagesize/d',20))->toArray();
+		}
 		//加载标签
 		if(!empty($list['data'])){
 			foreach ($list['data'] as $key => $v) {

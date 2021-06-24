@@ -128,6 +128,23 @@ var uploader = batchUpload({uploadPicker:'#batchUpload',uploadServer:WST.U('shop
 		  }
 	});
 	WST.upload({
+		pick:'#goodsAuthorImgupload',
+		formData: {dir:'goods',isWatermark:1,isThumb:1},
+		accept: {extensions: 'gif,jpg,jpeg,png',mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif'},
+		callback:function(f){
+			var json = WST.toJson(f);
+			if(json.status==1){
+				$('#uploadMsg').empty().hide();
+				$('#preview').attr('src',WST.conf.RESOURCE_PATH+"/"+json.savePath+json.thumb);
+				$('#goodsImg').val(json.savePath+json.name);
+				$('#msg_goodsImg').hide();
+			}
+		},
+		progress:function(rate){
+			$('#uploadMsg').show().html('已上传'+rate+"%");
+		}
+	});
+	WST.upload({
 	  	  pick:'#goodsVideoPicker',
 	  	  formData: {dir:'goods'},
 	  	  server:WST.U('shop/index/uploadVideo'),

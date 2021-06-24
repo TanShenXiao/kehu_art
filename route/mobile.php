@@ -24,6 +24,7 @@ Route::rules([
     'mshopview-:shopId'=>'mobile/shops/view',
     'mlist'=>'mobile/goods/lists',
     'msearch'=>'mobile/goods/search',
+    'mnews-:id'=>'mobile/news/view',
     'mnews'=>'mobile/news/view',
     'mcategoty'=>'mobile/goodscats/index',
     'mshopgoods-:shopId'=>'mobile/shops/goods',

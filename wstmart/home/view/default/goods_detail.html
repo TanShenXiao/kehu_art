@@ -128,6 +128,10 @@
                      <span class='appraise-num'>{$goods['appraiseNum']}</span>
                    </li>
                    <li>
+                    <div class='dt'>运费</div>
+                    <span class='appraise-num'>{if $goods['isFreeShipping']==1}免运费{else}{php}echo sprintf("%.2f", $goods['shop']['freight']);{/php}{/if}</span>
+                  </li>
+                   <li>
                      <div {if 0==$goods['haveThumb']}class='dt dzs'{else}class='dt dzs-red'{/if} id='dzs'>{$goods['thumbsNum']}</div>
                      <div class='dd'>
                         <input type="hidden" name="" value="{$goods['thumbsNum']}" id="thumbsNum" autocomplete="off">

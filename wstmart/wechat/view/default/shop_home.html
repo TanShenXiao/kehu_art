@@ -21,77 +21,157 @@
 <input type='hidden' name="" value="0" id="totalPage" autocomplete="off">
 <input type="hidden" name="" value="{$data.shop.shopName}" id="shopName" autocomplete="off">
      <section class="ui-container">
-     	<div class="wst-sh-banner">
-     	    <header class="ui-header ui-header-positive wst-se-header2 wst-se-header3">
-				<i class="ui-icon-return" onclick="history.back()"></i>
-				<div class="wst-se-search wst-se-search2" onclick="javascript:WST.searchPage('shops',1);">
-				    <i class="ui-icon-search" onclick="javascript:WST.searchPage('shops',1);"></i>
-				    <form action＝"" class="input-form">
-					<input type="search" value="{$goodsName}" placeholder="按关键字搜索本店商品" onsearch="WST.search(2)" autocomplete="off" disabled="disabled">
-					</form>
-				</div>
-		       	<span class="wst-se-icon wst-se-icon0" onclick="javascript:dataShow();"></span>
-		       	 {php}$cartNum = WSTCartNum();{/php}
-		       	<a href="{:url('wechat/carts/index')}"><span class="wst-se-icon wst-se-icon2">{if($cartNum>0)}<i>{$cartNum}</i>{/if}</span></a>
-			</header>
-			<div class="shop-banner">
-				<div class="name"><p style="margin-left:1.1rem">{$data.shop.shopName}</p></div>
-				<div class="shop-photo">
-					<div class="photo">
-						<img src="__ROOT__/{$data.shop.shopImg}">
-					</div>
-					<div class="wst-clear"></div>
-				</div>
-				<div class="shop-notice">
-					<p class="shop-brief">&nbsp;&nbsp;&nbsp;&nbsp;{$data['shop']['shopBrief']}</p>
-					<div id="showMore">更多>></div><div id="exMore" style="display:none">收起<<</div>
-				</div>
-				<div class="wst-clear"></div>
-			 </div>
-     	</div>
-         <ul class="wst-sh-term" id="j-top">
-         	<li id="j-top0" class="active" onclick="javascript:switchTerm(0);">全部商品</li>
-         	<div class="wst-clear"></div>
-         </ul>
-        <div class="wst-sh-index" id="j-index1">
-        </div>
-        
-        <div class="wst-sh-list" id="j-index0" style="">
-        <div class="ui-row-flex wst-shl-head">
-            <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,2);">
-                 <p class="pd0">销量</p><i class="down"></i>
-            </div>
-            <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,3);">
-                 <p class="pd0">价格</p><i class="down"></i>
-            </div>
-            <div class="ui-col ui-col sorts active" status="up" onclick="javascript:orderCondition(this,5);">
-                 <p class="pd0">人气</p><i class="up2"></i>
-            </div>
-            <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,6);">
-                 <p>上架时间</p><i class="down"></i>
-            </div>
-        </div>
-        <script id="shopList" type="text/html">
-         {{# for(var i=0; i<d.length; i++){ }}
-             <div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}" onclick="WST.intoGoods({{d[i].goodsId}})">
-             <div class="img j-imgAdapt" onclick="WST.intoGoods({{d[i].goodsId}})">
-             <a href="javascript:void(0)" onclick="WST.intoGoods({{d[i].goodsId}})">
-             <img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{{d[i].goodsImg }}" title="{{d[i].goodsName}}"/>
-             </a>
-             </div>
-			 <div style="background-color:#eeeeee;float:left;height:0.45rem;width:100%">
-             <div class="name ui-nowrap-multi">{{ d[i].goodsName}}</div>
-			 <div class="info"><span class="price"><span>{{# if(d[i].saleType==1){ }}议价{{# }else if(d[i].saleType==2){ }}仅展示{{# }else{ }}¥ {{ d[i].shopPrice }}{{# } }}</span></span></div>
-			 <div class="info3">{{ d[i].thumbsNum }}</div>
-			 </div>
-             </div>
-          {{# } }}
-        </script>
+        <div class="wst-intro">
+			<div class="wst-intro-content">
+				<div class="wst-intro-content-top">
+					<div class="wst-intro-img"><a href="{:url('home/shops/index',array('shopId'=>$data['shop']['shopId']))}"><img src="__RESOURCE_PATH__/{$data['shop']['shopImg']}" title="{$data['shop']['shopName']|WSTStripTags}"></a></div>
+					<div class="wst-intro-img-r">
+						<div class="wst-intro-shopname">
+							{$data['shop']['shopName']}
+							
+						</div>
+						<p class="wst-intro-lb">类别：绘画艺术</p>
+						<p class="wst-intro-lb">商品：{$data['goodsNum']}</p>
 
-        <div id="shops-list" class="wst-sh-goods"></div>
+						{:hook('mobileDocumentContact',['type'=>'shopIndex','shopId'=>$data['shop']['shopId']])}
+						<button class="ui-btn-lg shop-home-btn ui-col ui-col-50 f-btn" style="background: none;padding:0;" id="fBtn" onclick="{if ($data['shop']['isfollow']>0)}WST.cancelFavorite({$data['shop']['isfollow']},1){else /}WST.favorites({$data.shop.shopId},1){/if}">
+							{if ($data['shop']['isfollow']>0)}
+							<div class="wst-intro-sub" style="line-height: 22px;"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">已关注</div>
+							{else /}
+							<div class="wst-intro-sub" style="line-height: 22px;"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">关注店铺</div>
+							{/if}
+						</button>
+
+
+					</div>
+				</div>
+				<div class="wst-intro-f">
+					<div class="wst-intro-ff">描述 
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/hwu.png" alt="">
+						<img src="/upload/goods/2019-04/hwu.png" alt="">
+					</div>
+					<div class="wst-intro-ff">服务 
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+					</div>
+					<div class="wst-intro-ff">物流 
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/rwu.png" alt="">
+						<img src="/upload/goods/2019-04/hwu.png" alt="">
+					</div>
+				</div>
+			</div>
+			
+			<div class="wst-intro-content-bottom">
+				<div class="wst-intro-content-title">
+					<span class="wst-intro-content-bottom-text wst-intro-content-bottom-text-title">简介</span><span class="wst-intro-content-bottom-lim">/</span>
+					<span class="wst-intro-content-bottom-text">作品故事</span><span class="wst-intro-content-bottom-lim">/</span>
+					<span class="wst-intro-content-bottom-text">价值分析</span>
+				</div>
+				<div class="wst-intro-content-info">
+					1959年生于四川乐山，四川美术许愿教授，中国画系主任，硕士生导师，中国美术家协会会员，中国壁画学会理事，重庆市美术家协会理事，重庆市美术家协会理事，重庆市美术家协会综合材料回话艺委会副主任。作品参加“第二届全国少数民族美术作品展”优秀奖（文化部），“第六届中国体育美术作品展览”，“2012打通国际壁画双年展”，“第三届全国壁画大展”，第二届、第三届“学院·经...
+				</div>
+			</div>
 		</div>
+        <div class="wst-selector">
+			<div class='wst-lfloat'>
+				<div class='item dorpdown'>
+			  <div class="wst-pos">
+				  <div>商品分类：</div>
+				  {volist name=":WSTGoodsCats(0)" id='vo2'}
+				  <div class="cat1 cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"])}'>{$vo2['catName']}</a></div>
+				  {/volist}
+			 </div>
+			 </div>
+			</div>
+			 <div class='wst-clear'></div>
+		 </div>
+         {if !empty($data['shop']['shopAds'])}
+         <div class="shop-ads swiper-container banner">
+            <div class="swiper-wrapper" >
+                {volist name="$data['shop']['shopAds']" id="ads"}
+                <div class="swiper-slide"><a href="{$ads.adUrl}"><img src="__RESOURCE_PATH__/{$ads.adImg}"></a></div>
+                {/volist}
+            </div>
+			 <div class="swiper-pagination" style="background:none;"></div>
+         </div>
+         {/if}
+         <ul class="wst-sh-term" id="j-top" style="display: none;">
+            <li id="j-top1" class="active" onclick="javascript:switchTerm(1);">首页</li>
+            <li id="j-top0" onclick="javascript:switchTerm(0);">全部商品</li>
+            <div class="wst-clear"></div>
+        </ul>
+       <div class="wst-sh-index" id="j-index1">
+       <script id="shopBest" type="text/html">
+        {{# for(var i=0; i<d.length; i++){ }}
+            <div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}" onclick="WST.intoGoods({{d[i].goodsId}})">
+            <div class="img j-imgBest" onclick="WST.intoGoods({{d[i].goodsId}})">
+            <a href="javascript:void(0)" onclick="WST.intoGoods({{d[i].goodsId}})">
+            <img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{{d[i].goodsImg }}" title="{{d[i].goodsName}}"/>
+            </a>
+            </div>
+            <div class="name ui-nowrap-multi">{{ d[i].goodsName}}</div>
+            <div class="info"><span class="price"><span>{{# if(d[i].saleType==1){ }}议价{{# }else if(d[i].saleType==2){ }}仅展示{{# }else{ }}¥ {{ d[i].shopPrice }}{{# } }}</span></span></div>
+            <div class="info3">{{ d[i].thumbsNum }}</div>
+            </div>
+         {{# } }}
+       </script>
+       </div>
+       
+       <div class="wst-sh-list" id="j-index0" style="">
+           <h2>作品/展示</h2>
+       <div class="ui-row-flex wst-shl-head">
+           <div class="ui-col ui-col sorts active" status="down" onclick="javascript:orderCondition(this,2);">
+                <p class="pd0">销量</p><i class="down2"></i>
+           </div>
+           <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,3);">
+                <p class="pd0">价格</p><i class="down"></i>
+           </div>
+           <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,1);">
+                <p class="pd0">人气</p><i class="down"></i>
+           </div>
+           <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,6);">
+                <p>上架时间</p><i class="down"></i>
+           </div>
+       </div>
+       <script id="shopList" type="text/html">
+        {{# for(var i=0; i<d.length; i++){ }}
+            <div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}" onclick="WST.intoGoods({{d[i].goodsId}})">
+            <div class="img j-imgAdapt" onclick="WST.intoGoods({{d[i].goodsId}})">
+            <a href="javascript:void(0)" onclick="WST.intoGoods({{d[i].goodsId}})">
+            <img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{{d[i].goodsImg }}" title="{{d[i].goodsName}}"/>
+            </a>
+            </div>
+            <div class="goods_foot">
+                <div class="name ui-nowrap-multi">{{ d[i].goodsName}}</div>
+               <div class="info"><span class="price"><span>{{# if(d[i].saleType==1){ }}议价{{# }else if(d[i].saleType==2){ }}仅展示{{# }else{ }}¥ {{ d[i].shopPrice }}{{# } }}</span></span></div>
+               <div class="name ui-nowrap-multi name-author">{{ d[i].goodsAuthor}}&nbsp;{{ d[i].goodsTips}}</div>
+           </div>
+            </div>
+         {{# } }}
+       </script>
+
+       <div id="shops-list" class="wst-sh-goods"></div>
+       </div>
 
      </section>
+     <div class="contact">
+		<div class="contact_top">
+			<img src="/upload/goods/2021-04/dhtb.png" alt="">
+			<span>咨询热线：{:WSTConf('CONF.serviceTel')}</span>
+		</div>
+		<p>
+			{:WSTConf('CONF.mallFooter')}
+		</p>
+	</div>
 {/block}
 
 

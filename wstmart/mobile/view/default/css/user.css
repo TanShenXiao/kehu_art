@@ -5,7 +5,7 @@ body{background:#f5f5f5}
 .wst-users_infol img{width:0.67rem;height:0.67rem;object-fit:cover;border-radius:1000px;border: 2px solid #f2f1f1;}
 .wst-users_infor{float:left;width:55.666%;padding-left:0.1rem;}
 .wst-msg-icon{vertical-align: middle; display: inline-block;left:1.4rem;top:.58rem;width:26px;height:25px;background: url(../img/message-icon.png) center center no-repeat;background-size: 80%;}
-.wst-msg-icon .number{position: absolute;top:-0.03rem;right:-0.1rem;min-width:0.16rem;display: inline-block;text-align: center;background: #f74c31;color: #fff;font-size: 0.1rem;height: 15px;line-height: 15px;-webkit-border-radius: 8px;padding: 0 3px;background-clip: padding-box;}
+.wst-msg-icon .number{position: relative;top:-0.03rem;right:-0.1rem;min-width:0.16rem;display: inline-block;text-align: center;background: #f74c31;color: #fff;font-size: 0.1rem;height: 15px;line-height: 15px;-webkit-border-radius: 8px;padding: 0 3px;background-clip: padding-box;}
 .wst-info-icon{position: absolute;right:0.2rem;top: .6rem; width:28px;height:26px;line-height: 26px;color: #fff;font-size: 0.12rem;background: rgba(255,255,255,.2);padding: 0px 12px;border-radius: 2px;}
 .wst-users_infortop{margin-top:9px;font-size:.16rem;}
 .wst-users_infortop img{position: relative;top:2px;left:5px;width: 15px;height: 15px;}

@@ -21,7 +21,8 @@ class News extends Base{
     public function view(){
         $m = new M();
         $data = $m->getChildInfos();
-        $catId = $data['0']['catId'];
+		$catId = (int)input('catId') ?: '402';
+        // $catId = $data['0']['catId'];
         $articleId = (int)input('articleId');
         $this->assign('articleId',$articleId);
         $this->assign('catInfo',$data);

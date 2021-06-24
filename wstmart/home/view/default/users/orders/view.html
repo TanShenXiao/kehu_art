@@ -125,7 +125,7 @@
          </tr>
          {if $object['isInvoice']==1}
               {php}$invoiceArr = json_decode($object['invoiceJson'],true);{/php}
-
+          {/if}
           <tr>
           <th>发票状态：</th>
           <td>{if $object['isMakeInvoice']==1}已开{else}未开{/if}</td>
@@ -134,8 +134,13 @@
          <tr>
            <th>发票抬头：</th>
            <td>
-            {if $object['isInvoice']==1}
+            {if $object['isInvoice']==1&&$_GET['src']=='waitReceive'||$object['isInvoice']==1&&$_GET['src']=='waitPay'}
+             <!--  {$invoiceArr['invoiceHead']} -->
+              <input type="text" name="invoiceHead" value="{$invoiceArr['invoiceHead']}">
+            {/if}
+            {if $object['isInvoice']==1&&$_GET['src']!='waitReceive'||$object['isInvoice']!=1&&$_GET['src']=='waitPay'}
               {$invoiceArr['invoiceHead']}
+             
             {/if}
           </td>
          </tr>
@@ -143,11 +148,17 @@
          <tr>
            <th>发票税号：</th>
            <td>
+            {if $_GET['src']=='waitReceive'||$_GET['src']=='waitPay'}
+              <input type="text" name="invoiceCode" value="{$invoiceArr['invoiceCode']}">
+               {/if}
+               {if $_GET['src']!='waitReceive'||$_GET['src']=='waitPay'}
               {$invoiceArr['invoiceCode']}
+             
+            {/if}
           </td>
          </tr>
          {/if}
-        {/if}
+        
       </table>
    </div>
    <!-- 收货人信息 -->

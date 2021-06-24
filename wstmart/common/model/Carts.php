@@ -194,7 +194,7 @@ class Carts extends Base{
 		           ->join($prefix.'shops','s.shopId=g.shopId','left')
 		           ->join($prefix.'goods_specs','c.goodsSpecId=gs.id','left')
 		           ->where($where)
-		           ->field('c.goodsSpecId,c.cartId,s.userId,s.shopId,s.shopName,s.shopImg,g.goodsId,g.shippingFeeType,g.shopExpressId,s.shopQQ,shopWangWang,g.goodsName,g.shopPrice,g.shopPrice defaultShopPrice,g.goodsStock,g.goodsWeight,g.goodsVolume,g.isSpec,gs.specPrice,gs.specStock,gs.specWeight,gs.specVolume,g.goodsImg,c.isCheck,gs.specIds,c.cartNum,g.goodsCatId,g.isFreeShipping,g.goodsType,g.saleType,g.oriGoodsId')
+		           ->field('c.goodsSpecId,c.cartId,s.userId,s.shopId,s.shopName,s.shopImg,g.goodsId,g.marketPrice,g.shippingFeeType,g.shopExpressId,s.shopQQ,shopWangWang,g.goodsName,g.shopPrice,g.shopPrice defaultShopPrice,g.goodsStock,g.goodsWeight,g.goodsVolume,g.isSpec,gs.specPrice,gs.specStock,gs.specWeight,gs.specVolume,g.goodsImg,c.isCheck,gs.specIds,c.cartNum,g.goodsCatId,g.isFreeShipping,g.goodsType,g.saleType,g.oriGoodsId')
 		           ->select();		
 		$carts = [];
 		$goodsIds = [];
@@ -282,6 +282,8 @@ class Carts extends Base{
 		$cartData = ['carts'=>$carts,'goodsTotalMoney'=>$goodsTotalMoney,'goodsTotalNum'=>$goodsTotalNum,'promotionMoney'=>0]; 
 		//店铺优惠活动监听
 		hook("afterQueryCarts",["carts"=>&$cartData,'isSettlement'=>$isSettlement,'isVirtual'=>false,'uId'=>$userId]); 
+		// echo '<pre>';
+		// print_r($cartData);die;
 		return $cartData;   
 	}
 	

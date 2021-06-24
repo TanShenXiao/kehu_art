@@ -33,7 +33,7 @@ class Shops extends Base{
     	$this->assign('goodscats',$goodsCats);
     	//店铺街列表
     	$s = model('shops');
-    	$pagesize = 10;
+    	$pagesize = 42;
     	$selectedId = input("get.id/d");
     	$this->assign('selectedId',$selectedId);
     	$list = $s->pageQuery($pagesize);

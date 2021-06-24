@@ -28,6 +28,9 @@ class Shops extends CShops{
         $location = WSTIpLocation();
 		$type = input("type");
     	$userId = (int)session('WST_USER.userId');
+
+    	$shopNameOne = input('shopNameOne');
+
     	$rs = $this->alias('s');
     	$where = [];
     	$where[] = ['s.dataFlag','=',1];
@@ -40,6 +43,7 @@ class Shops extends CShops{
 				$where[] = ['s.shopType','=',1];
 		}
     	if($keyword!='')$where[] = ['s.shopName','like','%'.$keyword.'%'];
+        if( $shopNameOne != '' ) $where[] = ['s.shopNameOne','=',$shopNameOne];
     	if($catId>0){
     		$rs->join('__CAT_SHOPS__ cs','cs.shopId = s.shopId','left');
     		$where[] = ['cs.catId','=',$catId];

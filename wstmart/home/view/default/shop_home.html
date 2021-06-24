@@ -54,7 +54,7 @@
 						</div>
 					</div> -->
 					{if empty($data['isfollow'])}
-					<div class="wst-intro-sub" onclick="addFavorite(this,'1','{$shopId}')"><img src="/upload/goods/2021-04/ysjzytb2.png" >关注店铺</div>
+					<div class="wst-intro-sub j-fav2" onclick="addFavorite(this,'1','{$shopId}')">关注店铺</div>
 					{else}
 					<div class="wst-intro-sub j-fav" onclick="cancelFavorite(this,'1','{$shopId}','{$data[\'isfollow\']}')">取消关注</div>
 					{/if}
@@ -91,8 +91,8 @@
 		   <div class='item dorpdown'>
 		 <div class="wst-pos">
 			 <div>作品类别：</div>
-			 {volist name=":WSTShopApplyGoodsCats(0,$shopId)" id='vo2'}
-			 <div class="cat1 cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"])}'>{$vo2['catName']}</a></div>
+			 {volist name=":WSTShopApplyShopCats($shopId)" id='vo2'}
+			 <div class="cat1 cat"><a href='{:Url("home/shops/index",array("shopId"=>$shopId,"ct1"=>$vo2["catId"]))}'>{$vo2['catName']}</a></div>
 			 {/volist}
 		</div>
 		</div>
@@ -114,13 +114,10 @@
 					</div>
 				</li>
 				{/volist}
-				<ul class="pagination">
-				<li><a href="?page=1">&laquo;</a></li>
-				<li><a href="?page=1">1</a></li>
-				<li class="active"><span>2</span></li>
-				<li class="disabled"><span>&raquo;</span></li>
-				</ul>
 			</ul>
+		</div>
+		<div class="shopstrPaging">
+			<div id="shopPage"></div>
 		</div>
 	</div>
 {/block}

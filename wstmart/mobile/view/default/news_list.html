@@ -14,14 +14,7 @@
 <input type="hidden" name="" value="" id="currPage" autocomplete="off">
 <input type="hidden" name="" value="" id="totalPage" autocomplete="off">
 <input type="hidden" name="" value="{$catId}" id="catId" autocomplete="off">
-    <section class="ui-container" id="shopBox">
-      <div class="ui-tab">
-          <ul class="ui-tab-nav order-tab">
-            {volist name="catInfo" id="vo"}
-                <li class="tab-item {if $catId==$vo.catId}tab-curr{/if}" catId="{$vo['catId']}">{$vo['catName']}</li>
-            {/volist}
-          </ul>
-    </div>
+    <section class="ui-container" id="shopBox" style="border-top: 0;">
         <section  id="newsListBox" >
         </section>  
     <div style="height:50px;"></div>
@@ -51,7 +44,7 @@
                   </div>
                 </div>
                 <div class="ui-row-flex ui-whitespace wst-model wst-mix-info ">
-                  <div class="ui-col ui-col ui-flex-pack-center ui-flex-align-start">• 已有{{d[i].visitorNum}}人浏览</div>
+                  <!-- <div class="ui-col ui-col ui-flex-pack-center ui-flex-align-start">• 已有{{d[i].visitorNum}}人浏览</div> -->
                   <div class="ui-col ui-col ui-flex-pack-center ui-flex-align-end wst-right-align">• {{d[i].createTime}}</div>
                 </div>
               </div>
@@ -79,7 +72,7 @@
                </div>
               </div>
               <div class="ui-row-flex ui-whitespace wst-model wst-mix-info ">
-                  <div class="ui-col ui-col ui-flex-pack-center ui-flex-align-start">• 已有{{d[i].visitorNum}}人浏览</div>
+                  <!-- <div class="ui-col ui-col ui-flex-pack-center ui-flex-align-start">• 已有{{d[i].visitorNum}}人浏览</div> -->
                   <div class="ui-col ui-col ui-flex-pack-center ui-flex-align-end wst-right-align">• {{d[i].createTime}}</div>
               </div>
             </div>
@@ -104,7 +97,7 @@
                   </a>
              </div>
              <div class="max-remind wst-mix-info ui-row">
-                <div class="ui-col ui-col-50 ui-flex ui-flex-ver ui-flex-pack-center ui-flex-align-start">• 已有{{d[i].visitorNum}}人浏览</div>
+                <!-- <div class="ui-col ui-col-50 ui-flex ui-flex-ver ui-flex-pack-center ui-flex-align-start">• 已有{{d[i].visitorNum}}人浏览</div> -->
                 <div class="ui-col ui-col-50 ui-flex ui-flex-ver ui-flex-pack-center ui-flex-align-end">• {{d[i].createTime}}</div>
              </div>
             </div>  
@@ -121,7 +114,7 @@
                
               </div>
               <div class="ui-row-flex ui-whitespace wst-model wst-mix-info ">
-                  <div class="ui-col ui-col ui-flex-pack-center ui-flex-align-start">• 已有{{d[i].visitorNum}}人浏览</div>
+                  <!-- <div class="ui-col ui-col ui-flex-pack-center ui-flex-align-start">• 已有{{d[i].visitorNum}}人浏览</div> -->
                   <div class="ui-col ui-col ui-flex-pack-center ui-flex-align-end wst-right-align">• {{d[i].createTime}}</div>
               </div>
             </div>
@@ -135,13 +128,6 @@
 <script>
 $(function(){
   initPage();
-  // Tab切换卡
-  $('.tab-item').click(function(){
-      $(this).addClass('tab-curr').siblings().removeClass('tab-curr');
-      var catId = $(this).attr('catId');
-      $('#catId').val(catId);
-      reFlashList();
-  });
 })
 </script>
 <script type='text/javascript' src='__MOBILE__/js/jquery.min.js'></script>

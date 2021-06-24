@@ -556,6 +556,16 @@ function WSTShopApplyGoodsCats($parentId = 0,$sId = 0){
              ->field("catName,simpleName,gc.catId,parentId")->order('catSort asc')->select();
     return $rs;
 }
+/**
+ * 获取指定店铺经营的商城分类
+ */
+function WSTShopApplyShopCats($sId = 0){
+	$shopId = $sId>0 ? $sId : (int)session('WST_USER.shopId');
+    $rs = Db::name('shop_cats')->alias('gc')
+             ->where(['dataFlag'=>1, 'isShow' => 1,'shopId'=>$shopId])
+             ->field("catName,gc.catId,parentId")->order('catSort asc')->select();
+    return $rs;
+}
 
 
 /**

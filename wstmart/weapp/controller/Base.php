@@ -17,6 +17,7 @@ use think\Db;
  */
 class Base extends Controller{
 	public function __construct(){
+        header('Access-Control-Allow-Origin:*'); 
 		parent::__construct();
         $sessionId = input("sessionId");
 		if($sessionId)session_id($sessionId);

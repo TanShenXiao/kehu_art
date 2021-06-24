@@ -19,7 +19,6 @@ class Index extends Base{
      * 首页
      */
     public function index(){
-        echo 111;die;
     	$m = new M();
     	hook('wechatControllerIndexIndex',['getParams'=>input()]);
     	$news = $m->getSysMsg('msg');

@@ -50,9 +50,9 @@ button:before{border:none !important;}
 .wst-toTopimg{width:40px;height:40px;display:block;background:url(../img/top.png) 0 0 no-repeat;background-size:100%}
 .wst-toTopimg span{float:left;width:100%;color:#b8b8b8;text-align:center;font-size:.12rem;margin-top:18px}
 .wst-toHistoryimg{width:40px;height:40px;display:block;background:url(../img/history-icon.png) 0 0 no-repeat;background-size:100%}
-.wst-prompt-icon{position: relative;top:1rem;margin: 0 auto;width:0.89rem;height:0.89rem;}
+.wst-prompt-icon{position: relative;margin: 0 auto;width:0.89rem;height:0.89rem;}
 .wst-prompt-icon img{display: block;width:0.89rem;height:0.89rem;}
-.wst-prompt-info{position: relative;top:1.2rem;text-align: center;}
+.wst-prompt-info{position: relative;text-align: center;}
 .wst-prompt-info p{font-size:0.16rem;color: #222;}
 .wst-prompt-info button{margin-top:0.1rem;font-size:0.15rem;color: #df0202;width:1.5rem;height:0.35rem;border:1px solid #df0202;}
 .wst-prompt-info button:not(.disabled):not(:disabled):active{color: #df0202;}

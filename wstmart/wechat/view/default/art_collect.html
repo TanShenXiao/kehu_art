@@ -1,0 +1,99 @@
+{extend name="default/base" /}
+{block name="title"}首页 - {if $pageId > 0}{$customPageTitle}{else}{__block__}{/if}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__STATIC__/plugins/swiper/swiper.min.css"/>
+<link rel="stylesheet"  href="__WECHAT__/css/art_collect.css?v={$v}"/>
+{/block}
+{block name="header"}
+	{if $pageId == 0}
+    <div class="wst-in-search">
+    	<div class="searchs" id="j-searchs">
+		    <form action＝"" class="input-form">
+		    <input type="text" placeholder="按关键字搜索艺术品/艺廊/艺术家" onsearch="WST.search(0)">
+		    <i class="ui-icon-searcha" onclick="javascript:toSearch(0);"></i>
+		</form>
+			<div class="wst-clear"></div>
+		</div>
+	</div>
+	{/if}
+{/block}
+{block name="main"}
+{if $pageId == 0}
+<section class="ui-container">
+		<ul class="zp_big_category" style="background: #eeeeee;margin-bottom: 2px;">
+			<li style="width: 20%;"><a href="{:url('wechat/shops/shopstreet')}">艺术家</a></li>
+			<li style="width: 20%;"><a href="{:url('wechat/goods/lists')}">艺术服务</a></li>
+			<li style="width: 20%;"><a href="{:url('wechat/goods/lists')}">税收服务</a></li>
+			<li style="width: 20%;"><a href="{:url('wechat/shops/artCollect')}">作品征集</a><div style="height: 2px;background:rgb(211,3,35);position: relative;top: -10px;width: 60%;margin: 0 auto;"></div></li>
+			<li style="width: 20%;"><a href="{:url('wechat/goods/lists')}">官网</a></li>
+		</ul>
+        <div class="swiper-container banner">
+			<div class="swiper-wrapper ads">
+				{wst:ads code="mo-ads-index" cache='86400'}
+				<div class="swiper-slide"><a class='ms-slide' href="{$vo.adURL}"><img src="__ROOT__/{:WSTImg($vo.adFile,2)}"></a></div>
+				{/wst:ads}
+		    </div>
+		    <div class="swiper-pagination" style="background:none;"></div>
+		</div>
+
+		<ul class="zp_big_category">
+			{volist name=":WSTSideCategorys()" id="vo" key="k"}
+			<li><a href="{:url('wechat/goods/lists','cat='.$vo['catId'])}">{:WSTMSubstr($vo['catName'],0,2)}</a></li>
+			{/volist}
+		</ul>
+		<div class="sector_pack">
+			{$goodscats['articleContent']}
+		</div>
+<div class="contact">
+	<div class="contact_top">
+		<img src="/upload/goods/2021-04/dhtb.png" alt="">
+		<span>咨询热线：{:WSTConf('CONF.serviceTel')}</span>
+	</div>
+	<p>
+		{:WSTConf('CONF.mallFooter')}
+	</p>
+</div>
+		<div class="bottom_clear"></div>
+</section>
+<script id="list" type="text/html">
+	{{# if(d.ads && d.ads.length>0){ }}
+		<div class="wst-in-adscats"><a href="{{ d.ads[0].adURL }}"><img src="__RESOURCE_PATH__/{{ d.ads[0].adFile }}"/></a></div>
+	{{# } }}
+	{{# if(d.goods.length>0){ }}
+		<div class="wst-in-title colour0" onclick="javascript:getGoodsList({{ d.catId }});">
+			<div class="name">
+				<p style="float:left"><span>{{ d.catName }}</span></p>
+				<p style="width:30%;float:right;margin-right:5%;text-align:right">
+					<span style="color:#d30322;font-size:0.15rem">更多>></span>
+				</p>
+			</div>
+		</div>
+		<div class="wst-in-back">
+		{{# for(var i=0; i<d.goods.length; i++){ }}
+			<div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}">
+				<div class="img j-imgAdapt"><a href="javascript:void(0);" onclick="javascript:WST.intoGoods({{ d.goods[i].goodsId }});"><img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{{ d.goods[i].goodsImg }}" title="{{ d.goods[i].goodsName }}"/></a></div>
+				<div class="name ui-nowrap-multi" style="text-align:center" onclick="javascript:WST.intoGoods({{ d.goods[i].goodsId }});">{{ d.goods[i].goodsName }}</div>
+				<div style="background-color:#eeeeee;height:0.44rem">
+					<!--<div class="info2" style="text-align:center;width:100%;background-color:#eeeeee">{{# if(d.goods[i].goodsAuthor!=null){ }}{{ d.goods[i].goodsAuthor }} {{# } }}</div>-->
+					<div class="info2">{{# if(d.goods[i].goodsAuthor!=null){ }}{{ d.goods[i].goodsAuthor }} {{# } }}</div>
+					<div class="info3">{{ d.goods[i].thumbsNum }}</div>
+				</div>
+			</div>
+		{{# } }}
+		</div>
+	{{# } }}
+<div class="wst-clear"></div>
+</script>
+{else}
+<div class="decoration-container">
+	{:action('index/loadCustomPage',array('pageId'=>$pageId))}
+</div>
+{/if}
+{/block}
+{block name="include"}
+{include file="default/goods_search_box" /}
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__STATIC__/plugins/swiper/swiper.min.js'></script>
+<script type='text/javascript' src='__wechat__/js/index.js?v={$v}'></script>
+{/block}

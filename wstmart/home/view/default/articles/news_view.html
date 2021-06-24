@@ -41,7 +41,7 @@
 		<a href="{:url('home/index/index')}">首页</a>
 		<!-- <a href="{:url('home/news/view')}">> 资讯中心</a> -->
 		{volist name="$bcNav" id="bc"}
-	    <a href="{:url('home/news/nlist',['catId'=>$bc['catId']])}">> {$bc['catName']}</a> 
+	    <a href="{:url('home/news/view',['catId'=>$bc['catId']])}">> {$bc['catName']}</a> 
 	    {/volist}
 	    {if isset($content['articleTitle'])}
 	    	<a href="{:url('home/news/view',['id'=>$content['articleId']])}">> 详情</a>

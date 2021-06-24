@@ -79,6 +79,7 @@
 						{/if}
 <div class="wst-buy_l">
 	<p class="price" id='gprice_{$li['cartId']}'>¥ {$li['shopPrice']}</p><input class="wst-buy_l1" type="button" value="-" onclick='javascript:WST.changeIptNum(-1,"#buyNum",{$li["cartId"]},"statCartMoney")'><input id="buyNum_{$li['cartId']}" class="wst-buy_l2" data-min='1' data-max='{$li["goodsStock"]}' type="number" value="{$li['cartNum']}" autocomplete="off" onkeyup='WST.changeIptNum(0,"#buyNum",{$li["cartId"]},"statCartMoney")'><input class="wst-buy_l3" type="button" value="+" onclick='javascript:WST.changeIptNum(1,"#buyNum",{$li["cartId"]},"statCartMoney")'>
+	<p style="text-align: left;margin-left: 4%;width: 35%;"><s>¥ {$li['marketPrice']}</s></p>
 </div>
 						</div>
 					</div>

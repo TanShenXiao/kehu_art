@@ -369,6 +369,7 @@ class Orders extends Base{
 			foreach ($carts['carts'] as $ckey =>$shopOrder){
 				$orderNo = WSTOrderNo(); 
 				$orderScore = 0;
+				$shopId = $shopOrder['shopId'];
 				//创建订单
 				$order = [];
 				$order = array_merge($order,$address);
@@ -419,15 +420,33 @@ class Orders extends Base{
 				$order['orderScore'] = $orderScore;
 				// 获得的积分可抵扣金额
 				$order['getScoreVal'] = WSTScoreToMoney($order['orderScore']);
+				//var_dump($shopOrder);die();
 
-				$order['isInvoice'] = $isInvoice;
-				if($isInvoice==1){
-					$order['invoiceJson'] = model('invoices')->getInviceInfo((int)input('param.invoiceId'),$userId);// 发票信息
-					$order['invoiceClient'] = $invoiceClient;
+				if((int)input('post.isInvoice_'.$shopId)==1){
+					$isInvoice = ((int)input('post.isInvoice_'.$shopId)!=0)?1:0;
+					$invoiceClient = ($isInvoice==1)?input('post.invoiceClient_'.$shopId):'';
+					$order['isInvoice'] = $isInvoice;
+					if($isInvoice==1){
+						$order['invoiceJson'] = model('invoices')->getInviceInfo((int)input('param.invoiceId_'.$shopId),$userId);// 发票信息
+						$order['invoiceClient'] = $invoiceClient;
+					}else{
+						$order['invoiceJson'] = '';// 发票信息
+						$order['invoiceClient'] = '';
+					}
 				}else{
+					$order['isInvoice'] = 0;
 					$order['invoiceJson'] = '';// 发票信息
 					$order['invoiceClient'] = '';
 				}
+				// $order['isInvoice'] = $isInvoice;
+				// if($isInvoice==1){
+				// 	$order['invoiceJson'] = model('invoices')->getInviceInfo((int)input('param.invoiceId'),$userId);// 发票信息
+				// 	$order['invoiceClient'] = $invoiceClient;
+				// }else{
+				// 	$order['invoiceJson'] = '';// 发票信息
+				// 	$order['invoiceClient'] = '';
+				// }
+				//var_dump($order);die();
 				$order['orderRemarks'] = input('post.remark_'.$shopOrder['shopId']);
 				$order['orderunique'] = $orderunique;
 				$order['orderSrc'] = $orderSrc;

@@ -13,7 +13,7 @@ Route::rules([
     'download'=>'home/index/download',        //商品分类
     //PC版优化
     'index'=>'home/index/index',        //商品分类
-    'category-:cat'=>'home/goods/lists',        //商品分类
+    'category-:cat-[:fl]'=>'home/goods/lists',        //商品分类
 	'topicgoods-:cat'=>'home/goods/topiclists',        //专题商品
 	'topicgoods'=>'home/goods/topiclists',        //专题商品
     'search'=>'home/goods/search',               //商品搜索

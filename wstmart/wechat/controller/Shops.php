@@ -3,6 +3,9 @@ namespace wstmart\wechat\controller;
 use think\Db;
 use wstmart\common\model\GoodsCats;
 use wstmart\wechat\model\Goods;
+use wstmart\common\model\Articles;
+use wstmart\mobile\model\Index as M;
+
 /**
  * ============================================================================
  * WSTMart多用户商城
@@ -42,6 +45,10 @@ class Shops extends Base{
         $data = [];
         $data['shop'] = $s->getShopInfo($shopId);
 		$data['shopcats'] = model('ShopCats','model')->getShopCats($shopId);
+        $g = model('goods');
+    	$data['list'] = $g->shopGoods($shopId);
+		$data['goodsNum'] = $data['list']['goodsNum'];
+        
         $this->assign('data',$data);
         $this->assign("goodsName", input('goodsName'));
         $this->assign('ct1',(int)input("param.ct1/d",0));//一级分类
@@ -100,6 +107,47 @@ class Shops extends Base{
             }
         }
         return $rs;
+    }
+
+    /**
+     * 作品征集
+     */
+    public function artCollect(){
+        $articleId = input('articleId') ?: 424;
+    	$gc = new Articles();
+    	$goodsCats = $gc->getNewsByMyId($articleId);
+        
+        $m = model('shops');
+    	$tjlist = $m->tjList();
+        
+    	$this->assign('goodscats',$goodsCats);
+    	$this->assign("keyword", input('keyword'));
+		$this->assign("type", input('type'));
+		$this->assign("tjlist", $tjlist);
+        $m = new M();
+    	hook('mobileControllerIndexIndex',['getParams'=>input()]);
+    	$news = $m->getSysMsg('msg');
+    	$this->assign('news',$news);
+    	$ads['count'] =  count(model("common/Tags")->listAds("mo-ads-index",99,86400));
+    	$ads['width'] = 'width:'.$ads['count'].'00%';
+    	$this->assign("ads", $ads);
+    	// 首页自定义页面
+        $pageId = $this->getCustomPagesSetting();
+        $customPageTitle = $m->getCustomPageTitle($pageId);
+    	$this->assign("pageId", $pageId);
+    	$this->assign("customPageTitle", $customPageTitle);
+
+    	return $this->fetch('art_collect');
+    }
+
+    /*
+     * 获取商城是否开启首页自定义页面功能
+     */
+    public function getCustomPagesSetting(){
+        $m = new M();
+        $pageId = $m->getCustomPagesSetting();
+        if(!$pageId)$pageId = 0;
+        return $pageId;
     }
 
     /**

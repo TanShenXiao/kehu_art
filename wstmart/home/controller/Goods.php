@@ -88,6 +88,7 @@ class Goods extends Base{
      */
     public function lists(){
     	$catId = (int)Input('cat/d');
+    	$catFl = (int)Input('fl/d');// 1优惠专区
         $goodsCatIds = [];
         if($catId>0){
             $goodsCatIds = model('GoodsCats')->getParentIs($catId);
@@ -265,7 +266,24 @@ class Goods extends Base{
     	//获取商品记录
     	$m = new M();
     	$data['priceGrade'] = $m->getPriceGrade($goodsCatIds);
-    	$data['goodsPage'] = $m->pageQuery($goodsCatIds);
+
+		if ($catFl) {
+			switch ($catFl) {
+				case '1': // 优惠专区
+					$fl_data = ['dataType' => 0, 'dataSrc' => 0];
+					break;
+				case '2': // 精选作品
+					$fl_data = ['dataType' => 2, 'dataSrc' => 0];
+					break;
+				
+				default:
+					break;
+			}
+			$data['goodsPage'] = $m->pageQuery($goodsCatIds, $fl_data);
+		} else {
+			$data['goodsPage'] = $m->pageQuery($goodsCatIds);
+		}
+
         $catPaths = model('goodsCats')->getParentNames($catId);
 
         $data['catNamePath'] = '全部商品分类';

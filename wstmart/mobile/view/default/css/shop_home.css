@@ -19,7 +19,6 @@ body{background: #fff;}
 .shop-photo .introduce{float:right;margin:0.1rem 0.1rem 0 0;font-size:0.14rem;color:#de0202;}
 .shop-info{padding-top:0.6rem;text-align:center;font-size:0.13rem;}
 .shop-btn{float:left;margin-left: 0.11rem;margin-top: 0.05rem;width:30px;height:30px;background: url(../img/follow-shop.png) 1px 3px no-repeat;background-size: 200%;}
-.shop-btn.follow{background: url(../img/follow-shop.png) -31px 3px no-repeat;background-size: 200%;}
 .shop-notice{padding:0.1rem;font-size:0.13rem;border-bottom: 0.05rem solid #f2f1f1;}
 .shop-notice .title{margin-bottom:0.05rem;font-size:0.15rem;}
 .shop-ads{margin:0 auto;width:100%;}
@@ -116,3 +115,5 @@ body{background: #fff;}
 .contact{text-align: center;padding: 20px 0;color: #bebcbc;}
 .contact .contact_top img{width: 20px;}
 .contact p{font-size: 12px; }
+.j-shopfollow{background-image: url(/upload/goods/2021-04/ysjzytb2.png);background-repeat:  no-repeat;background-position: 14px;}
+.follow{background-image: url(/upload/goods/2021-04/ysjzytb1.png);background-repeat:  no-repeat;background-position: 14px;}

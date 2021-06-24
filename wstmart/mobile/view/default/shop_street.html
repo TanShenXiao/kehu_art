@@ -67,9 +67,11 @@
 						<img src="__ROOT__/{$tjinfo['shopImg']}"></a>
 					</div>
 					<div class="tj_arts_cont" onclick="goToShop({$tjinfo['shopId']})">
+						<a href="javascript:void(0);" onclick="goShopHome({$tjinfo['shopId']})">
 						<div class="title ui-nowrap">{$tjinfo['shopName']}</div>
 						<p class="ui-nowrap">类别：{$tjinfo['catName']}</p>
 						<p><span>商品数：</span>{$tjinfo['count']}</p>
+						</a>
 					</div>
 				</li>
 				<?php } ?>

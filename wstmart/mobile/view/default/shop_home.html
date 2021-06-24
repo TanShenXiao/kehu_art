@@ -53,11 +53,11 @@
 						<p class="wst-intro-lb">商品：{$data['goodsNum']}</p>
 
 						{:hook('mobileDocumentContact',['type'=>'shopIndex','shopId'=>$data['shop']['shopId']])}
-						<button class="ui-btn-lg shop-home-btn ui-col ui-col-50 f-btn" style="background: none;padding:0;" id="fBtn" onclick="{if ($data['shop']['isfollow']>0)}WST.cancelFavorite({$data['shop']['isfollow']},1){else /}WST.favorites({$data.shop.shopId},1){/if}">
+						<button class="ui-btn-lg shop-home-btn ui-col ui-col-50 f-btn" style="background: none;padding:0;width: auto;" id="fBtn" onclick="{if ($data['shop']['isfollow']>0)}WST.cancelFavorite({$data['shop']['isfollow']},1){else /}WST.favorites({$data.shop.shopId},1){/if}">
 							{if ($data['shop']['isfollow']>0)}
-							<div class="wst-intro-sub" style="line-height: 22px;"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">已关注</div>
+							<div class="wst-intro-sub j-shopfollow follow" id="fStatus" style="line-height: 22px;">已关注</div>
 							{else /}
-							<div class="wst-intro-sub" style="line-height: 22px;"><img src="/upload/goods/2021-04/ysjzytb2.png" alt="">关注店铺</div>
+							<div class="wst-intro-sub j-shopfollow" id="fStatus" style="line-height: 22px;">关注店铺</div>
 							{/if}
 						</button>
 

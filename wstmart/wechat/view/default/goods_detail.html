@@ -10,19 +10,7 @@
 <link rel="stylesheet" href="__STATIC__/plugins/photoswipe/photoswipe.css">
 <link rel="stylesheet" href="__STATIC__/plugins/photoswipe/default-skin/default-skin.css">
 {/block}
-{block name="header"}
-	{php}$cartNum = WSTCartNum();{/php}
-	<header class="ui-header ui-header-positive wst-header" id="goods-header" style="display:none;">
-		<i class="ui-icon-return" onclick="history.back()"></i>
-	    <ul class="ui-tab-nav">
-	        <li class="switch active" onclick="javascript:pageSwitch(this,1);">商品</li>
-	        <li class="switch" onclick="javascript:pageSwitch(this,2);">详情</li>
-	        <li class="switch" id="appr" onclick="javascript:pageSwitch(this,3);">评价</li>
-    	</ul>
-	    <a href="{:url('wechat/carts/index')}"><span class="cart" id="cartNum">{if($cartNum>0)}<span>{php} echo $cartNum;{/php}</span>{/if}</span></a>
-	    <span class="share" onclick="javascript:WST.share();"></span>
-    </header>
-{/block}
+
 {block name="footer"}
 {if($info)}
     <div class="ui-loading-wrap wst-Load" id="Load">
@@ -182,112 +170,70 @@
                 </div>
 		    	{:hook('wechatDocumentGoodsDetailTips',["goods"=>$info])}
 		    	<div class="ui-row-flex info">
+					<div class="ui-col ui-col" style="text-align: left;">浏览数: {$info['visitNum']}</div>
+				    <div class="ui-col ui-col" style="text-align: left;">销量: {$info['saleNum']}</div>
 				    <div class="ui-col ui-col" style="text-align: left;">快递: {if $info['isFreeShipping']==1}免运费{else}{php}echo sprintf("%.2f", $info['shop']['freight']);{/php}{/if}</div>
-					<div class="ui-col ui-col" style="text-align: center;">浏览数: {$info['visitNum']}</div>
-				    <div class="ui-col ui-col" style="text-align: center;">销量: {$info['saleNum']}</div>
-				    <div class="ui-col ui-col" style="text-align: right;">{$info['shop']['areas']['areaName1']}{$info['shop']['areas']['areaName2']}</div>
+				    <div class="ui-col ui-col" style="text-align: left;"></div>
 				</div>
 		    </div>
 		</div>
-		<ul class="ui-list ui-list-text wst-go-ul ui-list-active">
-			{if WSTConf('CONF.isOrderScore')==1}
-			{if($info['saleType']==0)}
-		    <li>
-		        <div class="ui-list-info">
-		            <h5 class="ui-nowrap"><span class="word">积分</span><span class="line">|</span>购买即可获得{php}echo ceil($info['shopPrice']);{/php}积分</h5>
-		        </div>
-		        <span class="icon">···</span>
-		    </li>
-			{/if}
-		    {/if}
-		    <li id='j-promotion' style='display:none;'>
-		        <div class="ui-list-info">
-		            <h5 class="ui-nowrap">
-		            	<div style="float: left;">
-			            	<span class="word">促销</span>
-			            	<span class="line">|</span>
-			            </div>
-		            	{:hook('wechatDocumentGoodsPromotionDetail',['goods'=>$info])}
-		            </h5>
-		        </div>
-		    </li>
-		    {/* 优惠券钩子 */}
-		    {:hook('wechatDocumentGoodsPropDetail')}
-		    <li style="display: none;">
-		        <div class="ui-list-info">
-		            <h5 class="ui-nowrap"><span class="word">优惠</span><span class="line">|</span></h5>
-		        </div>
-		        <span class="icon">···</span>
-		    </li>
-		    {if !empty($info['attrs']) }
-		    <li onclick="javascript:dataShow();">
-		        <div class="ui-list-info">
-		            <h5 class="ui-nowrap">产品参数</h5>
-		        </div>
-		        <span class="icon">···</span>
-		    </li>
-		    {/if}
-
-		    <li onclick="javascript:pageSwitch($('#appr'),3);">
-		        <div class="ui-list-info">
-		            <h5 class="ui-nowrap">商品评价( <span class="red">{$info['appraiseNum']}</span> )</h5>
-		        </div>
-		        <span class="icon">···</span>
-		    </li>
-		</ul>
 		<ul class="ui-list ui-list-one ui-list-link wst-go-shop">
 		    <div class="info">
 		    	<div class="img"><a><img src="__RESOURCE_PATH__/{:WSTImg($info['shop']['shopImg'],3)}" title="{$info['shop']['shopName']|WSTStripTags}"></a></div>
-		    	<div class="name"><p class="ui-nowrap-flex name1">{$info['shop']['shopName']}</p><p class="ui-nowrap-flex name2"><span>主营: {$info['shop']['cat']}</span></p></div>
+				<div class="ui-row-flex button">
+					<div class="ui-col ui-col"><a href="{:url('wechat/shops/index',['shopId'=>$info['shopId']])}" class="shop">进入店铺</a></div>
+				</div>
+		    	<div class="name"><p class="ui-nowrap-flex name1">{$info['shop']['shopName']}</p><p class="ui-nowrap-flex name2">共{$info['shop']['count']}件作品</p><p class="ui-nowrap-flex name2"><span>主营: {$info['shop']['cat']}</span></p></div>
 		    	<div class="wst-clear"></div>
 		    </div>
-			<div class="ui-row-flex button">
-				<div class="ui-col ui-col"><a href="{:url('wechat/shops/goods',['shopId'=>$info['shop']['shopId']])}" class="goods">全部商品</a></div>
-			    <div class="ui-col ui-col"><a href="{:url('wechat/shops/index',['shopId'=>$info['shop']['shopId']])}" class="shop">进入</a></div>
-			</div>
 		</ul>
-		<div class="title gc-title" onclick="goConsult()">
-			<span class='gc-tit-icon2'></span>
-			购买咨询
-		</div>
-		<div class="gc-title-list">
-		  {if($info['consult']['consultContent'])}
-		  <li>
-	        <div class="question-box cf">
-	          <span class="question-pic"></span>
-	          <div class="question-content">
-	              <span>{$info['consult']['consultContent']}</span>
-	          </div>
-	          <div class="wst-clear"></div>
-	        </div>
-	        {if($info['consult']['reply'])}
-	        <div class="question-box cf">
-	          <span class="question-pic answer-pic"></span>
-	          <div class="question-content answer-content">
-	            <span>{$info['consult']['reply']}</span>
-	          </div>
-	          <div class="wst-clear"></div>
-	        </div>
-			{/if}
-	      </li>
-	      {else}
-	      <p class="prompt">暂无商品咨询~</p>
-	      {/if}
+		
+		
+		<div class="wst_params">
+			<h2 class="_title">参数</h2>
+			<ul>
+				<li>作品名称：{$info['goodsName']}</li>
+				<li>作品类型：{$info['catName']}</li>
+				<li>艺术家：{$info['goodsAuthor']}</li>
+				<li>创作时间：{$info['createTime']|date='Y-m-d'}</li>
+				<li>尺寸：{$info['goodsTips']}</li>
+			</ul>
 		</div>
 		
+		<div class="author_intro">
+			<h2 class="_title">作者介绍</h2>
+			<div>
+				{$info['shop']['shopDesc']}
+			</div>
+		</div>
+		{/* 详情  */}
+		<section class="_container" id="goods2">
+			<h2 class="_title">作品介绍</h2>
+			<div class="wst-go-details">{$info['goodsDesc']}</div>
+		</section>
+		
 		<div class="wst-shl-ads">
-	     	<div class="title">猜你喜欢</div>
-	     	{wst:goods type='best' cat="$info['shop']['catId']" num='6'}
-	     	<div class="wst-go-goods" onclick="javascript:WST.intoGoods({$vo['goodsId']});">
-	     		<div class="img j-imgAdapt">
-	     			<a href="javascript:void(0);" onclick="javascript:WST.intoGoods({$vo['goodsId']});"><img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{:WSTImg($vo['goodsImg'],3)}" title="{$vo['goodsName']|WSTStripTags}"></a>
-	     		</div>
-	     		<p class="name ui-nowrap-multi">{$vo['goodsName']}</p>
-	     		<div class="info"><span class="ui-nowrap-flex price">{if($vo['saleType']==1)}议价{elseif($vo['saleType']==2)}仅展示{else}¥ {$vo['shopPrice']}{/if}</span></div>
-	     	</div>
-	     	{/wst:goods}
-		    <div class="wst-clear"></div>
-	    </div>
+			<div class="_title">猜你喜欢</div>
+			{wst:goods type='best' cat="$info['shop']['catId']" num='4'}
+			<div class="wst-go-goods" onclick="javascript:WST.intoGoods({$vo['goodsId']});">
+				<div class="img j-imgAdapt">
+					<a href="javascript:void(0);" onclick="javascript:WST.intoGoods({$vo['goodsId']});"><img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{:WSTImg($vo['goodsImg'],3)}" title="{$vo['goodsName']|WSTStripTags}"></a>
+				</div>
+				<p class="name ui-nowrap-multi _name">{$vo['goodsName']}</p>
+				<div class="info">{$vo['goodsAuthor']} &nbsp;&nbsp;&nbsp;价格 ¥ <span class="ui-nowrap-flex price lprice">{if($vo['saleType']==1)}议价{elseif($vo['saleType']==2)}仅展示{else}{$vo['shopPrice']}{/if}</span></div>
+			</div>
+			{/wst:goods}
+		   <div class="wst-clear"></div> 
+	   </div>
+	   <div class="contact">
+		<div class="contact_top">
+			<img src="/upload/goods/2021-04/dhtb.png" alt="">
+			<span>咨询热线：{:WSTConf('CONF.serviceTel')}</span>
+		</div>
+		<p>
+			{:WSTConf('CONF.mallFooter')}
+		</p>
+	</div>
      </section>
     {/* 详情  */}
     <section class="ui-container" id="goods2" style="display: none;">

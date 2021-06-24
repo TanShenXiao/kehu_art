@@ -112,6 +112,8 @@ class Carts extends Base{
         	$useOrderScore = $user['userScore'];
             $useOrderMoney = WSTScoreToMoney($useOrderScore);
         }
+        $invoices_list=model('invoices')->where(array('userId'=>session('WST_USER.userId')))->select();
+        $this->assign('invoices_list',$invoices_list);
 		$this->assign('bindPhone',$bindPhone);
         $this->assign('userOrderScore',$useOrderScore);
         $this->assign('userOrderMoney',$useOrderMoney);

@@ -32,7 +32,7 @@ function statCartMoney(){
 		if(WSTHook_beforeStatGoodsMoney.length>0){
 			for(var i=0;i<WSTHook_beforeStatGoodsMoney.length;i++){
 				delete window['callback_'+WSTHook_beforeStatGoodsMoney[i]];
-				window[WSTHook_beforeStatGoodsMoney[i]](id); 
+				window[WSTHook_beforeStatGoodsMoney[i]](id);
 				if(window['callback_'+WSTHook_beforeStatGoodsMoney[i]]){
 					window['callback_'+WSTHook_beforeStatGoodsMoney[i]]();
 					return;
@@ -41,7 +41,7 @@ function statCartMoney(){
 		}
 		goodsTotalPrice = parseFloat($(this).attr('mval'))*parseInt($('#buyNum_'+id).val());
 		$('#tprice_'+id).html(goodsTotalPrice.toFixed(2));
-		if($(this).prop('checked')){	
+		if($(this).prop('checked')){
 			cartMoney = cartMoney + goodsTotalPrice;
 		}
 	});
@@ -49,7 +49,7 @@ function statCartMoney(){
 	if(WSTHook_beforeStatCartMoney.length>0){
 		for(var i=0;i<WSTHook_beforeStatCartMoney.length;i++){
 			delete window['callback_'+WSTHook_beforeStatCartMoney[i]];
-			minusMoney = window[WSTHook_beforeStatCartMoney[i]](cartMoney); 
+			minusMoney = window[WSTHook_beforeStatCartMoney[i]](cartMoney);
 			if(window['callback_'+WSTHook_beforeStatCartMoney[i]]){
 				window['callback_'+WSTHook_beforeStatCartMoney[i]]();
 				return;
@@ -148,10 +148,16 @@ function changeAddrId(id){
 			var areaIdPath = json.data.areaIdPath.split("_");
 			// 设置收货地区市级id
 			$('#s_areaId').val(areaIdPath[1]);
-             
+
 	     	$('#area_0').val(areaIdPath[0]);
-	     	// 计算运费
-			getCartMoney();
+
+			$("input[id^='deliverType_']").val(0);
+			$("input[id^='storeId_']").val(0);
+			$("input[id^='store_areaId_']").val(json.data.areaId);
+			$("input[id^='store_areaIdPath_']").val(json.data.areaIdPath);
+
+			// 计算运费
+	     	getCartMoney();
 	     	var aopts = {id:'area_0',val:areaIdPath[0],childIds:areaIdPath,className:'j-areas'}
 	 		WST.ITSetAreas(aopts);
 			WST.setValues(json.data);
@@ -196,7 +202,7 @@ function getAddressList(obj){
 	    					 )
 	    			if(tmp.isDefault==1){
 	    				html.push('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="j-default">默认地址</span>')
-	    			}		
+	    			}
 	    			html.push('<div class="operate-box">');
 	    			if(tmp.isDefault!=1){
 	    				html.push('<a href="javascript:;" onclick="setDeaultAddr('+tmp.addressId+')">设为默认地址</a>&nbsp;&nbsp;');
@@ -207,7 +213,7 @@ function getAddressList(obj){
 	    			}
 	    			html.push('<div class="wst-clear"></div>','</li>');
 	    		 }
-	    		 html.push('<a style="color:#1c9eff" onclick="editAddress()" href="javascript:;">收起地址</a>'); 
+	    		 html.push('<a style="color:#1c9eff" onclick="editAddress()" href="javascript:;">收起地址</a>');
 
 
 	    		 $('#addressList').html(html.join(''));
@@ -248,9 +254,12 @@ function editAddress(){
 	    	 $('.j-show-box').show();
 	    	 if(params.addressId==0){
 	    		 $('#s_addressId').val(json.data.addressId);
+	    		 $('#s_address').siblings('.operate-box').find('a').attr('onclick','toEditAddress('+json.data.addressId+',this,1,1,1)');
 	    	 }else{
 	    		 $('#s_addressId').val(params.addressId);
+	    		 $('#s_address').siblings('.operate-box').find('a').attr('onclick','toEditAddress('+params.addressId+',this,1,1,1)');
 	    	 }
+
 	    	 var areaIds = WST.ITGetAllAreaVals('area_0','j-areas');
 	    	 $('#s_areaId').val(areaIds[1]);
 	    	 getCartMoney();
@@ -261,13 +270,17 @@ function editAddress(){
 	    	 $('#s_userName').html(params.userName+'<i></i>');
 	    	 $('#s_address').html(params.userName+'&nbsp;&nbsp;&nbsp;'+areaNames.join('')+'&nbsp;&nbsp;'+params.userAddress+'&nbsp;&nbsp;'+params.userPhone);
 
-	    	 $('#s_address').siblings('.operate-box').find('a').attr('onclick','toEditAddress('+params.addressId+',this,1,1,1)');
+
 
 	    	 if(params.isDefault==1){
 	    		 $('#isdefault').html('默认地址').addClass('j-default');
 	    	 }else{
 	    		 $('#isdefault').html('').removeClass('j-default');
 	    	 }
+	    	 $("input[id^='store_areaId_']").val(areaIds[2]);
+	    	 $("input[id^='store_areaIdPath_']").val(areaIds.join("_"));
+	    	 $("input[id^='deliver_info_']").html("").hide();
+	    	 $("div[id^='deliverType0_']").click();
 	     }else{
 	    	 WST.msg(json.msg,{icon:2});
 	     }
@@ -325,12 +338,12 @@ function toEditAddress(id,obj,n,flag,type){
 	});
 }
 function getCartMoney(){
-	var params = {};
+	var params = WST.getParams('.j-deliver');;
 	params.isUseScore = $('#isUseScore').prop('checked')?1:0;
 	params.useScore = $('#useScore').val();
 	params.areaId2 = $('#s_areaId').val();
 	params.rnd = Math.random();
-	params.deliverType = $('#deliverType').val();
+	//params.deliverType = $('#deliverType').val();
 	var couponIds = [];
 	$('.j-shop').each(function(){
 		couponIds.push($(this).attr('dataval')+":"+$('#couponId_'+$(this).attr('dataval')).val());
@@ -338,7 +351,7 @@ function getCartMoney(){
 	params.couponIds = couponIds.join(',');
 	var load = WST.load({msg:'正在计算订单价格，请稍后...'});
 	$.post(WST.U('home/carts/getCartMoney'),params,function(data,textStatus){
-		layer.close(load);  
+		layer.close(load);
 		var json = WST.toJson(data);
 		if(json.status==1){
 		    json = json.data;
@@ -354,29 +367,126 @@ function getCartMoney(){
 		    $('#isUseScore').attr('dataval',json.maxScore);
 		    $('#deliverMoney').html(shopFreight);
 		    $('#useScore').val(json.useScore);
+		    $('#orderScore').html(json.orderScore);
 		    $('#scoreMoney2').html(json.scoreMoney);
 		 	$('#totalMoney').html(json.realTotalMoney);
 		}
 	});
 }
-function changeDeliverType(n,index,obj){
-	changeSelected(n,index,obj);
-	getCartMoney();
-	if(n==1){	//自提订单需要先验证手机
-		var bindPhone = $('#bindPhone').val();
-		if(bindPhone==0){
-			WST.confirm({content:'自提订单需要绑定手机，点击确定前往绑定',yes:function(index){
-				location.href=WST.U('home/users/editPhone');
-			}});
-		}
+
+var currStoreShopId = 0;
+var currStoreId = 0;
+
+function checkSupportStores(){
+	$.post(WST.U('home/carts/checkSupportStores'),{},function(data,textStatus){
+		var json = WST.toJson(data);
+	    if(json.status==1){
+	    	if(json.data){
+	    		for(var i in json.data){
+	    			if(json.data[i]==1){
+	    				$("#deliver_btn_"+i).show();
+	    			}else{
+	    				$("#deliver_btn_"+i).hide();
+	    			}
+	    		}
+	    	}else{
+	    		$("div[id^='deliver_btn_']").hide();
+	    	}
+	    }else{
+	    	WST.msg(json.msg,{icon:2});
+	    }
+	});
+}
+function changeDeliverType(n,shopId,index,obj){
+	currStoreShopId = shopId;
+	if(n==1){
+		checkStores(shopId);
+	}else{
+		$('#'+index+'_'+shopId).val(n);
+		$(obj).addClass('j-selected').siblings('.wst-frame2').removeClass('j-selected');
+		$("#deliver_info_"+shopId).hide();
+		getCartMoney();
+	}
+
+}
+
+function lastAreaCallback(opts){
+	if(opts.isLast && opts.val){
+	    getStores(opts.val);
 	}
 }
+
+function getStores(areaId){
+
+	$.post(WST.U('home/carts/getStores'),{shopId:currStoreShopId,areaId:areaId},function(data,textStatus){
+		var json = WST.toJson(data);
+	    if(json.status==1){
+	    	if(json.data && json.data.length>0){
+	    		var gettpl = document.getElementById('tblist').innerHTML;
+		       	laytpl(gettpl).render(json.data, function(html){
+		       		$("#storelist").html(html);
+		       	});
+	    	}else{
+	    		$("#storelist").html("<div>该区域内没有自提点,请选择快递运输</div>");
+	    	}
+	    }else{
+	    	WST.msg(json.msg,{icon:2});
+	    }
+	});
+}
+
+function checkStores(shopId){
+	currStoreId = $("#storeId_"+shopId).val();
+	$('select[id^="storearea_0_"]').remove();
+	var areaIdPath = $("#store_areaIdPath_"+shopId).val();
+	    areaIdPath = areaIdPath.split("_");
+	$('#storearea_0').val(areaIdPath[0]);
+
+ 	var aopts = {id:'storearea_0',val:areaIdPath[0],childIds:areaIdPath,className:'j-storeareas',afterFunc:'lastAreaCallback'}
+	WST.ITSetAreas(aopts);
+
+	getStores($("#store_areaId_"+shopId).val());
+	layerbox =	layer.open({
+					title:'选择自提点',
+					type: 1,
+					area: ['800px', '600px'],
+					content: $('.j-store-box'),
+					btn:['确定','取消'],
+				    cancel:function(){
+				    	//$('#menuBox').hide();
+				    },
+				    yes:function(){
+				    	var areaIds = WST.ITGetAllAreaVals('storearea_0','j-storeareas');
+				    	console.log(areaIds);
+				    	var storeId = $("input[name='storeId']:checked").val();
+
+						if(!(storeId>0)){
+							WST.msg("选择自提点");
+							return;
+						}
+
+				    	$("#storeId_"+shopId).val(storeId);
+				    	$("#deliverType_"+shopId).val(1);
+				    	$("#store_areaId_"+shopId).val(areaIds[2]);
+						$("#store_areaIdPath_"+shopId).val(areaIds.join("_"));
+
+
+					 	$("#deliver_btn_"+shopId).addClass('j-selected').siblings('.wst-frame2').removeClass('j-selected');
+					 	var deliverInfo = $('#storeName_'+storeId).html() +"&nbsp;&nbsp;"+ $('#storeAddress_'+storeId).html();
+					 	$("#deliver_info_"+shopId).html(deliverInfo).show();
+					 	getCartMoney();
+						layer.close(layerbox);
+				  	}
+				});
+}
+
+
 function submitOrder(){
 	var params = WST.getParams('.j-ipt');
 	params.isUseScore = $('#isUseScore').prop('checked')?1:0
 	var load = WST.load({msg:'正在提交，请稍后...'});
 	$.post(WST.U('home/orders/submit'),params,function(data,textStatus){
-		layer.close(load);   
+		layer.close(load);
 		var json = WST.toJson(data);
 	    if(json.status==1){
 	    	 WST.msg(json.msg,{icon:1},function(){
@@ -390,10 +500,12 @@ function submitOrder(){
 
 
 var invoicebox;
-function changeInvoice(t,str,obj){
+var currShopId = 0;
+function changeInvoice(t,str,shopId,obj){
+	currShopId = shopId;
 	var param = {};
-	param.isInvoice = $('#isInvoice').val();
-	param.invoiceId = $('#invoiceId').val();
+	param.isInvoice = $('#isInvoice_'+shopId).val();
+	param.invoiceId = $('#invoiceId_'+shopId).val();
 	var loading = WST.load({msg:'正在请求数据，请稍后...'});
 	$.post(WST.U('home/invoices/index'),param,function(data){
 		layer.close(loading);
@@ -421,7 +533,7 @@ function changeInvoiceItem(t,obj){
 	$(obj).addClass('inv_li_curr').siblings().removeClass('inv_li_curr');
 	$('.inv_editing').remove();// 删除正在编辑中的发票信息
 	$('.inv_add').show();
-	$('#invoiceId').val(t);
+	$('#invoiceId_'+currShopId).val(t);
 	if(t==0){
 		// 为个人时，隐藏识别号
 		$('.inv_codebox').css({display:'none'});
@@ -430,17 +542,17 @@ function changeInvoiceItem(t,obj){
 		$('#invoice_num').val($('#invoiceCode_'+t).val());
 		$('.inv_codebox').css({display:'block'});
 	}
-	$("#invoice_obj").val(t);
+	$("#invoice_obj_"+currShopId).val(t);
 }
 // 是否需要开发票
 function changeInvoiceItem1(t,obj){
 	$(obj).addClass('inv_li_curr').siblings().removeClass('inv_li_curr');
-	$('#isInvoice').val(t);
+	$('#isInvoice_'+currShopId).val(t);
 }
 // 显示发票增加
 function invAdd(){
-	$("#invoiceId").val(0);
-	$("#invoice_obj").val(1);
+	$("#invoiceId_"+currShopId).val(0);
+	$("#invoice_obj_"+currShopId).val(1);
 	$('#invoice_num').val('');
 	$('.inv_li').removeClass('inv_li_curr');// 移除当前选中样式
 	$('.inv_ul').append('<li class="inv_li inv_li_curr inv_editing"><input type="text" id="invoiceHead" placeholder="新增单位发票抬头" value="" style="width:65%;height:21px;padding:1px;"><i></i><div style="top:8px;" class="inv_opabox"><a href="javascript:void(0)" onCLick="addInvoice()">保存</a></div></li>');
@@ -460,7 +572,7 @@ function addInvoice(){
 		var json = WST.toJson(data);
 		layer.close(loading);
 		if(json.status==1){
-			$('#invoiceId').val(json.data.id);
+			$('#invoiceId_'+currShopId).val(json.data.id);
 			WST.msg(json.msg,{icon:1});
 			$('.inv_editing').remove();
 			var code = [];
@@ -517,21 +629,21 @@ function editInvoice(id,obj){
 
 // 设置页面显示值
 function setInvoiceText(invoiceHead){
-	var isInvoice  = $('#isInvoice').val();
-	var invoiceObj = $('#invoice_obj').val();// 发票对象
+	var isInvoice  = $('#isInvoice_'+currShopId).val();
+	var invoiceObj = $('#invoice_obj_'+currShopId).val();// 发票对象
 	var text = '不开发票';
 	if(isInvoice==1){
 		text = (invoiceObj==0)?'普通发票（纸质）  个人   明细':'普通发票（纸质）'+invoiceHead+' 明细';
 	}
-	$('#invoice_info').html(text);
+	$('#invoice_info_'+currShopId).html(text);
 	layerclose();
 }
 
 // 保存纳税人识别号
 function saveInvoice(){
-	var isInv = $('#isInvoice').val();
+	var isInv = $('#isInvoice_'+currShopId).val();
 	var num = $('#invoice_num').val();
-	var id = $('#invoiceId').val();
+	var id = $('#invoiceId_'+currShopId).val();
 	var invoiceHead = $('#invoiceHead').val();// 发票抬头
 	var url = WST.U('home/Invoices/add');
 	var params = {};
@@ -542,7 +654,7 @@ function saveInvoice(){
 	}
 	params.invoiceHead = invoiceHead;
 	params.invoiceCode = num;
-	if($('#invoice_obj').val()!=0){
+	if($('#invoice_obj_'+currShopId).val()!=0){
 		var loading = WST.load({msg:'正在提交数据，请稍后...'});
 		$.post(url,params,function(data){
 			var json = WST.toJson(data);
@@ -550,7 +662,7 @@ function saveInvoice(){
 			if(json.status==1){
 				// 判断用户是否需要发票
 				setInvoiceText(invoiceHead);
-				if(id==0)$('#invoiceId').val(json.data.id)
+				if(id==0)$('#invoiceId_'+currShopId).val(json.data.id)
 			}else{
 				WST.msg(json.msg,{icon:2});
 			}
@@ -567,7 +679,7 @@ function delInvoice(id,obj){
 		     if(json.status==1){
 		    	 WST.msg(json.msg,{icon:1});
 		    	 $(obj).parent().parent().remove();
-		    	 $('#invoiceId').val(0);
+		    	 $('#invoiceId_'+currShopId).val(0);
 		    	 // 选中 `个人`
 		    	 $('.inv_li:first').click();
 		     }else{
@@ -609,7 +721,7 @@ function getPayUrl(){
 				}
 			}
 		}else{
-			WST.msg('您的订单已支付!', {icon: 5,time:1500},function(){
+			WST.msg(json.msg?json.msg:"调起支付失败", {icon: 5,time:2500},function(){
 				window.location = WST.U('home/orders/waitReceive');
 			});
 		}
@@ -631,17 +743,13 @@ function payByWallet(){
     }
 	var load = WST.load({msg:'正在核对支付密码，请稍后...'});
 	$.post(WST.U('home/wallets/payByWallet'),params,function(data,textStatus){
-		layer.close(load);   
+		layer.close(load);
 		var json = WST.toJson(data);
 	    if(json.status==1){
 	    	WST.msg(json.msg, {icon: 1,time:1500},function(){
                 window.location = WST.U('home/orders/waitReceive');
 	    	});
-	    }else if(json.status==2){
-			WST.msg(json.msg, {icon: 1,time:1500},function(){
-				window.location = WST.AU('signup://signup/lists','step=3&catId='+params.catId);
-			});
-		}else{
+	    }else{
 	    	WST.msg(json.msg,{icon:2,time:1500});
 	    }
 	});
@@ -691,7 +799,7 @@ function setPaypwd(){
 		    }
 			var load = WST.load({msg:'正在提交支付密码，请稍后...'});
 			$.post(WST.U('home/users/payPassEdit'),{newPass:newPass,reNewPass:reNewPass},function(data,textStatus){
-				layer.close(load);   
+				layer.close(load);
 				var json = WST.toJson(data);
 			    if(json.status==1){
 			    	WST.msg(json.msg, {icon: 1,time:1500},function(){
@@ -702,9 +810,23 @@ function setPaypwd(){
 			    	WST.msg(json.msg,{icon:2,time:1500});
 			    }
 			});
-			
+
 	    	return false;
 	  	},
 	  	btn2: function(index, layero){}
 	});
+}
+// 移入我的关注
+function moveToFavorites(goodsIds,cartIds){
+    WST.confirm({content:'移动后商品将不在购物车中显示。',yes:function(index){
+        $.post(WST.U('home/carts/moveToFavorites'),{goodsIds:goodsIds,cartIds:cartIds},function(data,textStatus){
+            var json = WST.toJson(data);
+            if(json.status==1){
+                WST.msg(json.msg,{icon:1});
+                location.href=WST.U('home/carts/index');
+            }else{
+                WST.msg(json.msg,{icon:2});
+            }
+        });
+    }});
 }

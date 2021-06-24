@@ -7,45 +7,55 @@
 {block name="main"}
     <section class="ui-container">
     	<div class="wst-users_info">
-    		<a href="{:url('wechat/messages/index')}"><i class="wst-msg-icon">
-		   		{if ($data['message']['num']>0)}
-		    	<span class="number" id="msgNum">{$data['message']['num']}</span>
-		    	{/if}
-	   		</i></a>
-	   		<i class="ui-icon-set wst-info-icon" onclick="location.href='{:url('wechat/users/userset')}'"></i>
-	     	<div class="ui-row-flex" style="height:0.7rem">
-	     		<div class="ui-col ui-col-4">
-	     			<div class="wst-users_infol" id="previewImages">
-	     			    <img src="{:WSTUserPhoto($user['userPhoto'])}" class="wst-useri_portrait" id="imgurl">
-	     			</div>
-					<div class="wst-flex-column">
-						<p class="wst-users_infor wst-users_infortop">
-							{:$user['userName']?$user['userName']:$user['loginName']}
-							{if ($user['userId']>0 && $user['ranks']['rankName']!='')}<img src="__RESOURCE_PATH__/{:WSTImg($user['ranks']['userrankImg'],3)}">{/if}
-						</p>
-						<div class="wst-flex-row wst-ac">
-							{if ($user['userPhone']!='' && $user['ranks']['rankName']!='')}
-							<p class="wst-users_infor wst-users_inforbo">{$user['ranks']['rankName']}</p>
-							{/if}
-							{if ($user['userPhone']=='')}
-							<p class="wst-users_infor wst-users_inforbo bind-phone" onclick="javascript:bindPhone();">未绑定手机号</p>
-							{/if}
-						</div>
+    		
+			<i class="wst-info-icon" onclick="location.href='{:url('wechat/users/userset')}'" >设置</i>
+			<div class="ui-row-flex" style="height:0.7rem">
+				<div class="ui-col ui-col-4">
+					<div class="wst-users_infol" id="previewImages">
+						<img src="{:WSTUserPhoto($user['userPhoto'])}" class="wst-useri_portrait" id="imgurl">
 					</div>
-	     		</div>
-			   <div class="ui-col">
-			    	{php}$signScore=explode(",",WSTConf('CONF.signScore'));{/php}
-			    	{if(WSTConf('CONF.signScoreSwitch')==1 && $signScore[0]>0)}
-			    	<div class="wst-us-sign">
-			    		{if(session('WST_USER.signScoreTime')==date('Y-m-d'))}
-						<a id="j-sign" class="sign sign2" disabled="disabled"></a>
-						{else}
-						<a id="j-sign" class="sign" onclick="javascript:inSign();"></a>
-						{/if}
-			    	</div>
-			    	{/if}
-			   </div>
-			</div>
+					<p class="wst-users_infor wst-users_infortop">
+					{:$user['userName']?$user['userName']:$user['loginName']}
+					<a href="{:url('wechat/messages/index')}"><i class="wst-msg-icon">
+					   {if ($data['message']['num']>0)}
+					<span class="number" id="msgNum">{$data['message']['num']}</span>
+					{/if}
+				   </i></a>
+					</p>
+				   {if ($user['userId'] > 0 && $user['ranks']['rankName']!='')}
+				   <p class="wst-users_infor wst-users_inforbo">{$user['ranks']['rankName']}</p>
+				   {/if}
+				</div>
+			  <div class="ui-col">
+				   {php}$signScore=explode(",",WSTConf('CONF.signScore'));{/php}
+			  </div>
+		   </div>
+		   <div class="top_bottom">
+			   <li>
+				   <a href="{:url('wechat/logmoneys/usermoneys')}">
+					   <p class="ui-badge-wrap ui-nowrap"><span>¥ </span>{$user['userMoney']}</p>
+					   <span class="ui-flex ui-flex-align-end ui-flex-pack-center">我的余额</span>
+				   </a>
+			   </li>
+			   <li>
+				   <a href="{:url('wechat/userscores/index')}">
+					   <p class="ui-badge-wrap ui-nowrap" id="currentScore">{$user['userScore']}</p>
+					   <span class="ui-flex ui-flex-align-end ui-flex-pack-center">我的积分</span>
+				   </a>
+			   </li>
+			   <li>
+				   <a href="{:url('wechat/favorites/goods')}">
+					   <p class="ui-badge-wrap ui-nowrap" id="currentScore">{$user['subGoods']}</p>
+					   <span class="ui-flex ui-flex-align-end ui-flex-pack-center">关注商品</span>
+				   </a>
+			   </li>
+			   <li>
+				   <a href="{:url('wechat/favorites/shops')}">
+					   <p class="ui-badge-wrap ui-nowrap" id="currentScore">{$user['subShop']}</p>
+					   <span class="ui-flex ui-flex-align-end ui-flex-pack-center">关注店铺</span>
+				   </a>
+			   </li>
+		   </div>
 		</div>
 		{if $user['userId']>0}
 		{:hook('wechatDocumentUserIndex')}
@@ -66,16 +76,16 @@
 		{/* 保底交易管理 */}
 		<div class="user-order">
 			<ul class="ui-row order">
-				<li class="ui-col ui-col-50"><i class="order-icon"></i>保底交易管理</li>
-				<li class="ui-col ui-col-50 view-order" onclick="location.href='{:url('wechat/goods/mygoods')}'">查看全部保底交易商品  ></li>
+				<li class="ui-col ui-col-50">保底交易</li>
+				<li class="ui-col ui-col-50 view-order" onclick="location.href='{:url('wechat/goods/mygoods')}'">查看全部  ></li>
 			</ul>
 		</div>
-		
+
 		{/*用户订单管理  */}
 		<div class="user-order">
 			<ul class="ui-row order">
-	    		<li class="ui-col ui-col-50"><i class="order-icon"></i>我的订单</li>
-	    		<li class="ui-col ui-col-50 view-order" onclick="location.href='{:url('wechat/orders/index')}'">查看全部订单  ></li>
+	    		<li class="ui-col ui-col-50">我的订单</li>
+	    		<li class="ui-col ui-col-50 view-order" onclick="location.href='{:url('wechat/orders/index')}'">查看全部  ></li>
 	    	</ul>
     	</div>
 		<div class="ui-row-flex wst-users_icon">
@@ -131,67 +141,46 @@
 		    </div>
 		</div>
 		
-		<div class="user-order">
-			<ul class="ui-row order">
-	    		<li class="ui-col ui-col-50"><i class="wallet-icon"></i>我的财产</li>
-	    		<li class="ui-col ui-col-50 view-order" onclick="location.href='{:url('wechat/logmoneys/usermoneys')}'">资金管理  ></li>
-	    	</ul>
-    	</div>
-		<div class="ui-row-flex wst-users_capital">
-		    <div class="ui-col ui-col">
-		    <a href="{:url('wechat/logmoneys/usermoneys')}">
-		    	<p class="ui-badge-wrap ui-nowrap"><span>¥ </span>{$user['userMoney']}</p>
-		    	<span class="ui-flex ui-flex-align-end ui-flex-pack-center">余额</span>
-		    </a>
-		    </div>
-		    <div class="ui-col ui-col">
-		    <a href="{:url('wechat/userscores/index')}">
-		    	<p class="ui-badge-wrap ui-nowrap" id="currentScore">{$user['userScore']}</p>
-		    	<span class="ui-flex ui-flex-align-end ui-flex-pack-center">积分</span>
-		   	</a>
-		    </div>
-		    {:hook('wechatDocumentUserIndexTerm')}
-		</div>
 		
 		<div class="user-order">
 			<ul class="ui-row order">
-	    		<li class="ui-col ui-col-50"><i class="tool-icon"></i>必备工具</li>
+	    		<li class="ui-col ui-col-50">必备工具</li>
 	    	</ul>
     	</div>
 		<ul class="ui-row" style="background: #fff;padding-bottom: 0.45rem;">
-		    <li class="ui-col ui-col-25 user-icon-box">
+		    <!-- <li class="ui-col ui-col-25 user-icon-box">
 		    	<a href="{:url('wechat/favorites/goods')}">
 		    	<p><i class="user-icon1"></i></p>
 		    	<span class="ui-flex ui-flex-align-end ui-flex-pack-center">关注商品</span>
 		    	</a>
-		    </li>
+		    </li> -->
 
-		    <li class="ui-col ui-col-25 user-icon-box">
+		    <!-- <li class="ui-col ui-col-25 user-icon-box">
 		    	<a href="{:url('wechat/favorites/shops')}">
 		    	<p><i class="user-icon2"></i></p>
 		    	<span class="ui-flex ui-flex-align-end ui-flex-pack-center">关注店铺</span>
 		    	</a>
-		    </li>
+		    </li> -->
 
 		    <li class="ui-col ui-col-25 user-icon-box">
 		    	<a href="{:url('wechat/goods/history')}">
 		    	<p><i class="user-icon3"></i></p>
 		    	<span class="ui-flex ui-flex-align-end ui-flex-pack-center">浏览记录</span>
 		    	</a>
-		    </li> 
-		    <li class="ui-col ui-col-25 user-icon-box">
+		    </li>
+		    <!-- <li class="ui-col ui-col-25 user-icon-box">
 		    	<a href="{:url('wechat/logmoneys/usermoneys')}">
 		    	<p><i class="user-icon5"></i></p>
 		    	<span class="ui-flex ui-flex-align-end ui-flex-pack-center">资金管理</span>
 		    	</a>
-		    </li>
+		    </li> -->
 
-		    <li class="ui-col ui-col-25 user-icon-box">
+		    <!-- <li class="ui-col ui-col-25 user-icon-box">
 		    	<a href="{:url('wechat/userscores/index')}">
 		    	<p><i class="user-icon6"></i></p>
 		    	<span class="ui-flex ui-flex-align-end ui-flex-pack-center">我的积分</span>
 		    	</a>
-		    </li>
+		    </li> -->
 
 		    <li class="ui-col ui-col-25 user-icon-box">
 		    	<a href="{:url('wechat/useraddress/index')}">
@@ -227,6 +216,15 @@
 			{/if}
 		    {:hook('wechatDocumentUserIndexTools')}
 		</ul>
+		<div class="contact">
+			<div class="contact_top">
+				<img src="/upload/goods/2021-04/dhtb.png" alt="">
+				<span>咨询热线：{:WSTConf('CONF.serviceTel')}</span>
+			</div>
+			<p>
+				{:WSTConf('CONF.mallFooter')}
+			</p>
+		</div>
      </section>
 {/block}
 {block name="js"}

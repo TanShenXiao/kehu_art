@@ -129,7 +129,7 @@ a.wst-shop-a{color:#fff;background: #fc6047;border:1px solid #ff8043}
 .wst-intro-lb{line-height: 32px;color: rgb(161, 161, 161);}
 .wst-intro-f{overflow: hidden;}
 .wst-intro-ff{float: left;color: rgb(104, 104, 104);margin-right: 20px;}
-.wst-intro-sub{background: rgb(153, 153, 153);padding: 5px 10px;color: #fff;border-radius: 4px;width: 86px;text-align: right;margin-top: 16px;cursor: pointer;}
+.wst-intro-sub{background-color: rgb(153, 153, 153);padding: 5px 10px;color: #fff;border-radius: 4px;width: 86px;text-align: right;margin-top: 16px;cursor: pointer;}
 .wst-intro-sub img{vertical-align: middle;position: relative;left: -8px;}
 .wst-intro-content-bottom{margin-top: 30px;}
 .wst-intro-content-title{margin-left: 2rem;}
@@ -185,3 +185,5 @@ a.wst-shop-a{color:#fff;background: #fc6047;border:1px solid #ff8043}
 
 
 
+.j-fav,.j-fav:hover{background-image:url(../img/iconfont_guanzhu_sel.png); background-position: 14px;background-repeat:no-repeat;}
+.j-fav2{background-image:url(../img/iconfont_guanzhu_nor1.png); background-position: 14px 8px;background-repeat:no-repeat;}

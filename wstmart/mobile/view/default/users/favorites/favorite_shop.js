@@ -60,6 +60,9 @@ function cancelFavorite(){
   $.post(WST.U('mobile/favorites/cancel'),{id:fids,type:1},function(data){
     var json = WST.toJson(data);
     if(json.status==1){
+      $('.wst-intro-sub').removeClass('j-fav2').addClass('j-fav');
+	    $('.wst-intro-sub').html('关注店铺')
+
       $('#currPage').val('0')
       getFavorites();
     }else{

@@ -57,15 +57,15 @@ class Shopapplys extends Base{
         }else{
             $res['token'];
             $params=[
-                'sfzhm'=>,
-                    'xm'=>,
-                    'zjlx'=>,
-                    'mobile'=>,
-                    'gjdqdm'=>,
-                    'ssjAddress'=>,
-                    'qxjAddress'=>,
-                    'address'=>,
-                    'email'=>
+                'sfzhm'=>'',
+                    'xm'=>'',
+                    'zjlx'=>'',
+                    'mobile'=>'',
+                    'gjdqdm'=>'',
+                    'ssjAddress'=>'',
+                    'qxjAddress'=>'',
+                    'address'=>'',
+                    'email'=>''
                 ];
             $jsonParams = json_encode($data);
             $key='123456';

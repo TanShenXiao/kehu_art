@@ -67,7 +67,7 @@ class Shopapplys extends Base{
                     'address'=>'',
                     'email'=>''
                 ];
-            $jsonParams = json_encode($data);
+            $jsonParams = json_encode($params);
             $key='123456';
             $url = '/dzswj_wx/user/verify.html';
             $jsonParams = $tax->encrypt($jsonParams,$key);

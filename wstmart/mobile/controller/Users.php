@@ -151,6 +151,7 @@ class Users extends Base{
 		    $user['userName'] = '游客';
 		    $user['userPhoto'] = '';
 		    $user['userType'] = 0;
+		    $user['userTaxType'] = 0;
 		    $user['userMoney'] = 0;
 		    $user['userScore'] = 0;
 		    $user['subGoods'] = 0;

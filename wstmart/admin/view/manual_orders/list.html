@@ -1,0 +1,122 @@
+{extend name="base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/mmgrid/mmGrid.css?v={$v}" />
+<style type="text/css">
+  #mmg td:nth-last-child(7){color: red;}
+</style>
+{/block}
+{block name="js"}
+<script src="__STATIC__/plugins/mmgrid/mmGrid.js?v={$v}" type="text/javascript"></script>
+<script src="__ADMIN__/manual_orders/list.js?v={$v}" type="text/javascript"></script>
+{/block}
+{block name="main"}
+<input type="hidden" id="userId" class="j-ipt" value='{$userId}' autocomplete="off"/>
+<input type="text" name="order_no" style="width: 200px;"  placeholder='订单编号' id="order_no" class='j-ipt'/>
+<input type="text" name="goods_name" style="width: 200px;"  placeholder='商品名称' id="goods_name" class='j-ipt'/>
+
+   <button class="btn btn-primary" onclick='javascript:loadGrid(0)'><i class="fa fa-search"></i>查询</button>
+   {if($userId>0)}<button class="btn f-right btn-fixtop" onclick="javascript:location.href='{:Url(\'admin/users/index\',\'p=\'.$p)}'" style="margin-left: 10px;"><i class="fa fa-angle-double-left"></i>返回</button>{/if}
+
+    <button class="btn btn-success f-right" onclick="javascript:toEdit(0);"><i class='fa fa-plus'></i>新增</button>
+
+<div style='clear:both'></div>
+</div>
+<div class='wst-grid'>
+ <div id="mmg" class="mmg"></div>
+ <div id="pg" style="text-align: right;"></div>
+</div>
+
+<div id='attrBox' style='display:none'>
+    <form id="orderForm">
+        <table class='wst-form wst-box-top'>
+            <tr>
+                <th>商品名称<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="goods_name" name="goods_name" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr>
+                <th width='150'>
+                    <input type="hidden" id="order_id" value="" class="ipt" />
+                    所属商品分类<font color='red'>*</font>：</th>
+                <td id="bcat_0_box">
+                    <select id="bcat_0" class='ipt goodsCats' level="0" onchange="WST.ITGoodsCats({id:'bcat_0',val:this.value,isRequire:false,className:'goodsCats'});" data-rule='所属商品分类:required;' data-target="#msg_bcat_0">
+                        <option value="">-请选择-</option>
+                        {volist name=":WSTGoodsCats(0)" id="vo"}
+                        <option value="{$vo['catId']}">{$vo['catName']}</option>
+                        {/volist}
+                    </select>
+                    <span class='msg-box' id='msg_bcat_0' style='color:red;'>(至少选择一个商品分类)</span>
+                </td>
+            </tr>
+            <tr>
+                <th>商品价格<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="price" name="price" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr>
+                <th>税费<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="tax_price" name="tax_price" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr>
+                <th>是否开发票<font color='red'>*</font>：</th>
+                <td>
+                    <select id='is_invoice' class='ipt' onchange="invoice_show(100)">
+                        <option value='0'>No</option>
+                        <option value='1'>Yes</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="invoice">
+                <th>代办人<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="invoice_agent" name="invoice_agent" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr class="invoice">
+                <th>开票时间<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="invoice_write_invoice" name="invoice_write_invoice" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr class="invoice">
+                <th>审核人<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="invoice_reviewer" name="invoice_reviewer" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr class="invoice">
+                <th>审核时间<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="invoice_reviewer_time" name="invoice_reviewer_time]" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr class="invoice">
+                <th>代缴费<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="invoice_price" name="invoice_price" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr class="invoice">
+                <th>运费<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="invoice_freight_price" name="invoice_freight_price" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr class="invoice">
+                <th>运单号<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="invoice_freight_no" name="invoice_freight_no" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script>
+$(function(){initGrid({$p});})
+</script>
+{/block}

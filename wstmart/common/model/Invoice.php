@@ -36,7 +36,7 @@ class Invoice extends Base{
             $order = $sort;
         }
         $page = $this->alias('i')
-            ->join('__ORDERS__ o','i.order_id=o.orderId','left')
+            ->join('__ORDERS__ o','i.order_no=o.orderNo','left')
             ->join('__ORDER_GOODS__ og','i.order_goods_id=og.id','left')
             ->join('__SHOPS__ s','o.shopId=s.shopId','left')
             ->where($where)
@@ -81,7 +81,7 @@ class Invoice extends Base{
             $order = $sort;
         }
         $page = $this->alias('i')
-            ->join('__ORDERS__ o','i.order_id=o.orderId','left')
+            ->join('__ORDERS__ o','i.order_no=o.orderNo','left')
             ->join('__ORDER_GOODS__ og','i.order_goods_id=og.id','left')
             ->join('__SHOPS__ s','o.shopId=s.shopId','left')
             ->where($where)

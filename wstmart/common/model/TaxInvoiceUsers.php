@@ -190,4 +190,20 @@ class TaxInvoiceUsers extends Base{
     	$encrypt_str =  mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $screct_key, $str, MCRYPT_MODE_CBC);
     	return base64_encode($encrypt_str);
     }
+    /**
+     * 填充算法
+     * @param string $source
+     * @return string
+     */
+    function addPKCS7Padding($source){
+    	$source = trim($source);
+    	$block = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
+
+    	$pad = $block - (strlen($source) % $block);
+    	if ($pad <= $block) {
+    		$char = chr($pad);
+    		$source .= str_repeat($char, $pad);
+    	}
+    	return $source;
+    }
 }

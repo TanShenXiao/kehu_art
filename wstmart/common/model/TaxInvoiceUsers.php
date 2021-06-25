@@ -195,7 +195,7 @@ class TaxInvoiceUsers extends Base{
      * @param string $source
      * @return string
      */
-    function addPKCS7Padding($source){
+    public function addPKCS7Padding($source){
     	$source = trim($source);
     	$block = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
 

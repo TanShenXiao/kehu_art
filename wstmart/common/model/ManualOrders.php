@@ -68,6 +68,7 @@ class ManualOrders extends Base{
             $invoice_data['order_no'] =  $data['order_no'];
             $invoice_data['order_goods_id'] =  0;
             $invoice_data['created_time'] =  0;
+            $invoice_data['order_type'] =  1;
             $invoice_data['created_time'] =  $date;
             $invoice_data['updated_time'] =  $date;
             $invoice_validate = new \wstmart\admin\validate\Invoice();

@@ -47,8 +47,8 @@ class Shopapplys extends Base{
     //开票认证
     public function tax_auth(){
         $userId = (int)session('WST_USER.userId');
-        $rs = $um->getFieldsById($userId,'userPhone,cardNumber');
         $um = new UM();
+        $rs = $um->getFieldsById($userId,'userPhone,cardNumber');
         $tax = new TAX();
 
         $res = $tax->taxBusinessToken(['cardNumber'=>$rs['cardNumber']]);

@@ -57,10 +57,7 @@ class Invoice extends Base{
     public function shopPageQuery(){
 
         $shopId = (int)session('WST_USER.shopId');
-
-        $where = [];
-        $where[] = ['o.dataFlag','=',1];
-        $where = ['o.shopId'=>$shopId,'dataFlag'=>1];
+        $where = ['o.shopId'=>$shopId,'o.dataFlag'=>1];
 
         $orderNo = input('orderNo');
         $goodsName = input('goodsName');

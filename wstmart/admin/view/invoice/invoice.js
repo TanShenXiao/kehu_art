@@ -27,13 +27,13 @@ function initGrid(page){
             {title:'代缴税费', name:'price', width: 100,sortable:true},
             {title:'发票邮费', name:'freight_price', width: 80,sortable:true},
             {title:'快递单号', name:'freight_no', width: 100,sortable:true},
-            {title:'操作' , width: 60,name:'status', renderer:function(val,item,rowIndex){
+          /*  {title:'操作' , width: 60,name:'status', renderer:function(val,item,rowIndex){
             	var h = "";
             	if(item['freight_no']){
                     h += "<a class='btn btn-blue' href='javascript:toView(" + item['orderId'] + ")'><i class='fa fa-search'></i>查看物流信息</a> ";
                 }
 	            return h;
-            }}
+            }}*/
             ];
  
     mmg = $('.mmg').mmGrid({height: (h-90),indexCol: true,indexColWidth:50, cols: cols,method:'POST',nowrap:true,

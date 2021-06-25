@@ -11,13 +11,13 @@ class ManualOrders extends Base{
      */
     public function pageQuery(){
         $where = [];
-        $order_sn = input('order_sn');
+        $order_sn = input('order_no');
         $goods_name = input('goods_name');
         $sort = input('sort');
 
 
         if($order_sn!=''){
-            $where[] = ['o.order_sn','like','%'.$order_sn.'%'];
+            $where[] = ['o.order_no','like','%'.$order_sn.'%'];
         }
         if($goods_name!=''){
             $where[] = ['o.goods_name','like','%'.$goods_name.'%'];
@@ -35,7 +35,9 @@ class ManualOrders extends Base{
             ->paginate(input('limit/d'))->toArray();
         if(count($page['data'])>0){
             foreach ($page['data'] as $key => $v){
-
+                if($v['goods_type']){
+                    $page['data'][$key]['goods_type'] = GoodsCats::where(['catId' => $v['goods_type']])->value('catName');
+                }
             }
         }
         return $page;

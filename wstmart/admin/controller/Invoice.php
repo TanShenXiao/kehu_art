@@ -22,6 +22,12 @@ class Invoice extends Base{
      */
     public function pageQuery(){
         $m = new M();
-        return WSTGrid($m->pageQuery());
+        $type = input('type',1);
+
+        if($type == 1){
+            return WSTGrid($m->pageQuery());
+        }else{
+            return WSTGrid($m->pageManualQuery());
+        }
     }
 }

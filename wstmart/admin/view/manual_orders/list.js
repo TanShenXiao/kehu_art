@@ -16,9 +16,9 @@ function initGrid(page){
     var cols = [
             {title:'商品名', name:'goods_name', width: 120,sortable:true},
             {title:'商品分类', name:'goods_type', width: 120,sortable:true},
-            {title:'订单编号', name:'order_no', width: 90,sortable:true, renderer:function(val,item,rowIndex){return '￥'+val;}},
-            {title:'销售价格', name:'price' , width: 90,sortable:true},
-            {title:'税费', name:'price' , width: 90,sortable:true},
+            {title:'订单编号', name:'order_no', width: 90,sortable:true},
+            {title:'销售价格', name:'price' , width: 90,sortable:true,renderer:function(val,item,rowIndex){return '￥'+val;}},
+            {title:'税费', name:'price' , width: 90,sortable:true,renderer:function(val,item,rowIndex){return '￥'+val;}},
             {title:'是否开发表', name:'is_invoice' , width: 90,sortable:true,renderer:function(val,item,rowIndex){
                     var h = "";
                     if(val == 1){
@@ -36,7 +36,7 @@ function initGrid(page){
             }}*/
             ];
     mmg = $('.mmg').mmGrid({height: (h-90),indexCol: true,indexColWidth:50, cols: cols,method:'POST',nowrap:true,
-        url: WST.U('admin/manualOrders/pageQuery',p.join('&')), fullWidthRows: true, autoLoad: false,remoteSort: true,sortName:'createTime',sortStatus:'desc',
+        url: WST.U('admin/manual_orders/pageQuery',p.join('&')), fullWidthRows: true, autoLoad: false,remoteSort: true,sortName:'createTime',sortStatus:'desc',
         plugins: [
             $('#pg').mmPaginator({})
         ]
@@ -119,7 +119,7 @@ function toEdit(order_id){
                 console.log(params)
                 var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
                 params.goods_type = WST.ITGetGoodsCatVal('goodsCats');
-                $.post(WST.U('admin/manualOrders/'+((params.order_id==0)?"add":"edit")),params,function(data,textStatus){
+                $.post(WST.U('admin/manual_orders/'+((params.order_id==0)?"add":"edit")),params,function(data,textStatus){
                     layer.close(loading);
                     var json = WST.toAdminJson(data);
                     if(json.status=='1'){

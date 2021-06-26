@@ -55,28 +55,28 @@ class Shopapplys extends Base{
         if($res['code']!=0){
             return WSTReturn('认证失败',0);
         }else{
-            $res['token'];
+//            $res['token'];
             $params=[
                 'sfzhm'=>'',
-                    'xm'=>'',
-                    'zjlx'=>'',
-                    'mobile'=>'',
-                    'gjdqdm'=>'',
-                    'ssjAddress'=>'',
-                    'qxjAddress'=>'',
-                    'address'=>'',
-                    'email'=>''
+                'xm'=>'',
+                'zjlx'=>'',
+                'mobile'=>'',
+                'gjdqdm'=>'',
+                'ssjAddress'=>'',
+                'qxjAddress'=>'',
+                'address'=>'',
+                'email'=>''
                 ];
             $jsonParams = json_encode($params);
             $key='123456';
             $url = '/dzswj_wx/user/verify.html';
-            $jsonParams = 'json';//$tax->encrypt($jsonParams,$key);
+//            $jsonParams = 'json';//$tax->encrypt($jsonParams,$key);
             $data = [
                 'appid'=>'1',
                 'token'=>'2',
                 'params'=>$jsonParams,
             ];
-            return ['url'=>$url,'jsonData'=>$jsonParams];
+            return ['url'=>$url,'jsonData'=>$data];
         }
     }
     public function yhhcxy(){

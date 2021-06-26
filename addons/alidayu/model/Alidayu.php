@@ -97,7 +97,7 @@ class Alidayu extends Base{
 			}
 		}catch (\Exception $e) {
             $params['status']['msg'] = '短信发送失败!';
-
+            $params['status']['codes'] = $e;
 	        $params['status']['status'] = -1;
 		}
 	}

@@ -106,7 +106,8 @@ class Users extends Base{
 			session('VerifyCode_userPhone_Verify',$phoneVerify);
 			session('VerifyCode_userPhone_Time',time());
 //    	}
-    	return $rv;
+//    	return $rv;
+    	return ['status'=>1];
     }
     /**
      * 获取验证码(手机登录)

@@ -88,16 +88,13 @@ class Alidayu extends Base{
 		$log->smsReturnCode = json_encode($code);
 		$log->smsContent = $codes."||".$params['params']['tpl']['tplCode']."||".$smsConf[$params['params']['tpl']['tplCode']];
 		$log->save();
-        $params['status']['codes'] = $code;
 		try{
-
 			if($code->result->success){
 	            $params['status']['msg'] = '短信发送成功!';
 	            $params['status']['status'] = 1;
 			}
 		}catch (\Exception $e) {
-            $params['status']['msg'] = '短信发送失败1111!';
-            $params['status']['codes'] = $e;
+            $params['status']['msg'] = '短信发送失败!';
 	        $params['status']['status'] = -1;
 		}
 	}

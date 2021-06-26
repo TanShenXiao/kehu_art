@@ -101,7 +101,6 @@ class Users extends Base{
     		$m = new LogSms();
     		$rv = $m->sendSMS(0,$userPhone,$params,'getPhoneVerifyCode',$phoneVerify);
     	}
-        return $rv;
     	if($rv['status']==1){
 			session('VerifyCode_userPhone',$userPhone);
 			session('VerifyCode_userPhone_Verify',$phoneVerify);

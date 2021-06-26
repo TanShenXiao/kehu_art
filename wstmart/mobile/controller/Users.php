@@ -96,11 +96,11 @@ class Users extends Base{
     	$phoneVerify =123456;// rand(100000,999999);
     	$tpl = WSTMsgTemplates('PHONE_USER_REGISTER_VERFIY');
 
-    	if( $tpl['tplContent']!='' && $tpl['status']=='1'){
-    		$params = ['tpl'=>$tpl,'params'=>['MALL_NAME'=>WSTConf("CONF.mallName"),'VERFIY_CODE'=>$phoneVerify,'VERFIY_TIME'=>10]];
-    		$m = new LogSms();
-    		$rv = $m->sendSMS(0,$userPhone,$params,'getPhoneVerifyCode',$phoneVerify);
-    	}
+//    	if( $tpl['tplContent']!='' && $tpl['status']=='1'){
+//    		$params = ['tpl'=>$tpl,'params'=>['MALL_NAME'=>WSTConf("CONF.mallName"),'VERFIY_CODE'=>$phoneVerify,'VERFIY_TIME'=>10]];
+//    		$m = new LogSms();
+//    		$rv = $m->sendSMS(0,$userPhone,$params,'getPhoneVerifyCode',$phoneVerify);
+//    	}
 //    	if($rv['status']==1){
 			session('VerifyCode_userPhone',$userPhone);
 			session('VerifyCode_userPhone_Verify',$phoneVerify);

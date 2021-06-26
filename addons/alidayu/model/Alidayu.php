@@ -84,6 +84,7 @@ class Alidayu extends Base{
         $codes = "{".implode(',',$code)."}";
         $params['content'] = $codes;
 		$code = $this->http($params);
+		return $code;
 		$log = model('common/logSms')->get(['smsId'=>$params['smsId']]);
 		$log->smsReturnCode = json_encode($code);
 		$log->smsContent = $codes."||".$params['params']['tpl']['tplCode']."||".$smsConf[$params['params']['tpl']['tplCode']];

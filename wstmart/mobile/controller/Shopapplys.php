@@ -76,7 +76,10 @@ class Shopapplys extends Base{
                 'token'=>'2',
                 'params'=>$jsonParams,
             ];
-            return ['url'=>$url,'jsonData'=>$data];
+//            return ['url'=>$url,'jsonData'=>$data];
+            $this->assign('url',$url);
+            $this->assign('jsonData',$data);
+            return $this->fetch('users/shopapplys/tax_auth');
         }
     }
     public function yhhcxy(){

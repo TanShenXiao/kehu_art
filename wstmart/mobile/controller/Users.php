@@ -107,7 +107,7 @@ class Users extends Base{
 			session('VerifyCode_userPhone_Time',time());
 //    	}
 //    	return $rv;
-    	return ['status'=>1];
+    	return ['status'=>1,'msg'=>"短信发送成功"];
     }
     /**
      * 获取验证码(手机登录)

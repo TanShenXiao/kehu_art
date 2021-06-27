@@ -210,7 +210,7 @@
 		        <div class='price'>¥{$vo2['goodsPrice']}</div>
 		        <div class='num'>{$vo2['goodsNum']}</div>
 		        <div class='t-price'>¥{$vo2['goodsPrice']*$vo2['goodsNum']}</div>
-                <div class='t-price'>去开票</div>
+                <div class='t-price'><a href='{:Url("home/goods/detail","goodsId=".$vo2["goodsId"])}' target='_blank'>去开票</a></div>
 		        <div class='f-clear'></div>
              </div>
              {/volist}

@@ -78,7 +78,7 @@ $(function(){
 function saveInvoice(){
 	var param={};
 	var invoiceId = $('#invoiceId').val();// 发票id
-	param.id = $('#isInvoice').val();
+	param.id = 0;
 	var isInvoice  = $('#isInvoice').val();
 	param.invoiceCode = $('#invoice_code').val();// 纳税人识别码
 	param.invoiceHead = $('#invoice_head').val();// 发票抬头

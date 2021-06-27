@@ -253,7 +253,9 @@
 			{{# if(d.isInvoice==1) { }}
                 <div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">发票状态：</span>{{# if(d.isMakeInvoice==1) { }}已开{{# } else{ }}未开{{# } }}</div>
              	<div class="ui-row-flex">
-                	<div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">发票抬头：</span>{{d.invoiceClient}}</div>
+                	<div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">发票抬头：</span>{{d.invoiceClient}}
+                        {{# if(d.isMakeInvoice!=1 && d.orderStatus!=2) { }}修改信息{{# } }}
+                    </div>
             	</div>
             {{#
                  var inv_json = JSON.parse(d.invoiceJson);

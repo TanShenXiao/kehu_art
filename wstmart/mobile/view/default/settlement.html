@@ -196,22 +196,37 @@
 </script>
 
 {/* 发票信息层  */}
-<div class="invoice_box" id="frame">
-    <div class="title" id="boxTitle"><span>发票信息</span><i class="ui-icon-close-page" onclick="javascript:invoiceHide();"></i><div class="wst-clear"></div></div>
-    <div class="content" id="invoice_content">
-		<div class="inv_item">
-			<input type="hidden" id="isInvoice" value="0" />
-			<div class="inv_tit inv_line">发票内容</div>
-			<ul class="ui-list inv_ul none_float" onclick="javascript:isInvoice(this,0);">
-	             <li><div class="pdtb10"><span>不开发票</span></div></li>
-	             <i class="ui-icon-push invoices0 ui-icon-checked-s wst-active inv_chk" mode="0" word="不开发票"></i>
-	        </ul>
-	        <div style="float:left;color:red;margin-left:10px;">如需开具发票，请直接联系商家</div>
-	        <div class="wst-clear"></div>
-		</div>
-		<button class="button" onclick="javascript:saveInvoice();">确定</button>
-    </div>
+<div class="pay-boxs">
+	<div class='box-head'>发票信息</div>
+	<div class="invoic-box">
+
+		<div style="float:left;" id="invoice_info_1">不开发票</div>
+		<div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick='javascript:changeInvoice(1,"#invoiceClientDiv",1,this)'>修改</div>
+
+	<div class="wst-clear"></div>
+	<input type="hidden" id="invoice_obj_1" value="0" />
+	<input type="hidden" id="invoiceId_1" value="0" class='j-ipt' />
+	<input type='hidden' value='0' id="isInvoice_1" class='j-ipt' />
+	<input type='hidden' value='个人' id="invoiceClient_1" class='j-ipt' />
 </div>
+<div class='wst-clear'></div>
+</div>
+<!--<div class="invoice_box" id="frame">-->
+<!--    <div class="title" id="boxTitle"><span>发票信息</span><i class="ui-icon-close-page" onclick="javascript:invoiceHide();"></i><div class="wst-clear"></div></div>-->
+<!--    <div class="content" id="invoice_content">-->
+<!--		<div class="inv_item">-->
+<!--			<input type="hidden" id="isInvoice" value="0" />-->
+<!--			<div class="inv_tit inv_line">发票内容</div>-->
+<!--			<ul class="ui-list inv_ul none_float" onclick="javascript:isInvoice(this,0);">-->
+<!--	             <li><div class="pdtb10"><span>不开发票</span></div></li>-->
+<!--	             <i class="ui-icon-push invoices0 ui-icon-checked-s wst-active inv_chk" mode="0" word="不开发票"></i>-->
+<!--	        </ul>-->
+<!--	        <div style="float:left;color:red;margin-left:10px;">如需开具发票，请直接联系商家</div>-->
+<!--	        <div class="wst-clear"></div>-->
+<!--		</div>-->
+<!--		<button class="button" onclick="javascript:saveInvoice();">确定</button>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 {/* 积分支付 */}

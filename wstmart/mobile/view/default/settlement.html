@@ -126,10 +126,10 @@ $shopFreight = $shopFreight + $freight;
 			<h4 class="ui-nowrap">配送方式</h4>
 			<div class="ui-txt-info" id="givest">快递运输</div>
 		</li>
-		<li class="{if(WSTConf('CONF.isOpenScorePay')==1)}mode{/if}" onclick="javascript:getInvoiceList();">
+		<li class="{if(WSTConf('CONF.isOpenScorePay')==1)}mode{/if}" onclick="javascript:getInvoiceList({$ca['shopId']});">
 			<h4 class="ui-nowrap">发票信息</h4>
 			<div class="ui-txt-info" id="invoicest">不开发票</div>
-			<div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick='javascript:changeInvoice(1,"#invoiceClientDiv",1,this)'>修改</div>
+			<div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick='javascript:changeInvoice(1,"#invoiceClientDiv",{$ca['shopId']},this)'>修改</div>
 		</li>
 		{if(WSTConf('CONF.isOpenScorePay')==1)}
 		<li onclick="javascript:dataShow('score');">
@@ -197,13 +197,14 @@ $shopFreight = $shopFreight + $freight;
 
 {/* 发票信息层  */}
 <div class="invoice_box" id="frame">
-	<div class="title" id="boxTitle"><span>发票信息</span><i class="ui-icon-close-page" onclick="javascript:invoiceHide();"></i><div class="wst-clear"></div></div>
+	<div class="title" id="boxTitle"><span>发票信息{$carts['carts'][1]['shopId']}</span><i class="ui-icon-close-page" onclick="javascript:invoiceHide({$carts['carts'][1]['shopId']});"></i><div class="wst-clear"></div></div>
 	<div class="content" id="invoice_content">
 		<div class="inv_item">
 
 			<div class="inv_tit inv_line">发票内容</div>
-			<ul class="ui-list inv_ul none_float" onclick="javascript:isInvoice(this,2);">
-				<input type="hidden" name="invoiceId" id="invoiceId" value="2" />
+			<ul class="ui-list inv_ul none_float" onclick="javascript:isInvoice(this,{$carts['carts'][1]['shopId']});">
+				<input type="hidden" name="invoiceId" id="invoiceId" value="0" />
+				<input type="hidden" name="invoiceshopId" id="invoiceshopId" value="{$carts['carts'][1]['shopId']}" />
 				<li>
 					<!--<i class="ui-icon-push invoices0 ui-icon-checked-s wst-active inv_chk" mode="0" word="不开发票"></i>-->
 					是否开票：
@@ -224,7 +225,7 @@ $shopFreight = $shopFreight + $freight;
 			<!--<div style="float:left;color:red;margin-left:10px;">如需开具发票，请直接联系商家</div>-->
 			<div class="wst-clear"></div>
 		</div>
-		<button class="button" onclick="javascript:saveInvoice();">确定</button>
+		<button class="button" onclick="javascript:saveInvoice({$carts['carts'][1]['shopId']});">确定</button>
 	</div>
 </div>
 

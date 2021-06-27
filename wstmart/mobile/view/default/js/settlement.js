@@ -43,11 +43,42 @@ $(function(){
 		$('#invoiceId').val(0);
 	});
 })
+// function saveInvoice(){
+// 	var isInv = $('#isInvoice_'+currShopId).val();
+// 	var num = $('#invoice_num').val();
+// 	var id = $('#invoiceId_'+currShopId).val();
+// 	var invoiceHead = $('#invoiceHead').val();// 发票抬头
+// 	var url = WST.U('home/Invoices/add');
+// 	var params = {};
+// 	if(id>0){
+// 		url = WST.U('home/Invoices/edit');
+// 		invoiceHead = $('#invoiceHead_'+id).val();// 发票抬头
+// 		params.id = id;
+// 	}
+// 	params.invoiceHead = invoiceHead;
+// 	params.invoiceCode = num;
+// 	if($('#invoice_obj_'+currShopId).val()!=0){
+// 		var loading = WST.load({msg:'正在提交数据，请稍后...'});
+// 		$.post(url,params,function(data){
+// 			var json = WST.toJson(data);
+// 			layer.close(loading);
+// 			if(json.status==1){
+// 				// 判断用户是否需要发票
+// 				setInvoiceText(invoiceHead);
+// 				if(id==0)$('#invoiceId_'+currShopId).val(json.data.id)
+// 			}else{
+// 				WST.msg(json.msg,{icon:2});
+// 			}
+// 		});
+// 	}else{
+// 		setInvoiceText('');
+// 	}
+// }
 /* 完成发票信息填写 */
 function saveInvoice(){
 	var param={};
-	var invoiceId = 0;//$('#invoiceId').val();// 发票id
-	param.id = 2;
+	var invoiceId = $('#invoiceId').val();// 发票id
+	param.id = $('#isInvoice').val();
 	var isInvoice  = $('#isInvoice').val();
 	param.invoiceCode = $('#invoice_code').val();// 纳税人识别码
 	param.invoiceHead = $('#invoice_head').val();// 发票抬头
@@ -56,7 +87,6 @@ function saveInvoice(){
 		url = 'mobile/invoices/edit';
 		param.id = invoiceId;
 	}
-	console.log(param);
 	if($('#invoice_obj').val()!=0){
 		$.post(WST.U(url),param,function(data){
 			var json = WST.toJson(data);
@@ -178,13 +208,16 @@ function submitOrder(){
 
 	$('.wst-se-sh .shopn').each(function(){
 		shopId = $(this).attr('shopId');
+		shopId = $('#invoiceshopId').val();
 		param['remark_'+shopId] = $('#remark_'+shopId).val();
 		param['couponId_'+shopId] = $('#couponId_'+shopId).val();
 	});
 	param.deliverType = $('#givesh').val();
-	param.isInvoice = $('#isInvoice').val();
-	param.invoiceId = $('#invoiceId').val();
-	param.invoiceClient = $('#invoice_obj').val()==1?$('#invoice_head').val():'个人';
+	param['isInvoice_'+shopId] = $('#isInvoice').val();
+	param['invoiceId_'+shopId] = $('#invoiceId').val();
+	param['invoiceClient_'+shopId] = $('#invoice_obj').val()==1?$('#invoice_head').val():'个人';
+	console.log(param);
+
 	$('.wst-se-confirm .button').attr('disabled', 'disabled');
 	$.post(WST.U('mobile/orders/submit'),param,function(data,textStatus){
 		var json = WST.toJson(data);

@@ -129,7 +129,7 @@
 		    <li class="{if(WSTConf('CONF.isOpenScorePay')==1)}mode{/if}" onclick="javascript:getInvoiceList();">
 		        <h4 class="ui-nowrap">发票信息</h4>
 		        <div class="ui-txt-info" id="invoicest">不开发票</div>
-				<div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick='javascript:changeInvoice(1,"#invoiceClientDiv",{$vo['shopId']},this)'>修改</div>
+				<div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick='javascript:changeInvoice(1,"#invoiceClientDiv",1,this)'>修改</div>
 		    </li>
 		    {if(WSTConf('CONF.isOpenScorePay')==1)}
 		   	<li onclick="javascript:dataShow('score');">

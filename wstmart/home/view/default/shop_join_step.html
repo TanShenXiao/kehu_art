@@ -57,7 +57,7 @@
                 {volist name="stepFields" id="vo"}
                 {switch $vo['fieldType']}
                     {case input}
-                        {if (($vo['isShow']==1 && $shopType==0) || ($vo['isShowPersonal']==1 && $shopType==1))}
+                        {if (($vo['isShow']==1 && $shopType==0))}
                             <tr {if $vo['isRelevance']}id="{$vo['fieldName']}Tr"{/if} {if $vo['isRelevance'] && $apply[$vo['fieldRelevance']] == 0}style='display:none;'{/if} >
                                 <th {if $vo['fieldComment']}valign="top" style='padding-top:16px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
                                 <td>
@@ -71,7 +71,7 @@
                         {/if}
                     {/case}
                     {case textarea}
-						{if (($vo['isShow']==1 && $shopType==0) || ($vo['isShowPersonal']==1 && $shopType==1))}
+						{if (($vo['isShow']==1 && $shopType==0))}<!-- || ($vo['isShowPersonal']==1 && $shopType==1)-->
                         {php}$fieldAttr = explode(',',$vo['fieldAttr']);{/php}
                         <tr>
                             <th {if $vo['fieldComment']}valign="top" style='padding-top:16px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
@@ -111,7 +111,7 @@
                             </td>
                         </tr>
                         {else}
-                            {if (($vo['isShow']==1 && $shopType==0) || ($vo['isShowPersonal']==1 && $shopType==1))}
+                            {if (($vo['isShow']==1 && $shopType==0))}<!-- || ($vo['isShowPersonal']==1 && $shopType==1)-->
                                 {php}$fieldAttr = explode(',',$vo['fieldAttr']);{/php}
                                 <tr >
                                     <th {if $vo['fieldComment']}valign="top" style='padding-top:16px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
@@ -129,7 +129,7 @@
                         {/if}
                     {/case}
                     {case select}
-						{if (($vo['isShow']==1 && $shopType==0) || ($vo['isShowPersonal']==1 && $shopType==1))}
+						{if (($vo['isShow']==1 && $shopType==0) )}<!-- || ($vo['isShowPersonal']==1 && $shopType==1)-->
                         {php} if($vo['fieldAttr']!='custom')$fieldAttr = explode(',',$vo['fieldAttr']);{/php}
                         <tr>
                             <th {if $vo['fieldComment']}valign="top" style='padding-top:16px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
@@ -157,7 +157,7 @@
                     {case other}
                         {switch $vo['fieldAttr']}
                             {case area}
-								{if (($vo['isShow']==1 && $shopType==0) || ($vo['isShowPersonal']==1 && $shopType==1))}
+								{if (($vo['isShow']==1 && $shopType==0) )}<!-- || ($vo['isShowPersonal']==1 && $shopType==1)-->
                                 <tr>
                                     <th {if $vo['fieldComment']}valign="top" style='padding-top:16px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
                                     <td>
@@ -192,7 +192,7 @@
 								{/if}
                             {/case}
                             {case date}
-                                {if (($vo['isShow']==1 && $shopType==0) || ($vo['isShowPersonal']==1 && $shopType==1))}
+                                {if (($vo['isShow']==1 && $shopType==0))}<!-- || ($vo['isShowPersonal']==1 && $shopType==1)-->
                                     <tr>
                                         <th {if $vo['fieldComment']}valign="top" style='padding-top:16px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
                                         <td>
@@ -210,7 +210,7 @@
                                 {/if}
                             {/case}
                             {case time}
-                                {if (($vo['isShow']==1 && $shopType==0) || ($vo['isShowPersonal']==1 && $shopType==1))}
+                                {if (($vo['isShow']==1 && $shopType==0) )}<!-- || ($vo['isShowPersonal']==1 && $shopType==1)-->
                                     <tr>
                                         <th {if $vo['fieldComment']}valign="top" style='padding-top:16px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
                                         <td>
@@ -225,7 +225,7 @@
                                 {/if}
                             {/case}
                             {case file}
-								{if (($vo['isShow']==1 && $shopType==0) || ($vo['isShowPersonal']==1 && $shopType==1))}
+								{if (($vo['isShow']==1 && $shopType==0))}<!-- || ($vo['isShowPersonal']==1 && $shopType==1)-->
                                 <tr>
                                     <th {if $vo['fieldComment']}valign="top" style='padding-top:16px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
                                     <td>

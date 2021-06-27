@@ -40,13 +40,15 @@ $(function(){
 	})
 	// 只要用户编辑了,就视为新增
 	$('#invoice_head').bind('input propertychange', function() {
-	    $('#invoiceId').val(0);
+		$('#invoiceId').val(0);
 	});
 })
 /* 完成发票信息填写 */
 function saveInvoice(){
 	var param={};
-	var invoiceId = $('#invoiceId').val();// 发票id
+	var invoiceId = 0;//$('#invoiceId').val();// 发票id
+	param.id = 2;
+	var isInvoice  = $('#isInvoice').val();
 	param.invoiceCode = $('#invoice_code').val();// 纳税人识别码
 	param.invoiceHead = $('#invoice_head').val();// 发票抬头
 	var url = 'mobile/invoices/add';
@@ -54,6 +56,7 @@ function saveInvoice(){
 		url = 'mobile/invoices/edit';
 		param.id = invoiceId;
 	}
+	console.log(param);
 	if($('#invoice_obj').val()!=0){
 		$.post(WST.U(url),param,function(data){
 			var json = WST.toJson(data);
@@ -124,16 +127,16 @@ function getCartMoney(){
 			WST.noload();
 			var json = WST.toJson(data);
 			if(json.status==1){
-			    json = json.data;
-			    for(var key in json.shops){
-			    	// 设置每间店铺的运费及总价格
-			    	$('#shopF_'+key).html('¥'+json.shops[key]['freight'].toFixed(2));
-			    	$('#shopC_'+key).html('¥'+json.shops[key]['goodsMoney'].toFixed(2));
-			    }
-			 	$('#totalMoney').html('¥'+json.realTotalMoney.toFixed(2));
-			 	$('#totalPrice').val(json.realTotalMoney);
-			 	// 设置可用积分及积分可抵金额
-			 	$('#userOrderScore').html(json.maxScore);
+				json = json.data;
+				for(var key in json.shops){
+					// 设置每间店铺的运费及总价格
+					$('#shopF_'+key).html('¥'+json.shops[key]['freight'].toFixed(2));
+					$('#shopC_'+key).html('¥'+json.shops[key]['goodsMoney'].toFixed(2));
+				}
+				$('#totalMoney').html('¥'+json.realTotalMoney.toFixed(2));
+				$('#totalPrice').val(json.realTotalMoney);
+				// 设置可用积分及积分可抵金额
+				$('#userOrderScore').html(json.maxScore);
 				$('#userOrderMoney').html(json.maxScoreMoney);
 			}
 		});
@@ -143,15 +146,15 @@ function getCartMoney(){
 			WST.noload();
 			var json = WST.toJson(data);
 			if(json.status==1){
-			    json = json.data;
-			    for(var key in json.shops){
-			    	// 设置每间店铺的运费及总价格
-			    	$('#shopC_'+key).html('¥'+json.shops[key]['goodsMoney'].toFixed(2));
-			    }
-			 	$('#totalMoney').html('¥'+json.realTotalMoney.toFixed(2));
-			 	$('#totalPrice').val(json.realTotalMoney);
-			 	// 设置可用积分及积分可抵金额
-			 	$('#userOrderScore').html(json.maxScore);
+				json = json.data;
+				for(var key in json.shops){
+					// 设置每间店铺的运费及总价格
+					$('#shopC_'+key).html('¥'+json.shops[key]['goodsMoney'].toFixed(2));
+				}
+				$('#totalMoney').html('¥'+json.realTotalMoney.toFixed(2));
+				$('#totalPrice').val(json.realTotalMoney);
+				// 设置可用积分及积分可抵金额
+				$('#userOrderScore').html(json.maxScore);
 				$('#userOrderMoney').html(json.maxScoreMoney);
 			}
 		});
@@ -165,103 +168,103 @@ function submitOrder(){
 		return false;
 	}
 	WST.load('提交中···');
-    var param = {};
-    param.s_addressId = addressId;
-    param.s_areaId = $('#areaId').val();
-    param.payType = $('#paymentsh').val();
-    param.payCode = $('#paymentsw').val();
-    param.isUseScore = $('#scoreh').val();
-    param.useScore = $('#userOrderScore').html();
-    
+	var param = {};
+	param.s_addressId = addressId;
+	param.s_areaId = $('#areaId').val();
+	param.payType = $('#paymentsh').val();
+	param.payCode = $('#paymentsw').val();
+	param.isUseScore = $('#scoreh').val();
+	param.useScore = $('#userOrderScore').html();
+
 	$('.wst-se-sh .shopn').each(function(){
 		shopId = $(this).attr('shopId');
-	    param['remark_'+shopId] = $('#remark_'+shopId).val();
-	    param['couponId_'+shopId] = $('#couponId_'+shopId).val();
+		param['remark_'+shopId] = $('#remark_'+shopId).val();
+		param['couponId_'+shopId] = $('#couponId_'+shopId).val();
 	});
-    param.deliverType = $('#givesh').val();
-    param.isInvoice = $('#isInvoice').val();
-    param.invoiceId = $('#invoiceId').val();
-    param.invoiceClient = $('#invoice_obj').val()==1?$('#invoice_head').val():'个人';
-    $('.wst-se-confirm .button').attr('disabled', 'disabled');
+	param.deliverType = $('#givesh').val();
+	param.isInvoice = $('#isInvoice').val();
+	param.invoiceId = $('#invoiceId').val();
+	param.invoiceClient = $('#invoice_obj').val()==1?$('#invoice_head').val():'个人';
+	$('.wst-se-confirm .button').attr('disabled', 'disabled');
 	$.post(WST.U('mobile/orders/submit'),param,function(data,textStatus){
 		var json = WST.toJson(data);
-	    WST.noload();
-	    if(json.status==1){
-	    	WST.msg(json.msg,'success');
-		      setTimeout(function(){
-		    	  if(param.payType==1 && $('#totalPrice').val()>0){
-		    		  if(param.payCode=='alipays' || param.payCode==''){
-			    		  location.href = WST.U('mobile/alipays/toAliPay',{"pkey":json.pkey});
-		    		  }else if(param.payCode=='wallets'){
-		    			  location.href = WST.U('mobile/wallets/payment',{"pkey":json.pkey});
-		    		  }else if(param.payCode=='unionpays'){
-		    			  location.href = WST.U('mobile/unionpays/toUnionpay',{"pkey":json.pkey});
-		    		  }else if(param.payCode=='weixinpays'){
-		    			  location.href = WST.U('mobile/weixinpays/toWeixinPay',{"pkey":json.pkey});
-		    		  }
-		    	  }else{
-		    		  location.href = WST.U('mobile/orders/index');
-		    	  }
-		      },1000);
-	    }else{
-	    	WST.msg(json.msg,'info');
-	    	$('.wst-se-confirm .button').removeAttr('disabled');
-	    }
+		WST.noload();
+		if(json.status==1){
+			WST.msg(json.msg,'success');
+			setTimeout(function(){
+				if(param.payType==1 && $('#totalPrice').val()>0){
+					if(param.payCode=='alipays' || param.payCode==''){
+						location.href = WST.U('mobile/alipays/toAliPay',{"pkey":json.pkey});
+					}else if(param.payCode=='wallets'){
+						location.href = WST.U('mobile/wallets/payment',{"pkey":json.pkey});
+					}else if(param.payCode=='unionpays'){
+						location.href = WST.U('mobile/unionpays/toUnionpay',{"pkey":json.pkey});
+					}else if(param.payCode=='weixinpays'){
+						location.href = WST.U('mobile/weixinpays/toWeixinPay',{"pkey":json.pkey});
+					}
+				}else{
+					location.href = WST.U('mobile/orders/index');
+				}
+			},1000);
+		}else{
+			WST.msg(json.msg,'info');
+			$('.wst-se-confirm .button').removeAttr('disabled');
+		}
 	});
 }
 //提交虚拟商品订单
 function quickSubmitOrder(){
 	WST.load('提交中···');
-    var param = {};
-    param.payType = $('#paymentsh').val();
-    param.payCode = $('#paymentsw').val();
-    param.isUseScore = $('#scoreh').val();
-    param.useScore = $('#userOrderScore').html();
+	var param = {};
+	param.payType = $('#paymentsh').val();
+	param.payCode = $('#paymentsw').val();
+	param.isUseScore = $('#scoreh').val();
+	param.useScore = $('#userOrderScore').html();
 	$('.wst-se-sh .shopn').each(function(){
 		shopId = $(this).attr('shopId');
-	    param['remark_'+shopId] = $('#remark_'+shopId).val();
-	    param['couponId_'+shopId] = $('#couponId_'+shopId).val();
+		param['remark_'+shopId] = $('#remark_'+shopId).val();
+		param['couponId_'+shopId] = $('#couponId_'+shopId).val();
 	});
-    param.isInvoice = $('#isInvoice').val();
-    param.invoiceId = $('#invoiceId').val();
-    param.invoiceClient = $('#invoice_obj').val()==1?$('#invoice_head').val():'个人';
-    $('.wst-se-confirm .button').attr('disabled', 'disabled');
-	$.post(WST.U('mobile/orders/quickSubmit'),param,function(data,textStatus){ 
+	param.isInvoice = $('#isInvoice').val();
+	param.invoiceId = $('#invoiceId').val();
+	param.invoiceClient = $('#invoice_obj').val()==1?$('#invoice_head').val():'个人';
+	$('.wst-se-confirm .button').attr('disabled', 'disabled');
+	$.post(WST.U('mobile/orders/quickSubmit'),param,function(data,textStatus){
 		var json = WST.toJson(data);
-	    WST.noload();
-	    if(json.status==1){
-	    	WST.msg(json.msg,'success');
-		      setTimeout(function(){
-		    	  if(param.payType==1 && $('#totalPrice').val()>0){
-		    		  if(param.payCode=='alipays' || param.payCode==''){
-			    		  location.href = WST.U('mobile/alipays/toAliPay',{"pkey":json.pkey});
-		    		  }else if(param.payCode=='wallets'){
-		    			  location.href = WST.U('mobile/wallets/payment',{"pkey":json.pkey});
-		    		  }else if(param.payCode=='unionpays'){
-		    			  location.href = WST.U('mobile/unionpays/toUnionpay',{"pkey":json.pkey});
-		    		  }else if(param.payCode=='weixinpays'){
-		    			  location.href = WST.U('mobile/weixinpays/toWeixinPay',{"pkey":json.pkey});
-		    		  }
-		    	  }else{
-		    		  location.href = WST.U('mobile/orders/index');
-		    	  }
-		      },1000);
-	    }else{
-	    	WST.msg(json.msg,'info');
-	    	$('.wst-se-confirm .button').removeAttr('disabled');
-	    }
+		WST.noload();
+		if(json.status==1){
+			WST.msg(json.msg,'success');
+			setTimeout(function(){
+				if(param.payType==1 && $('#totalPrice').val()>0){
+					if(param.payCode=='alipays' || param.payCode==''){
+						location.href = WST.U('mobile/alipays/toAliPay',{"pkey":json.pkey});
+					}else if(param.payCode=='wallets'){
+						location.href = WST.U('mobile/wallets/payment',{"pkey":json.pkey});
+					}else if(param.payCode=='unionpays'){
+						location.href = WST.U('mobile/unionpays/toUnionpay',{"pkey":json.pkey});
+					}else if(param.payCode=='weixinpays'){
+						location.href = WST.U('mobile/weixinpays/toWeixinPay',{"pkey":json.pkey});
+					}
+				}else{
+					location.href = WST.U('mobile/orders/index');
+				}
+			},1000);
+		}else{
+			WST.msg(json.msg,'info');
+			$('.wst-se-confirm .button').removeAttr('disabled');
+		}
 	});
 }
 function addAddress(type,id){
 	location.href = WST.U('mobile/useraddress/index','type='+type+'&addressId='+id);
 }
 var dataHeight = $(".frame").css('height');
-	dataHeight = parseInt(dataHeight)+50+'px';
+dataHeight = parseInt(dataHeight)+50+'px';
 $(document).ready(function(){
 	WST.imgAdapt('j-imgAdapt');
-    $(".frame").css('bottom','-'+dataHeight);
-    
-    backPrevPage(WST.U('mobile/carts/index'));
+	$(".frame").css('bottom','-'+dataHeight);
+
+	backPrevPage(WST.U('mobile/carts/index'));
 });
 //弹框
 function dataShow(n){
@@ -294,10 +297,10 @@ function dataHide(n){
 	jQuery('#cover').hide();
 }
 document.addEventListener('touchmove', function(event) {
-    //阻止背景页面滚动,
-    if(!jQuery("#cover").is(":hidden")){
-        event.preventDefault();
-    }
+	//阻止背景页面滚动,
+	if(!jQuery("#cover").is(":hidden")){
+		event.preventDefault();
+	}
 })
 
 
@@ -307,37 +310,37 @@ document.addEventListener('touchmove', function(event) {
 /*********************** 发票信息层 ****************************/
 //弹框
 function invoiceShow(){
-    jQuery('#cover').attr("onclick","javascript:invoiceHide();").show();
-    jQuery('#frame').animate({"right": 0}, 500);
-    setTimeout(function(){$('#shopBox').hide();},600)// 隐藏背部页面
-    
+	jQuery('#cover').attr("onclick","javascript:invoiceHide();").show();
+	jQuery('#frame').animate({"right": 0}, 500);
+	setTimeout(function(){$('#shopBox').hide();},600)// 隐藏背部页面
+
 }
 function invoiceHide(){
-    $('#shopBox').show();// 隐藏背部页面
-    jQuery('#frame').animate({'right': '-100%'}, 500);
-    jQuery('#cover').hide();
+	$('#shopBox').show();// 隐藏背部页面
+	jQuery('#frame').animate({'right': '-100%'}, 500);
+	jQuery('#cover').hide();
 }
 
 
 
 function getInvoiceList(){
-  $.post(WST.U('mobile/invoices/pageQuery'),{},function(data){
-      var json = WST.toJson(data);
-      if(json.status!=-1){
-        var gettpl1 = document.getElementById('invoiceBox').innerHTML;
-          laytpl(gettpl1).render(json, function(html){
-            	$('.inv_list_item').html(html);
-            	invoiceShow();
-            	// 点击抬头item
+	$.post(WST.U('mobile/invoices/pageQuery'),{},function(data){
+		var json = WST.toJson(data);
+		if(json.status!=-1){
+			var gettpl1 = document.getElementById('invoiceBox').innerHTML;
+			laytpl(gettpl1).render(json, function(html){
+				$('.inv_list_item').html(html);
+				invoiceShow();
+				// 点击抬头item
 				$('.inv_list_item li').click(function(){
 					// 设置值
 					$('#invoice_head').val($(this).html());
 					$('#invoiceId').val($(this).attr('invId'));
 					$('#invoice_code').val($(this).attr('invCode'));
 				})
-          });
-      }else{
-        WST.msg(json.msg,'info');
-      }
-  });
+			});
+		}else{
+			WST.msg(json.msg,'info');
+		}
+	});
 }

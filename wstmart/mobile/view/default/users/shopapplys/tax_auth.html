@@ -15,9 +15,40 @@
 
 {block name="main"}
 <div class="apply-container">
-    <div class="wst-prompt-icon"><img src="__MOBILE__/img/nothing-apply.png"></div>
-    <div class="wst-prompt-info">
-        <p>税务认证界面</p>
+<!--    <div class="wst-prompt-icon"><img src="__MOBILE__/img/nothing-apply.png"></div>-->
+<!--    <div class="wst-prompt-info">-->
+<!--        <p>税务认证界面</p>-->
+<!--    </div>-->
+
+</div>
+<div class="ui-row-flex ui-whitespace ui-row-flex-ver c-box " style="margin-top:45px;">
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">联系方式</div>
+        <div class="item-right">
+            <input type="text" id="linkPhone" placeholder="请填写联系方式" value="{$userPhone}"/>
+        </div>
+    </div>
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">身份证号码</div>
+        <div class="item-right">
+            <input type="text" id="cardNumber" placeholder="请填写身份证号码" value="{$cardNumber}"/>
+        </div>
+    </div>
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">联系人</div>
+        <div class="item-right">
+            <input type="text" id="linkman" placeholder="请填写联系人"/>
+        </div>
+    </div>
+    <div class="ui-col c-title">营业范围</div>
+    <div class="ui-col c-content">
+        <textarea id="applyIntention"  placeholder="请填写营业范围"></textarea>
+    </div>
+
+    <div class="ui-btn-wrap" style="padding:5px;padding-bottom:5px;">
+        <button class="ui-btn-lg ui-btn-danger c-btn" onclick="save()">
+            提交
+        </button>
     </div>
 </div>
 {/block}

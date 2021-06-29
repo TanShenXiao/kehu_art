@@ -2,6 +2,8 @@
 namespace wstmart\mobile\model;
 use wstmart\common\model\Shops as CShops;
 use think\Db;
+use wstmart\home\validate\ShopBase as VShopBase;
+
 /**
  * ============================================================================
  * WSTMart多用户商城
@@ -234,5 +236,197 @@ class Shops extends CShops{
             $res[] = $value['shopId'];
         }
         return $res;
+    }
+
+    /**
+     * 保存入驻资料
+     */
+    public function saveStep($data = []){
+        $userId = (int)session('WST_USER.userId');
+        $flowId = (int)input('flowId');
+        //判断是否存在入驻申请
+        $shops = $this->alias('s')->join('__SHOP_USERS__ sur','s.shopId=sur.shopId','left')->field('s.*')->where(['sur.userId'=>$userId])->find();
+        if(!empty($shops))return WSTReturn('请勿重复申请入驻');
+        $shops = $this->where('userId',$userId)->find();
+        $shopId = 0;
+        if(empty($shops)){
+            // type为1表示个人入驻
+            if(isset($data['shopType']) && $data['shopType']==1)
+                $shopType = 1;
+            else $shopType = 0;
+            $shop = ['userId'=>$userId,'applyStatus'=>0,'shopType'=>$shopType];
+            $this->save($shop);
+            $exData['shopId'] = $this->shopId;
+            Db::name('shop_extras')->insert($exData);
+            $shopId = $this->shopId;
+        }else{
+            $shopId = $shops['shopId'];
+        }
+        //$joinType = session('join_type');
+        // type为1表示个人入驻
+        if(isset($data['shopType']) && $data['shopType']==1)
+            $joinType = 1;
+        else $joinType = 0;
+        if($shops['applyStatus']==1)return WSTReturn('您的入驻申请正在审核，请勿重复提交');
+        if($shops['applyStatus']==2)return WSTReturn('请勿重复申请入驻');
+
+        // 保存流程id
+        $applyStep = ['applyStep'=>$flowId];
+        if($flowId == 1){	//处于第一步时还可调整店铺类型
+            $applyStep['shopType'] = $joinType;
+        }
+        $this->save($applyStep,['shopId'=>$shopId]);
+        //获取完整流程信息
+        $shopFlows = $this->getShopFlowDatas($flowId);
+
+        //新增入驻申请
+        // 先遍历前台传来的data,根据shop_base表判断是属于shops表还是shop_extras表，分别用两个数组保存
+        $shopsData = [];
+        $shopExtrasData = [];
+        // 保存上传图片的路径，用来启用上传图片
+        $uploadShopsImgPath = [];
+        $uploadShopExtrasImgPath = [];
+        $unsetField = [];
+        $goodsCats = [];
+        foreach($data as $k => $v){
+            $field = Db::name('shop_bases')->where(['fieldName'=>$k,'dataFlag'=>1])->field('fieldName,fieldType,fieldAttr,isShopsTable,dateRelevance,isShow')->find();
+            if($field['isShopsTable']==1){
+                // 属于shops表
+                $shopsData[$k] = $v;
+                //获取地区
+                if($field['fieldType'] == 'other' && $field['fieldAttr'] == 'area'){
+                    $areaIds = model('Areas')->getParentIs($shopsData[$k]);
+                    if(!empty($areaIds))$shopsData[$k] = implode('_',$areaIds)."_";
+                }
+                if($field['fieldType'] == 'other' && $field['fieldAttr'] == 'file'){
+                    $uploadShopsImgPath[] = $data[$k];
+                }
+            }else{
+                // 属于shop_extras表
+                $shopExtrasData[$k] = $v;
+                //获取地区
+                if($field['fieldType'] == 'other' && $field['fieldAttr'] == 'area'){
+                    $areaIds = model('Areas')->getParentIs($shopExtrasData[$k]);
+                    if(!empty($areaIds))$shopExtrasData[$k] = implode('_',$areaIds)."_";
+                }
+                if($field['fieldType'] == 'other' && $field['fieldAttr'] == 'file'){
+                    $uploadShopExtrasImgPath[] = $data[$k];
+                }
+                if($field['fieldType'] == 'other' && $field['fieldAttr'] == 'date' && $field['dateRelevance']){
+                    $dateRelevance = explode(',',$field['dateRelevance']);
+                    // 如果选择了长期，就删除字段的结束日期
+                    if($data[$dateRelevance[1]]==1){
+                        $unsetField[] = $dateRelevance[0];
+                    }
+                }
+                //经营范围
+                if(!empty($data['goodsCatIds']))$goodsCats = explode(',',$data['goodsCatIds']);
+            }
+        }
+
+        // 删除无需入库的字段
+        foreach($shopExtrasData as $k => $v){
+            if(in_array($k,$unsetField)){
+                unset($shopExtrasData[$k]);
+            }
+        }
+
+        $validate = new VShopBase();
+        $validate->setRuleAndMessage($shopsData);
+        $validate->setRuleAndMessage($shopExtrasData);
+
+        Db::startTrans();
+        try{
+            $shopsData['shopId'] = $shopId;
+            //$shopsData['applyStatus'] = 1;
+            $shopExtrasData['shopId'] = $shopId;
+            if(!$validate->scene('add')->check($data))return WSTReturn($validate->getError());
+
+            //首字母
+            if( isset( $shopsData['shopName']  ) ){
+                $shopsData['shopNameOne'] = WSTGetFirstCharter($shopsData['shopName'] );
+            }
+
+            //判断是不是最后一个表单环节了
+            $flows = $shopFlows['flows'];
+            if($flows[count($flows)-1]['flowId']==$shopFlows['nextStep']['flowId']){
+                $shopsData['applyStatus'] = 1;
+                $shopsData['applyTime'] = date('Y-m-d H:i:s');
+            }
+            $this->allowField(true)->save($shopsData,['shopId'=>$shopId]);
+            foreach($uploadShopsImgPath as $v){
+                //启用上传图片
+                WSTUseResource(0, $this->shopId, $v ,'shops');
+            }
+            $seModel = model('ShopExtras');
+            $seModel->allowField(true)->save($shopExtrasData,['shopId'=>$shopId]);
+            $extraId = $seModel->where(['shopId'=>$shopId])->value('id');// 获取主键
+            if($joinType!=1) {	// 非个人入驻
+                foreach($uploadShopExtrasImgPath as $v){
+                    //启用上传图片
+                    WSTUseResource(0, $extraId, $v ,'shopextras');
+                }
+            }
+            if($goodsCats){
+                foreach ($goodsCats as $v){
+                    if((int)$v>0)Db::name('cat_shops')->insert(['shopId'=>$shopId,'catId'=>$v]);
+                }
+            }
+            Db::commit();
+            session('tmpApplyStep',$shopFlows['nextStep']['flowId']);
+            return WSTReturn('保存成功', 1, ['nextflowId'=>$shopFlows['nextStep']['flowId']]);
+        }catch (\Exception $e) {
+            Db::rollback();
+            return WSTReturn('保存失败',-1);
+        }
+    }
+
+    /**
+     * 获取商家入驻资料
+     */
+    public function getShopApply(){
+        $userId = (int)session('WST_USER.userId');
+        $rs = $this->alias('s')->join('__SHOP_EXTRAS__ ss','s.shopId=ss.shopId','inner')
+            ->where('s.userId',$userId)
+            ->find();
+        if(!empty($rs)){
+            $rs = $rs->toArray();
+            $goodscats = Db::name('cat_shops')->where('shopId',$rs['shopId'])->select();
+            $rs['catshops'] = [];
+            foreach ($goodscats as $v){
+                $rs['catshops'][$v['catId']] = true;
+            }
+            $rs['taxRegistrationCertificateImgVO'] = ($rs['taxRegistrationCertificateImg']!='')?explode(',',$rs['taxRegistrationCertificateImg']):[];
+        }else{
+            $rs = [];
+            $data1 = $this->getEModel('shops');
+            $data2 = $this->getEModel('shop_extras');
+            $rs = array_merge($data1,$data2);
+            $rs['taxRegistrationCertificateImgVO'] = [];
+        }
+        return $rs;
+    }
+
+    /**
+     * 获取商家入驻流程
+     */
+    public function getShopFlowDatas($flowId = 0){
+        $data = ['flows'=>[],'prevStep'=>[],'nextStep'=>[]];
+        $data['flows'] = Db::name('shop_flows')->where(['isShow'=>1,'dataFlag'=>1])->order('sort asc')->select();
+        $flowNum = count($data['flows']);
+        $flowId = ($flowId==0)?$data['flows'][0]['flowId']:$flowId;
+        foreach ($data['flows'] as $key => $v) {
+            if($key>0){
+                $data['prevStep'] =  $data['flows'][$key-1];
+            }
+            if($v['flowId'] == $flowId){
+                $data['currStep'] = $v;
+                if(($flowNum-1)>$key){
+                    $data['nextStep'] = $data['flows'][$key+1];
+                }
+                break;
+            }
+        }
+        return $data;
     }
 }

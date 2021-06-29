@@ -142,6 +142,7 @@ class Goods extends Base{
         model( "common/attributes" )->attridToAttrval("","",$object);
 
         $data = ['object'=>$object,'src'=>$src];
+        // var_dump($data);die();
         $shopExpressList = model("common/express")->shopExpressList();
         $this->assign("shopExpressList",$shopExpressList);
         return $this->fetch('goods/editNew',$data);

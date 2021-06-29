@@ -34,7 +34,14 @@ class Shopapplys extends Base{
         $this->assign('isApply',$isApply);
         $this->assign('userPhone',$rs['userPhone']);
         $this->assign('cardNumber',$rs['cardNumber']);
-    	return $this->fetch('users/shopapplys/shop_applys');
+
+        $apply = model('shops')->getShopApply();
+        $this->assign('apply',$apply);
+        if( $apply['applyStatus'] == 1 || $apply['applyStatus'] == 1  ){
+            return $this->fetch('users/shopapplys/shop_applys_result');
+        }else{
+            return $this->fetch('users/shopapplys/shop_applys_one');
+        }
     }
 
     /**

@@ -274,6 +274,30 @@ WST.load = function(content){
 WST.noload = function(){
 	$('#Loadl').css('display','none');
 }
+WST.getParams = function(obj){
+	var params = {};
+	var chk = {},s;
+	$(obj).each(function(){
+		if($(this)[0].type=='hidden' || $(this)[0].type=='number' || $(this)[0].type=='tel' || $(this)[0].type=='password' || $(this)[0].type=='select-one' || $(this)[0].type=='textarea' || $(this)[0].type=='text'){
+			params[$(this).attr('id')] = $.trim($(this).val());
+		}else if($(this)[0].type=='radio'){
+			if($(this).attr('name')){
+				params[$(this).attr('name')] = $('input[name='+$(this).attr('name')+']:checked').val();
+			}
+		}else if($(this)[0].type=='checkbox'){
+			if($(this).attr('name') && !chk[$(this).attr('name')]){
+				s = [];
+				chk[$(this).attr('name')] = 1;
+				$('input[name='+$(this).attr('name')+']:checked').each(function(){
+					s.push($(this).val());
+				});
+				params[$(this).attr('name')] = s.join(',');
+			}
+		}
+	});
+	chk=null,s=null;
+	return params;
+}
 //滚动到顶部
 WSTrunToTop = function (){  
 	currentPosition=document.documentElement.scrollTop || document.body.scrollTop; 
@@ -370,7 +394,7 @@ WST.cutStr = function (str,len)
 
 $(function(){
 	echo.init();//图片懒加载
-    // 滚动到顶部	
+    // 滚动到顶部
     $(window).scroll(function(){
         if( $(window).scrollTop() > 200 ){
             $('#toTop').show();
@@ -446,7 +470,7 @@ $(function(){
 		newUrl = WST.conf.APP + "/"+newUrl;
 		return newUrl;
 	}
-	
+
 	WST.U0 = function(url, vars){
 		if(!url || url=='')return '';
 		var info = this.parse_url(url), path = [], reg;

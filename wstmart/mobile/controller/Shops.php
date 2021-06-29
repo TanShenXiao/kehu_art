@@ -38,6 +38,14 @@ class Shops extends Base{
     }
 
     /**
+     *保存流程表单信息
+     */
+    public function saveStep(){
+        $data = input('post.');
+        return model('shops')->saveStep($data);
+    }
+
+    /**
      * 作品征集
      */
     public function artCollect(){

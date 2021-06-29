@@ -40,7 +40,7 @@
             <select id="cat_0" class='ipt j-goodsCats' level="0" onchange="WST.ITGoodsCats({id:'cat_0',val:this.value,isRequire:true,className:'j-goodsCats',afterFunc:'lastGoodsCatCallback'});getBrands('brandId',this.value)" style="width: 395px">
                 <option value="">-请选择-</option>
                 {volist name=":WSTShopApplyGoodsCats(0)" id="vo"}
-                <option value="{$vo['catId']}">{$vo['catName']}</option>
+                <option value="{$vo['catId']}" data-fax="{$vo['fax']}">{$vo['catName']}</option>
                 {/volist}
             </select>
         </td>
@@ -150,8 +150,21 @@
     </tr>
     <tr>
         <th>店铺价格<font color='red'>*</font>：</th>
-        <td><input type='text' class='j-ipt ipwd' id='shopPrice' value='{$object["shopPrice"]}' maxLength='10' data-rule='店铺价格:required;price' data-rule-price="[/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/, '价格必须大于0']" onblur="javascript:WST.limitDecimal(this,2)" onkeypress="return WST.isNumberdoteKey(event)" onkeyup="javascript:WST.isChinese(this,1)"/></td>
+        <td><input type='text' class='j-ipt ipwd' id='shopPrice' value='{$object["shopPrice"]}' maxLength='10' data-rule='店铺价格:required;price' data-rule-price="[/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/, '价格必须大于0']" onblur="javascript:WST.limitDecimal(this,2)" onkeypress="return WST.isNumberdoteKey(event)" onkeyup="javascript:WST.isChinese(this,1)" onchange="show_fax();" />
+            <span id="fax_price"></span>
+        </td>
     </tr>
+    <script type="text/javascript">
+        function show_fax(){
+            $("#fax_price").text("");
+            var fax=$('#cat_0 option:selected').attr("data-fax");
+            var price=$("#shopPrice").val();
+            var fax_price=fax*price;
+            //alert(fax_price);
+            $("#fax_price").text("当前预计税率："+fax+",税费："+fax_price+'元，具体税费以实际为准');
+        }
+        
+    </script>
     <tr>
         <th>市场价格<font color='red'>*</font>：</th>
         <td><input type='text' class='j-ipt ipwd' id='marketPrice' value='{$object["marketPrice"]}' maxLength='10' data-rule='市场价格:required;price' data-rule-price="[/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/, '价格必须大于0']" onblur="javascript:WST.limitDecimal(this,2)" onkeypress="return WST.isNumberdoteKey(event)" onkeyup="javascript:WST.isChinese(this,1)"/></td>

@@ -51,7 +51,7 @@
 .ui-checkbox input:checked:before,.ui-checkbox-s input:checked:before{color:#e32726!important}
 .c-btn{height: 38px;line-height: 38px;font-size: 0.15rem;color: #fff;background: #e00102;border-radius: 3px;border-bottom: 1px solid #e00102;}
 .item-left{margin-right: 10px;}
-.item-right{width:80%;}
-.item-right input{border:0;width:100%;}
+.item-right{width:70%;}
+.item-right input{border:0;}
 .apply-container{margin-top:72px}
 #applyIntention{width:100%;height:115px;resize:none}

@@ -1,0 +1,56 @@
+{extend name="default/base" /}
+{block name="title"}商家入驻 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__ROOT__/wstmart/mobile/view/default/css/shop_applys.css?v={$v}">
+.webuploader-container {
+    overflow: hidden;
+}
+{/block}
+{block name="footer"}
+{/block}
+{block name="header"}
+    <div id="useri_infos">
+        <header style="background:#ffffff;" class="ui-header ui-header-positive ui-border-b wst-header">
+            <a href="{:url('mobile/users/index')}"><i class="ui-icon-return"></i></a><h1 class="useri_info">商家入驻</h1>
+        </header>
+    </div>
+{/block}
+
+{block name="main"}
+{if $apply['applyStatus']==1}
+<div class="apply-container">
+    <div class="wst-prompt-icon"><img src="__MOBILE__/img/nothing-apply.png"></div>
+    <div class="wst-prompt-info">
+        <p>您的入驻申请已提交审核，请等待审核结果...</p>
+    </div>
+</div>
+<!--{if $apply['applyStatus']==1}-->
+<!--<img src='__ROOT__/wstmart/home/view/default/img/examine.png' style="vertical-align:middle"/>&nbsp;-->
+<!--您的入驻申请已提交审核，请等待审核结果...-->
+<!--{/if}-->
+<!--{if $apply['applyStatus']==-1}-->
+<!--<img src='__ROOT__/wstmart/home/view/default/img/error_1.png' style="vertical-align:middle"/>-->
+<!--很抱歉，您的入驻申请因【{$apply['applyDesc']}】审核不通过。。。-->
+<!--<div style='clear:both;'></div>-->
+<!--{/if}-->
+<!--{if $apply['applyStatus']==2}-->
+<!--<img src='__ROOT__/wstmart/home/view/default/img/apply-ok.png' style="vertical-align:middle"/>&nbsp;-->
+<!--您的入驻申请已通过，赶紧开始上架商品吧~-->
+<!--{/if}-->
+{/if}
+{/block}
+{block name="include"}
+{include file="default/dialog" /}<!-- 对话框模板 -->
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__MOBILE__/js/jquery.min.js'></script>
+<script type='text/javascript' src='__STATIC__/plugins/webuploader/webuploader.js?v={$v}'></script>
+<script type='text/javascript' src='__MOBILE__/users/shopapplys/shop_applys.js?v={$v}3'></script>
+<script>
+    var showType = '{$apply["shopType"]}';
+    selectType(showType)
+
+
+
+</script>
+{/block}

@@ -105,7 +105,7 @@
 .goods-main .goods-filters .line2{height:40px;background:#ddd;border-bottom: 1px solid #e5e5e5;padding:0;}
 .goods-filters .line2 a{color: #333;float: left;padding: 0 20px;line-height: 40px;}
 .goods-filters .line2 a:hover{background: #fff;}
-.goods-filters .line .city{float:left;width:auto;margin-top:8px;}
+.goods-filters .line .city{float:left;width:auto;}
 .goods-filters .line .chk{float:left;height: 23px;line-height: 23px;margin-right:10px;margin-left:18px;}
 .goods-filters .line a.curr {background: #DF2003 none repeat scroll 0 0;border: 1px solid #DF2003;color: #fff;}
 .goods-filters .line .store,.goods-filters .line .store2,.goods-filters .line .store3{float:right;width:16px;height:13px;margin:5px 0px 0px 3px;}

@@ -137,6 +137,7 @@ WST.search = function(type){
 		location.href = WST.U('wechat/goods/search','keyword='+data+'&stype=3',true);//作者
  	}
 };
+
 //关注
 WST.favorites = function(sId,type){
     $.post(WST.U('wechat/favorites/add'),{id:sId,type:type},function(data){

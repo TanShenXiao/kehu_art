@@ -359,7 +359,7 @@ function filterConsult(obj, type){
 }
 //对比商品
 function contrastGoods(show,id,type){
-	if(show==1){
+	/*if(show==1){
 		$.post(WST.U('home/goods/contrastGoods'),{id:id},function(data,textStatus){
 			var json = WST.toJson(data);
 			if(json.status==1){
@@ -376,7 +376,7 @@ function contrastGoods(show,id,type){
 		});
 	}else{
 		$("#j-cont-frame").removeClass('show');
-	}
+	}*/
 }
 //删除
 function contrastDel(id){

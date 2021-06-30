@@ -272,7 +272,12 @@ class Shops extends CShops{
         if (!$validate->scene('editInfo')->check(input('post.'))) {
         	return WSTReturn($validate->getError());
         }else{
-        	$result = $this->allowField(['shopImg','isInvoice','invoiceRemarks','serviceStartTime','serviceEndTime','freight','shopQQ','shopWangWang','shopBrief','shopStatus','statusDesc','shopName','shopTel','shopkeeper','telephone','shopCompany','shopAddress',"areaId","areaIdPath"])->save(input('post.'),['shopId'=>$shopId]);
+            $shopsData = input('post.');
+            //首字母
+            if( isset( $shopsData['shopName']  ) ){
+                $shopsData['shopNameOne'] = WSTGetFirstCharter($shopsData['shopName'] );
+            }
+        	$result = $this->allowField(['shopImg','isInvoice','invoiceRemarks','serviceStartTime','serviceEndTime','freight','shopQQ','shopWangWang','shopBrief','shopStatus','statusDesc','shopName','shopTel','shopkeeper','telephone','shopCompany','shopAddress',"areaId","areaIdPath","shopNameOne"])->save($shopsData,['shopId'=>$shopId]);
         }
         if(false !== $result){
              return WSTReturn('操作成功!',1);

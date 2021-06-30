@@ -526,9 +526,26 @@ function WSTGoodsRecommends( $dataType , $dataSrc = 0 , $limit = 6 ){
     $where[] = ['r.dataType','=',$dataType];	//热销商品
     $where[] = ['r.dataSrc','=',$dataSrc];	//热销商品
 
-    return Db::name('goods')->alias('g')->join('__RECOMMENDS__ r','g.goodsId=r.dataId')
+    return Db::name('goods')->alias('g')
+        ->join('__RECOMMENDS__ r','g.goodsId=r.dataId')
         ->join('__SHOPS__ s','g.shopId=s.shopId')
         ->where($where)->field('*')->order("dataSort asc")->limit($limit)->select();
+}
+
+/**
+ * 获取精选信息
+ * @param $dataType
+ * @param int $limit
+ * @return mixed
+ */
+function WSTShopRecommends( $dataType , $dataSrc = 0 , $limit = 6 ){
+    $where = [];
+    $where[] = ['r.dataType','=',$dataType];	//热销商品
+    $where[] = ['r.dataSrc','=',$dataSrc];	//热销商品
+
+    return Db::name('recommends')->alias('r')
+        ->join('__SHOPS__ s','r.dataId=s.shopId')
+        ->where($where)->field('*')->order("r.dataSort asc")->limit($limit)->select();
 }
 
 /**

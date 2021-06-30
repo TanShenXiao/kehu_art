@@ -23,7 +23,7 @@
 	<div class="wst-search-box">
 		<div class='wst-search'>
 			  <input type="hidden" id="search-type" value="0"/>
-			<input type="text" id='search-ipt' class='search-ipt' value=''/>
+			<input type="text" id='search-ipt' class='search-ipt' onkeydown="javascript:WST.entersearch(this.value)" value=''/>
 		</div>
 		<div id='search-btn' class="wst-search-btn" onclick='javascript:WST.search(this.value)'></div>
 	 </div>

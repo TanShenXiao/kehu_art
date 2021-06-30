@@ -154,7 +154,7 @@ class Goods extends CGoods{
 		if($searchType==2){
 			if($keyword!='')$where[] = ['goodsAuthor','like','%'.$keyword.'%'];
 		}else{
-			if($keyword!='')$where[] = ['goodsName','like','%'.$keyword.'%'];
+			if($keyword!='')$where[] = ['g.goodsName|s.shopName','like','%'.$keyword.'%'];
 		}
 		if(null != input('goodsType')){
 			$where[] = ['goodsType','=',Input('goodsType/d')];

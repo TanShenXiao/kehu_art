@@ -23,6 +23,12 @@
         <td><input type='text' class='j-ipt ipwd' id='goodsSn' value='{$object["goodsSn"]}' maxLength='20' data-rule='商品编号:required;'/></td>
     </tr>
     <tr>
+        <th width='150'>商品货号<font color='red'>*</font>：</th>
+        <td>
+            <input type='text' class='j-ipt ipwd' id='productNo' value='{$object["productNo"]}' maxLength='20' data-rule='商品货号:required;'/>
+        </td>
+    </tr>
+    <tr>
         <th><font color='red'>*</font>商品类型：</th>
         <td>
             <select id='goodsType' class='j-ipt ipwd' onchange="changeGoodsType(this.value)" {if $object["goodsId"]>0}disabled{/if}>

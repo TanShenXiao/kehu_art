@@ -79,6 +79,15 @@ WST.search = function(){
 		WST.goodsSearch($.trim($('#search-ipt').val()));
 	}
 }
+//回车键搜索
+WST.entersearch = function (type){
+	var event = window.event || arguments.callee.caller.arguments[0];
+	if (event.keyCode == 13)
+	{
+		WST.search(type);
+	}
+}
+
 WST.shopSearch = function(v){
 	location.href = WST.U('home/shops/shopstreet','keyword='+v,true);
 }

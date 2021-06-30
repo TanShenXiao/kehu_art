@@ -110,8 +110,6 @@
 			- <input type="text" class="sipt wst-price-ipt" id="maxPrice" value="{$maxPrice}" onkeypress='return WST.isNumberKey(event);' onkeyup="javascript:WST.isChinese(this,1)">
 			</div>
 			<button class="wst-price-but" type="submit" style="width:60px;height: 25px;margin-top:8px;" onclick='javascript:goodsOrder()'>确定</button>
-			
-
 			<div class="page" style="float:right;">
 				<div class='city wst-address'>
 					<div class='item dorpdown'>
@@ -125,8 +123,8 @@
 						</a>
 						<i class="drop-down-arrow"></i>
 						</div>
-			
-			
+
+
 				 <div class="dorp-down-layer">
 					 <div class="tab-header">
 					  <ul class="tab">
@@ -137,7 +135,7 @@
 							  <a href='javascript:void(0)'>请选择</a>
 							  {/if}
 						  </li>
-			
+
 						  {if isset($areaInfo)}
 						  <li class="tab-item1" id="fl_1_2" onclick="gpanelOver(this);" c="1" >
 							<a href="javascript:void(0)">{$areaInfo[1]['areaName']}</a>
@@ -153,9 +151,9 @@
 							<a href="javascript:void(0)">请选择</a>
 						</li>
 						{/if}
-			
-			
-						
+
+
+
 					  </ul>
 					 </div>
 					  <ul class="area-box" id="fl_1_1_pl" style="display:none;">
@@ -168,13 +166,13 @@
 						<li onclick="choiceArea(this,{$area2['areaId']})"><a href="javascript:void(0)">{$area2['areaName']}</a></li>
 						{/volist}
 					</ul>
-			
+
 					<ul class="area-box" id="fl_1_3_pl" >
 						{volist name="$area3" id="area3"}
 						<li onclick="choiceArea(this,{$area3['areaId']})"><a href="javascript:void(0)">{$area3['areaName']}</a></li>
 						{/volist}
 					</ul>
-			
+
 				</div>
 						</div>
 						</div>
@@ -183,7 +181,7 @@
 			</div>
 	      </div>
 	   	  <div class='line'>
-		
+
 	        <div class='chk'>
 			 <div class="checkbox-box-s">
 		     <input name='isStock' value='1' class="sipt wst-checkbox-s" onclick="goodsFilter(this,4)" type='checkbox' id="stock" {if $isStock==1}checked{/if}/>

@@ -9,7 +9,7 @@
     <tr>
         <th>作者头像<font color='red'>*</font>：</th>
         <td>
-            <input type="text" id='goodsAuthorImg' readonly="readonly" value='{if $object["goodsAuthorImg"]!=''}{$object["goodsAuthorImg"]}{else}{:WSTConf('CONF.goodsLogo')}{/if}' class="j-ipt" style="float: left; width: 655px;" />
+            <input type="text" id='goodsAuthorImg' readonly="readonly" value='{if isset($object["goodsAuthorImg"]) and $object["goodsAuthorImg"]!=''}{$object["goodsAuthorImg"]}{else}{:WSTConf('CONF.goodsLogo')}{/if}' class="j-ipt" style="float: left; width: 655px;" />
             <div id='goodsAuthorImgupload' style="float: left;margin-top: 5px;">上传</div><span id='uploadMsg'></span>
             <div id='goodgoodsImgPickersImgBox' style='margin-bottom:5px; float: left; height: 30px; margin-left: 5px;'>
             <span class='weixin'>

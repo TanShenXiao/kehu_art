@@ -425,6 +425,8 @@ function save(p){
 		    		WST.msg(json.msg,{icon:2});
 		    	}
 		    });
+		}else{
+			WST.msg("数据有问题请点击上一步检查",{icon:2})
 		}
 	});
 }

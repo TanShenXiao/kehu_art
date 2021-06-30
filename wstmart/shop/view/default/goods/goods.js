@@ -234,6 +234,7 @@ var uploader = batchUpload({uploadPicker:'#batchUpload',uploadServer:WST.U('shop
 	    }
 		getShopsCats('shopCatId2',OBJ.shopCatId1,OBJ.shopCatId2);
 	}
+	$("#editNew1").hide()
 }
 
 

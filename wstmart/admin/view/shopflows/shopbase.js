@@ -34,9 +34,14 @@ function initGrid(p){
             }},
             {title:'表单注释', name:'fieldComment' ,width:200},
             {title:'排序', name:'fieldSort' ,width:50},
-            {title:'是否必填', name:'isRequire' ,width:50,renderer: function(val,item,rowIndex){
+            {title:'是否必填', name:'isRequire' ,width:60,renderer: function(val,item,rowIndex){
                 var h = '';
                 item['isRequire'] == 0 ? h = "" : h = "<span class='statu-yes'><i class='fa fa-check-circle'></i> 是</span>";
+                return h;
+            }},
+             {title:'是否个人', name:'isShowPersonal' ,width:60,renderer: function(val,item,rowIndex){
+                var h = '';
+                item['isShowPersonal'] == 0 ? h = "" : h = "<span class='statu-yes'><i class='fa fa-check-circle'></i> 是</span>";
                 return h;
             }},
             {title:'操作', name:'' ,width:150, align:'center', renderer: function(val,item,rowIndex){

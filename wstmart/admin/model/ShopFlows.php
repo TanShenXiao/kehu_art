@@ -175,6 +175,7 @@ class ShopFlows extends Base{
                 'fieldComment'=>$data['fieldComment'],
                 'fieldType'=>$data['fieldType'],
                 'fieldAttr'=>$data['fieldAttr'],
+                'isShowPersonal'=>$data['isShowPersonal'],
             ];
             $array['fieldRelevance'] = '';
             $array['dateRelevance'] = '';

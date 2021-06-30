@@ -16,6 +16,8 @@ use wstmart\common\model\GoodsCats as M;
  */
 use \think\Db;
 class Attributes extends Base{
+
+    protected $pk = 'attrId';
 	/**
 	 * 获取可供筛选的商品属性
 	 */
@@ -131,5 +133,47 @@ class Attributes extends Base{
                     break;
             }
         }
+    }
+
+    /**
+     * 分页
+     */
+    public function pageQuery($sId=0){
+        $shopId = ($sId==0)?(int)session('WST_USER.shopId'):$sId;
+        $attrSrc = (int)input('attrSrc');
+        $keyName = input('keyName');
+        $goodsCatPath = input('goodsCatPath');
+        $dbo = $this->field(true);
+        $map[] = ['dataFlag','=',1];
+        if($attrSrc==1){
+            $map[] = ['shopId','=',0];
+        }else if($attrSrc==2){
+            $map[] = ['shopId','=',$shopId];
+        }else{
+            $map[] = ['shopId','in',[0,$shopId]];
+        }
+        if($keyName!="")$map[] = ['attrName',"like","%".$keyName."%"];
+        if($goodsCatPath!='')$map[] = ['goodsCatPath',"like",$goodsCatPath."_%"];
+        $page = $dbo->field(true)->where($map)->order('shopId desc,attrId desc')->paginate(input('limit/d'))->toArray();
+        if(count($page['data'])>0){
+            $keyCats = model('GoodsCats')->listKeyAll();
+            foreach ($page['data'] as $key => $v){
+                $goodsCatPath = $page['data'][$key]['goodsCatPath'];
+                $page['data'][$key]['goodsCatNames'] = self::getGoodsCatNames($goodsCatPath,$keyCats);
+                $page['data'][$key]['children'] = [];
+                $page['data'][$key]['isextend'] = false;
+            }
+        }
+        return $page;
+    }
+
+    public function getGoodsCatNames($goodsCatPath, $keyCats){
+        $catIds = explode("_",$goodsCatPath);
+        $catNames = array();
+        for($i=0,$k=count($catIds);$i<$k;$i++){
+            if($catIds[$i]=='')continue;
+            if(isset($keyCats[$catIds[$i]]))$catNames[] = $keyCats[$catIds[$i]];
+        }
+        return implode("→",$catNames);
     }
 }

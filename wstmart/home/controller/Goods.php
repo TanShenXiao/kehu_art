@@ -1,5 +1,6 @@
 <?php
 namespace wstmart\home\controller;
+use think\console\Input;
 use think\Db;
 use wstmart\home\model\Goods as M;
 use wstmart\common\model\Goods as CM;
@@ -88,7 +89,7 @@ class Goods extends Base{
      */
     public function lists(){
     	$catId = (int)Input('cat/d');
-    	$catFl = (int)Input('fl/d');// 1优惠专区
+    	$catFl = (int)Input('fl/d',100);// 1优惠专区
         $goodsCatIds = [];
         if($catId>0){
             $goodsCatIds = model('GoodsCats')->getParentIs($catId);
@@ -277,12 +278,14 @@ class Goods extends Base{
 					break;
 				
 				default:
+                    $fl_data = '';
 					break;
 			}
 			$data['goodsPage'] = $m->pageQuery($goodsCatIds, $fl_data);
 		} else {
 			$data['goodsPage'] = $m->pageQuery($goodsCatIds);
 		}
+		$data['fl'] = $catFl;
 
         $catPaths = model('goodsCats')->getParentNames($catId);
 

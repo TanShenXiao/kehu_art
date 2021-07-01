@@ -584,6 +584,21 @@ function WSTShopApplyShopCats($sId = 0){
     return $rs;
 }
 
+/**
+ * 获取指定分类品牌活动
+ * @param $dataType
+ * @param int $limit
+ * @return mixed
+ */
+function WSTArticleRecommends( $catId = 405 , $limit = 4 ){
+    $where = [];
+    $where[] = ['catId','=',$catId];
+    $where[] = ['isShow','=',1];
+    $where[] = ['coverImg','not null',''];
+    return Db::name('articles')
+        ->where($where)->field('articleId,catId,articleTitle,coverImg')->order("catSort desc")->limit($limit)->select();
+}
+
 
 /**
  * 上传图片

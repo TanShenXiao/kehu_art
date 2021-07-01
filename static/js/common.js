@@ -431,8 +431,9 @@ $(function(){
 			vars = this.parse_str(vars);
 		}
 		var newUrl = WST.conf.ROUTES[url];
+		console.log(newUrl)
 		if(newUrl.indexOf('>')>-1 && newUrl.indexOf('-<')>-1){
-			newUrl = newUrl.replace('-<','-:').replace('>','');
+			newUrl = newUrl.replace(/-</g,'-:').replace(/\??>/g,'');
 		}
 	    var urlparams = newUrl.match(/:(\w+(\??))/g);
 	    var tmpv = null;

@@ -170,4 +170,29 @@ class Carts extends Base{
 		$rs = $m->getCartInfo();
 		return WSTReturn("", 1,$rs);
 	}
+
+    /**
+     * 将购物车里选择的商品移入我的关注
+     */
+    public function moveToFavorites(){
+        $m = new M();
+        $rs= $m->moveToFavorites();
+        return $rs;
+    }
+
+    /**
+     * 获取指定地址店铺是否支付自提
+     */
+    public function checkSupportStores(){
+        $userId = (int)session('WST_USER.userId');
+        $rs = model("common/Stores")->checkSupportStores($userId);
+        return WSTReturn("", 1,$rs);
+    }
+    /**
+     * 获取店铺自提点
+     */
+    public function getStores(){
+        $rs = model("common/Stores")->listQuery();
+        return WSTReturn("", 1,$rs);
+    }
 }

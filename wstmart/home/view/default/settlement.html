@@ -195,8 +195,13 @@
     <div class='pay-boxs'>
        <div class='box-head'>送货方式</div>
        <div class="wst-list-box">
-	       <div class="wst-frame2 j-selected" onclick="javascript:changeDeliverType(0,'deliverType',this)">快递运输<i></i></div>
-	       <div class="wst-frame2" onclick="javascript:changeDeliverType(1,'deliverType',this)">自提<i></i></div>
+           <input type="hidden" id="deliverType_{$vo['shopId']}" value="0" class='j-ipt j-deliver'/>
+           <input type="hidden" id="storeId_{$vo['shopId']}" value="0" class='j-ipt'/>
+           <input type="hidden" id="store_areaId_{$vo['shopId']}" value="{if isset($userAddress['addressId']) }{$userAddress['areaId']}{/if}"/>
+           <input type="hidden" id="store_areaIdPath_{$vo['shopId']}" value="{if isset($userAddress['addressId']) }{$userAddress['areaIdPath']}{/if}"/>
+
+	       <div class="wst-frame2 j-selected" onclick="javascript:changeDeliverType(0,{$vo['shopId']},'deliverType',this)">快递运输<i></i></div>
+	       <div class="wst-frame2" onclick="javascript:changeDeliverType(1,{$vo['shopId']},'deliverType',this)">自提<i></i></div>
           <input type='hidden' value='0' id='deliverType' class='j-ipt' />
 		  <input type='hidden' value={$bindPhone} id='bindPhone' />
           <div class='wst-clear'></div>
@@ -280,6 +285,42 @@
         <a href='javascript:void(0)' onclick='javascript:submitOrder()' class='wst-order wst-cart-reda' style='width:118px;height:33px;line-height:33px;'>提交订单</a>
         <div class='wst-clear'></div>
      </div>
+</div>
+
+<div class='j-store-box store-box hide'>
+    <div style="padding: 20px;">
+        <div>系统将根据您的收货地址显示其范围内的自提点，请确保您的收货地址正确填写。</div>
+        <div style="padding: 20px 0;">
+            <select id="storearea_0" class='j-storeareas' level="0" onchange="WST.ITAreas({id:'storearea_0',val:this.value,isRequire:true,className:'j-storeareas',afterFunc:'lastAreaCallback'});">
+                <option value="">-请选择-</option>
+                {volist name="areaList" id="vo"}
+                <option value="{$vo['areaId']}">{$vo['areaName']}</option>
+                {/volist}
+            </select>
+        </div>
+        <div class="store-container">
+            <div id="storelist" class="pick-sites">
+
+            </div>
+            <script id="tblist" type="text/html">
+                {{# for(var i = 0; i < d.length; i++){ }}
+                <div class="c-site-item ">
+                    <label>
+                        <div class="c-site-r">
+                            <input type="radio" name="storeId" value="{{d[i].storeId}}" {{(i==0 || d[i].storeId==currStoreId)?'checked':''}}>
+                        </div>
+                        <div class="c-site-name"><span id="storeName_{{d[i].storeId}}">{{d[i].storeName}}</span><b></b></div>
+                    </label>
+                    <div class="c-site-field">
+                        <div class="c-site-field-title"><span></span></div>
+                        <div class="c-site-field-detail"><span id="storeAddress_{{d[i].storeId}}" class="tip">{{d[i].storeAddress}}</span></div>
+                    </div>
+                    <div class="clr"></div>
+                </div>
+                {{# } }}
+            </script>
+        </div>
+    </div>
 </div>
 {/block}
 {block name="js"}

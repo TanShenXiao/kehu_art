@@ -15,6 +15,8 @@ use wstmart\common\model\GoodsCats as M;
  * 商品属性分类
  */
 use \think\Db;
+use wstmart\common\validate\Attributes as validate;
+
 class Attributes extends Base{
 
     protected $pk = 'attrId';
@@ -175,5 +177,114 @@ class Attributes extends Base{
             if(isset($keyCats[$catIds[$i]]))$catNames[] = $keyCats[$catIds[$i]];
         }
         return implode("→",$catNames);
+    }
+
+    /**
+     * 新增
+     */
+    public function add($sId=0){
+        $shopId = ($sId==0)?(int)session('WST_USER.shopId'):$sId;
+        $data = input('post.');
+        WSTUnset($data, 'attrId,dataFlag');
+        $data['createTime'] = date('Y-m-d H:i:s');
+        $data['attrVal'] = str_replace('，',',',$data['attrVal']);
+        $data["dataFlag"] = 1;
+        $data["shopId"] = $shopId;
+        $data["attrSort"] = (int)$data["attrSort"];
+        $goodsCats = model('GoodsCats')->getParentIs($data['goodsCatId']);
+        krsort($goodsCats);
+        if(!empty($goodsCats))$data['goodsCatPath'] = implode('_',$goodsCats)."_";
+        $validate = new validate();
+        if(!$validate->scene('add')->check($data))return WSTReturn($validate->getError());
+        $result = $this->allowField(true)->save($data);
+        if(false !== $result){
+            return WSTReturn("新增成功", 1);
+        }else{
+            return WSTReturn($this->getError(),-1);
+        }
+    }
+    /**
+     * 编辑
+     */
+    public function edit($sId=0){
+        $shopId = ($sId==0)?(int)session('WST_USER.shopId'):$sId;
+        $attrId = input('post.attrId/d');
+        $data = input('post.');
+        $data["attrSort"] = (int)$data["attrSort"];
+        WSTUnset($data, 'attrId,dataFlag,createTime');
+        $data['attrVal'] = str_replace('，',',',$data['attrVal']);
+        $goodsCats = model('GoodsCats')->getParentIs($data['goodsCatId']);
+        krsort($goodsCats);
+        if(!empty($goodsCats))$data['goodsCatPath'] = implode('_',$goodsCats)."_";
+        $validate = new validate();
+        if(!$validate->scene('edit')->check($data))return WSTReturn($validate->getError());
+        $result = $this->allowField(true)->save($data,['attrId'=>$attrId,'shopId'=>$shopId]);
+        if(false !== $result){
+            $where = [];
+            $where['shopId'] = $shopId;
+            $where['attrId'] = $attrId;
+            Db::name('goods_attributes')->where($where)->delete();
+            return WSTReturn("编辑成功", 1);
+        }else{
+            return WSTReturn($this->getError(),-1);
+        }
+    }
+    /**
+     * 删除
+     */
+    public function del($sId=0){
+        $shopId = ($sId==0)?(int)session('WST_USER.shopId'):$sId;
+        $attrId = input('post.attrId/d');
+        $data["dataFlag"] = -1;
+        $result = $this->save($data,['attrId'=>$attrId,'shopId'=>$shopId]);
+        if(false !== $result){
+            $where = [];
+            $where['shopId'] = $shopId;
+            $where['attrId'] = $attrId;
+            Db::name('goods_attributes')->where($where)->delete();
+            return WSTReturn("删除成功", 1);
+        }else{
+            return WSTReturn($this->getError(),-1);
+        }
+    }
+
+    /**
+     *
+     * 根据ID获取
+     */
+    public function getById($attrId,$sId=0){
+        $shopId = ($sId==0)?(int)session('WST_USER.shopId'):$sId;
+        $obj = null;
+        if($attrId>0){
+            $obj = $this->get(['attrId'=>$attrId,'dataFlag'=>1,'shopId'=>$shopId]);
+        }else{
+            $obj = self::getEModel("attributes");
+        }
+        return $obj;
+    }
+
+    /**
+     * 显示隐藏
+     */
+    public function setToggle($sId=0){
+        $shopId = ($sId==0)?(int)session('WST_USER.shopId'):$sId;
+        $attrId = input('post.attrId/d');
+        $isShow = input('post.isShow/d');
+
+        $result = $this->where(['attrId'=>$attrId,'shopId'=>$shopId,"dataFlag"=>1])->setField("isShow", $isShow);
+        if(false !== $result){
+            return WSTReturn("设置成功", 1);
+        }else{
+            return WSTReturn($this->getError(),-1);
+        }
+    }
+
+    /**
+     * 列表
+     */
+    public function listQuery(){
+        $catId = input("post.catId/d");
+        $rs = $this->field("attrId id, attrId, catId, attrName name,  '' goodsCatNames")->where(["dataFlag"=>1,"catId"=>$catId])->sort('attrSort asc,attrId asc')->select();
+        return $rs;
     }
 }

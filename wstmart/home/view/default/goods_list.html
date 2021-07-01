@@ -39,6 +39,7 @@
 
 {/* 已筛选的条件 */}
 <input type="hidden" id="cat" class="sipt" value='{$catId}'/>
+<input type="hidden" id="fl" class="sipt" value='{$fl}'/>
 <input type="hidden" id="brand" class="sipt" value='{$brandId}'/>
 {volist name="$vs" id="v"}
 <input type="hidden" id="v_{$v}" class="sipt" value='{$attrs["v_".$v]}'/>
@@ -70,9 +71,9 @@
 		 <div>作品类别：</div>
          {volist name=":WSTGoodsCats($vo['parentId'])" id='vo2'}
 		 {if $catId == $vo2['catId']}
-         <div class="{$vo['parentId']>0?'cat2':'cat1'} cur cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"])}'>{$vo2['catName']}</a></div>
+         <div class="{$vo['parentId']>0?'cat2':'cat1'} cur cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"]."&fl=$fl")}'>{$vo2['catName']}</a></div>
 		 {else /}
-         <div class="{$vo['parentId']>0?'cat2':'cat1'} cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"])}'>{$vo2['catName']}</a></div>
+         <div class="{$vo['parentId']>0?'cat2':'cat1'} cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"]."&fl=$fl")}'>{$vo2['catName']}</a></div>
 		 {/if}
          {/volist}
 	</div>

@@ -198,7 +198,7 @@ class Articles extends Base{
 			  ->where(['a.dataFlag'=>1,'a.isShow'=>1,'ac.dataFlag'=>1,'ac.isShow'=>1,'a.catId'=>$catId])
 			  ->where([['ac.parentId','<>',7]])
 			  ->distinct(true)
-			  ->cache(true)
+			  //->cache(true)
 			  ->paginate(8);
 		return $rs;
 	}

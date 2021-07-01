@@ -2,6 +2,7 @@
 namespace wstmart\mobile\controller;
 use wstmart\common\model\ShopApplys as M;
 use wstmart\common\model\Users as UM;
+use wstmart\mobile\model\TaxUsers as TU;
 use wstmart\common\model\TaxInvoiceUsers as TAX;
 /**
  * ============================================================================
@@ -51,11 +52,19 @@ class Shopapplys extends Base{
         $m = new M();
         return $m->add();
     }
+    public function tax_auth(){
+        $userId = (int)session('WST_USER.userId');
+        $Taxuser = new TU();
+        $rs = $Taxuser->getFieldsById($userId);
+        $this->assign('users',$rs);
+        return $this->fetch('users/shopapplys/tax_auth');
+        }
+    }
     //开票认证
     public function tax_auth(){
         $userId = (int)session('WST_USER.userId');
         $um = new UM();
-        $rs = $um->getFieldsById($userId,'userPhone,cardNumber');
+        $rs = $um->getFieldsById($userId);
         $tax = new TAX();
 
         $res = $tax->taxBusinessToken(['cardNumber'=>$rs['cardNumber']]);
@@ -64,15 +73,15 @@ class Shopapplys extends Base{
         }else{
 //            $res['token'];
             $params=[
-                'sfzhm'=>'',
-                'xm'=>'',
-                'zjlx'=>'',
-                'mobile'=>'',
-                'gjdqdm'=>'',
-                'ssjAddress'=>'',
-                'qxjAddress'=>'',
-                'address'=>'',
-                'email'=>''
+                'sfzhm'=>$rs['sfzhm'],
+                'xm'=>$rs['xm'],
+                'zjlx'=>$rs['zjlx'],
+                'mobile'=>$rs['mobile'],
+                'gjdqdm'=>$rs['gjdqdm'],
+                'ssjAddress'=>$rs['ssjAddress'],
+                'qxjAddress'=>$rs['qxjAddress'],
+                'address'=>$rs['address'],
+                'email'=>$rs['email']
                 ];
             $jsonParams = json_encode($params);
             $key='123456';

@@ -1,25 +1,87 @@
 {extend name="default/base" /}
-{block name="title"}商家入驻 - {__block__}{/block}
+{block name="title"}开票认证 - {__block__}{/block}
 {block name="css"}
 <link rel="stylesheet"  href="__ROOT__/wstmart/mobile/view/default/css/shop_applys.css?v={$v}">
 {/block}
 {block name="footer"}
 {/block}
 {block name="header"}
-    <div id="useri_infos">
-        <header style="background:#ffffff;" class="ui-header ui-header-positive ui-border-b wst-header">
-            <a href="{:url('mobile/users/index')}"><i class="ui-icon-return"></i></a><h1 class="useri_info">注册页面</h1>
-        </header>
-    </div>
+<div id="useri_infos">
+    <header style="background:#ffffff;" class="ui-header ui-header-positive ui-border-b wst-header">
+        <a href="{:url('mobile/users/index')}"><i class="ui-icon-return"></i></a><h1 class="useri_info">开票认证</h1>
+    </header>
+</div>
 {/block}
 
 {block name="main"}
+{if $isApply}
 <div class="apply-container">
     <div class="wst-prompt-icon"><img src="__MOBILE__/img/nothing-apply.png"></div>
     <div class="wst-prompt-info">
-        <p>税务认证界面</p>
+        <p>您的申请已提交，我们将会尽快联系您</p>
     </div>
 </div>
+{else}
+<div class="ui-row-flex ui-whitespace ui-row-flex-ver c-box " style="margin-top:45px;">
+    <input type="hidden" name="taxId" id="taxId" value="{$users.id}" />
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">姓名</div>
+        <div class="item-right">
+            <input type="text" id="xm" placeholder="请填写联系人" value="{$users.xm}"/>
+        </div>
+    </div>
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">联系方式</div>
+        <div class="item-right">
+            <input type="text" id="mobile" placeholder="请填写联系方式" value="{$users.mobile}"/>
+        </div>
+    </div>
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">身份证号码</div>
+        <div class="item-right">
+            <input type="text" id="sfzhm" placeholder="请填写身份证号码" value="{$users.sfzhm}"/>
+        </div>
+    </div>
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">邮箱</div>
+        <div class="item-right">
+            <input type="text" id="email" placeholder="请填写身份证号码" value="{$users.email}"/>
+        </div>
+    </div>
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">国籍</div>
+        <div class="item-right">
+            <input type="text" id="gjdqdm" placeholder="请填写身份证号码" value="{$users.gjdqdm}"/>
+        </div>
+    </div>
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">省市</div>
+        <div class="item-right">
+            <input type="text" id="ssjAddress" placeholder="请填写身份证号码" value="{$users.ssjAddress}"/>
+        </div>
+    </div>
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">区县</div>
+        <div class="item-right">
+            <input type="text" id="qxjAddress" placeholder="请填写身份证号码" value="{$users.qxjAddress}"/>
+        </div>
+    </div>
+    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+        <div class="item-left">详细地址</div>
+        <div class="item-right">
+            <input type="text" id="address" placeholder="请填写身份证号码" value="{$users.address}"/>
+        </div>
+    </div>
+
+
+
+    <div class="ui-btn-wrap" style="padding:5px;padding-bottom:5px;">
+        <button class="ui-btn-lg ui-btn-danger c-btn" onclick="savetax()">
+            提交
+        </button>
+    </div>
+</div>
+{/if}
 {/block}
 {block name="include"}
 {include file="default/dialog" /}<!-- 对话框模板 -->
@@ -27,4 +89,71 @@
 {block name="js"}
 <script type='text/javascript' src='__MOBILE__/js/jquery.min.js'></script>
 <script type='text/javascript' src='__MOBILE__/users/shopapplys/shop_applys.js?v={$v}'></script>
+<script type="text/javascript" charset="utf-8">
+    function savetax(){
+
+        var mobile = $.trim($('#mobile').val());
+        if(mobile==''){
+            WST.msg('请填写联系方式','info');
+            return;
+        }
+        var xm = $.trim($('#xm').val());
+        if(xm==''){
+            WST.msg('请填写联系人','info');
+            return;
+        }
+        var sfzhm = $.trim($('#sfzhm').val());
+        if(sfzhm==''){
+            WST.msg('请填写身份证号码','info');
+            return;
+        }
+        var email = $.trim($('#email').val());
+        if(email==''){
+            WST.msg('请填写邮箱','info');
+            return;
+        }
+        var gjdqdm = $.trim($('#gjdqdm').val());
+        if(gjdqdm==''){
+            WST.msg('请填写国籍','info');
+            return;
+        }
+        var ssjAddress = $.trim($('#ssjAddress').val());
+        if(ssjAddress==''){
+            WST.msg('请填写省市','info');
+            return;
+        }
+        var qxjAddress = $.trim($('#qxjAddress').val());
+        if(qxjAddress==''){
+            WST.msg('请填写区县','info');
+            return;
+        }
+        var address = $.trim($('#address').val());
+        if(address==''){
+            WST.msg('请填写详细地址','info');
+            return;
+        }
+        var taxId = $.trim($('#taxId').val());
+
+        var param = {};
+        param.xm = xm;
+        param.mobile = mobile;
+        param.sfzhm = sfzhm;
+        param.email = email;
+        param.gjdqdm = gjdqdm;
+        param.ssjAddress = ssjAddress;
+        param.qxjAddress = qxjAddress;
+        param.address = address;
+        param.id = taxId;
+        $.post(WST.U('mobile/shopapplys/save_tax_auth'),param,function(data){
+            var json = WST.toJson(data);
+            if(data.status==1){
+                WST.msg(json.msg,'info');
+                location.href =WST.U('mobile/shopapplys/xieyi');
+                //   location.reload();
+            }else{
+                WST.msg(json.msg,'info');
+            }
+        });
+    }
+</script>
 {/block}

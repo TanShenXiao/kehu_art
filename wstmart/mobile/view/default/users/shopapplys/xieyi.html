@@ -1,0 +1,49 @@
+{extend name="default/base" /}
+{block name="title"}开票认证 - {__block__}{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__ROOT__/wstmart/mobile/view/default/css/shop_applys.css?v={$v}">
+{/block}
+{block name="footer"}
+{/block}
+{block name="header"}
+<div id="useri_infos">
+    <header style="background:#ffffff;" class="ui-header ui-header-positive ui-border-b wst-header">
+        <a href="{:url('mobile/users/index')}"><i class="ui-icon-return"></i></a><h1 class="useri_info">开票认证</h1>
+    </header>
+</div>
+{/block}
+
+{block name="main"}
+
+<div class="ui-row-flex ui-whitespace ui-row-flex-ver c-box " style="margin-top:45px;">
+
+
+    <div class="ui-col c-title">协议内容</div>
+    <div class="ui-col c-content">
+        <textarea id="xieyicontent"  placeholder="请填写协议内容">这里是协议内容</textarea>
+    </div>
+
+    <div class="ui-btn-wrap" style="padding:5px;padding-bottom:5px;">
+        <button class="ui-btn-lg ui-btn-danger c-btn" onclick="savetax()">
+            提交
+        </button>
+    </div>
+</div>
+
+{/block}
+{block name="include"}
+{include file="default/dialog" /}<!-- 对话框模板 -->
+{/block}
+{block name="js"}
+<script type='text/javascript' src='__MOBILE__/js/jquery.min.js'></script>
+<script type='text/javascript' src='__MOBILE__/users/shopapplys/shop_applys.js?v={$v}'></script>
+<script type="text/javascript" charset="utf-8">
+    function savetax(){
+
+
+        WST.msg('协议提交成功','info');
+        location.href =WST.U('mobile/users/index');
+
+    }
+</script>
+{/block}

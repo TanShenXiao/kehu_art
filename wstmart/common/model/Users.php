@@ -689,7 +689,7 @@ class Users extends Base{
     /**
      * 获取用户可用积分
      */
-    public function getFieldsById($userId,$fields){
+    public function getFieldsById($userId,$fields='*'){
     	return $this->where(['userId'=>$userId,'dataFlag'=>1])->field($fields)->find();
     }
 

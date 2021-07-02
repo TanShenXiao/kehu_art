@@ -23,8 +23,8 @@ class Shopapplys extends Base{
         'checkAuth',
     ];
     /**
-    * 跳去商家入驻页面
-    */
+     * 跳去商家入驻页面
+     */
     public function index(){
         $m = new M();
         $um = new UM();
@@ -56,18 +56,21 @@ class Shopapplys extends Base{
         $userId = (int)session('WST_USER.userId');
         $Taxuser = new TU();
         $rs = $Taxuser->getFieldsById($userId);
+
         $this->assign('users',$rs);
+        $this->assign('isApply',0);
+
         return $this->fetch('users/shopapplys/tax_auth');
-        }
+
     }
     //开票认证
-    public function tax_auth(){
+    public function save_tax_auth(){
         $userId = (int)session('WST_USER.userId');
-        $um = new UM();
-        $rs = $um->getFieldsById($userId);
         $tax = new TAX();
-
-        $res = $tax->taxBusinessToken(['cardNumber'=>$rs['cardNumber']]);
+        $Taxuser = new TU();
+        $rs = $Taxuser->getFieldsById($userId);
+        //$res = $tax->taxBusinessToken(['cardNumber'=>$rs['cardNumber']]);
+        $res['code']=0;
         if($res['code']!=0){
             return WSTReturn('认证失败',0);
         }else{
@@ -82,7 +85,7 @@ class Shopapplys extends Base{
                 'qxjAddress'=>$rs['qxjAddress'],
                 'address'=>$rs['address'],
                 'email'=>$rs['email']
-                ];
+            ];
             $jsonParams = json_encode($params);
             $key='123456';
             $url = '/dzswj_wx/user/verify.html';
@@ -93,10 +96,13 @@ class Shopapplys extends Base{
                 'params'=>$jsonParams,
             ];
 //            return ['url'=>$url,'jsonData'=>$data];
-            $this->assign('url',$url);
-            $this->assign('jsonData',$data);
-            return $this->fetch('users/shopapplys/tax_auth');
+            //$this->assign('url',$url);
+            //$this->assign('jsonData',$data);
+            return ['status'=>1,'msg'=>'认证成功','url'=>$url,'jsondata'=>$data];
         }
+    }
+    public function xieyi(){
+        return $this->fetch('users/shopapplys/xieyi');
     }
     public function yhhcxy(){
         $data = [

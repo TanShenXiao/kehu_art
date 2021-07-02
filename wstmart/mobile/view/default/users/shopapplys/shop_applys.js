@@ -34,7 +34,10 @@ $(function(){
     }
   });
 })
+
+
 function save(){
+
   var linkPhone = $.trim($('#linkPhone').val());
   if(linkPhone==''){
     WST.msg('请填写联系方式','info');
@@ -47,8 +50,8 @@ function save(){
   }
   var applyIntention = $.trim($('#applyIntention').val());
   if(applyIntention == ''){
-      WST.msg('请填写营业范围','info');
-      return;
+    WST.msg('请填写营业范围','info');
+    return;
   }
   var param = {};
   param.linkman = linkman;
@@ -82,8 +85,8 @@ function saveStep(flowId){
         window.location.reload();
       }
     }else{
-       layer.close(load);
-       WST.msg(json.msg,{icon:5});
+      layer.close(load);
+      WST.msg(json.msg,{icon:5});
     }
   });
 }

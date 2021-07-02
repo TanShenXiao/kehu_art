@@ -7,4 +7,18 @@ class TaxUsers extends CTaxUsers{
     public function getFieldsById($userId,$fields='*'){
         return $this->where(['userId'=>$userId])->field($fields)->find();
     }
+    public function add($data){
+        if($data['id']>0){
+            $id= $data['id'];
+            unset($data['id']);
+            $res = $this->update($data,['id'=>$id]);
+        }else{
+            $res = $this->insert($data);
+        }
+
+        if($res)   return WSTReturn('保存成功', 1);
+        else{
+            return WSTReturn('保存失败', 0);
+        }
+    }
 }

@@ -90,6 +90,9 @@
 <script type='text/javascript' src='__MOBILE__/js/jquery.min.js'></script>
 <script type='text/javascript' src='__MOBILE__/users/shopapplys/shop_applys.js?v={$v}'></script>
 <script type="text/javascript" charset="utf-8">
+    function delayer(url){
+        location.href = url;
+    }
     function savetax(){
 
         var mobile = $.trim($('#mobile').val());
@@ -148,12 +151,15 @@
             var json = WST.toJson(data);
             if(data.status==1){
                 WST.msg(json.msg,'info');
-                location.href =WST.U('mobile/shopapplys/xieyi');
+                var urls = WST.U('mobile/shopapplys/xieyi');
+                setTimeout("delayer('"+urls+"')", 5000);
+                // location.href =WST.U('mobile/shopapplys/xieyi');
                 //   location.reload();
             }else{
                 WST.msg(json.msg,'info');
             }
         });
     }
+
 </script>
 {/block}

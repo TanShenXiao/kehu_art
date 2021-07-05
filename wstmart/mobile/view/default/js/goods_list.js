@@ -188,6 +188,7 @@ function goodsList(from,newPage){
     param.searchType = $('#searchType').val();
     param.saleType=$("#saleType").val();
 	param.page = Number( $('#currPage').val() ) + 1;
+    param.fl = $('#fl').val();
     param.pagesize = 10;
     param.page = Number( $('#currPage').val() ) + 1;
     if( newPage == 'newPage' ){

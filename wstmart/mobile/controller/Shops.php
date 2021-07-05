@@ -133,6 +133,7 @@ class Shops extends Base{
         $this->assign('ct1',(int)input("param.ct1/d",0));//一级分类
         $this->assign('ct2',(int)input("param.ct2/d",0));//二级分类
         $this->assign('shopId',$shopId);//店铺id
+
         return $this->fetch($data['shop']["mobileShopHomeTheme"]);
     }
     /**

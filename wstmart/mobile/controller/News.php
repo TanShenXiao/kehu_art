@@ -24,7 +24,14 @@ class News extends Base{
 		$catId = (int)input('catId') ?: '402';
         // $catId = $data['0']['catId'];
         $articleId = (int)input('articleId');
+        if($catId == 405){
+            $title = "品牌活动";
+        }else{
+            $title = "商城资讯";
+        }
+
         $this->assign('articleId',$articleId);
+        $this->assign('title',$title);
         $this->assign('catInfo',$data);
         $this->assign('catId',$catId);
         return $this->fetch('news_list');

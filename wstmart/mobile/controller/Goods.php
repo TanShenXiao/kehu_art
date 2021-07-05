@@ -73,6 +73,7 @@ class Goods extends Base{
         $this->assign("maxPrice", input('maxPrice/d'));
     	$this->assign("brandId", input('brandId/d'));
 		$this->assign("searchType", input('stype/d'));
+		$this->assign("fl", input('fl/d'));
         // 分类信息
         $catInfo = Db::name("goods_cats")->field("catName,seoTitle,seoKeywords,seoDes,mobileCatListTheme,showWay")->where(['catId'=>$catId,'dataFlag'=>1])->find();
         $this->assign("catInfo",$catInfo);
@@ -85,14 +86,29 @@ class Goods extends Base{
     	$m = model('goods');
     	$gc = new GoodsCats();
     	$catId = (int)input('catId');
+        $catFl = (int)Input('fl/d',100);// 1优惠专区
         $data = []; 
     	if($catId>0){
     		$goodsCatIds = $gc->getParentIs($catId);
     	}else{
     		$goodsCatIds = [];
     	}
+        $fl_data = '';
+        if ($catFl) {
+            switch ($catFl) {
+                case '1': // 优惠专区
+                    $fl_data = ['dataType' => 0, 'dataSrc' => 0];
+                    break;
+                case '2': // 精选作品
+                    $fl_data = ['dataType' => 2, 'dataSrc' => 0];
+                    break;
 
-        $rs = $m->pageQuery($goodsCatIds);
+                default:
+                    $fl_data = '';
+                    break;
+            }
+        }
+        $rs = $m->pageQuery($goodsCatIds,$fl_data);
     	foreach ($rs['data'] as $key =>$v){
     		$rs['data'][$key]['goodsImg'] = WSTImg($v['goodsImg'],2);
     		$rs['data'][$key]['praiseRate'] = ($v['totalScore']>0)?(sprintf("%.2f",$v['totalScore']/($v['totalUsers']*15))*100).'%':'100%';

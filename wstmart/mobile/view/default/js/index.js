@@ -23,6 +23,9 @@ function indexList(){
 function getGoodsList(goodsCatId){
 	location.href = WST.U('mobile/goods/lists','cat='+goodsCatId);
 }
+function news(id){
+	location.href=WST.U('mobile/news/getnews','id='+id);
+}
 var currPage = 0;
 var loading = false;
 $(document).ready(function(){

@@ -1,12 +1,12 @@
 {extend name="default/base" /}
-{block name="title"}商城快讯 - {__block__}{/block}
+{block name="title"}{$title} - {__block__}{/block}
 {block name="css"}
 <link rel="stylesheet"  href="__MOBILE__/css/articles.css?v={$v}">
 {/block}
 {block name="header"}
 	<div id="info_list" style="margin-top: 50px;">
     <header style="background:#ffffff;" class="ui-header ui-header-positive ui-border-b wst-header">
-        <a href='{:url("mobile/index/index")}'><i class="ui-icon-return"></i></a><h1>商城快讯</h1>
+        <a href='{:url("mobile/index/index")}'><i class="ui-icon-return"></i></a><h1>{$title}</h1>
     </header>
 {/block}
 

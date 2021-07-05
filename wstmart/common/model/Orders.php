@@ -676,7 +676,7 @@ class Orders extends Base{
 			hook("afterOrderPaySuccess",['orderId'=>$orderunique,'isBatch'=>1,'uerSystem'=>[0,1],'printCatId'=>1]);
 			return WSTReturn("提交订单成功", 1,$orderunique);
 		}catch (\Exception $e) {
-			print_r($e);
+			print_r($e->getMessage());
             Db::rollback();
             return WSTReturn('提交订单失败',-1);
         }

@@ -19,7 +19,7 @@ class Goods extends CGoods{
 	/**
 	 * 获取列表
 	 */
-	public function pageQuery($goodsCatIds = []){
+	public function pageQuery($goodsCatIds = [], $fl = ''){
 		//查询条件
 		$keyword = input('keyword');
 		$brandId = input('brandId/d');
@@ -34,7 +34,7 @@ class Goods extends CGoods{
 			if($searchType == 3){
 				$where[] = ['goodsAuthor','like','%'.$keyword.'%'];
 			}else{
-				$where[] = ['goodsName','like','%'.$keyword.'%'];
+				$where[] = ['g.goodsName|s.shopName|g.goodsAuthor','like','%'.$keyword.'%'];
 			}
 		}
 		if($brandId>0)$where['g.brandId'] = $brandId;
@@ -48,11 +48,26 @@ class Goods extends CGoods{
 		$pageBy = ['thumbsNum','shopPrice','visitNum','saleTime'];
 		$pageOrder = ['desc','asc'];
 		if(!empty($goodsCatIds))$where[] = ['goodsCatIdPath','like',implode('_',$goodsCatIds).'_%'];
-		$list = Db::name('goods')->alias('g')->join("__SHOPS__ s","g.shopId = s.shopId")->join('__GOODS_SCORES__ gs','gs.goodsId=g.goodsId','left')
-		->where($where)
-		->field('g.goodsId,goodsName,saleNum,shopPrice,marketPrice,isSpec,goodsImg,appraiseNum,visitNum,s.shopId,shopName,isSelf,isFreeShipping,gallery,gs.totalScore,gs.totalUsers,g.saleType,g.thumbsNum,g.goodsType,g.goodsStock')
-		->order($pageBy[$orderBy]." ".$pageOrder[$order].",goodsStock desc")
-		->paginate(input('pagesize/d'))->toArray();
+        if ($fl) {
+            $where[] = ['r.dataType','=',$fl['dataType']];	//热销商品
+            $where[] = ['r.dataSrc','=',$fl['dataSrc']];	//热销商品
+            $list = Db::name('goods')->alias('g')
+                ->join('__RECOMMENDS__ r','g.goodsId=r.dataId')
+                ->join("__SHOPS__ s","g.shopId = s.shopId")
+                ->join('__GOODS_SCORES__ gs','gs.goodsId=g.goodsId','left')
+                ->where($where)
+                ->field('g.goodsId,goodsName,saleNum,shopPrice,marketPrice,isSpec,goodsImg,appraiseNum,visitNum,s.shopId,shopName,isSelf,isFreeShipping,gallery,gs.totalScore,gs.totalUsers,g.saleType,g.thumbsNum,g.goodsType,g.goodsStock')
+                ->order($pageBy[$orderBy]." ".$pageOrder[$order].",goodsStock desc")
+                ->paginate(input('pagesize/d'))->toArray();
+        } else {
+            $list = Db::name('goods')->alias('g')
+                ->join("__SHOPS__ s","g.shopId = s.shopId")
+                ->join('__GOODS_SCORES__ gs','gs.goodsId=g.goodsId','left')
+                ->where($where)
+                ->field('g.goodsId,goodsName,saleNum,shopPrice,marketPrice,isSpec,goodsImg,appraiseNum,visitNum,s.shopId,shopName,isSelf,isFreeShipping,gallery,gs.totalScore,gs.totalUsers,g.saleType,g.thumbsNum,g.goodsType,g.goodsStock')
+                ->order($pageBy[$orderBy]." ".$pageOrder[$order].",goodsStock desc")
+                ->paginate(input('pagesize/d'))->toArray();
+        }
 		return $list;
 	}
     

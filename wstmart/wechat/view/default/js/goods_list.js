@@ -194,8 +194,10 @@ function goodsList(from){
         var v= $('#'+d).val();
         if(v != ''){param[d] = v;}
     });
+    param.fl = $('#fl').val();
     param.pagesize = 10;
     param.page = Number( $('#currPage').val() ) + 1;
+
     $.post(WST.U('wechat/goods/pageQuery'), param,function(data){
         var json = WST.toJson(data);
     

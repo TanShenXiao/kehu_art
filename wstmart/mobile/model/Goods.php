@@ -39,7 +39,7 @@ class Goods extends CGoods{
 		}
 		if($brandId>0)$where['g.brandId'] = $brandId;
 		if($goodsType!='')$where[] = ['g.goodsType', '=', $goodsType];
-        if($saleType!='')$where[] = ['g.saleType', '=', $saleType];
+        if($saleType!='' and $saleType != -1)$where[] = ['g.saleType', '=', $saleType];
 
 		//排序条件
 		$orderBy = input('condition/d',0);
@@ -96,8 +96,6 @@ class Goods extends CGoods{
 		$key = input('key');
 		// 浏览量
 		$this->where('goodsId',$goodsId)->setInc('visitNum',1);
-
-
 		$rs = Db::name('goods')->where(['goodsId'=>$goodsId,'dataFlag'=>1])->find();
 		
 		if(!empty($rs)){
@@ -119,7 +117,6 @@ class Goods extends CGoods{
 			->where('cs.shopId',$rs['shopId'])->field('cs.shopId,s.shopTel,gc.catId,gc.catName')->select();
 			$rs['shop']['catId'] = $goodsCats[0]['catId'];
 			$rs['shop']['shopTel'] = $goodsCats[0]['shopTel'];
-
 			$rs['shop']['count'] = Db::name('goods')->where(['shopId'=>$rs['shopId'],'isSale'=>1,'goodsStatus'=>1])->count();
 
 

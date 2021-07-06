@@ -54,6 +54,7 @@ class Goods extends Base{
 		$goods['haveThumb'] = $m->haveThumb();
         $goods['consult'] = model('GoodsConsult')->firstQuery($goods['goodsId']);
         $goods['appraises'] = model('GoodsAppraises')->getGoodsEachApprNum($goods['goodsId']);
+
 		$this->assign("info", $goods);
 		return $this->fetch($catInfo['wechatDetailTheme']);
 	}

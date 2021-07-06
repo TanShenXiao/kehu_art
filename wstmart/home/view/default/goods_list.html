@@ -64,23 +64,24 @@
 </div>
 {/* 筛选条件  */}
 <div class="wst-selector">
-	{volist name=":WSTPathGoodsCat($catId)" id='vo'}
-   <div class='wst-lfloat'>
-   	<div class='item dorpdown'>
-     <div class="wst-pos">
-		 <div>作品类别：</div>
-         {volist name=":WSTGoodsCats($vo['parentId'])" id='vo2'}
-		 {if $catId == $vo2['catId']}
-         <div class="{$vo['parentId']>0?'cat2':'cat1'} cur cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"]."&fl=$fl")}'>{$vo2['catName']}</a></div>
-		 {else /}
-         <div class="{$vo['parentId']>0?'cat2':'cat1'} cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"]."&fl=$fl")}'>{$vo2['catName']}</a></div>
-		 {/if}
-         {/volist}
-	</div>
-	</div>
-   </div>
-  
-   {/volist}
+	{if $catId && $catId > 0}
+		{volist name=":WSTPathGoodsCat($catId)" id='vo'}
+		   <div class='wst-lfloat'>
+			<div class='item dorpdown'>
+			 <div class="wst-pos">
+				 <div>作品类别：</div>
+				 {volist name=":WSTGoodsCats($vo['parentId'])" id='vo2'}
+				 {if $catId == $vo2['catId']}
+				 <div class="{$vo['parentId']>0?'cat2':'cat1'} cur cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"]."&fl=$fl")}'>{$vo2['catName']}</a></div>
+				 {else /}
+				 <div class="{$vo['parentId']>0?'cat2':'cat1'} cat"><a href='{:Url("home/goods/lists","cat=".$vo2["catId"]."&fl=$fl")}'>{$vo2['catName']}</a></div>
+				 {/if}
+				 {/volist}
+			 </div>
+			</div>
+		   </div>
+	   {/volist}
+	{/if}
     <div class="main">
        {if $minPrice=='' && $maxPrice==''}
        <div class='item '>

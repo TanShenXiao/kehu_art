@@ -26,6 +26,7 @@ class Goods extends CGoods{
 		$goodsType = input('goodsType');
 		$searchType = input('searchType/d');
 		$isFreeShipping = input('isFreeShipping/d');
+        $saleType = input('saleType');
 		$where = $where2 = $where3 = $where4 = [];
 		$where[] =['goodsStatus','=',1];
 		$where[] =['g.dataFlag','=',1];
@@ -37,8 +38,10 @@ class Goods extends CGoods{
 				$where[] = ['g.goodsName|s.shopName|g.goodsAuthor','like','%'.$keyword.'%'];
 			}
 		}
-		if($goodsType!='')$where[] = ['g.goodsType', '=', $goodsType];
 		if($brandId>0)$where[] = ['g.brandId','=',$brandId];
+        if($goodsType!='')$where[] = ['g.goodsType', '=', $goodsType];
+        if($saleType!='' and $saleType != -1)$where[] = ['g.saleType', '=', $saleType];
+
 		//排序条件
 		$orderBy = input('condition/d',0);
 		$orderBy = ($orderBy>=0 && $orderBy<=4)?$orderBy:0;
@@ -109,6 +112,8 @@ class Goods extends CGoods{
 			$rs['read'] = false;
 			$rs['goodsDesc'] = htmlspecialchars_decode($rs['goodsDesc']);
 			$rs['goodsDesc'] = str_replace('${DOMAIN}',WSTConf('CONF.resourcePath'),$rs['goodsDesc']);
+            $rs['catName'] = Db::name('goods_cats')->where(['catId'=>$rs['goodsCatId']])->find()['catName'];
+
 			//判断是否可以公开查看
 			$viKey = WSTShopEncrypt($rs['shopId']);
 			if(($rs['isSale']==0 || $rs['goodsStatus']==0) && $viKey != $key)return [];
@@ -120,6 +125,7 @@ class Goods extends CGoods{
 			->where('cs.shopId',$rs['shopId'])->field('cs.shopId,s.shopTel,gc.catId,gc.catName')->select();
 			$rs['shop']['catId'] = $goodsCats[0]['catId'];
 			$rs['shop']['shopTel'] = $goodsCats[0]['shopTel'];
+            $rs['shop']['count'] = Db::name('goods')->where(['shopId'=>$rs['shopId'],'isSale'=>1,'goodsStatus'=>1])->count();
 			$cat = [];
 			foreach ($goodsCats as $v){
 				$cat[] = $v['catName'];

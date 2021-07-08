@@ -163,7 +163,7 @@
 		</div>
 		{/* 品牌活动 */}
 <div class="brand_pack">
-	<h2 class="sector_h2"><a href="/mnews/catId/405">品牌活动</a></h2>
+	<h2 class="sector_h2"><a href="/mobile/brand_activities/get_list">品牌活动</a></h2>
 	<div class="sector_desc">
 		<p>Brand activities</p>
 		<!-- <a href="">查看更多>></a> -->
@@ -171,13 +171,13 @@
 	<div class="brand_content">
 		<ul>
 			<?php
-					$articleList = WSTArticleRecommends();
-					foreach ($articleList as $k => $article) {
+					$activitieList = WSTArticleRecommends();
+					foreach ($activitieList as $k => $activitie) {
 			?>
 			<li>
-				<a onclick="news({$article['articleId']})">
-					<img class="list-img" src="{$article['coverImg']}" alt="">
-					<p>{$article['articleTitle']}</p>
+				<a target="_blank" href="{$activitie['target_url']}">
+					<img class="list-img" src="/{$activitie['cover_img']}" alt="">
+					<p>{$activitie['title']}</p>
 				</a>
 			</li>
 			<?php } ?>

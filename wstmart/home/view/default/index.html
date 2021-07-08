@@ -167,18 +167,18 @@
 	<h2 class="sector_h2">品牌活动</h2>
 	<div class="sector_desc">
 		<p>BRAND ACTIVITIES</p>
-		<a href="/news/getNewsList/catId/405">查看更多>></a>
+		<a href="/home/brand_activities/get_list">查看更多>></a>
 	</div>
 	<div class="brand_content">
 		<ul>
 			<?php
-					$articleList = WSTArticleRecommends();
-					foreach ($articleList as $k => $article) {
+					$activitieList = WSTArticleRecommends();
+					foreach ($activitieList as $k => $activitie) {
 			?>
 			<li>
-				<a href="{:url('/news',['id'=> $article['articleId']])}">
-					<img src="{$article['coverImg']}" alt="">
-					<p>{$article['articleTitle']}</p>
+				<a target="_blank" href="{$activitie['target_url']}">
+					<img  src="{$activitie['cover_img']}" alt="">
+					<p>{$activitie['title']}</p>
 				</a>
 			</li>
 			<?php } ?>
@@ -191,31 +191,24 @@
 	<h2 class="sector_h2">艺术服务</h2>
 	<div class="sector_desc">
 		<p>ART SERVICES</p>
-		<a href="">查看更多>></a>
+		<a href="/news/catId/402">查看更多>></a>
 	</div>
 	<div class="services_content">
 		<ul>
+			<?php
+					$articleList = WSTArtServices(402,3);
+					foreach ($articleList as $k => $article) {
+			?>
 			<li>
-				<img src="/upload/goods/2021-04/5cc562b141a811.jpg" alt="">
-				<div class="mark">
-					<p>艺术服务</p>
-					<a href="/news/catId/402">点我查看详情</a>
-				</div>
+				<a href="{:url('/news',['id'=> $article['articleId']])}">
+					<img src="{$article['coverImg']}" alt="">
+					<div class="mark">
+						<p>{$article['articleTitle']}</p>
+						<span>点我查看详情</span>
+					</div>
+				</a>
 			</li>
-			<li>
-				<img src="/upload/goods/2021-04/5cc562b141a812.jpg" alt="">
-				<div class="mark">
-					<p>税收服务</p>
-					<a href="/news/catId/403">点我查看详情</a>
-				</div>
-			</li>
-			<li>
-				<img src="/upload/goods/2021-04/5cc562b141a813.jpg" alt="">
-				<div class="mark">
-					<p>作品征集</p>
-					<a href="/news/catId/404">点我查看详情</a>
-				</div>
-			</li>
+			<?php } ?>
 		</ul>
 	</div>
 </div>

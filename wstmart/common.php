@@ -549,6 +549,23 @@ function WSTShopRecommends( $dataType , $dataSrc = 0 , $limit = 6 ){
 }
 
 /**
+ * 艺术服务
+ * @param $dataType
+ * @param int $dataSrc
+ * @param int $limit
+ * @return array|PDOStatement|string|\think\Collection|\think\model\Collection
+ * @throws \think\db\exception\DataNotFoundException
+ * @throws \think\db\exception\ModelNotFoundException
+ * @throws \think\exception\DbException
+ */
+function WSTArtServices( $catId = 0 , $limit = 6 ){
+    $where = [];
+    $where[] = ['catId','=',$catId];	//热销商品
+    return Db::name('articles')
+        ->where($where)->field('*')->order("catSort desc")->limit($limit)->select();
+}
+
+/**
  * 获取指定商品分类的子分类列表/获取指定的商品分类，靠$isSelf=-1判断
  */
 function WSTGoodsCats($parentId = 0,$isFloor = -1,$isSelf = 0){
@@ -593,13 +610,11 @@ function WSTShopApplyShopCats($sId = 0,$parent = -1){
  * @param int $limit
  * @return mixed
  */
-function WSTArticleRecommends( $catId = 405 , $limit = 4 ){
+function WSTArticleRecommends($limit = 4 ){
     $where = [];
-    $where[] = ['catId','=',$catId];
-    $where[] = ['isShow','=',1];
-    $where[] = ['coverImg','not null',''];
-    return Db::name('articles')
-        ->where($where)->field('articleId,catId,articleTitle,coverImg')->order("catSort desc")->limit($limit)->select();
+    $where[] = ['status','=',1];
+    return Db::name('brand_activities')
+        ->where($where)->field('*')->order(['sort' => 'desc','created_time' => 'desc'])->limit($limit)->select();
 }
 
 

@@ -117,3 +117,4 @@ body{background: #fff;}
 .contact p{font-size: 12px; }
 .j-shopfollow{background-image: url(/upload/goods/2021-04/ysjzytb2.png);background-repeat:  no-repeat;background-position: 14px;}
 .follow{background-image: url(/upload/goods/2021-04/ysjzytb1.png);background-repeat:  no-repeat;background-position: 14px;}
+.wst-pos div a.active {border: 1px solid red;color: red;}

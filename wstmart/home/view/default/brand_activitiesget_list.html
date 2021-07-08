@@ -1,0 +1,67 @@
+{extend name="default/base" /}
+{block name="title"}
+{if isset($content)}
+{if $content.articleTitle!=''}{$content.articleTitle}{else}资讯中心{/if}
+{else}品牌活动{/if} - {:WSTConf('CONF.mallName')}{__block__}{/block}
+{block name="meta"}
+{/block}
+{block name="css"}
+<link href="__STYLE__/css/articles.css?v={$v}" rel="stylesheet">
+{/block}
+{block name="main"}
+<div class="wst-ads" style="position:relative;" >
+	<div class="wst-slide" id="wst-slide">
+		<ul class="wst-slide-items">
+			{wst:ads code="ads-index" cache='86400'}
+			<a href="{$vo.adURL}" {if ($vo['isOpen'])}target='_blank'{/if} {if ($vo['adURL']!='')}onclick="WST.recordClick({$vo['adId']})"{/if}><li style="background: url(__RESOURCE_PATH__/{$vo.adFile}) no-repeat  scroll center top;background-size:cover;" ></li></a>
+			{/wst:ads}
+		</ul>
+		<div class="wst-slide-numbox">
+			<div style="position:absolute;right:0;top:-420px;">
+			</div>
+			<div style="width: 1000px;position: relative;margin:0 auto;">
+				<div class="wst-slide-controls">
+					{wst:ads code="ads-index" cache='86400' key='k'}
+					{if condition="$k+1 eq 1"}
+					<span class="curr"></span>
+					{else/}
+					<span class=""></span>
+					{/if}
+					{/wst:ads}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="bc-nav">
+	<p>
+		<a href="#" style="margin-left: 20px;">当前位置：</a>
+		<a href="{:url('home/index/index')}">首页</a>
+		<a href="javascript:;">> 品牌活动</a>
+	</p>
+</div>
+<div class="help-box">
+	<div class="help-right">
+		<div class="h-content">
+			<ul class="news-list">
+				{volist name="$index" id="li"}
+				<li><a href="{$li['target_url']}">
+					<img src="/{$li['cover_img']}" alt=""></a>
+					<div class="news-list-cont">
+						<p>{$li['title']}</p>
+					</div>
+					{/volist}
+			</ul>
+			{if isset($page)}
+			<div class="h-page">{$page}<div class='wst-clear'></div></div>
+			{/if}
+		</div>
+	</div>
+	<div class='wst-clear'></div>
+</div>
+{/block}
+{block name="js"}
+<script src="__STYLE__/articles/articles.js"></script>
+{/block}
+{block name="footer"}{__block__}
+{/block}

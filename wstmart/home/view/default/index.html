@@ -45,18 +45,19 @@
 			<a href="/category-0-2.html">查看更多>></a>
 		</div>
 		<div class="sector_content">
-			<div class="zp_big">
-				<img class="zp_big_img" src="/upload/goods/2019-04/5cc561bf41a801.jpg" alt="">
-				<div class="zp_big_tost">
-					<h2 class="zp_big_title">精选作品</h2>
-					<p class="zp_big_desc">SELECTED WORKS</p>
-					<ul class="zp_big_category">
-						{volist name=":WSTSideCategorys()" id="vo" key="k"}
-						<li><a href="{:url('home/goods/lists','cat='.$vo['catId'])}">{:WSTMSubstr($vo['catName'],0,2)}</a></li>
-						{/volist}
-					</ul>
+				<div class="zp_big" onclick="jump('/category-0-2.html')">
+					<img class="zp_big_img" src="/upload/goods/2019-04/5cc561bf41a801.jpg" alt="">
+					<div class="zp_big_tost">
+						<h2 class="zp_big_title">精选作品</h2>
+						<p class="zp_big_desc">SELECTED WORKS</p>
+						<ul class="zp_big_category">
+							{volist name=":WSTSideCategorys()" id="vo" key="k"}
+							<li><a href="{:url('home/goods/lists','cat='.$vo['catId'])}">{:WSTMSubstr($vo['catName'],0,2)}</a></li>
+							{/volist}
+						</ul>
+					</div>
 				</div>
-			</div>
+			</a>
 			<div class="zp_litter">
 				<ul>
 					<?php

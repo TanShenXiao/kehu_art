@@ -576,11 +576,14 @@ function WSTShopApplyGoodsCats($parentId = 0,$sId = 0){
 /**
  * 获取指定店铺经营的商城分类
  */
-function WSTShopApplyShopCats($sId = 0){
+function WSTShopApplyShopCats($sId = 0,$parent = -1){
 	$shopId = $sId>0 ? $sId : (int)session('WST_USER.shopId');
-    $rs = Db::name('shop_cats')->alias('gc')
-             ->where(['dataFlag'=>1, 'isShow' => 1,'shopId'=>$shopId])
-             ->field("catName,gc.catId,parentId")->order('catSort asc')->select();
+	$query = ['dataFlag'=>1, 'isShow' => 1,'shopId'=>$shopId];
+	if($parent >= 0){
+	    $query['parentId'] = $parent;
+    }
+    $rs = Db::name('shop_cats')->alias('gc')->where($query)
+        ->field("catName,gc.catId,parentId")->order('catSort asc')->select();
     return $rs;
 }
 

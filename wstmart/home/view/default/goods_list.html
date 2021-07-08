@@ -104,83 +104,87 @@
 	   <div class='goods-filters'>
 	      <div class='line line2'>
 	        <a class="{$orderBy==1?'curr':''}" href='javascript:void(0)' onclick='javascript:goodsOrder(1)'>价格<span class="{if condition="$orderBy neq 1"}store{/if}{if condition="$orderBy eq 1 and $order eq 1"}store2{/if}{if condition="$orderBy eq 1 and $order eq 0"}store3{/if}"></span></a>
-	        <a class="{$orderBy==2?'curr':''}" href='javascript:void(0)' onclick='javascript:goodsOrder(2)'>评论数<span class="{if condition="$orderBy neq 2"}store{/if}{if condition="$orderBy eq 2 and $order eq 1"}store2{/if}{if condition="$orderBy eq 2 and $order eq 0"}store3{/if}"></span></a>
-	        <a class="{$orderBy==3?'curr':''}" href='javascript:void(0)' onclick='javascript:goodsOrder(3)'>人气<span class="{if condition="$orderBy neq 3"}store{/if}{if condition="$orderBy eq 3 and $order eq 1"}store2{/if}{if condition="$orderBy eq 3 and $order eq 0"}store3{/if}"></span></a>
-        	<div class="wst-price-ipts">
+			{if(!$fl or $fl == 100)}
+			  <a class="{$orderBy==2?'curr':''}" href='javascript:void(0)' onclick='javascript:goodsOrder(2)'>评论数<span class="{if condition="$orderBy neq 2"}store{/if}{if condition="$orderBy eq 2 and $order eq 1"}store2{/if}{if condition="$orderBy eq 2 and $order eq 0"}store3{/if}"></span></a>
+	          <a class="{$orderBy==3?'curr':''}" href='javascript:void(0)' onclick='javascript:goodsOrder(3)'>人气<span class="{if condition="$orderBy neq 3"}store{/if}{if condition="$orderBy eq 3 and $order eq 1"}store2{/if}{if condition="$orderBy eq 3 and $order eq 0"}store3{/if}"></span></a>
+        	{/if}
+			<div class="wst-price-ipts">
 			<span class="wst-price-ipt1">￥</span><span class="wst-price-ipt2">￥</span>
 			<input type="text" class="sipt wst-price-ipt" id="minPrice" value="{$minPrice}" style="margin-left:8px;" onkeypress='return WST.isNumberdoteKey(event);' onkeyup="javascript:WST.isChinese(this,1)">
 			- <input type="text" class="sipt wst-price-ipt" id="maxPrice" value="{$maxPrice}" onkeypress='return WST.isNumberKey(event);' onkeyup="javascript:WST.isChinese(this,1)">
 			</div>
 			<button class="wst-price-but" type="submit" style="width:60px;height: 25px;margin-top:8px;" onclick='javascript:goodsOrder()'>确定</button>
-			<div class="page" style="float:right;">
-				<div class='city wst-address'>
-					<div class='item dorpdown'>
-						<div class='drop-down'>
-						<a class='link' href='__ROOT__'>
-							{if empty($areaInfo['areaName'])}
-							发货地
-							{else /}
-								{$areaInfo['areaName']}
-							{/if}
-						</a>
-						<i class="drop-down-arrow"></i>
-						</div>
+			  {if(!$fl or $fl == 100)}
+				  <div class="page" style="float:right;">
+					<div class='city wst-address'>
+						<div class='item dorpdown'>
+							<div class='drop-down'>
+							<a class='link' href='__ROOT__'>
+								{if empty($areaInfo['areaName'])}
+								发货地
+								{else /}
+									{$areaInfo['areaName']}
+								{/if}
+							</a>
+							<i class="drop-down-arrow"></i>
+							</div>
 
 
-				 <div class="dorp-down-layer">
-					 <div class="tab-header">
-					  <ul class="tab">
-						  <li class="tab-item1" id="fl_1_1" onclick="gpanelOver(this);" c="1" >
+					 <div class="dorp-down-layer">
+						 <div class="tab-header">
+						  <ul class="tab">
+							  <li class="tab-item1" id="fl_1_1" onclick="gpanelOver(this);" c="1" >
+								  {if isset($areaInfo)}
+								  <a href='javascript:void(0)'>{$areaInfo[0]['areaName']}</a>
+								  {else /}
+								  <a href='javascript:void(0)'>请选择</a>
+								  {/if}
+							  </li>
+
 							  {if isset($areaInfo)}
-							  <a href='javascript:void(0)'>{$areaInfo[0]['areaName']}</a>
-							  {else /}
-							  <a href='javascript:void(0)'>请选择</a>
-							  {/if}
-						  </li>
-
-						  {if isset($areaInfo)}
-						  <li class="tab-item1" id="fl_1_2" onclick="gpanelOver(this);" c="1" >
-							<a href="javascript:void(0)">{$areaInfo[1]['areaName']}</a>
-						</li>
-						<li class="tab-item1 j-tab-selected1" id="fl_1_3" onclick="gpanelOver(this);" c="1" >
-							<a href="javascript:void(0)">{$areaInfo[2]['areaName']}</a>
-						</li>
-						{else /}
-						<li class="tab-item1" id="fl_1_2" onclick="gpanelOver(this);" c="1" pid="" >
-							<a href="javascript:void(0)">请选择</a>
-						</li>
-						<li class="tab-item1 j-tab-selected1" id="fl_1_3" onclick="gpanelOver(this);" c="1" pid="" >
-							<a href="javascript:void(0)">请选择</a>
-						</li>
-						{/if}
+							  <li class="tab-item1" id="fl_1_2" onclick="gpanelOver(this);" c="1" >
+								<a href="javascript:void(0)">{$areaInfo[1]['areaName']}</a>
+							</li>
+							<li class="tab-item1 j-tab-selected1" id="fl_1_3" onclick="gpanelOver(this);" c="1" >
+								<a href="javascript:void(0)">{$areaInfo[2]['areaName']}</a>
+							</li>
+							{else /}
+							<li class="tab-item1" id="fl_1_2" onclick="gpanelOver(this);" c="1" pid="" >
+								<a href="javascript:void(0)">请选择</a>
+							</li>
+							<li class="tab-item1 j-tab-selected1" id="fl_1_3" onclick="gpanelOver(this);" c="1" pid="" >
+								<a href="javascript:void(0)">请选择</a>
+							</li>
+							{/if}
 
 
 
-					  </ul>
-					 </div>
-					  <ul class="area-box" id="fl_1_1_pl" style="display:none;">
-						  {volist name="$area1" id="area1"}
-						<li onclick="choiceArea(this,{$area1['areaId']})"><a href="javascript:void(0)">{$area1['areaName']}</a></li>
-						{/volist}
-					</ul>
-					<ul class="area-box" id="fl_1_2_pl" style="display:none;">
-						{volist name="$area2" id="area2"}
-						<li onclick="choiceArea(this,{$area2['areaId']})"><a href="javascript:void(0)">{$area2['areaName']}</a></li>
-						{/volist}
-					</ul>
+						  </ul>
+						 </div>
+						  <ul class="area-box" id="fl_1_1_pl" style="display:none;">
+							  {volist name="$area1" id="area1"}
+							<li onclick="choiceArea(this,{$area1['areaId']})"><a href="javascript:void(0)">{$area1['areaName']}</a></li>
+							{/volist}
+						</ul>
+						<ul class="area-box" id="fl_1_2_pl" style="display:none;">
+							{volist name="$area2" id="area2"}
+							<li onclick="choiceArea(this,{$area2['areaId']})"><a href="javascript:void(0)">{$area2['areaName']}</a></li>
+							{/volist}
+						</ul>
 
-					<ul class="area-box" id="fl_1_3_pl" >
-						{volist name="$area3" id="area3"}
-						<li onclick="choiceArea(this,{$area3['areaId']})"><a href="javascript:void(0)">{$area3['areaName']}</a></li>
-						{/volist}
-					</ul>
+						<ul class="area-box" id="fl_1_3_pl" >
+							{volist name="$area3" id="area3"}
+							<li onclick="choiceArea(this,{$area3['areaId']})"><a href="javascript:void(0)">{$area3['areaName']}</a></li>
+							{/volist}
+						</ul>
 
+					</div>
+							</div>
+							</div>
+				<a href="javascript:;"  onclick="page('prev')"><</a>
+				<a href="javascript:;"  onclick="page('next')" >></a>
 				</div>
-						</div>
-						</div>
-			<a href="javascript:;"  onclick="page('prev')"><</a>
-			<a href="javascript:;"  onclick="page('next')" >></a>
-			</div>
+			{/if}
 	      </div>
 	   	  <div class='line'>
 
@@ -190,18 +194,20 @@
 		     <label for="stock"></label>
 		     </div>
 	         仅显示有货</div>
-	        <div class='chk'>
-	         <div class="checkbox-box-s">
-		     <input name='isNew' value='1' class="sipt wst-checkbox-s" onclick="goodsFilter(this,4)" type='checkbox' id="new" {if $isNew==1}checked{/if}/>
-		     <label for="new"></label>
-		     </div>
-	        新品</div>
-	        <div class='chk'>
-	         <div class="checkbox-box-s">
-		     <input name='isFreeShipping' value='1' class="sipt wst-checkbox-s" onclick="goodsFilter(this,4)" type='checkbox' id="freeShipping" {if $isFreeShipping==1}checked{/if}/>
-		     <label for="freeShipping"></label>
-		     </div>
-	        包邮</div>
+			{if(!$fl or $fl == 100)}
+				<div class='chk'>
+				 <div class="checkbox-box-s">
+				 <input name='isNew' value='1' class="sipt wst-checkbox-s" onclick="goodsFilter(this,4)" type='checkbox' id="new" {if $isNew==1}checked{/if}/>
+				 <label for="new"></label>
+				 </div>
+				新品</div>
+				<div class='chk'>
+				 <div class="checkbox-box-s">
+				 <input name='isFreeShipping' value='1' class="sipt wst-checkbox-s" onclick="goodsFilter(this,4)" type='checkbox' id="freeShipping" {if $isFreeShipping==1}checked{/if}/>
+				 <label for="freeShipping"></label>
+				 </div>
+				包邮</div>
+			{/if}
 	      </div>
 	   </div>
 	   <div class="goods-list">

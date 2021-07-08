@@ -89,13 +89,21 @@
 	<div class="wst-selector">
 	   <div class='wst-lfloat'>
 		   <div class='item dorpdown'>
-		 <div class="wst-pos">
-			 <div>作品类别：</div>
-			 {volist name=":WSTShopApplyShopCats($shopId)" id='vo2'}
-			 <div class="cat1 cat"><a href='{:Url("home/shops/index",array("shopId"=>$shopId,"ct1"=>$vo2["catId"]))}'>{$vo2['catName']}</a></div>
-			 {/volist}
-		</div>
-		</div>
+			 <div class="wst-pos">
+				 <div>作品一级类别：</div>
+				 {volist name=":WSTShopApplyShopCats($shopId,0)" id='vo2'}
+				 <div class="cat1 cat "><a class="{if $ct1 == $vo2['catId']}active{/if}" href='{:Url("home/shops/index",array("shopId"=>$shopId,"ct1"=>$vo2["catId"]))}'>{$vo2['catName']}</a></div>
+				 {/volist}
+			</div>
+		   </div>
+		   <div class='item dorpdown'>
+			   <div class="wst-pos">
+				   <div>作品二级类别：</div>
+				   {volist name=":WSTShopApplyShopCats($shopId,$ct1)" id='vo2'}
+				   <div class="cat1 cat"><a class="{if $ct2 == $vo2['catId']}active{/if}" href='{:Url("home/shops/index",array("shopId"=>$shopId,"ct1" => $ct1,"ct2"=>$vo2["catId"]))}'>{$vo2['catName']}</a></div>
+				   {/volist}
+			   </div>
+		   </div>
 	   </div>
 		<div class='wst-clear'></div>
 	</div>

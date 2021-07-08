@@ -134,14 +134,14 @@ var uploader = batchUpload({uploadPicker:'#batchUpload',uploadServer:WST.U('shop
 		callback:function(f){
 			var json = WST.toJson(f);
 			if(json.status==1){
-				$('#uploadMsg').empty().hide();
-				$('#preview').attr('src',WST.conf.RESOURCE_PATH+"/"+json.savePath+json.thumb);
-				$('#goodsImg').val(json.savePath+json.name);
-				$('#msg_goodsImg').hide();
+				$('#ag_uploadMsg').empty().hide();
+				$('#ag_preview').attr('src',WST.conf.RESOURCE_PATH+"/"+json.savePath+json.thumb);
+				$('#goodsAuthorImg').val(json.savePath+json.name);
+				$('#ga_msg_goodsImg').hide();
 			}
 		},
 		progress:function(rate){
-			$('#uploadMsg').show().html('已上传'+rate+"%");
+			$('#ag_uploadMsg').show().html('已上传'+rate+"%");
 		}
 	});
 	WST.upload({

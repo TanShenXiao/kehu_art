@@ -361,3 +361,8 @@ $(function(){
             $(this).bind({ mouseover: function () { clearInterval(y) }, mouseout: function () { r() } })
         })
     })
+
+function jump(url){
+	window.location.href = url
+	window.event? window.event.cancelBubble = true : e.stopPropagation();
+}

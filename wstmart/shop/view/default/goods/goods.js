@@ -683,7 +683,7 @@ function getSpecAttrs(goodsCatId){
 		if(json.status==1 && json.data){
 			var html = [],tmp,str;
 			if(json.data.spec0 || json.data.spec1){
-				html.push('<div class="spec-head">商品规格</div>');
+				/*html.push('<div class="spec-head">商品规格</div>');
 				html.push('<div class="spec-body">');
 				if(json.data.spec0){
 					tmp = json.data.spec0;
@@ -702,8 +702,8 @@ function getSpecAttrs(goodsCatId){
 					}
 				}
 				html.push('</div>');
-				html.push($('#specTips').html());
-				html.push('<div id="specSaleHead" class="spec-head">销售规格</div>',
+				html.push($('#specTips').html());*/
+				/*html.push('<div id="specSaleHead" class="spec-head">销售规格</div>',
 				          '<table class="specs-sale-table">',
 				          '  <thead id="spec-sale-hed">',
 				          '   <tr>',
@@ -719,10 +719,10 @@ function getSpecAttrs(goodsCatId){
 				          '   </tr>',
 				          '  </thead>',
 				          '  <tbody id="spec-sale-tby"></tbody></table>'
-						);
+						);*/
 			}
 			if(json.data.attrs){
-				html.push('<div class="spec-head">商品属性</div>');
+				/*html.push('<div class="spec-head">商品属性</div>');*/
 				html.push('<div class="spec-body">');
 				html.push('<table class="attr-table">');
 				for(var i=0;i<json.data.attrs.length;i++){

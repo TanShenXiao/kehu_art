@@ -216,19 +216,19 @@
     <th>商品体积(m³)<font color='red'>*</font>：</th>
     <td><input type='text' class='j-ipt ipwd' id='goodsVolume' value='{$object["goodsVolume"]}' maxLength='10' onblur="javascript:WST.limitDecimal(this,2)" onkeypress="return WST.isNumberdoteKey(event)" onkeyup="javascript:WST.isChinese(this,1)"/></td>
     </tr>
-
+    <tr>
+        <th width='150'><font color='red'>*</font>作者：</th>
+        <td width='300'>
+            <input type='text' class='j-ipt' id='goodsAuthor' value='{$object["author"]["goodsAuthor"]}' maxLength='100'/>
+        </td>
+    </tr>
     <tr>
         <th>
             <div style="font-size: 13px;font-weight: bold;margin: 10px 0 0 10px;">商品属性信息</div>
         </th>
         <td></td>
     </tr>
-    <tr>
-        <th width='150'><font color='red'>*</font>作者：</th>
-        <td width='300'>
-            <input type='text' class='j-ipt' id='goodsAuthor' value='{$object["goodsAuthor"]}' maxLength='100'/>
-        </td>
-    </tr>
+   <!--
     <tr>
         <th width='150'><font color='red'>*</font>尺寸(CM)：</th>
         <td width='300'>
@@ -252,9 +252,35 @@
         <td width='300'>
             <input type='text' class='j-ipt' id='goodsTc' value='{$object["goodsTc"]}' maxLength='100'/>
         </td>
-    </tr>
+    </tr>-->
 
   <tr>
      <td align='center' style='text-align:center;padding-top:10px;'></td>
   </tr>
 </table>
+<div id="selMouldBox" style='display:none'>
+    模板：
+    <div id="mouldCol1" style="display: inline-block;">
+        <input id="mouldId" type="hidden" name="mouldId"/>
+        <div id="mouldBox">
+            <div id="mouldTitleBox" style=""><span id="mouldTitle">请选择规格属性模板</span> <i class="fa fa-angle-left jright" style=""></i></div>
+            <div id="mouldItemBox">
+
+            </div>
+        </div>
+    </div>
+    <button id="updateMould" type="button" class="btn" onclick="toUpdateMould()" style="margin-left: 10px;">更新模板</button>
+    <button id="addMould" type="button" class="btn" onclick="toSaveMould(0)" style="margin-left: 10px;">存为新模板</button>
+</div>
+<div id='specsAttrBox'></div>
+<script type="text/javascript">
+    $(function(){
+        $("#mouldTitleBox").on({
+            click : function(){
+                $("#mouldItemBox").toggle();
+            }
+        });
+
+    });
+
+</script>

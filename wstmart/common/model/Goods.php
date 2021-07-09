@@ -84,6 +84,8 @@ class Goods extends Base{
 		$data['shopExpressId'] = empty($data['shopExpressId'])?9:$data['shopExpressId'];
 		$data['goodsType'] = empty($data['goodsType'])?0:$data['goodsType'];
 		$data['goodsDesc'] = empty($data['goodsDesc'])?' ':$data['goodsDesc'];
+        $data['goodsAuthorDesc'] = empty($data['goodsAuthorDesc'])?' ':$data['goodsAuthorDesc'];
+        $data['szyx'] = empty($data['goodsDesc'])?' ':$data['szyx'];
 		$data['gallery'] = empty($data['gallery'])?'':$data['gallery'];
 		if(input('shopId/d')>0){	// input shopId大于0表示是通过api接口传进来的数据，这时要进行decode
 			$d = base64_decode($data['goodsDesc'],true);
@@ -163,6 +165,15 @@ class Goods extends Base{
 			$data['goodsDesc'] = htmlspecialchars_decode($data['goodsDesc']);
             $data['goodsDesc'] = WSTRichEditorFilter($data['goodsDesc']);
             $data['goodsDesc'] = str_replace($resourceDomain.'/upload/','${DOMAIN}/upload/',$data['goodsDesc']);
+            //作者简介
+            $data['goodsDesc'] = htmlspecialchars_decode($data['goodsAuthorDesc']);
+            $data['goodsDesc'] = WSTRichEditorFilter($data['goodsAuthorDesc']);
+            $data['goodsDesc'] = str_replace($resourceDomain.'/upload/','${DOMAIN}/upload/',$data['goodsAuthorDesc']);
+            //作者年表
+            $data['szyx'] = htmlspecialchars_decode($data['szyx']);
+            $data['szyx'] = WSTRichEditorFilter($data['szyx']);
+            $data['szyx'] = str_replace($resourceDomain.'/upload/','${DOMAIN}/upload/',$data['szyx']);
+
         	//保存插件数据钩子
         	hook('beforeEidtGoods',['data'=>&$data]);
         	$shop = model('shops')->get(['shopId'=>$shopId]);
@@ -281,7 +292,7 @@ class Goods extends Base{
                         Db::name('goods_attributes')->insertAll($attrsArray);
                     }
 
-                    //通过名称匹配
+                  /*  //通过名称匹配
                     foreach ($attrRs as $key =>$v){
                         $attrs = [];
                         switch( $v['attrName'] ){
@@ -314,8 +325,26 @@ class Goods extends Base{
                     }
                     if(count($attrsArrayName)>0){
                         Db::name('goods_attributes')->insertAll($attrsArrayName);
-                    }
+                    }*/
 
+                }
+                //保存作者信息
+                $author_data['goods_id'] = $goodsId;
+                $author_data['goodsAuthor'] = input('goodsAuthor');
+                $author_data['goodsAuthorDesc'] = input('goodsAuthorDesc');
+                $author_data['goodsAuthorImg'] = input('goodsAuthorImg');
+                $author_data['szyx'] = input('szyx');
+                $author_data['zznb'] = input('zznb');
+                $author_data['zdls'] = input('zdls');
+                $author = Author::get(['goods_id' => $goodsId]);
+                if($author){
+                    $result = $author->edit($author_data);
+                }else{
+                    $author = new Author();
+                    $result = $author->add($author_data);
+                }
+                if($result['status'] == -1){
+                    return $result;
                 }
 
 		    	//保存关键字
@@ -589,7 +618,7 @@ class Goods extends Base{
 		    	if(count($attrsArray)>0)Db::name('goods_attributes')->insertAll($attrsArray);
 
                 //通过名称匹配
-                $attrsArrayName = [];
+                /*$attrsArrayName = [];
                 foreach ($attrRs as $key =>$v){
                     $attrs = [];
                     switch( $v['attrName'] ){
@@ -622,9 +651,26 @@ class Goods extends Base{
                 }
                 if(count($attrsArrayName)>0){
                     Db::name('goods_attributes')->insertAll($attrsArrayName);
+                }*/
+                //保存作者信息
+                $author_data['goods_id'] = $goodsId;
+                $author_data['goodsAuthor'] = input('goodsAuthor');
+                $author_data['goodsAuthorDesc'] = input('goodsAuthorDesc');
+                $author_data['goodsAuthorImg'] = input('goodsAuthorImg');
+                $author_data['szyx'] = input('szyx');
+                $author_data['zznb'] = input('zznb');
+                $author_data['zdls'] = input('zdls');
+                $author = Author::get(['goods_id' => $goodsId]);
+                if($author){
+                    $result = $author->edit($author_data);
+                }else{
+                    $author = new Author();
+                    $result = $author->add($author_data);
                 }
-
-		    	//保存关键字
+                if($result['status'] == -1){
+                    return $result;
+                }
+                //保存关键字
         	    $searchKeys = WSTGroupGoodsSearchKey($goodsId);
         	    $this->where('goodsId',$goodsId)->update(['goodsSerachKeywords'=>implode(',',$searchKeys)]);
 		    	//删除购物车里的商品
@@ -677,6 +723,11 @@ class Goods extends Base{
 			$rs['attrs'] = Db::name('goods_attributes')->alias('ga')->join('attributes a','ga.attrId=a.attrId','inner')
 			                 ->where('goodsId',$goodsId)->field('ga.attrId,a.attrType,ga.attrVal')->select();
 		}
+        //获取作者信息
+        $author = new Author();
+        $author_data = $author->get_format_data($goodsId);
+        $rs['author'] = $author_data;
+
 		return $rs;
 	}
 	/**

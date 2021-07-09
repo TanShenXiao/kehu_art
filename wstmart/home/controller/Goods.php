@@ -319,6 +319,7 @@ class Goods extends Base{
                 $goods['goodsDesc'] = str_replace($v, "<img class='goodsImg' data-original=\"".WSTConf('CONF.resourcePath').str_replace('/index.php','',request()->root())."/".WSTImg($images[1][$k],3)."\"", $goods['goodsDesc']);
             }
 			$goods['haveThumb'] = $m->haveThumb();
+
 	    	$this->assign('goods',$goods);
             $this->assign('shop',$goods['shop']);
 	    	return $this->fetch($catInfo['detailTheme']);

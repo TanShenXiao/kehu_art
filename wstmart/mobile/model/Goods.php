@@ -1,5 +1,6 @@
 <?php
 namespace wstmart\mobile\model;
+use wstmart\common\model\Author;
 use wstmart\common\model\Goods as CGoods;
 use think\Db;
 /**
@@ -165,6 +166,11 @@ class Goods extends CGoods{
 			$f = model('Favorites');
 			$rs['favShop'] = $f->checkFavorite($rs['shopId'],1);
 			$rs['favGood'] = $f->checkFavorite($goodsId,0);
+
+            //获取作者信息
+            $author = new Author();
+            $author_data = $author->get_format_data($goodsId);
+            $rs['author'] = $author_data;
 		}
 		return $rs;
 	}

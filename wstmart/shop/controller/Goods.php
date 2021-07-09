@@ -1,5 +1,6 @@
 <?php
 namespace wstmart\shop\controller;
+use wstmart\common\model\Author;
 use wstmart\shop\model\Goods as M;
 use think\Db;
 /**
@@ -128,6 +129,10 @@ class Goods extends Base{
         $object['goodsSn'] = WSTGoodsNo();
         $object['productNo'] = WSTGoodsNo();
 		$object['goodsImg'] = WSTConf('CONF.goodsLogo');
+		//作者信息
+        $author = new Author();
+        $author_data = $author->get_format_data(0);
+        $object['author'] = $author_data;
 		$shopId = (int)session('WST_USER.shopId');
 		//获取认证类型
 	    $shopAccreds = Db::name('shop_accreds')->field('accredId')->where('shopId',$shopId)->select();
@@ -163,8 +168,6 @@ class Goods extends Base{
         $m = new M();
         $object = $m->getById(input('get.id'));
         $this->assign("p",(int)input("p"));
-
-
         //获取商品属性
         $goods_attr = model("common/attributes")->getGoodsAttributeByGoodsId( input('get.id') );
         $attr_ids = [];

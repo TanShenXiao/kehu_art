@@ -17,6 +17,22 @@
     .goods-desc img{
         width: 100%;
     }
+    .author_left{
+        width: 10%;
+        float: left;
+        min-height: 30px;
+        margin-bottom: 20px;
+    }
+    .author_right{
+        width: 89%;
+        min-height: 30px;
+        margin-bottom: 10px;
+        float: right;
+    }
+    .clear{
+        clear:both
+    }
+
 </style>
 
 <div class="wst-w-top">
@@ -277,19 +293,53 @@
           <div class="goods-intro-detail">
             <ul>
               <li>作品名称：{$goods['goodsName']}</li>
-              <li>艺 术 家：{$goods['goodsAuthor']}</li>
+              <li>艺 术 家：{$goods['author']['goodsAuthor']}</li>
               <li>尺寸：{$goods['goodsTips']}</li>
               <li>创作时间：{$goods['createTime']}</li>
             </ul>
           </div>
-            {if($goods['goodsAuthorDesc'])}
+            {if($goods['author']['goodsAuthorDesc'])}
           <h2>作者介绍</h2>
           <div class="author-intro">
-              {$goods['goodsAuthorDesc']}
+              {$goods['author']['goodsAuthorDesc']}
           </div>
             {/if}
           <h2>作品介绍</h2>
-          <div class="goods-desc">
+            <div>
+                <div class="author_left">艺 术 家 名：</div>
+                <div class="author_right goods-intro-detail">
+                    {$goods['author']['goodsAuthor']}
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div>
+                <div class="author_left">艺 术 头 像:</div>
+                <div class="author_right goods-intro-detail">
+                    <img style="width: 120px;" src="{$goods['author']['goodsAuthorImg']}">
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div>
+                <div class="author_left">商 品 图 片:</div>
+                <div class="author_right goods-intro-detail">
+                    {volist name="$goods['gallery']" id='gallery'}
+                        <img style="width: 160px;margin: 10px" src="/{$gallery}">
+                    {/volist}
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div>
+                <div class="author_left">商 品 属 性:</div>
+                <div class="author_right goods-intro-detail">
+                    <ul>
+                        {volist name="$goods['attrs']" id='attr'}
+                            <li>{$attr['attrName']}：{$attr['attrVal']}</li>
+                        {/volist}
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="goods-desc">
             {$goods['goodsDesc']}
           </div>
         </div>

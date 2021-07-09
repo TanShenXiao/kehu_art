@@ -8,12 +8,12 @@
     <tr>
         <th>作者头像<font color='red'>*</font>：</th>
         <td>
-            <input type="text" id='goodsAuthorImg' readonly="readonly" value='{if isset($object["goodsAuthorImg"]) and $object["goodsAuthorImg"]!=''}{$object["goodsAuthorImg"]}{else}{:WSTConf('CONF.goodsLogo')}{/if}' class="j-ipt" style="float: left; width: 655px;" />
+            <input type="text" id='goodsAuthorImg' readonly="readonly" value='{if isset($object["author"]["goodsAuthorImg"]) and $object["author"]["goodsAuthorImg"]!=''}{$object["author"]["goodsAuthorImg"]}{else}{:WSTConf('CONF.goodsLogo')}{/if}' class="j-ipt" style="float: left; width: 655px;" />
             <div id='goodsAuthorImgupload' style="float: left;margin-top: 5px;">上传</div><span id='ag_uploadMsg'></span>
             <div id='goodgoodsImgPickersImgBox' style='margin-bottom:5px; float: left; height: 30px; margin-left: 5px;'>
             <span class='weixin'>
                   <img class='img' style='height:16px;width:18px;' src='__STATIC__/images/upload-common-select.png'>
-                  <img class='imged'  id='ag_preview'  style='max-height:150px;max-width: 200px; border:1px solid #dadada; background:#fff' src="__RESOURCE_PATH__/{if $object['goodsImg']!=''}{$object['goodsImg']}{else}{:WSTConf('CONF.goodsLogo')}{/if}">
+                  <img class='imged'  id='ag_preview'  style='max-height:150px;max-width: 200px; border:1px solid #dadada; background:#fff' src="__RESOURCE_PATH__/{if $object['author']['goodsAuthorImg']!=''}{$object['author']['goodsAuthorImg']}{else}{:WSTConf('CONF.goodsLogo')}{/if}">
                 </span>
             </div>
             <div class="f-clear"></div>
@@ -23,26 +23,26 @@
     <tr>
         <th>作者简介<font color='red'>*</font>：</th>
         <td>
-            <textarea rows="2" cols="60" id='goodsAuthorDesc' class='j-ipt' name='goodsAuthorDesc' data-rule='商品描述:required;'>{$object['goodsAuthorDesc']}</textarea>
+            <textarea rows="2" cols="60" id='goodsAuthorDesc' class='j-ipt' name='goodsAuthorDesc' data-rule='商品描述:required;'>{$object['author']['goodsAuthorDesc']}</textarea>
         </td>
     </tr>
     <tr>
         <th>作者年表：</th>
         <td>
-            <textarea rows="2" cols="60" id='zznb' class='j-ipt' name='zznb' >{$object['zznb']}</textarea>
+            <textarea rows="2" cols="60" id='zznb' class='j-ipt' name='zznb' >{$object['author']['zznb']}</textarea>
         </td>
 
     </tr>
     <tr>
         <th>所在院系：</th>
         <td>
-            <input type="text" class='j-ipt ipwd' id='szyx' maxLength='150'  value="{$object["szyx"]}">
+            <input type="text" class='j-ipt ipwd' id='szyx' maxLength='150'  value="{$object['author']['szyx']}">
         </td>
     </tr>
     <tr>
         <th>指导老师：</th>
         <td>
-            <input type="text" class='j-ipt ipwd' id='zdls' maxLength='150'  value="{$object["zdls"]}">
+            <input type="text" class='j-ipt ipwd' id='zdls' maxLength='150'  value="{$object['author']['zdls']}">
         </td>
     </tr>
 

@@ -10,6 +10,22 @@
 <link rel="stylesheet"  href="__MOBILE__/js/share/nativeShare.css?v={$v}">
 <link rel="stylesheet" href="__STATIC__/plugins/photoswipe/photoswipe.css">
 <link rel="stylesheet" href="__STATIC__/plugins/photoswipe/default-skin/default-skin.css">
+<style>
+	.author_left{
+		width: 100px;
+		float: left;
+		min-height: 30px;
+		margin-bottom: 5px;
+	}
+	.author_right{
+		min-height: 30px;
+		margin-bottom: 5px;
+		float: left;
+	}
+	.clear{
+		clear:both
+	}
+</style>
 {/block}
 {block name="header"}
 	{php}$cartNum = WSTCartNum();{/php}
@@ -189,7 +205,7 @@
 			<ul>
 				<li>作品名称：{$info['goodsName']}</li>
 				<li>作品类型：{$info['catName']}</li>
-				<li>艺术家：{$info['goodsAuthor']}</li>
+				<li>艺术家：{$info['author']['goodsAuthor']}</li>
 				<li>创作时间：{$info['createTime']|date='Y-m-d'}</li>
 				<li>尺寸：{$info['goodsTips']}</li>
 			</ul>
@@ -199,14 +215,47 @@
 
 			<h2 class="_title">作者介绍</h2>
 			<div>
-				{$info['goodsAuthorDesc']}
+				{$info['author']['goodsAuthorDesc']}
 			</div>
-
 		</div>
 		 {/if}
 		{/* 详情  */}
 		<section class="_container" id="goods2">
 			<h2 class="_title">作品介绍</h2>
+			<div>
+				<div class="author_left">艺 术 家 名：</div>
+				<div class="author_right goods-intro-detail">
+					{$info['author']['goodsAuthor']}
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div>
+				<div class="author_left">艺 术 头 像:</div>
+				<div class="author_right goods-intro-detail">
+					<img style="width: 120px;" src="{$info['author']['goodsAuthorImg']}">
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div>
+				<div class="author_left">商 品 图 片:</div>
+				<div class="author_right goods-intro-detail">
+					{volist name="$info['gallery']" id='gallery'}
+					<img style="width: 160px;margin: 10px" src="/{$gallery}">
+					{/volist}
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div>
+				<div class="author_left">商 品 属 性:</div>
+				<div class="author_right goods-intro-detail">
+					<ul>
+						{volist name="$info['attrs']" id='attr'}
+						<li>{$attr['attrName']}：{$attr['attrVal']}</li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
 			<div class="wst-go-details">{$info['goodsDesc']}</div>
 		</section>
 		<div class="wst-shl-ads">

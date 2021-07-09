@@ -365,3 +365,11 @@
 .wst-in-goods .info2 .auction-price{font-size:0.13rem;color:#e00102;}
 .marketing-remind-box{width: 100%;height: 0.5rem;line-height: 0.5rem;font-size: 0.12rem;text-align: center;color: #222;background: #fff;}
 /*营销活动组件样式结束*/
+
+.services_content li .mark span{
+    margin-top: 20px;
+    padding: 5px 20px;
+    border-radius: 20px;
+    background: #fff;
+    font-size: 18px;
+}

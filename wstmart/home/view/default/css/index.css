@@ -602,6 +602,13 @@
 	background: #fff;
 	font-size: 18px;
 }
+.services_content li .mark span{
+	margin-top: 20px;
+	padding: 5px 20px;
+	border-radius: 20px;
+	background: #fff;
+	font-size: 18px;
+}
 .services_content li:nth-child(1) .mark a{
 	margin-top: 30px;
 	font-size: 22px;

@@ -187,34 +187,27 @@
 <div class="wst-clear"></div>
 {/* 艺术服务 */}
 <div class="service_pack">
-	<h2 class="sector_h2">艺术服务</h2>
+	<h2 class="sector_h2"><a href="/mnews/catId/402">艺术服务</a></h2>
 	<div class="sector_desc">
 		<p>Art services</p>
 		<!-- <a href="">查看更多>></a> -->
 	</div>
 	<div class="services_content">
 		<ul>
+			<?php
+					$articleList = WSTArtServices(402,3);
+					foreach ($articleList as $k => $article) {
+			?>
 			<li>
-				<img src="/upload/goods/2021-04/ysfw.jpg" alt="">
-				<div class="mark">
-					<p>艺术服务</p>
-					<a href="/mnews/catId/402">查看详情</a>
-				</div>
+				<a href="{:url('/mnews',['id'=> $article['articleId']])}">
+					<img src="/{$article['coverImg']}" alt="">
+					<div class="mark">
+						<p>{$article['articleTitle']}</p>
+						<span>点我查看详情</span>
+					</div>
+				</a>
 			</li>
-			<li>
-				<img src="/upload/goods/2021-04/ysfw2.jpg" alt="">
-				<div class="mark">
-					<p>税收服务</p>
-					<a href="/mnews/catId/403">查看详情</a>
-				</div>
-			</li>
-			<li>
-				<img src="/upload/goods/2021-04/ysfw3.jpg" alt="">
-				<div class="mark">
-					<p>作品征集</p>
-					<a href="/mnews/catId/404">查看详情</a>
-				</div>
-			</li>
+			<?php } ?>
 		</ul>
 	</div>
 </div>

@@ -1,0 +1,107 @@
+{extend name="base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/webuploader/webuploader.css?v={$v}" />
+<style>
+.goodsCat{display:inline-block;width:150px}
+</style>
+{/block}
+{block name="js"}
+<script src="__STATIC__/plugins/webuploader/webuploader.js?v={$v}" type="text/javascript" ></script>
+<script src="__STATIC__/plugins//kindeditor/kindeditor.js?v={$v}" type="text/javascript" ></script>
+<script src="__ADMIN__/brand_activities/brand_activities.js?v={$v}" type="text/javascript"></script>
+<script>
+$(function () {
+	   {if condition="$object['id'] !=0"}
+		WST.setValues({$object});
+	   {/if}
+		$('#brandForm').validator({
+		    fields: {
+		    	title: {
+		    		tip: "请输活动标题",
+		    		rule: '活动:required;length[~16];'
+		    	},
+                cover_img: {
+		    		tip: "请上传封面图",
+		    		rule: '活动:required;'
+		    	},
+                target_url: {
+		    		tip: "请输入目标链接",
+		    		rule: '品牌介绍:required;'
+		    	}
+		    },
+		    valid: function(form){
+		    	var brandId = $('#brandId').val();
+		    	toEdits(brandId,{$p});
+		    }
+		})
+});
+</script>
+{/block}
+{block name="main"}
+<input type='hidden' id='brandId' value='{$object["id"]}'/>
+<div class="l-loading" style="display: block" id="wst-loading"></div>
+<form id="brandForm" autocomplete="off">
+<table class='wst-form wst-box-top'>
+  <tr>
+     <th width='150'>标题<font color='red'>*</font>：</th>
+     <td><input type="text" id='title' name='title' maxLength='20' style='width:300px;' class='ipt' /></td>
+  </tr>
+    <tr>
+        <th width='150'>目标链接<font color='red'>*</font>：</th>
+        <td><input type="text" id='target_url' name='target_url' maxLength='200' style='width:300px;' class='ipt' /></td>
+    </tr>
+   <tr width='150'>
+     <th align='right'>封面图<font color='red'>*</font>：</th>
+     <td>
+     	   <input id="cover_img" name="cover_img" class="text ipt" data-target='#msg_cover_img' autocomplete="off" type="text" readonly="readonly" value="{$object.cover_img}" data-rule="封面图: required;" style="float: left;width: 250px;"/>
+    	   <div id="filePicker">上传</div>
+     	    <span style='margin-left:5px;float:left;line-height: 30px;'>图片大小:400 x 200 (px)，格式为 gif, jpg, jpeg,bmp, png </span>
+          <span class='msg-box' id='msg_cover_img'></span>
+     	    <div id="preview" style="float: left;;margin-left: 5px;">
+            {if $object['id']!=0}
+            <img src="__RESOURCE_PATH__/{$object['cover_img']}" class="ipt" height='30'/>
+            {/if}
+        </div>
+     </td>
+   </tr>
+   <tr>
+     <th width='150'>排序号<font color='red'>*</font>：</th>
+     <td><input type="text" id='sort' name='sort' maxLength='20' style='width:300px;' class='ipt' onkeypress="return WST.isNumberKey(event);" onkeyup="javascript:WST.isChinese(this,1)" maxlength="10" value="0" data-tip="请输入排序号"/></td>
+  </tr>
+    <tr>
+        <th>是否开启<font color='red'>*</font>：</th>
+        <td height='24'>
+            <label>
+                <input type="radio" id="status" name="status" class="ipt" value="1" checked>是
+            </label>
+            <label>
+                <input type="radio" id="status" name="status" class="ipt" value="0" >否
+            </label>
+        </td>
+    </tr>
+ <tr>
+   <td colspan='2' align='center'>
+       <button type="submit" class="btn btn-primary btn-mright"><i class="fa fa-check"></i>保&nbsp;存</button>
+       <button type="button" class="btn" onclick="javascript:location.href='{:Url(\'admin/brands/index\',\'p=\'.$p)}'"><i class="fa fa-angle-double-left"></i>返&nbsp;回</button>
+   </td>
+ </tr>
+</table>
+ </form>
+ <script>
+$(function(){
+  //文件上传
+	WST.upload({
+  	  pick:'#filePicker',
+  	  formData: {dir:'brands',mWidth:500,mHeight:250},
+  	  accept: {extensions: 'gif,jpg,jpeg,png',mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif'},
+  	  callback:function(f){
+  		  var json = WST.toAdminJson(f);
+  		  if(json.status==1){
+        	$('#preview').html('<img src="'+WST.conf.RESOURCE_PATH+"/"+json.savePath+json.thumb+'" height="30" />');
+        	$('#cover_img').val(json.savePath+json.thumb);
+  		  }
+	  }
+    });
+});
+</script>
+{/block}

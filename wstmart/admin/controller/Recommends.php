@@ -103,4 +103,15 @@ class Recommends extends Base{
 		$rs= $m->listQueryByBrands();
 		return WSTReturn("", 1,$rs);
 	}
+
+    /**
+     * 推荐艺术家
+     */
+	public function RecommendedArtists()
+    {
+        $this->assign("p",(int)input("p"));
+        return $this->fetch('recommended_artists/list');
+    }
+
+
 }

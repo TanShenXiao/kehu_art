@@ -20,7 +20,7 @@ class RecommendedArtists extends Base{
     }
     
     /**
-     * 获取品牌
+     * 获取艺术家
      */
     public function get(){
     	$m = new M();
@@ -37,7 +37,7 @@ class RecommendedArtists extends Base{
     	if($id>0){
     		$object = $m->getById($id);
     	}else{
-    		$object = $m->getEModel('brand_activities');
+    		$object = $m->getEModel('recommended_artists');
     	}
     	$this->assign("p",(int)input("p"));
         $this->assign('object',$object);

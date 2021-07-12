@@ -109,7 +109,13 @@
                     <div class='item dorpdown'>
                         <div class="wst-pos">
                             <div>作品一级类别：</div>
-                            {volist name=":WSTShopApplyShopCats($shopId,0)" id='vo2'}
+                            <?php $sct1 = -100;?>
+                            {volist name=":WSTShopApplyShopCats($shopId,0)" id='vo2' key="k"}
+                            <?php
+                                if(!$ct1 and $k==1){
+                                    $sct1 = $vo2["catId"];
+                                }
+                             ?>
                             <div class="cat1 cat "><a class="{if $ct1 == $vo2['catId']}active{/if}" href='{:Url("mobile/shops/index",array("shopId"=>$shopId,"ct1"=>$vo2["catId"]))}'>{$vo2['catName']}</a></div>
                             {/volist}
                         </div>
@@ -117,7 +123,7 @@
                     <div class='item dorpdown'>
                         <div class="wst-pos">
                             <div>作品二级类别：</div>
-                            {volist name=":WSTShopApplyShopCats($shopId,$ct1)" id='vo2'}
+                            {volist name=":WSTShopApplyShopCats($shopId,$ct1?$ct1:$sct1)" id='vo2'}
                             <div class="cat1 cat"><a class="{if $ct2 == $vo2['catId']}active{/if}" href='{:Url("mobile/shops/index",array("shopId"=>$shopId,"ct1" => $ct1,"ct2"=>$vo2["catId"]))}'>{$vo2['catName']}</a></div>
                             {/volist}
                         </div>

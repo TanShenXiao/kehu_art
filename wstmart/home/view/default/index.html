@@ -136,11 +136,11 @@
 		</div>
 		<div class="artist_content">
 			<?php
-				$shopList = WSTShopRecommends(0,1,'0,1');
+				$shopList = RecommendedArtists(1,'0,1');
 				foreach ($shopList as $k => $shopIfo) {
 			?>
 			<div class="artist_big">
-				<a href="{:url('home/shops/index',['shopId'=>$shopIfo['shopId']])}">
+				<a href="{:url('home/shops/index2',['shopId'=>$shopIfo['shopId']])}">
 					<img src="__ROOT__/{$shopIfo['shopImg']}" alt="">
 					<p>{if(strlen($shopIfo['shopName'])>7)}{$shopIfo['shopName']}{else}{:WSTMSubstr($shopIfo['shopName'],0,7)}...{/if}</p>
 				</a>

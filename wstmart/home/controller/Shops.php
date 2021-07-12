@@ -70,7 +70,41 @@ class Shops extends Base{
 		//hook("homeBeforeGoShopHomeTpl",["shopId"=>$shopId,"obj"=>$this,"type"=>0]);
     	return $this->fetch($data['shop']["shopHomeTheme"]);
     }
-    
+
+    /**
+     * 店铺详情
+     */
+    public function index2(){
+
+        $shopId = (int)input("param.shopId/d");
+        $s = model('RecommendedArtists');
+        $data['shop'] = $s->getById($shopId);
+        if(empty($data['shop'])){
+            return $this->fetch('error_lost');
+        }
+
+        $data['shopcats'] = model('ShopCats','model')->getShopCats($shopId);
+        $g = model('goods');
+        $data['list'] = $g->shopGoods($shopId);
+        $data['goodsNum'] = $data['list']['goodsNum'];
+
+        //关注
+        $f = model('common/Favorites');
+        $data['isfollow'] = $f->checkFavorite($shopId,1);
+
+        $this->assign('data',$data);
+        $this->assign('msort',(int)input("param.msort",0));//筛选条件
+        $this->assign('mdesc',(int)input("param.mdesc",1));//升降序
+        $this->assign('sprice',input("param.sprice"));//价格范围
+        $this->assign('eprice',input("param.eprice"));
+        $this->assign('ct1',(int)input("param.ct1",0));//一级分类
+        $this->assign('ct2',(int)input("param.ct2",0));//二级分类
+        //hook("homeBeforeGoShopHomeTpl",["shopId"=>$shopId,"obj"=>$this,"type"=>0]);
+
+        return $this->fetch("shop_home2");
+    }
+
+
     /**
      * 店铺分类
      */

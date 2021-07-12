@@ -300,6 +300,7 @@ class Goods extends Base{
     public function detail(){
     	$m = new M();
     	$goods = $m->getBySale(input('goodsId/d',0));
+
     	if(!empty($goods)){
     	    $history = cookie("history_goods");
     	    $history = is_array($history)?$history:[];

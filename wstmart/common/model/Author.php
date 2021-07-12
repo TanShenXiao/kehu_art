@@ -94,19 +94,21 @@ class Author extends Base{
      * 获取格式化作者信息
      * @param $goods_id
      */
-    public function get_format_data($goods_id)
+    public function get_format_data($goods_id,$shop = [])
     {
         $data = '';
         if($goods_id){
             $data = Db::name('author')->where(['goods_id' => $goods_id])->find();
         }
+        $data = Db::name('author')->where(['goods_id' => $goods_id])->find();
+
         if(!$data){
             $data = [];
             $data['id'] = 0;
-            $data['goods_id'] = 0;
-            $data['goodsAuthor'] = '';
-            $data['goodsAuthorDesc'] = '';
-            $data['goodsAuthorImg'] = '';
+            $data['goods_id'] = isset($shop['shopId'])?$shop['shopId']:0;
+            $data['goodsAuthor'] = isset($shop['shopName'])?$shop['shopName']:'';
+            $data['goodsAuthorDesc'] = isset($shop['goodsDesc'])?$shop['goodsDesc']:'';
+            $data['goodsAuthorImg'] = isset($shop['shopImg'])?$shop['shopImg']:'';;
             $data['szyx'] = '';
             $data['zznb'] = '';
             $data['zdls'] = '';

@@ -548,6 +548,44 @@ function WSTShopRecommends( $dataType , $dataSrc = 0 , $limit = 6 ){
         ->where($where)->field('*')->order("r.dataSort asc")->limit($limit)->select();
 }
 
+
+/**
+ * 获取推荐艺术家
+ * @param $dataType
+ * @param int $limit
+ * @return mixed
+ */
+function RecommendedArtists($is_top = 0, $limit = 6 ){
+    $where = [];
+
+    if($is_top == 1){
+        $where[] = ['ra.top','=',1];	//热销商品
+    }
+    $model = Db::name('recommended_artists')->alias('ra')->where($where)
+        ->join('shops s','s.shopId = ra.shop_id','inner')
+        ->field('s.shopId,s.shopName,s.shopImg')
+        ->order(['ra.sort'=> 'desc','ra.created_time' => 'desc'])->limit($limit)->select();
+    foreach ($model as $key => $item){
+
+        $model[$key]['shopNum'] = Db::name('goods')->where(['shopId'=>$item['shopId'],'isSale'=>1,'goodsStatus'=>1,'dataFlag'=>1])->count();
+
+        $goodsCats = Db::name('cat_shops')->alias('cs')->join('__GOODS_CATS__ gc','cs.catId=gc.catId and gc.dataFlag=1','left')
+            ->where('shopId',$item['shopId'])->field('cs.shopId,gc.catName')->select();
+        $model[$key]['catshops'] = '';
+        foreach($goodsCats as $c) {
+            if ($model[$key]['catshops']) {
+                if ($c['catName']) {
+                    $model[$key]['catshops'] .=  ','.$c['catName'];
+                }
+            } else {
+                $model[$key]['catshops'] =  $c['catName'];
+            }
+        }
+    }
+
+    return $model;
+}
+
 /**
  * 艺术服务
  * @param $dataType

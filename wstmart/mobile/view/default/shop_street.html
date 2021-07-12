@@ -60,17 +60,18 @@
 			<h2>推荐艺术家</h2>
 			<ul>
 				<?php
-					foreach ($tjlist as $k => $tjinfo) {
+					$shopList = RecommendedArtists(0,'0,8');
+					foreach ($shopList as $k => $vo) {
 				?>
 				<li>
-					<div class="tj_arts_img"><a href="javascript:void(0);" onclick="goShopHome({$tjinfo['shopId']})">
-						<img src="__ROOT__/{$tjinfo['shopImg']}"></a>
+					<div class="tj_arts_img"><a href="javascript:void(0);" onclick="goShopHome({$vo['shopId']})">
+						<img src="__ROOT__/{$vo['shopImg']}"></a>
 					</div>
-					<div class="tj_arts_cont" onclick="goToShop({$tjinfo['shopId']})">
-						<a href="javascript:void(0);" onclick="goShopHome({$tjinfo['shopId']})">
-						<div class="title ui-nowrap">{$tjinfo['shopName']}</div>
-						<p class="ui-nowrap">类别：{$tjinfo['catName']}</p>
-						<p><span>商品数：</span>{$tjinfo['count']}</p>
+					<div class="tj_arts_cont" onclick="goToShop({$vo['shopId']})">
+						<a href="javascript:void(0);" onclick="goShopHome({$vo['shopId']})">
+						<div class="title ui-nowrap">{$vo['shopName']}</div>
+						<p class="ui-nowrap">类别：{if(strlen($vo['catshops'])>4)}{$vo['catshops']}{else}{:WSTMSubstr($vo['catshops'],0,4)}...{/if}</p>
+						<p><span>商品数：</span>{$vo['shopNum']}</p>
 						</a>
 					</div>
 				</li>

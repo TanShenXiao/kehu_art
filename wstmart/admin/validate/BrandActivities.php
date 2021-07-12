@@ -2,15 +2,22 @@
 namespace wstmart\admin\validate;
 use think\Validate;
 
-class RecommendedArtists extends Validate{
+class BrandActivities extends Validate{
 	protected $rule = [
-	    'shop_id|店铺id' => 'require',
-		'top|是否置顶'  => 'require',
-		'sort|排序' => 'require',
+	    'title' => 'require|max:60',
+		'cover_img'  => 'require',
+		'target_url' => 'require',
+    ];
+
+    protected $message = [
+        'title.require' => '活动名称',
+        'title.max' => '品牌名称不能超过60个字符',
+        'cover_img.require' => '活动封面图',
+        'target_url.require' => '目标链接',
     ];
 
     protected $scene = [
-        'add'   =>  ['shop_id','top','sort'],
-        'edit'  =>  ['shop_id','top','sort'],
+        'add'   =>  ['title','cover_img','target_url'],
+        'edit'  =>  ['title','cover_img','target_url']
     ]; 
 }

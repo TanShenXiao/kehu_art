@@ -2,7 +2,7 @@ var mmg,mmg2;
 function initGrid(p){
     var h = WST.pageHeight();
     var cols = [
-            {title:'店铺编号', name:'shopSn', width: 30,sortable: true},
+            {title:'店铺编号', name:'shopSn', width: 100,sortable: true},
             {title:'店铺账号', name:'loginName',width: 60,sortable: true},
             {title:'店铺名称', name:'shopName',width: 120,sortable: true},
             {title:'店主姓名', name:'shopkeeper',width: 40,sortable: true},
@@ -116,7 +116,7 @@ function toDelApply(id){
 function initStopGrid(p){
     var h = WST.pageHeight();
     var cols = [
-            {title:'店铺编号', name:'shopSn', width: 30},
+            {title:'店铺编号', name:'shopSn', width: 100},
             {title:'店铺账号', name:'loginName', width: 60},
             {title:'店铺名称', name:'shopName',width: 120},
             {title:'店主姓名', name:'shopkeeper',width: 40,},

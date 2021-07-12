@@ -6,7 +6,7 @@
         <td></td>
     </tr>
     <tr>
-        <th>作者头像<font color='red'>*</font>：</th>
+        <th>作者头像<font color='red'></font>：</th>
         <td>
             <input type="text" id='goodsAuthorImg' readonly="readonly" value='{if isset($object["author"]["goodsAuthorImg"]) and $object["author"]["goodsAuthorImg"]!=''}{$object["author"]["goodsAuthorImg"]}{else}{:WSTConf('CONF.goodsLogo')}{/if}' class="j-ipt" style="float: left; width: 655px;" />
             <div id='goodsAuthorImgupload' style="float: left;margin-top: 5px;">上传</div><span id='ag_uploadMsg'></span>
@@ -21,7 +21,7 @@
         </td>
     </tr>
     <tr>
-        <th>作者简介<font color='red'>*</font>：</th>
+        <th>作者简介<font color='red'></font>：</th>
         <td>
             <textarea rows="2" cols="60" id='goodsAuthorDesc' class='j-ipt' name='goodsAuthorDesc' data-rule='商品描述:required;'>{$object['author']['goodsAuthorDesc']}</textarea>
         </td>

@@ -8,7 +8,7 @@
 {block name="js"}
 <script src="__STATIC__/plugins/webuploader/webuploader.js?v={$v}" type="text/javascript" ></script>
 <script src="__STATIC__/plugins//kindeditor/kindeditor.js?v={$v}" type="text/javascript" ></script>
-<script src="__ADMIN__/brand_activities/brand_activities.js?v={$v}" type="text/javascript"></script>
+<script src="__ADMIN__/RecommendedArtists/recommended_artists.js?v={$v}" type="text/javascript"></script>
 <script>
 $(function () {
 	   {if condition="$object['id'] !=0"}
@@ -17,90 +17,140 @@ $(function () {
 		$('#brandForm').validator({
 		    fields: {
 		    	title: {
-		    		tip: "请输活动标题",
-		    		rule: '活动:required;length[~16];'
+		    		tip: "艺术家编号",
+		    		rule: 'shop_id:required;length[~16];'
 		    	},
                 cover_img: {
-		    		tip: "请上传封面图",
-		    		rule: '活动:required;'
+		    		tip: "是否置顶",
+		    		rule: 'top:required;'
 		    	},
                 target_url: {
-		    		tip: "请输入目标链接",
-		    		rule: '品牌介绍:required;'
+		    		tip: "排序",
+		    		rule: 'sort:required;'
 		    	}
 		    },
 		    valid: function(form){
-		    	var brandId = $('#brandId').val();
-		    	toEdits(brandId,{$p});
+		    	var id = $('#id').val();
+		    	toEdits(id,{$p});
 		    }
 		})
 });
 </script>
 {/block}
 {block name="main"}
-<input type='hidden' id='brandId' value='{$object["id"]}'/>
+<input type='hidden' id='id' class='ipt' value='{$object["id"]}'/>
 <div class="l-loading" style="display: block" id="wst-loading"></div>
 <form id="brandForm" autocomplete="off">
 <table class='wst-form wst-box-top'>
   <tr>
-     <th width='150'>标题<font color='red'>*</font>：</th>
-     <td><input type="text" id='title' name='title' maxLength='20' style='width:300px;' class='ipt' /></td>
+     <th width='150'>艺术家编号<font color='red'>*</font>：</th>
+     <td><input type="text" id='shop_id' name='shop_id' maxLength='20' style='width:300px;' class='ipt {if $object["id"]}layui-disabled{/if}' /></td>
   </tr>
     <tr>
-        <th width='150'>目标链接<font color='red'>*</font>：</th>
-        <td><input type="text" id='target_url' name='target_url' maxLength='200' style='width:300px;' class='ipt' /></td>
+        <th>作者简介<font color='red'>*</font>：</th>
+        <td>
+            <textarea rows="2" cols="60" id='desc' class='ipt' name='desc' data-rule='作者简介:required;'>{$object['desc']}</textarea>
+        </td>
     </tr>
-   <tr width='150'>
-     <th align='right'>封面图<font color='red'>*</font>：</th>
-     <td>
-     	   <input id="cover_img" name="cover_img" class="text ipt" data-target='#msg_cover_img' autocomplete="off" type="text" readonly="readonly" value="{$object.cover_img}" data-rule="封面图: required;" style="float: left;width: 250px;"/>
-    	   <div id="filePicker">上传</div>
-     	    <span style='margin-left:5px;float:left;line-height: 30px;'>图片大小:400 x 200 (px)，格式为 gif, jpg, jpeg,bmp, png </span>
-          <span class='msg-box' id='msg_cover_img'></span>
-     	    <div id="preview" style="float: left;;margin-left: 5px;">
-            {if $object['id']!=0}
-            <img src="__RESOURCE_PATH__/{$object['cover_img']}" class="ipt" height='30'/>
-            {/if}
-        </div>
-     </td>
-   </tr>
-   <tr>
-     <th width='150'>排序号<font color='red'>*</font>：</th>
-     <td><input type="text" id='sort' name='sort' maxLength='20' style='width:300px;' class='ipt' onkeypress="return WST.isNumberKey(event);" onkeyup="javascript:WST.isChinese(this,1)" maxlength="10" value="0" data-tip="请输入排序号"/></td>
-  </tr>
     <tr>
-        <th>是否开启<font color='red'>*</font>：</th>
+        <th>作品分析<font color='red'>*</font>：</th>
+        <td>
+            <textarea rows="2" cols="60" id='analysis' class='ipt' name='analysis' data-rule='作品分析:required;'>{$object['analysis']}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <th>作品故事<font color='red'>*</font>：</th>
+        <td>
+            <textarea rows="2" cols="60" id='story' class='ipt' name='story' data-rule='作品故事:required;'>{$object['story']}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <th>是否置顶<font color='red'>*</font>：</th>
         <td height='24'>
             <label>
-                <input type="radio" id="status" name="status" class="ipt" value="1" checked>是
+                <input type="radio" id="top" name="top" class="ipt" value="1" {if $object['top'] != 0 }checked{/if}>是
             </label>
             <label>
-                <input type="radio" id="status" name="status" class="ipt" value="0" >否
+                <input type="radio" id="top" name="top" class="ipt" value="0" {if $object['top'] == 0 }checked{/if} >否
             </label>
         </td>
     </tr>
+  <tr>
+     <th width='150'>排序号<font color='red'>*</font>：</th>
+     <td>
+         <input type="text" id='sort' name='sort' maxLength='20' style='width:300px;' class='ipt' onkeypress="return WST.isNumberKey(event);" onkeyup="javascript:WST.isChinese(this,1)" maxlength="10" value="0" data-tip="请输入排序号"/></td>
+  </tr>
  <tr>
    <td colspan='2' align='center'>
        <button type="submit" class="btn btn-primary btn-mright"><i class="fa fa-check"></i>保&nbsp;存</button>
-       <button type="button" class="btn" onclick="javascript:location.href='{:Url(\'admin/brands/index\',\'p=\'.$p)}'"><i class="fa fa-angle-double-left"></i>返&nbsp;回</button>
+       <button type="button" class="btn" onclick="javascript:location.href='{:Url(\'admin/RecommendedArtists/index\',\'p=\'.$p)}'"><i class="fa fa-angle-double-left"></i>返&nbsp;回</button>
    </td>
  </tr>
 </table>
  </form>
  <script>
 $(function(){
-  //文件上传
-	WST.upload({
-  	  pick:'#filePicker',
-  	  formData: {dir:'brands',mWidth:500,mHeight:250},
-  	  accept: {extensions: 'gif,jpg,jpeg,png',mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif'},
-  	  callback:function(f){
-  		  var json = WST.toAdminJson(f);
-  		  if(json.status==1){
-        	$('#preview').html('<img src="'+WST.conf.RESOURCE_PATH+"/"+json.savePath+json.thumb+'" height="30" />');
-        	$('#cover_img').val(json.savePath+json.thumb);
-  		  }
-	  }
+    KindEditor.ready(function(K) {
+        editor2 = K.create('textarea[name="desc"]', {
+            height:'350px',
+            width:'800px',
+            uploadJson : WST.conf.ROOT+'/admin/articles/editorUpload',
+            allowFileManager : false,
+            allowImageUpload : true,
+            allowMediaUpload : false,
+            items:[
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image','multiimage','media','table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ],
+            afterBlur: function(){ this.sync(); }
+        });
+    });
+
+    KindEditor.ready(function(K) {
+        editor2 = K.create('textarea[name="analysis"]', {
+            height:'350px',
+            width:'800px',
+            uploadJson : WST.conf.ROOT+'/admin/articles/editorUpload',
+            allowFileManager : false,
+            allowImageUpload : true,
+            allowMediaUpload : false,
+            items:[
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image','multiimage','media','table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ],
+            afterBlur: function(){ this.sync(); }
+        });
+    });
+
+    KindEditor.ready(function(K) {
+        editor2 = K.create('textarea[name="story"]', {
+            height:'350px',
+            width:'800px',
+            uploadJson : WST.conf.ROOT+'/admin/articles/editorUpload',
+            allowFileManager : false,
+            allowImageUpload : true,
+            allowMediaUpload : false,
+            items:[
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image','multiimage','media','table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ],
+            afterBlur: function(){ this.sync(); }
+        });
     });
 });
 </script>

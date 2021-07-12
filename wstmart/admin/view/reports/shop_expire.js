@@ -2,7 +2,7 @@ var mmg;
 function initGrid(){
     var h = WST.pageHeight();
     var cols = [
-        {title:'店铺编号', name:'shopSn', width: 30},
+        {title:'店铺编号', name:'shopSn', width: 60},
         {title:'店铺账号', name:'loginName',width: 100},
         {title:'店铺名称', name:'shopName',width: 100},
         {title:'所属行业', name:'tradeName',width: 100},

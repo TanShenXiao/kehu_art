@@ -104,6 +104,36 @@ class Shops extends Base{
         return $this->fetch("shop_home2");
     }
 
+    /**
+     * 店铺 作家部分详情
+     */
+    public function index2_detail(){
+
+        $shopId = (int)input("param.shopId/d");
+        $type = input("param.type",'analysis');
+        if(!in_array($type,['analysis','story'])){
+            return $this->fetch('error_lost');
+        }
+        $title = '';
+        if($type == 'analysis'){
+            $title = '作品分析';
+        }
+        if($type == 'story'){
+            $title = '作品故事';
+        }
+        $s = model('RecommendedArtists');
+        $shop = $s->getById($shopId);
+        if(empty($shop)){
+            return $this->fetch('error_lost');
+        }
+
+        $this->assign('shop',$shop);
+        $this->assign('content',$shop[$type]);
+        $this->assign('title',$title);
+
+        return $this->fetch("shop_home2_detail");
+    }
+
 
     /**
      * 店铺分类

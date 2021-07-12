@@ -192,3 +192,42 @@ a.wst-shop-a{color:#fff;background: #fc6047;border:1px solid #ff8043}
 
 .j-fav,.j-fav:hover{background-image:url(../img/iconfont_guanzhu_sel.png); background-position: 14px;background-repeat:no-repeat;}
 .j-fav2{background-image:url(../img/iconfont_guanzhu_nor1.png); background-position: 14px 8px;background-repeat:no-repeat;}
+
+.services_content{
+    padding: 40px;
+    width: 1000px;margin:0 auto;
+}
+.services_content li{
+    float: left;
+}
+.services_content_1{
+    width: 600px;
+    position: relative;
+}
+.services_content_2{
+    width: 400px;
+    position: relative;
+}
+.services_content_1 div{
+    position: absolute;
+    top: 200px;
+    font-size: 12px;
+    line-height: 28px;
+    left:440px;
+}
+
+.services_content_2 div{
+    position: absolute;
+    top: 200px;
+    font-size: 12px;
+    line-height: 28px;
+    left:200px;
+}
+
+
+.mark span{
+    padding: 5px 20px;
+    border-radius: 5px;
+    background: #fff;
+    font-size: 14px;
+}

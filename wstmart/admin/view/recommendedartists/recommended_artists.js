@@ -28,7 +28,7 @@ function initGrid(p){
             ];
  
     mmg = $('.mmg').mmGrid({height: h-89,indexCol: true,indexColWidth:50, cols: cols,method:'POST',
-        url: WST.U('admin/RecommendedArtists/pageQuery'), fullWidthRows: true, autoLoad: false,
+        url: WST.U('admin/Recommended_artists/pageQuery'), fullWidthRows: true, autoLoad: false,
         plugins: [
             $('#pg').mmPaginator({})
         ]
@@ -42,20 +42,20 @@ function loadGrid(p){
 }
 
 function toEdit(id){
-	location.href=WST.U('admin/RecommendedArtists/toEdit','id='+id+'&p='+WST_CURR_PAGE);
+	location.href=WST.U('admin/Recommended_artists/toEdit','id='+id+'&p='+WST_CURR_PAGE);
 }
 
 function toEdits(id,p){
     var params = WST.getParams('.ipt');
     params.id = id;
     var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
-	$.post(WST.U('admin/RecommendedArtists/'+((id>0)?"edit":"add")),params,function(data,textStatus){
+	$.post(WST.U('admin/Recommended_artists/'+((id>0)?"edit":"add")),params,function(data,textStatus){
 		  layer.close(loading);
 		  var json = WST.toAdminJson(data);
 		  if(json.status=='1'){
 		    	WST.msg(json.msg,{icon:1});
 		        setTimeout(function(){ 
-			    	location.href=WST.U('admin/RecommendedArtists/index',"p="+p);
+			    	location.href=WST.U('admin/Recommended_artists/index',"p="+p);
 		        },1000);
 		  }else{
 		        WST.msg(json.msg,{icon:2});
@@ -66,7 +66,7 @@ function toEdits(id,p){
 function toDel(id){
 	var box = WST.confirm({content:"您确定要删除该品牌吗?",yes:function(){
 	           var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
-	           	$.post(WST.U('admin/RecommendedArtists/del'),{id:id},function(data,textStatus){
+	           	$.post(WST.U('admin/Recommended_artists/del'),{id:id},function(data,textStatus){
 	           			  layer.close(loading);
 	           			  var json = WST.toAdminJson(data);
 	           			  if(json.status=='1'){
@@ -109,7 +109,7 @@ function doneChange(t,id){
         $(t).parent().html(parseInt(sort));
         return;
     }
-    $.post(WST.U('admin/RecommendedArtists/changeSort'),{id:id,sort:sort},function(data){
+    $.post(WST.U('admin/Recommended_artists/changeSort'),{id:id,sort:sort},function(data){
         var json = WST.toAdminJson(data);
         if(json.status==1){
             $(t).parent().attr('ondblclick','changeSort(this,'+id+')');

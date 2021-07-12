@@ -61,8 +61,8 @@
 		{if($data['shop']['desc'])}
 		<div class="wst-intro-content-title">
 			<a class="a_active">简介</a>
-			<a class="" href="">作品故事</a>
-			<a class="">价值分析</a>
+			<a class="" href="{:url('home/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'story'])}">作品故事</a>
+			<a class="" href="{:url('home/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'analysis'])}">价值分析</a>
 			<a class="" href="#goods">作品展示</a>
 		</div>
 		{/if}
@@ -74,6 +74,29 @@
 		<div class="wst-intro-content-info">
 			{$data['shop']['desc']}
 		</div>
+	</div>
+	<div class='wst-clear'></div>
+	<div class="services_content">
+		<ul>
+			<li class="services_content_1">
+				<a href="{:url('home/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'story'])}">
+					<img src="/static/images/jzfx.png" alt="">
+					<div class="mark">
+						<p></p>
+						<span>查看详情</span>
+					</div>
+				</a>
+			</li>
+			<li class="services_content_2">
+				<a href="{:url('home/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'analysis'])}">
+					<img src="/static/images/zpgs.png" alt="">
+					<div class="mark">
+						<p></p>
+						<span>查看详情</span>
+					</div>
+				</a>
+			</li>
+		</ul>
 	</div>
 	<div class='wst-clear'></div>
 	<div class="wst-art-content">

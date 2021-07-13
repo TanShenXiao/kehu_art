@@ -7,7 +7,7 @@ class RecommendedArtists extends Base{
     public function index(){
 
     	$this->assign("p",(int)input("p"));
-    	return $this->fetch("list");
+    	return $this->fetch("recommendedartists/list");
     }
     
     /**
@@ -42,7 +42,7 @@ class RecommendedArtists extends Base{
     	$this->assign("p",(int)input("p"));
         $this->assign('object',$object);
         $this->assign('gcatList',model('GoodsCats')->listQuery(0));
-        return $this->fetch("edit");
+        return $this->fetch("recommendedartists/edit");
     }
     
     /**

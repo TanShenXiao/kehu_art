@@ -136,6 +136,66 @@ class Shops extends Base{
 
         return $this->fetch($data['shop']["mobileShopHomeTheme"]);
     }
+
+    /**
+     * 店铺详情
+     */
+    public function index2(){
+
+        $shopId = (int)input("param.shopId/d");
+        $s = model('RecommendedArtists');
+        $data['shop'] = $s->getById($shopId);
+        if(empty($data['shop'])){
+            return $this->fetch('error_lost');
+        }
+        $data['shopcats'] = model('ShopCats','model')->getShopCats($shopId);
+        $g = model('goods');
+        $data['list'] = $g->shopGoods($shopId);
+        $data['goodsNum'] = $data['list']['goodsNum'];
+
+        //关注
+        $f = model('common/Favorites');
+        $data['isfollow'] = $f->checkFavorite($shopId,1);
+
+        $this->assign('data',$data);
+        $this->assign("goodsName", input('goodsName'));
+        $this->assign('ct1',(int)input("param.ct1/d",0));//一级分类
+        $this->assign('ct2',(int)input("param.ct2/d",0));//二级分类
+        $this->assign('shopId',$shopId);//店铺id
+        return $this->fetch("shop_home2");
+    }
+
+    /**
+     * 店铺 作家部分详情
+     */
+    public function index2_detail(){
+
+        $shopId = (int)input("param.shopId/d");
+        $type = input("param.type",'analysis');
+        if(!in_array($type,['analysis','story'])){
+            return $this->fetch('error_lost');
+        }
+        $title = '';
+        if($type == 'analysis'){
+            $title = '作品分析';
+        }
+        if($type == 'story'){
+            $title = '作品故事';
+        }
+        $s = model('RecommendedArtists');
+        $shop = $s->getById($shopId);
+        if(empty($shop)){
+            return $this->fetch('error_lost');
+        }
+
+        $this->assign('shop',$shop);
+        $this->assign('content',$shop[$type]);
+        $this->assign('title',$title);
+
+        return $this->fetch("shop_home2_detail");
+    }
+
+
     /**
     * 店铺详情
     */

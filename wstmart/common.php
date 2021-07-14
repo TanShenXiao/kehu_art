@@ -599,6 +599,9 @@ function RecommendedArtists($is_top = 0, $limit = 6 ){
 function WSTArtServices( $catId = 0 , $limit = 6 ){
     $where = [];
     $where[] = ['catId','=',$catId];	//热销商品
+    $where[] = ['dataFlag','=',1];
+    $where[] = ['isShow','=',1];
+    
     return Db::name('articles')
         ->where($where)->field('*')->order("catSort desc")->limit($limit)->select();
 }

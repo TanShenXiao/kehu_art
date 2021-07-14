@@ -71,7 +71,13 @@
 								<p class="zp_author">作者 {$goodInfo['goodsAuthor']}</p>
 								<p class="zp_size">尺寸{$goodInfo['goodsTips']}</p>
 								<p class="zp_name">{$goodInfo['goodsName']}</p>
+								{if($goodInfo['saleType']==1)}
+								<p class="cur_prize">议价</p>
+								{elseif($goodInfo['saleType']==2)}
+								<p class="cur_prize">仅展</p>
+								{else}
 								<p class="zp prize">价格 ￥<span>{$goodInfo['shopPrice']}</span></p>
+								{/if}
 							</div>
 						</a>
 					</li>

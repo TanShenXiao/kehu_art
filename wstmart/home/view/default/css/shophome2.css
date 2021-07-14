@@ -124,6 +124,8 @@ a.wst-shop-a{color:#fff;background: #fc6047;border:1px solid #ff8043}
 .wst-intro-img-r{margin-top: 20px;text-align: center; }
 .wst-intro-content-top{overflow: hidden;}
 .wst-intro-shopname{font-size: 30px;line-height: 30px;color: rgb(104, 104, 104);margin-bottom: 5px;}
+.wst-intro-head{display: inline-block;vertical-align: middle;width: 20px;}
+.wst-intro-head img{width: 24px;}
 .wst-intro-shopname-qq{color: #fff;font-size: 12px;padding: 0 6px;background: rgb(178, 135, 80);border-radius: 5px;width: 92px;line-height: 24px;display: inline-block;vertical-align: top;}
 .wst-intro-shopname-qq img{width: 13px;vertical-align: middle;margin-right: 2px;}
 .wst-intro-lb{line-height: 32px;color: rgb(161, 161, 161);}

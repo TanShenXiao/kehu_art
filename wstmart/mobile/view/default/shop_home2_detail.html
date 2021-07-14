@@ -1,0 +1,26 @@
+{extend name="default/base" /}
+{block name="title"}{$title} - {__block__}{/block}
+{block name="meta"}
+<meta name="description" content="{$title}">
+<meta name="Keywords" content="{$title}">
+{/block}
+{block name="css"}
+<link rel="stylesheet"  href="__MOBILE__/css/shop_home2_detail.css?v={$v}">
+{/block}
+{block name="header"}
+<div style="margin-top: 42px;">
+    <header style="background:#ffffff;" class="ui-header ui-header-positive ui-border-b wst-header">
+        <a href='{:url("mobile/shops/index2",["shopId" => $shop["shopId"]])}'><i class="ui-icon-return"></i></a><h1>{$title}</h1>
+    </header>
+</div>
+{/block}
+{block name="main"}
+<div class="content">
+    <div class="ui-whitespace news-time" id="createTime"></div>
+    <div class='ui-whitespace view-content'>{$content}</div>
+</div>
+{/block}
+{block name="footer"}{/block}
+{block name="js"}
+<script type='text/javascript' src='__MOBILE__/js/jquery.min.js'></script>
+{/block}

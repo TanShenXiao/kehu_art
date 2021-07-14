@@ -159,7 +159,7 @@ function shopBest(){
 }
 
 //获取商品列表
-function shopsList(){
+function shopsList(newPage){
     $('#Load').show();
     loading = true;
     var param = {};
@@ -169,8 +169,14 @@ function shopsList(){
     param.goodsName = $('#keyword').val();
     param.ct1 = $('#ct1').val();
     param.ct2 = $('#ct2').val();
+    param.saleType = $('#saleType').val();
     param.pagesize = 1000;
     param.page = Number( $('#currPage').val() ) + 1;
+    if(newPage == 1){
+        $('#shops-list').html("");
+        param.page = 1;
+    }
+
     $.post(WST.U('mobile/shops/getShopGoods'), param, function(data){
         var json = WST.toJson(data);
         var html = '';

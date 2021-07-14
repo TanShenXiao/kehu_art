@@ -1,7 +1,7 @@
 {extend name="default/base" /}
 {block name="title"}{$data['shop']['shopName']} - {__block__}{/block}
 {block name="meta"}
-<meta name="description" content="{$data['shop']['desc']}">
+<meta name="description" content="{$data['shop']['shopName']}">
 <meta name="keywords" content="{$data['shop']['shopName']}">
 {/block}
 {block name="css"}
@@ -43,10 +43,9 @@
                      <div class="wst-intro-img-r">
                          <div class="wst-intro-shopname">
                              {$data['shop']['shopName']}
-                             <!--						<div class="wst-intro-shopname-qq">-->
-                             <!--							<img src="/upload/goods/2021-04/ysjzytb.png" alt="">-->
-                             <!--							有事您Q我 ！-->
-                             <!--						</div>-->
+                            <div class="wst-intro-head">
+                                <img src="/static/images/tjysj.png" alt="">
+                            </div>
                          </div>
                          <p class="wst-intro-lb">{$data['goodsNum']}件作品</p>
                          <!-- <div class="wst-intro-f">
@@ -81,8 +80,8 @@
              {if($data['shop']['desc'])}
              <div class="wst-intro-content-title">
                  <a class="a_active">简介</a>
-                 <a class="" href="{:url('home/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'story'])}">作品故事</a>
-                 <a class="" href="{:url('home/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'analysis'])}">价值分析</a>
+                 <a class="" href="{:url('mobile/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'story'])}">作品故事</a>
+                 <a class="" href="{:url('mobile/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'analysis'])}">价值分析</a>
                  <a class="" href="#goods">作品展示</a>
              </div>
              {/if}
@@ -99,8 +98,8 @@
          <div class="services_content">
              <ul>
                  <li class="services_content_1">
-                     <a href="{:url('home/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'story'])}">
-                         <img src="/static/images/jzfx.png" alt="">
+                     <a href="{:url('mobile/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'story'])}">
+                         <img src="/static/images/sj_zpgs.jpg" alt="">
                          <div class="mark">
                              <p></p>
                              <span>查看详情</span>
@@ -108,8 +107,8 @@
                      </a>
                  </li>
                  <li class="services_content_2">
-                     <a href="{:url('home/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'analysis'])}">
-                         <img src="/static/images/zpgs.png" alt="">
+                     <a href="{:url('mobile/shops/index2_detail',['shopId'=>$data['shop']['shopId'],'type' => 'analysis'])}">
+                         <img src="/static/images/sj_jafx.jpg" alt="">
                          <div class="mark">
                              <p></p>
                              <span>查看详情</span>
@@ -125,6 +124,7 @@
              <div class="wst-clear"></div>
          </ul>
         <div class="wst-sh-list" id="j-index0" style="">
+            <a name="goods"></a>
             <h2>作品/展示</h2>
         <script id="shopList" type="text/html">
          {{# for(var i=0; i<d.length; i++){ }}

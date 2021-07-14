@@ -85,6 +85,9 @@ body{background: #fff;}
 .wst-intro-img-r{margin-top: 20px;text-align:center;}
 .wst-intro-content-top{overflow: hidden;padding: 15px 0;}
 .wst-intro-shopname{font-size: 18px;line-height: 24px;color: rgb(104, 104, 104);margin-bottom: 5px;}
+.wst-intro-head{display: inline-block;vertical-align: middle;width: 20px;}
+.wst-intro-head img{width: 24px;}
+
 .wst-intro-shopname-qq{color: #fff;font-size: 12px;padding: 0 6px;background: rgb(178, 135, 80);border-radius: 5px;width: 92px;line-height: 24px;display: inline-block;vertical-align: top;}
 .wst-intro-shopname-qq img{width: 12px;vertical-align: middle;margin-right: 2px;}
 .wst-intro-lb{line-height: 24px;color: rgb(161, 161, 161);font-size: 14px;}
@@ -131,12 +134,15 @@ body{background: #fff;}
     overflow: hidden;
     margin:0 auto;
 }
+.services_content img{
+    width: 100%;
+
+}
 .services_content li{
 
 }
 .services_content_1{
     width: 100%;
-    max-width:100%;
     position: relative;
 }
 .services_content_2{
@@ -145,18 +151,18 @@ body{background: #fff;}
 }
 .services_content_1 div{
     position: absolute;
-    top: 200px;
+    bottom: 30px;
     font-size: 12px;
     line-height: 28px;
-    left:440px;
+    right:20px;
 }
 
 .services_content_2 div{
     position: absolute;
-    top: 200px;
+    bottom: 30px;
     font-size: 12px;
     line-height: 28px;
-    left:200px;
+    right:20px;
 }
 
 

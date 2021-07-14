@@ -166,20 +166,35 @@
         
         <div class="wst-sh-list" id="j-index0" style="">
 			<h2>作品/展示</h2>
-        <div class="ui-row-flex wst-shl-head">
-            <div class="ui-col ui-col sorts active" status="down" onclick="javascript:orderCondition(this,2);">
-                 <p class="pd0">销量</p><i class="down2"></i>
-            </div>
-            <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,3);">
-                 <p class="pd0">价格</p><i class="down"></i>
-            </div>
-            <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,1);">
-                 <p class="pd0">人气</p><i class="down"></i>
-            </div>
-            <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,6);">
-                 <p>上架时间</p><i class="down"></i>
-            </div>
-        </div>
+            <section class="ui-container">
+                <div class="ui-row-flex wst-shl-head">
+                    <div class="ui-col ui-col sorts">
+                        <div class="ui-form-item ui-border-b">
+                            <div class="ui-select" style="height: 44px;line-height: 44px;margin-left: 10px">
+                                <select style="height: 44px;line-height: 44px;font-size: 0.14rem; color: #6a6b6d;" name="saleType" id="saleType" onChange="shopsList(1)">
+                                    <option selected value="-1">全部</option>
+                                    <option value="0">一口价</option>
+                                    <option value="1">议价</option>
+                                    <option value="2">仅展示</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--		    <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,0);">-->
+                    <!--		   		 <p class="pd0">销量</p><i class="down"></i>-->
+                    <!--		    </div>-->
+                    <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,3);">
+                        <p class="pd0">价格</p><i class="down"></i>
+                    </div>
+                    <!--		    <div class="ui-col ui-col sorts active" status="down" onclick="javascript:orderCondition(this,5);">-->
+                    <!--		   		 <p class="pd0">人气</p><i class="up2"></i>-->
+                    <!--		   		 <span class="bar"></span>-->
+                    <!--		    </div>-->
+                    <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,6);">
+                        <p>上架时间</p><i class="down"></i>
+                    </div>
+                </div>
+            </section>
         <script id="shopList" type="text/html">
          {{# for(var i=0; i<d.length; i++){ }}
              <div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}" onclick="WST.intoGoods({{d[i].goodsId}})">

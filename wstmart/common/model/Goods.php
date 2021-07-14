@@ -56,6 +56,11 @@ class Goods extends Base{
 		$ct2 = input("param.ct2/d");
 		if($ct1>0)$where['shopCatId1'] = $ct1;
 		if($ct2>0)$where['shopCatId2'] = $ct2;
+		//销售类型
+        $saleType = input('saleType');
+        if($saleType!='' and $saleType != -1){
+            $where['g.saleType'] =  $saleType;
+        }
 		$goods = Db::name('goods')->alias('g')
 		->join('__GOODS_SCORES__ gs','gs.goodsId = g.goodsId','left')
 		->where(['g.shopId'=>$shopId,'g.isSale'=>1,'g.goodsStatus'=>1,'g.dataFlag'=>1])

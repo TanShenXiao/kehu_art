@@ -188,6 +188,9 @@ $(document).ready(function(){
 function goShopHome(sid){
     location.href=WST.U('mobile/shops/index','shopId='+sid,true);
 }
+function goShopHome2(sid){
+    location.href=WST.U('mobile/shops/index2','shopId='+sid,true);
+}
 //适应图片大小正方形
 function imgShop(name){
     var w = $('.'+name).width();

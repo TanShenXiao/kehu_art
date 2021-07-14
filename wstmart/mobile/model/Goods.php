@@ -38,7 +38,7 @@ class Goods extends CGoods{
 				$where[] = ['g.goodsName|s.shopName|g.goodsAuthor','like','%'.$keyword.'%'];
 			}
 		}
-		if($brandId>0)$where['g.brandId'] = $brandId;
+		if($brandId>0)$where[] = ['g.brandId','=',$brandId];
 		if($goodsType!='')$where[] = ['g.goodsType', '=', $goodsType];
         if($saleType!='' and $saleType != -1)$where[] = ['g.saleType', '=', $saleType];
 
@@ -49,6 +49,7 @@ class Goods extends CGoods{
 		$pageBy = ['thumbsNum','shopPrice','visitNum','saleTime'];
 		$pageOrder = ['desc','asc'];
 		if(!empty($goodsCatIds))$where[] = ['goodsCatIdPath','like',implode('_',$goodsCatIds).'_%'];
+
         if ($fl) {
             $where[] = ['r.dataType','=',$fl['dataType']];	//热销商品
             $where[] = ['r.dataSrc','=',$fl['dataSrc']];	//热销商品

@@ -71,7 +71,10 @@ function goodsOrder(orderby){
 	goodsFilter(null,0);
 }
 
-
+function tabType(tab_type){
+	$('#tab_type').val(tab_type);
+	searchFilter(null,0);
+}
 
 function removeFilter(id){
 	if(id!='price'){

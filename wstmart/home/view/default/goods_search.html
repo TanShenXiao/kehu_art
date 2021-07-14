@@ -15,6 +15,7 @@
 <input type="hidden" id="orderBy" class="sipt" value='{$orderBy}'/>
 <input type="hidden" id="order" class="sipt" value='{$order}'/>
 <input type="hidden" id="areaId" class="sipt" value='{$areaId}'/>
+<input type="hidden" id="tab_type" class="sipt" value="{$tab_type}">
 <div class='wst-filters'>
    <div class='item' style="border-left:2px solid #df2003;padding-left: 8px;">
       <a class='link' href='__ROOT__'>全部结果</a>
@@ -23,6 +24,14 @@
    <div class='wst-lfloat keyword'>{$keyword}</div>
    <div class='wst-clear'></div>
 </div>
+<div class="tab_box">
+	<ul>
+		<li class="{if $tab_type == 1}tab_box_active{/if}" onclick="tabType(1)">商品</li>
+		<li class="{if $tab_type == 2}tab_box_active{/if}" onclick="tabType(2)">商家</li>
+		<li class="{if $tab_type == 3}tab_box_active{/if}" onclick="tabType(3)">艺术家</li>
+	</ul>
+</div>
+<div class='wst-clear'></div>
 {/* 商品展示  */}
 <div class="wst-container">
    {if !empty($goodsPage["data"])}

@@ -256,3 +256,8 @@ input.wst-price-ipt:focus{border: 1px solid #ff8043;}
 .wst-pos .cur a{color:#C00;}
 .wst-pos div {float: left;line-height: 56px;}
 .wst-pos div.cat {margin-right: 40px;}
+
+.tab_box{width:1000px;margin:0px auto;margin-top:18px;color:#999;text-align: center;}
+.tab_box ul{}
+.tab_box li{float: left;border:1px solid #999;height: 40px;width: 120px;line-height: 40px;}
+.tab_box_active{background-color:#C00;color: #ffffff}

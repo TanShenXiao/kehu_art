@@ -151,15 +151,24 @@ class Goods extends CGoods{
 		$keyword = input('keyword');
 		$where = $where2 = [];
 		$searchType = Input('keytype/d');
+        $tab_type = Input('tab_type/d',1);
 		$where = [];
 		$where[] = ['goodsStatus','=',1];
 		$where[] = ['g.dataFlag','=',1];
 		$where[] = ['isSale','=',1];
 		//if($keyword!='')$where2 = $this->getKeyWords($keyword);
-		if($searchType==2){
+		if($keyword and $searchType==2){
 			if($keyword!='')$where[] = ['goodsAuthor','like','%'.$keyword.'%'];
-		}else{
-			if($keyword!='')$where[] = ['g.goodsName|s.shopName|g.goodsAuthor','like','%'.$keyword.'%'];
+		}else if($keyword){
+			if($tab_type == 1){
+                $where[] = ['g.goodsName','like','%'.$keyword.'%'];
+            }
+            if($tab_type == 2){
+                $where[] = ['s.shopName','like','%'.$keyword.'%'];
+            }
+            if($tab_type == 3){
+                $where[] = ['g.goodsAuthor','like','%'.$keyword.'%'];
+            }
 		}
 		if(null != input('goodsType')){
 			$where[] = ['goodsType','=',Input('goodsType/d')];

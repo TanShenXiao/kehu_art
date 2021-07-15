@@ -175,6 +175,27 @@ function cancelSeled(obj){
         });
     goodsList(3);
 }
+
+function goShopHome(sid){
+    location.href=WST.U('mobile/shops/index','shopId='+sid,true);
+}
+
+function tabType(obj,tab_type){
+    $('.tab_box li').removeClass('tab_box_active')
+    $(obj).addClass('tab_box_active')
+
+
+    if(tab_type != 3){
+        $("#goods_screening").show();
+    }else{
+        $("#goods_screening").hide()
+    }
+
+    $('#tab_type').val(tab_type);
+    goodsList(null,'newPage');
+}
+
+
 //获取商品列表
 function goodsList(from,newPage){
     $('#Load').show();
@@ -189,25 +210,42 @@ function goodsList(from,newPage){
     param.saleType=$("#saleType").val();
 	param.page = Number( $('#currPage').val() ) + 1;
     param.fl = $('#fl').val();
+    param.tab_type = $('#tab_type').val();
     param.pagesize = 10;
     param.page = Number( $('#currPage').val() ) + 1;
     if( newPage == 'newPage' ){
         $('#goods-list').html("");
+        $("#shops-list").html("");
         param.page = 1;
     }
     $.post(WST.U('mobile/goods/pageQuery'), param,function(data){
         var json = WST.toJson(data);
-    
-        $('#currPage').val(json.current_page);
-        $('#totalPage').val(json.last_page);
-        var gettpl = document.getElementById('list').innerHTML;
-        laytpl(gettpl).render(json.data, function(html){
-            $('#goods-list').append(html);
-        });
-        WST.imgAdapt('j-imgAdapt');
-        loading = false;
-        $('#Load').hide();
-        echo.init();//图片懒加载
+        if(param.tab_type != 3){
+            $('#currPage').val(json.current_page);
+            $('#totalPage').val(json.last_page);
+            var gettpl = document.getElementById('list').innerHTML;
+            laytpl(gettpl).render(json.data, function(html){
+                $('#goods-list').append(html);
+            });
+            WST.imgAdapt('j-imgAdapt');
+            loading = false;
+            $('#Load').hide();
+            echo.init();//图片懒加载
+        }else{
+             json = json.author;
+            $('#currPage').val(json.current_page);
+            $('#totalPage').val(json.last_page);
+            $('#minScore').val(json.minScore);
+            var gettpl = document.getElementById('author_list').innerHTML;
+            laytpl(gettpl).render(json.data, function(html){
+                $('#shops-list').append(html);
+            });
+            //imgShop('j-imgAdapt');
+            //imgShop('goods-item');
+            loading = false;
+            $('#Load').hide();
+            echo.init();//图片懒加载
+        }
     });
 }
 var currPage = totalPage = 0;

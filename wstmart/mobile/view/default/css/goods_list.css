@@ -68,6 +68,16 @@
 .ui-radio input:checked:after{background: #df0202;content: ''; display: block; width: 8px; height: 8px;border-radius: 7px; position: absolute; left: 4px; top: 4px;}
 
 
-.contact{text-align: center;padding: 20px 0;color: #bebcbc;margin-bottom: 40px;}
+.contact{text-align: center;padding: 20px 0;color: #bebcbc;margin-bottom: 0px;}
 .contact .contact_top img{width: 20px;}
 .contact p{font-size: 12px; }
+
+.tab_box{width:100%;margin:0px auto;color:#999;text-align: center;}
+.tab_box ul{}
+.tab_box li{float: left;border:1px solid #999;height: 40px;width: 32.5%;line-height: 40px;}
+.tab_box_active{background-color:#C00;color: #ffffff}
+
+.art_list_cont{overflow: hidden;padding: 20px 0;}
+.art_list{float: left; width: 33%;text-align: center;margin-bottom: 10px;}
+.art_list a img{width: 104px;height: 104px;border-radius: 52px;}
+.art_list .art_name{color: #848689;margin-top: 5px;}

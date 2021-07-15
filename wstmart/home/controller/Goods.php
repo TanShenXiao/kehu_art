@@ -80,9 +80,12 @@ class Goods extends Base{
  
             $data['area3'] = $aModel->listQuery($areaIds[1]); // 广州的下级
         }
-        
-
     	$data['goodsPage'] = $m->pageQuery();
+        //作者列表
+        $s = model('shops');
+        $pagesize = 42;
+        $data['author'] = $s->pageQuery($pagesize);
+
     	return $this->fetch("goods_search",$data);
     }
     

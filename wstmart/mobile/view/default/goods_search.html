@@ -26,7 +26,7 @@
 	 <input type="hidden" name="" value="" id="isFreeShipping" autocomplete="off">
      <input type="hidden" name="" value="" id="totalPage" autocomplete="off">
 	 <input type="hidden" name="" value="{$searchType}" id="searchType" autocomplete="off">
-
+     <input type="hidden" name="" value="{$tab_type}" id="tab_type" >
      {/*遮盖层*/}
      <div id="backgroundTier" onclick="javascript:closeScreenTier();" style="display:none;"></div>
      <div id="screen">
@@ -73,7 +73,15 @@
      	</div>
      </div>
      <section class="ui-container">
-     	<div class="ui-row-flex wst-shl-head">
+		 <div class="tab_box">
+			 <ul>
+				 <li class="{if $tab_type == 1}tab_box_active{/if}" onclick="tabType(this,1)">商品</li>
+				 <li class="{if $tab_type == 2}tab_box_active{/if}" onclick="tabType(this,2)">艺术家</li>
+				 <li class="{if $tab_type == 3}tab_box_active{/if}" onclick="tabType(this,3)">商家</li>
+			 </ul>
+		 </div>
+		 <div class='wst-clear'></div>
+     	<!--<div class="ui-row-flex wst-shl-head">
 		    <div class="ui-col ui-col sorts active" status="down" onclick="javascript:orderCondition(this,0);">
 		   		 <p class="pd0">销量</p><i class="down2"></i>
 		    </div>
@@ -87,70 +95,118 @@
 		    <div class="ui-col ui-col sorts" status="down" onclick="javascript:screenTier();">
 		    	<i class="screen"></i><p class="pd1">筛选</p>
 		    </div>
-		</div>
+		</div>-->
+		 <div class="ui-row-flex wst-shl-head" id="goods_screening">
+			 <div class="ui-col ui-col sorts">
+				 <div class="ui-form-item ui-border-b">
+					 <div class="ui-select" style="height: 44px;line-height: 44px;margin-left: 10px">
+						 <select style="height: 44px;line-height: 44px;font-size: 0.14rem; color: #6a6b6d;" name="saleType" id="saleType" onChange="goodsList('','newPage')">
+							 <option selected value="-1">全部</option>
+							 <option value="0">一口价</option>
+							 <option value="1">议价</option>
+							 <option value="2">仅展示</option>
+						 </select>
+					 </div>
+				 </div>
+			 </div>
+			 <!--		    <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,0);">-->
+			 <!--		   		 <p class="pd0">销量</p><i class="down"></i>-->
+			 <!--		    </div>-->
+			 <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,1);">
+				 <p class="pd0">价格</p><i class="down"></i>
+			 </div>
+			 <!--		    <div class="ui-col ui-col sorts active" status="down" onclick="javascript:orderCondition(this,5);">-->
+			 <!--		   		 <p class="pd0">人气</p><i class="up2"></i>-->
+			 <!--		   		 <span class="bar"></span>-->
+			 <!--		    </div>-->
+			 <div class="ui-col ui-col sorts" status="down" onclick="javascript:orderCondition(this,3);">
+				 <p>上架时间</p><i class="down"></i>
+			 </div>
+		 </div>
 		<ul class="ui-tab-content">
 	        <li id="goods-list"></li>
 	    </ul>
+		 <ul class="ui-tab-content">
+			 <li id="shops-list"></li>
+		 </ul>
      </section>
      {/*筛选框*/}
-<script id="list" type="text/html">
-{{# if(d && d.length>0){ }}
-{{# for(var i=0; i<d.length; i++){ }}
-<div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}" onclick="javascript:WST.intoGoods({{ d[i].goodsId }});">
-<div class="img j-imgAdapt"><a href="javascript:void(0);" onclick="javascript:WST.intoGoods({{ d[i].goodsId }});"><img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{{ d[i].goodsImg }}" title="{{ d[i].goodsName }}"/></a></div>
-<div class="name ui-nowrap-multi">{{ d[i].goodsName }}</div>
-<div class="tags ui-nowrap-multi">
-{{# if(d[i].isSelf==1){ }}<span class='tag'>自营</span>{{# } }}
-{{# if(d[i].isFreeShipping==1){ }}<span class='tag'>包邮</span>{{# } }}
-{{ d[i]['tags']!=undefined?d[i]['tags'].join(' '):'' }}&nbsp;
-</div>
-<div class="info"><span class="price">¥ <span>{{ d[i].shopPrice }}</span></span></div>
-<div class="info2"><span class="price">好评率{{ d[i].praiseRate }}</span><span class="deal">成交数:{{ d[i].saleNum }}</span></div>
-</div>
-{{# } }}
-{{# }else{ }}
-<div class="wst-prompt-icon"><img src="__MOBILE__/img/nothing-goods.png"></div>
-<div class="wst-prompt-info">
-	<p>对不起，没有相关商品。</p>
-</div>
-{{# } }}
-</script>
-<script id="screenListed" type="text/html">
-{{# if(d && d.length>0){ }}
-{{# for (var i=0; i<d.length;i++){ }}
+	<script id="list" type="text/html">
+		{{# if(d && d.length>0){ }}
+		{{# for(var i=0; i<d.length; i++){ }}
+		<div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}" onclick="javascript:WST.intoGoods({{ d[i].goodsId }});">
+		<div class="img j-imgAdapt"><a href="javascript:void(0);" onclick="javascript:WST.intoGoods({{ d[i].goodsId }});"><img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{{ d[i].goodsImg }}" title="{{ d[i].goodsName }}"/></a></div>
+		<div class="name ui-nowrap-multi">{{ d[i].goodsName }}</div>
+		<div class="tags ui-nowrap-multi">
+		{{# if(d[i].isSelf==1){ }}<span class='tag'>自营</span>{{# } }}
+		{{# if(d[i].isFreeShipping==1){ }}<span class='tag'>包邮</span>{{# } }}
+		{{ d[i]['tags']!=undefined?d[i]['tags'].join(' '):'' }}&nbsp;
+		</div>
+		<div class="info"><span class="price">¥ <span>{{ d[i].shopPrice }}</span></span></div>
+		<div class="info2"><span class="price">好评率{{ d[i].praiseRate }}</span><span class="deal">成交数:{{ d[i].saleNum }}</span></div>
+		</div>
+		{{# } }}
+		{{# }else{ }}
+		<div class="wst-prompt-icon"><img src="__MOBILE__/img/nothing-goods.png"></div>
+		<div class="wst-prompt-info">
+			<p>对不起，没有相关商品。</p>
+		</div>
+		{{# } }}
+	</script>
+	<script id="screenListed" type="text/html">
+		{{# if(d && d.length>0){ }}
+		{{# for (var i=0; i<d.length;i++){ }}
 
-          <div class="screen-box">
-               <p class="title">{{d[i].attrName}}</p>
-               <div class="option-box">
-                    <span onclick="javascript:cancelSeled(this);"  id="a_{{d[i]['attrId']}}" d="{{d[i]['attrId']}}" k="{{i}}" class="attrs after-color selected" style="background-color:white;">{{d[i].attr}}</span>
-               </div>
-          </div>
+				  <div class="screen-box">
+					   <p class="title">{{d[i].attrName}}</p>
+					   <div class="option-box">
+							<span onclick="javascript:cancelSeled(this);"  id="a_{{d[i]['attrId']}}" d="{{d[i]['attrId']}}" k="{{i}}" class="attrs after-color selected" style="background-color:white;">{{d[i].attr}}</span>
+					   </div>
+				  </div>
 
-{{# } }}
-{{# } }}
-</script>
-<script id="screenList" type="text/html">
-{{# if(d && d.length>0){ }}
-{{# for (var i=0; i<d.length;i++){ }}
+		{{# } }}
+		{{# } }}
+	</script>
+	<script id="screenList" type="text/html">
+		{{# if(d && d.length>0){ }}
+		{{# for (var i=0; i<d.length;i++){ }}
 
-        <input type="hidden" id="v_{{d[i]['attrId']}}" class="vsed" value=""/>
-     	<div class="screen-box no">
-     		<p class="title">{{d[i].attrName}}{{# if(d[i]['attrVal'].length>4){ }}<i class="arrow-base arrow" onclick="javascript:showAll(this)" d="{{d[i]['attrId']}}" s=0></i>{{# } }}</p>
-     		<div class="option-box">
-                    <span onclick="javascript:cancelSeled(this);"  id="a_{{d[i]['attrId']}}" d="{{d[i]['attrId']}}" class="attrs after-color selected" style="display:none;background-color:white;"></span>
-     		{{# for (var j=0;j<d[i]['attrVal'].length;j++){ }}
-     			<span onclick="javascript:selectAttr(this);" d="{{d[i]['attrId']}}" v="{{d[i]['attrVal'][j]}}" n="{{d[i].attrName}}" class="attrs after-color attr-box">{{d[i]['attrVal'][j]}}</span>
-            {{# } }}
-     		</div>
-     	</div>
+				<input type="hidden" id="v_{{d[i]['attrId']}}" class="vsed" value=""/>
+				<div class="screen-box no">
+					<p class="title">{{d[i].attrName}}{{# if(d[i]['attrVal'].length>4){ }}<i class="arrow-base arrow" onclick="javascript:showAll(this)" d="{{d[i]['attrId']}}" s=0></i>{{# } }}</p>
+					<div class="option-box">
+							<span onclick="javascript:cancelSeled(this);"  id="a_{{d[i]['attrId']}}" d="{{d[i]['attrId']}}" class="attrs after-color selected" style="display:none;background-color:white;"></span>
+					{{# for (var j=0;j<d[i]['attrVal'].length;j++){ }}
+						<span onclick="javascript:selectAttr(this);" d="{{d[i]['attrId']}}" v="{{d[i]['attrVal'][j]}}" n="{{d[i].attrName}}" class="attrs after-color attr-box">{{d[i]['attrVal'][j]}}</span>
+					{{# } }}
+					</div>
+				</div>
 
-{{# } }}
-{{# } }}
-</script>
-<script type="text/html" id="sc">
-	<input type="hidden" id="vs" class="sipt" value='{{d}}'/>
-</script>
-</script>
+		{{# } }}
+		{{# } }}
+	</script>
+	<script type="text/html" id="sc">
+		<input type="hidden" id="vs" class="sipt" value='{{d}}'/>
+	</script>
+
+
+	<script id="author_list" type="text/html">
+		<div class="art_list_cont">
+			{{# if(d && d.length>0){ }}
+			{{# for(var i=0; i<d.length; i++){ }}
+			<div class="art_list">
+				<a href="javascript:void(0);" onclick="goShopHome({{ d[i].shopId }})"><img src="__RESOURCE_PATH__/{{ d[i].shopImg }}" alt=""></a>
+				<div class="art_name">{{d[i].shopName}}</div>
+			</div>
+			{{# } }}
+			{{# }else{ }}
+		</div>
+		<div class="wst-prompt-icon"><img src="__MOBILE__/img/nothing-follow-shps.png"></div>
+		<div class="wst-prompt-info">
+			<p>对不起，没有相关店铺。</p>
+		</div>
+		{{# } }}
+	</script>
 {/block}
 {block name="include"}
 {include file="default/goods_search_box" /}

@@ -162,12 +162,10 @@ class Goods extends CGoods{
 		}else if($keyword){
 			if($tab_type == 1){
                 $where[] = ['g.goodsName','like','%'.$keyword.'%'];
-            }
-            if($tab_type == 2){
-                $where[] = ['s.shopName','like','%'.$keyword.'%'];
-            }
-            if($tab_type == 3){
+            }elseif ($tab_type == 2){
                 $where[] = ['g.goodsAuthor','like','%'.$keyword.'%'];
+            }else{
+                $where[] = ['g.goodsName','like','%'.$keyword.'%'];
             }
 		}
 		if(null != input('goodsType')){

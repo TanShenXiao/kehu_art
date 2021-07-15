@@ -60,6 +60,8 @@ class Goods extends Base{
         $this->assign("maxPrice", input('maxPrice/d'));
         $this->assign("brandId", input('brandId/d'));
 		$this->assign("searchType", input('stype/d'));
+		$this->assign("tab_type", (int)Input('tab_type',1));
+
         return $this->fetch('goods_search');
     }
 	/**
@@ -115,6 +117,12 @@ class Goods extends Base{
      	}
         // `券`标签
         hook('afterQueryGoods',['page'=>&$rs]);
+
+        //作者列表
+        $s = model('shops');
+        $pagesize = 42;
+        $rs['author'] = $s->pageQuery($pagesize);
+
     	return $rs;
     }
 

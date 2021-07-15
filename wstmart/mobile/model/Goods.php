@@ -27,6 +27,7 @@ class Goods extends CGoods{
         $goodsType = input('goodsType');
         $saleType = input('saleType');
 		$searchType = input('searchType/d');
+        $tab_type    = (int)Input('tab_type',1);
 		$where = $where2 = [];
 		$where[] = ['goodsStatus', '=', 1];
 		$where[] = ['g.dataFlag', '=', 1];
@@ -35,7 +36,13 @@ class Goods extends CGoods{
 			if($searchType == 3){
 				$where[] = ['goodsAuthor','like','%'.$keyword.'%'];
 			}else{
-				$where[] = ['g.goodsName|s.shopName|g.goodsAuthor','like','%'.$keyword.'%'];
+                if($tab_type == 1){
+                    $where[] = ['g.goodsName','like','%'.$keyword.'%'];
+                }elseif ($tab_type == 2){
+                    $where[] = ['g.goodsAuthor','like','%'.$keyword.'%'];
+                }else{
+                    $where[] = ['g.goodsName','like','%'.$keyword.'%'];
+                }
 			}
 		}
 		if($brandId>0)$where[] = ['g.brandId','=',$brandId];

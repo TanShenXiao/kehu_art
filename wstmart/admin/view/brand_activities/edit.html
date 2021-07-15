@@ -72,10 +72,10 @@ $(function () {
         <th>是否开启<font color='red'>*</font>：</th>
         <td height='24'>
             <label>
-                <input type="radio" id="status" name="status" class="ipt" value="1" checked>是
+                <input type="radio" name="status" class="ipt" value="1" {if $object['status'] != 0}checked{/if}>是
             </label>
             <label>
-                <input type="radio" id="status" name="status" class="ipt" value="0" >否
+                <input type="radio" name="status" class="ipt" value="0" {if $object['status'] == 0}checked{/if}>否
             </label>
         </td>
     </tr>

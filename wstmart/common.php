@@ -601,7 +601,7 @@ function WSTArtServices( $catId = 0 , $limit = 6 ){
     $where[] = ['catId','=',$catId];	//热销商品
     $where[] = ['dataFlag','=',1];
     $where[] = ['isShow','=',1];
-    
+
     return Db::name('articles')
         ->where($where)->field('*')->order("catSort desc")->limit($limit)->select();
 }
@@ -655,7 +655,7 @@ function WSTArticleRecommends($limit = 4 ){
     $where = [];
     $where[] = ['status','=',1];
     return Db::name('brand_activities')
-        ->where($where)->field('*')->order(['sort' => 'desc','created_time' => 'desc'])->limit($limit)->select();
+        ->where($where)->field('*')->order(['status' => 1,'sort' => 'desc','created_time' => 'desc'])->limit($limit)->select();
 }
 
 

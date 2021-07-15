@@ -297,7 +297,7 @@ class Goods extends Base{
         $data['catNamePath'] = '全部商品分类';
         if(!empty($catPaths))$data['catNamePath'] = implode(' - ',$catPaths);
 
-        $this->assign('tab_type',$tab_type);
+
     	return $this->fetch($catInfo['catListTheme']?$catInfo['catListTheme']:'goods_list',$data);
     }
     

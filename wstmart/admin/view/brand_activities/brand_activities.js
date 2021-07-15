@@ -8,7 +8,7 @@ function initGrid(p){
             }},
             {title:'标题', name:'title', width: 100},
             {title:'目标链接', name:'target_url', width: 250},
-            { title: '状态', name: 'sort',isSort: false,width: 10,renderer: function(val,item,rowIndex){
+            {title: '状态', name: 'status',isSort: false,width: 10,renderer: function(val,item,rowIndex){
                 let name = ''
                     if(val == 0){
                         name = '禁用'

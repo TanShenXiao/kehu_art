@@ -312,7 +312,7 @@ function getGoodsDescInfo(){
 
 	if( goodsVideo )
 		str += "<p><video src='"+goodsVideo+"'></p>";
-	return str;
+	return "";
 }
 
 function clearVedio(obj){

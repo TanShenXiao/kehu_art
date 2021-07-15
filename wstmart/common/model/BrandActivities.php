@@ -12,6 +12,7 @@ class BrandActivities extends Base{
     public function getList(){
         $where = [];
         $key = input('key');
+        $where[] = ['status','=',1];
         if($key!='')$where[] = ['title','like','%'.$key.'%'];
         $model = Db::name('brand_activities')->where($where)
             ->field('*')

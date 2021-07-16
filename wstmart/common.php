@@ -1977,7 +1977,7 @@ function WSTSwitchs($omodule = '',$ocontroller = '',$oaction = '',$oaddon = ''){
     if(!empty($data) && isset($data[$currURL])){
 	    $dispathArrs = $data[$currURL];//目标页面数组
 		//按优先级依次判断
-		if($isWeChat && $hasWechat)$dispathURL = $dispathArrs['wechat'];
+		if($isWeChat && $hasWechat)$dispathURL = $dispathArrs['mobile'];
 		if($dispathURL=='' && $isMobile && $hasMobile)$dispathURL = $dispathArrs['mobile'];
 		if($dispathURL=='' && $isPC && $hasPC)$dispathURL = $dispathArrs['home'];
 		if($dispathURL=='')$dispathURL = $dispathArrs[$dispathModule];
@@ -1995,7 +1995,7 @@ function WSTSwitchs($omodule = '',$ocontroller = '',$oaction = '',$oaddon = ''){
 		}
 	}
 	//找不到对应的网址，但是访问端也不匹配的话，就强制跳转到相应端的主页
-	if($isWeChat && $hasWechat)$dispathModule = 'wechat';
+	if($isWeChat && $hasWechat)$dispathModule = 'mobile';
 	if($dispathModule=='home' && $isMobile && $hasMobile)$dispathModule = 'mobile';
 	if($oaddon=='' && $module!=$dispathModule){
        header("Location:".url($dispathModule."/index/index"));

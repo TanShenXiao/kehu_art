@@ -1,6 +1,7 @@
 <?php
 namespace wstmart\mobile\controller;
 use wstmart\mobile\model\Users as M;
+use wstmart\wechat\model\Users as WM;
 use wstmart\mobile\model\Messages;
 use wstmart\common\model\LogSms;
 use wstmart\common\model\Users as MUsers;
@@ -31,7 +32,13 @@ class Users extends Base{
     	if(!empty($USER) && $USER['userId']!=''){
     		$this->redirect("users/index");
     	}
-    	return $this->fetch('login');
+        $userinfo = session('WST_WX_USERINFO');
+        $this->assign('info',$userinfo);
+        if($this->isWeChat and $this->hasWechat){
+            return $this->fetch('wxlogin');
+        }else{
+            return $this->fetch('login');
+        }
     }
     /**
      * 会员登录（账号登录）
@@ -44,6 +51,16 @@ class Users extends Base{
     	return $rs;
     }
     /**
+     * 微信会员登录
+     */
+    public function checkLoginWx(){
+        if(strpos(WSTConf('CONF.mobileLoginType'),'1')===false)return WSTReturn("非法登录！",-1);
+        $m = new WM();
+        $rs =  $m->checkLogin(1);
+        $rs['url'] = session('WST_WX_WlADDRESS');
+        return $rs;
+    }
+    /**
      * 会员登录（手机登录）
      */
     public function checkLoginByPhone(){
@@ -51,6 +68,17 @@ class Users extends Base{
         $m = new M();
         $rs =  $m->checkLoginByPhone(2);
         $rs['url'] = session('WST_MO_WlADDRESS');
+        return $rs;
+    }
+
+    /**
+     * 微信会员登录（手机登录）
+     */
+    public function checkLoginByPhoneWx(){
+        if(strpos(WSTConf('CONF.mobileLoginType'),'2')===false)return WSTReturn("非法登录！",-1);
+        $m = new WM();
+        $rs =  $m->checkLoginByPhone(1);
+        $rs['url'] = session('WST_WX_WlADDRESS');
         return $rs;
     }
 
@@ -66,6 +94,18 @@ class Users extends Base{
     	$rs['url'] = session('WST_MO_WlADDRESS');
     	return $rs;
     }
+
+
+    /**
+     *微信 会员注册
+     */
+    public function registerWx(){
+        $m = new WM();
+        $rs =  $m->regist(1);
+        $rs['url'] = session('WST_WX_WlADDRESS');
+        return $rs;
+    }
+
     /**
      * 手机号码是否存在
      */

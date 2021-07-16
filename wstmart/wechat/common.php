@@ -58,7 +58,7 @@ function WSTBindWeixin($type=1){
 		$rs = Db::name('users')->where(['wxOpenId'=>$userinfo['openid'],'dataFlag'=>1])->field('wxOpenId')->select();
 		if(count($rs)==0 && session('WST_WX_OPENID')!=''){
 			if($type==1){
-				header("location:".url('wechat/users/login'));
+				header("location:".url('mobile/users/login'));
 				exit;
 			}
 		}else{

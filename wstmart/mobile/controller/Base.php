@@ -36,13 +36,28 @@ class Base extends Controller {
 	}
     // 权限验证方法
     protected function checkAuth(){
+        $state = input('param.state');
+        if($state==WSTConf('CONF.wxAppCode')){
+            WSTBindWeixin(1);
+        }
+
        	$USER = session('WST_USER');
         if(empty($USER)){
         	if(request()->isAjax()){
         		die('{"status":-999,"msg":"您还未登录"}');
         	}else{
         		$this->redirect('mobile/users/login');
-        		exit;
+
+                $isWeChat = (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false);
+                $hasMobile = (WSTDatas('ADS_TYPE',3)!='')?true:false;
+                if($isWeChat and $hasMobile){
+                    $request = request();
+                    session('WST_WX_WlADDRESS',$request->url(true));
+                    $url=urlencode($request->url(true));
+                    $url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.WSTConf('CONF.wxAppId').'&redirect_uri='.$url.'&response_type=code&scope=snsapi_userinfo&state='.WSTConf('CONF.wxAppCode').'#wechat_redirect';
+                    header("location:".$url);
+                    exit;
+                }
         	}
         }
     }

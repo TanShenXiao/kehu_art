@@ -1977,7 +1977,7 @@ function WSTSwitchs($omodule = '',$ocontroller = '',$oaction = '',$oaddon = ''){
     if(!empty($data) && isset($data[$currURL])){
 	    $dispathArrs = $data[$currURL];//目标页面数组
 		//按优先级依次判断
-		if($isWeChat && $hasWechat)$dispathURL = $dispathArrs['wechat'];
+		if($isWeChat && $hasWechat)$dispathURL = $dispathArrs['mobile'];
 		if($dispathURL=='' && $isMobile && $hasMobile)$dispathURL = $dispathArrs['mobile'];
 		if($dispathURL=='' && $isPC && $hasPC)$dispathURL = $dispathArrs['home'];
 		if($dispathURL=='')$dispathURL = $dispathArrs[$dispathModule];

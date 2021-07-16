@@ -10,7 +10,7 @@
 {block name="header"}
 <div style="margin-top: 42px;">
     <header style="background:#ffffff;" class="ui-header ui-header-positive ui-border-b wst-header">
-        <a href='{:url("mobile/shops/index2",["shopId" => $shop["shopId"]])}'><i class="ui-icon-return"></i></a><h1>{$title}</h1>
+        <a onclick="history.back()"><i class="ui-icon-return"></i></a><h1>{$title}</h1>
     </header>
 </div>
 {/block}

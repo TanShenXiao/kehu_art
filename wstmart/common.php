@@ -628,7 +628,7 @@ function WSTShopApplyGoodsCats($parentId = 0,$sId = 0){
     $rs = Db::name('goods_cats')->alias('gc')
              ->join('__CAT_SHOPS__ csp','gc.catId=csp.catId')
              ->where(['dataFlag'=>1, 'isShow' => 1,'gc.parentId'=>$parentId,'csp.shopId'=>$shopId])
-             ->field("catName,simpleName,gc.catId,parentId,fax")->order('catSort asc')->select();
+             ->field("catName,simpleName,gc.catId,parentId,gc.fax")->order('catSort asc')->select();
     return $rs;
 }
 /**

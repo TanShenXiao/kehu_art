@@ -292,14 +292,14 @@ class Goods extends Base{
             $roleName = $user_info['roleName'];
             //查看商品当前状态
             $shenhe = $rs['shenhe'];
-            $update_status = $rs['update_status'];
+            $update_status = $rs['goodsStatus'];
             switch( $shenhe ){
                 case "0":
                     $update_shenhe = 1;
                     break;
                 case "1":
                     $update_shenhe = 2;
-                    if($update_status = 0){
+                    if($update_status == 0){
                         $update_status = 1;
                     }
                     break;

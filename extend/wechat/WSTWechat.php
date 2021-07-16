@@ -108,7 +108,6 @@ class WSTWechat{
 			$url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$this->appId.'&secret='.$this->secret;
 			$data = $this->http($url);
 			$data = json_decode($data, true);
-			print_r($data);
 			if(isset($data['access_token']) and $data['access_token']!=''){
 				cache('access_token',$data['access_token'],600);
 				$this->tokenId = $data['access_token'];

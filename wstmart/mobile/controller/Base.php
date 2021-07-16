@@ -33,6 +33,29 @@ class Base extends Controller {
             $content = str_replace("__MOBILE__",str_replace('/index.php','',$this->request->root()).'/wstmart/mobile/view/'.$style,$content);
             return $content;
         });
+
+		if($this->isWeChat and $this->hasWechat){
+            if(!(request()->module()=="wechat" && request()->controller()=="Weixinpays" && request()->action()=="notify")){
+                WSTIsWeixin();//检测是否在微信浏览器上使用
+            }
+            $state = input('param.state');
+            if($state==WSTConf('CONF.wxAppCode')){
+                $type = input('param.type');
+                if($type=='1'){
+                    WSTBindWeixin(1);
+                }else{
+                    WSTBindWeixin(0);
+                }
+            }
+            $wechatOneClickLogin = WSTConf('CONF.wechatOneClickLogin');
+            $USER = session('WST_USER');
+            if(empty($USER)){
+                if($wechatOneClickLogin) {
+                    WSTOneClickLogin(1);
+                }
+            }
+        }
+
 		if(WSTConf('CONF.seoMallSwitch')==0){
 			$this->redirect('mobile/switchs/index');
 			exit;

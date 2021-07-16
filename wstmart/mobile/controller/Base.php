@@ -17,6 +17,10 @@ use think\Db;
  * 基础控制器
  */
 class Base extends Controller {
+
+    protected $isWeChat;
+    protected $hasWechat;
+
 	public function __construct(){
 		parent::__construct();
 		hook('initConfigHook',['getParams'=>input()]);
@@ -40,6 +44,8 @@ class Base extends Controller {
         if($state==WSTConf('CONF.wxAppCode')){
             WSTBindWeixin(1);
         }
+        $this->isWeChat =  (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false);
+        $this->hasWechat =  (WSTConf('CONF.wxenabled')==1)?true:false;
 
        	$USER = session('WST_USER');
         if(empty($USER)){
@@ -47,10 +53,7 @@ class Base extends Controller {
         		die('{"status":-999,"msg":"您还未登录"}');
         	}else{
         		$this->redirect('mobile/users/login');
-
-                $isWeChat = (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false);
-                $hasMobile = (WSTDatas('ADS_TYPE',3)!='')?true:false;
-                if($isWeChat and $hasMobile){
+                if($this->isWeChat and $this->hasWechat){
                     $request = request();
                     session('WST_WX_WlADDRESS',$request->url(true));
                     $url=urlencode($request->url(true));

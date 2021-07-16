@@ -1995,7 +1995,7 @@ function WSTSwitchs($omodule = '',$ocontroller = '',$oaction = '',$oaddon = ''){
 		}
 	}
 	//找不到对应的网址，但是访问端也不匹配的话，就强制跳转到相应端的主页
-	if($isWeChat && $hasWechat)$dispathModule = 'wechat';
+	if($isWeChat && $hasWechat)$dispathModule = 'mobile';
 	if($dispathModule=='home' && $isMobile && $hasMobile)$dispathModule = 'mobile';
 	if($oaddon=='' && $module!=$dispathModule){
        header("Location:".url($dispathModule."/index/index"));

@@ -23,6 +23,10 @@ class Base extends Controller {
 
 	public function __construct(){
 		parent::__construct();
+
+        $this->isWeChat =  (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false);
+        $this->hasWechat =  (WSTConf('CONF.wxenabled')==1)?true:false;
+
 		hook('initConfigHook',['getParams'=>input()]);
 		WSTConf('CONF',WSTConfig());
 		WSTSwitchs();
@@ -63,19 +67,18 @@ class Base extends Controller {
 	}
     // 权限验证方法
     protected function checkAuth(){
-        $state = input('param.state');
-        if($state==WSTConf('CONF.wxAppCode')){
-            WSTBindWeixin(1);
+        if($this->isWeChat and $this->hasWechat){
+            $state = input('param.state');
+            if($state==WSTConf('CONF.wxAppCode')){
+                WSTBindWeixin(1);
+            }
         }
-        $this->isWeChat =  (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false);
-        $this->hasWechat =  (WSTConf('CONF.wxenabled')==1)?true:false;
-
        	$USER = session('WST_USER');
         if(empty($USER)){
         	if(request()->isAjax()){
         		die('{"status":-999,"msg":"您还未登录"}');
         	}else{
-        		$this->redirect('mobile/users/login');
+
                 if($this->isWeChat and $this->hasWechat){
                     $request = request();
                     session('WST_WX_WlADDRESS',$request->url(true));
@@ -83,6 +86,8 @@ class Base extends Controller {
                     $url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.WSTConf('CONF.wxAppId').'&redirect_uri='.$url.'&response_type=code&scope=snsapi_userinfo&state='.WSTConf('CONF.wxAppCode').'#wechat_redirect';
                     header("location:".$url);
                     exit;
+                }else{
+                    $this->redirect('mobile/users/login');
                 }
         	}
         }

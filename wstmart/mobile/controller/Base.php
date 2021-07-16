@@ -22,11 +22,10 @@ class Base extends Controller {
     protected $hasWechat;
 
 	public function __construct(){
-		parent::__construct();
-
         $this->isWeChat =  (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false);
         $this->hasWechat =  (WSTConf('CONF.wxenabled')==1)?true:false;
 
+		parent::__construct();
 		hook('initConfigHook',['getParams'=>input()]);
 		WSTConf('CONF',WSTConfig());
 		WSTSwitchs();
@@ -78,7 +77,6 @@ class Base extends Controller {
         	if(request()->isAjax()){
         		die('{"status":-999,"msg":"您还未登录"}');
         	}else{
-
                 if($this->isWeChat and $this->hasWechat){
                     $request = request();
                     session('WST_WX_WlADDRESS',$request->url(true));

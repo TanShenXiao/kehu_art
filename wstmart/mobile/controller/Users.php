@@ -21,7 +21,7 @@ use wstmart\common\model\Users as MUsers;
 class Users extends Base{
 	// 前置方法执行列表
     protected $beforeActionList = [
-          'checkAuth' =>  ['except'=>'index,checklogin,checkloginbyphone,login,register,getverify,toregister,forgetpass,forgetpasst,forgetpasss,findpass,getfindphone,resetpass,getphoneverifycode,getphoneverifycode2,checkuserphone']// 访问这些except下的方法不需要执行前置操作
+          'checkAuth' =>  ['except'=>'index,checkLoginWx,checkloginbyphone,checkLoginByPhone,login,checklogin,register,registerWx,getverify,toregister,forgetpass,forgetpasst,forgetpasss,findpass,getfindphone,resetpass,getphoneverifycode,getphoneverifycode2,checkuserphone']// 访问这些except下的方法不需要执行前置操作
     ];
     /**
      * 会员登录页

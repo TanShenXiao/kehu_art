@@ -263,6 +263,8 @@ function WSTConfig(){
 		// 是否有app端
 		$prefix = config('database.prefix');
 		$rs['hasApp'] = !!Db::query("show tables like '{$prefix}app_session';");
+
+
 		cache('WST_CONF',$rs,31536000);
 	}
 	return $rs;

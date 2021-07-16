@@ -373,3 +373,7 @@
     background: #fff;
     font-size: 18px;
 }
+.zp_name{
+    text-overflow :ellipsis;
+    white-space: nowrap;
+}

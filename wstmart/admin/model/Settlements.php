@@ -43,7 +43,7 @@ class Settlements extends Base{
         		$order = $sortArr[0].'+0 '.$sortArr[1];
         	}
         }
-		return Db::name('settlements')->alias('st')->join('__SHOPS__ s','s.shopId=st.shopId','left')->where($where)->field('s.shopName,settlementNo,settlementId,settlementMoney,commissionFee,backMoney,settlementStatus,settlementTime,st.createTime')->order($order)
+		return Db::name('settlements')->alias('st')->join('__SHOPS__ s','s.shopId=st.shopId','left')->where($where)->field('s.shopName,settlementNo,settlementId,settlementMoney,commissionFee,backMoney,settlementStatus,settlementTime,st.createTime,st.postageMoney,st.taxMoney,st.serviceMoney')->order($order)
 			->paginate(input('limit/d'))->toArray();
 	}
 
@@ -205,6 +205,9 @@ class Settlements extends Base{
             $data['shopId'] = $shopId;
             $data['settlementMoney'] = $settlementMoney;
             $data['commissionFee'] = $commissionFee;
+            $data['postageMoney'] = $commissionFee;
+            $data['taxMoney'] = $commissionFee;
+            $data['serviceMoney'] = $commissionFee;
             $data['backMoney'] = $settlementMoney-$commissionFee;
             $data['settlementStatus'] = 1;
             $data['settlementTime'] = date('Y-m-d H:i:s');

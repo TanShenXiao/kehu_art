@@ -43,7 +43,7 @@ class Settlements extends Base{
         		$order = $sortArr[0].'+0 '.$sortArr[1];
         	}
         }
-		return Db::name('settlements')->alias('st')->join('__SHOPS__ s','s.shopId=st.shopId','left')->where($where)->field('s.shopName,settlementNo,settlementId,settlementMoney,commissionFee,backMoney,settlementStatus,settlementTime,st.createTime,st.postageMoney,st.taxMoney,st.serviceMoney')->order($order)
+		return Db::name('settlements')->alias('st')->join('__SHOPS__ s','s.shopId=st.shopId','left')->where($where)->field('s.shopName,settlementNo,settlementId,settlementMoney,commissionFee,backMoney,settlementStatus,settlementTime,st.createTime,st.postageMoney,st.taxMoney')->order($order)
 			->paginate(input('limit/d'))->toArray();
 	}
 
@@ -181,10 +181,12 @@ class Settlements extends Base{
 		$where[] = ['dataFlag','=',1];
 		$where[] = ['orderStatus','=',2];
 		$where[] = ['settlementId','=',0];
-		$orders = Db::name('orders')->where($where)->field('orderId,payType,realTotalMoney,scoreMoney,commissionFee')->select();
+		$orders = Db::name('orders')->where($where)->field('orderId,payType,realTotalMoney,scoreMoney,commissionFee,tax_money,postage_money')->select();
     	if(empty($orders))return WSTReturn('没有需要结算的订单，请刷新后再核对!');
     	$settlementMoney = 0;
         $commissionFee = 0;    //平台要收的佣金
+        $postage_money = 0;
+        $tax_money = 0;
         $ids = [];
     	foreach ($orders as $key => $v) {
             $ids[] = $v['orderId'];
@@ -194,8 +196,10 @@ class Settlements extends Base{
                 $settlementMoney += $v['scoreMoney'];
             }
             $commissionFee += abs($v['commissionFee']);
+            $postage_money += $v['postage_money'];
+            $tax_money += $v['tax_money'];
     	}
-    	$backMoney = $settlementMoney-$commissionFee;
+    	$backMoney = $settlementMoney-$commissionFee-$postage_money-$tax_money;
     	$shops = model('shops')->get($shopId);
     	if(empty($shops))WSTReturn('无效的店铺结算账号!');
     	Db::startTrans();
@@ -205,10 +209,9 @@ class Settlements extends Base{
             $data['shopId'] = $shopId;
             $data['settlementMoney'] = $settlementMoney;
             $data['commissionFee'] = $commissionFee;
-            $data['postageMoney'] = $commissionFee;
-            $data['taxMoney'] = $commissionFee;
-            $data['serviceMoney'] = $commissionFee;
-            $data['backMoney'] = $settlementMoney-$commissionFee;
+            $data['postageMoney'] = $postage_money;
+            $data['taxMoney'] = $tax_money;
+            $data['backMoney'] = $settlementMoney-$commissionFee-$postage_money-$tax_money;
             $data['settlementStatus'] = 1;
             $data['settlementTime'] = date('Y-m-d H:i:s');
             $data['createTime'] = date('Y-m-d H:i:s');

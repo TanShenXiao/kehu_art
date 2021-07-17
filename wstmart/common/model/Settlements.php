@@ -28,7 +28,6 @@ class Settlements extends Base{
 
         $realTotalMoney = $order["realTotalMoney"];
         $commissionFee = $order["commissionFee"];
-        $service_money = $order["service_money"];
         $tax_money = $order["tax_money"];
         $postage_money = $order["postage_money"];
         $payType = $order["payType"];
@@ -55,11 +54,11 @@ class Settlements extends Base{
                 }
                 $settlementMoney = $scoreMoney - $refundedPayMoney - $refundedScoreMoney - $surplusMoney;
                 //在线支付的返还金额=实付金额+积分抵扣金额-已退款支付金额-已退款积分抵扣金额-下单获得积分抵扣金额-佣金
-                $backMoney = $scoreMoney - $refundedPayMoney - $refundedScoreMoney - $surplusMoney - $commissionFee - $service_money - $postage_money - $tax_money;
+                $backMoney = $scoreMoney - $refundedPayMoney - $refundedScoreMoney - $surplusMoney - $commissionFee - $postage_money - $tax_money;
             }else{
                 $settlementMoney = $scoreMoney + $realTotalMoney - $refundedPayMoney - $refundedScoreMoney - $refundedGetScoreMoney;
                 //在线支付的返还金额=实付金额+积分抵扣金额-已退款支付金额-已退款积分抵扣金额 - 失效获得积分换算的金额 -佣金
-                $backMoney = $realTotalMoney + $scoreMoney - $refundedPayMoney - $refundedScoreMoney - $refundedGetScoreMoney - $commissionFee - $service_money - $postage_money - $tax_money;
+                $backMoney = $realTotalMoney + $scoreMoney - $refundedPayMoney - $refundedScoreMoney - $refundedGetScoreMoney - $commissionFee - $postage_money - $tax_money;
             }
 
         }else{//货到付款
@@ -74,7 +73,6 @@ class Settlements extends Base{
         $data['shopId'] = $order->shopId;
         $data['settlementMoney'] = $settlementMoney;
         $data['commissionFee'] = $order->commissionFee;
-        $data['serviceMoney'] = $service_money;
         $data['taxMoney'] = $tax_money;
         $data['postageMoney'] = $postage_money;
         $data['backMoney'] = $backMoney;

@@ -141,4 +141,16 @@ class Orders extends Base{
 
        $this->assign('goodsInfo',$goodsInfo);
     }
+    public function editOrderTaxMoney(){
+        $tax_price =  Input("tax_price",0);
+        $postage_money =  Input("postage_money",0);
+        $orderId =  Input("orderId/d",0);
+       $res = Db::name('orders')->where('orderId',$orderId)->update([
+            'tax_money'=>$tax_price,
+            'postage_money'=>$postage_money,
+           'isMakeInvoice'=>1,
+           'invoiceoktime'=>time(),
+        ]);
+       return ['status'=>$res];
+    }
 }

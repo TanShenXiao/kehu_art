@@ -210,8 +210,11 @@
 		        <div class='price'>¥{$vo2['goodsPrice']}</div>
 		        <div class='num'>{$vo2['goodsNum']}</div>
 		        <div class='t-price'>¥{$vo2['goodsPrice']*$vo2['goodsNum']}</div>
-                <div class='t-price'><a href='{:Url("admin/orders/tax1",["goodsId"=>$vo2["goodsId"],"goodsPrice"=>$vo2['goodsPrice'],'orderId'=>$object['orderId']])}' target='_blank'>去开票</a></div>
-		        <div class='f-clear'></div>
+              {if $object['isInvoice'] ==1 && $object['isMakeInvoice']==1}
+              <button type="button" class="btn btn-mright" onclick="javascript:toTax({$vo2.orderId})"><i class="fa fa-angle-double-left"></i>去开票</button>
+<!--                <div class='t-price'><a href='{:Url("admin/orders/tax1",["goodsId"=>$vo2["goodsId"],"goodsPrice"=>$vo2['goodsPrice'],'orderId'=>$object['orderId']])}' target='_blank'>去开票</a></div>-->
+		      {/if}
+              <div class='f-clear'></div>
              </div>
              {/volist}
           </div>
@@ -236,3 +239,24 @@
    </div>
 <div>
 {/block}
+    <div id='attrBox' style='display:none'>
+        <form id="orderForm">
+            <table class='wst-form wst-box-top'>
+
+                <tr>
+                    <th>税费<font color='red'>*</font>：</th>
+                    <td>
+                        <input type="text" id="tax_price" name="tax_price" class="ipt" maxLength='20'/>
+                    </td>
+                </tr>
+
+                <tr class="invoice">
+                    <th>发票运费<font color='red'>*</font>：</th>
+                    <td>
+                        <input type="text" id="postage_money" name="postage_money" class="ipt" maxLength='20'/>
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    </div>

@@ -7,9 +7,9 @@ $(function(){
     laydate.render({
         elem: '#endDate'
     });
-})
-function toTax(orderId){
+});
 
+function toTax(orderId){
         var title ="税费填写";
         var box = WST.open({title:title,type:1,content:$('#attrBox'),area: ['750px', '480px'],btn:['确定','取消'],
             end:function(){$('#attrBox').hide();},yes:function(){
@@ -31,12 +31,11 @@ function toTax(orderId){
                         WST.msg("操作成功",{icon:1});
                         layer.close(box);
                         $('#attrBox').hide();
-                        loadGrid(WST_CURR_PAGE);
                         layer.close(box);
                     }else{
                         WST.msg(json.msg,{icon:2});
                     }
-                });
+                };
             }
         });
 }

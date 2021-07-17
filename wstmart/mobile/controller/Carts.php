@@ -37,6 +37,7 @@ class Carts extends Base{
 	public function addCart(){
 		$m = new M();
 		$rs = $m->addCart();
+
 		$rs['cartNum'] = WSTCartNum();
 		return $rs;
 	}

@@ -23,64 +23,81 @@
 </div>
 {else}
 <div class="ui-row-flex ui-whitespace ui-row-flex-ver c-box " style="margin-top:45px;">
-    <input type="hidden" name="taxId" id="taxId" value="{$users.id}" />
+
     <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
-        <div class="item-left">姓名</div>
-        <div class="item-right">
-            <input type="text" id="xm" placeholder="请填写联系人" value="{$users.xm}"/>
-        </div>
+        {$articeInfo.articleContent}
     </div>
     <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
-        <div class="item-left">联系方式</div>
-        <div class="item-right">
-            <input type="text" id="mobile" placeholder="请填写联系方式" value="{$users.mobile}"/>
-        </div>
-    </div>
-    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
-        <div class="item-left">身份证号码</div>
-        <div class="item-right">
-            <input type="text" id="sfzhm" placeholder="请填写身份证号码" value="{$users.sfzhm}"/>
-        </div>
-    </div>
-    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
-        <div class="item-left">邮箱</div>
-        <div class="item-right">
-            <input type="text" id="email" placeholder="请填写身份证号码" value="{$users.email}"/>
-        </div>
-    </div>
-    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
-        <div class="item-left">国籍</div>
         <div class="item-right">
             <input type="text" id="gjdqdm" placeholder="请填写身份证号码" value="{$users.gjdqdm}"/>
         </div>
     </div>
-    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
-        <div class="item-left">省市</div>
-        <div class="item-right">
-            <input type="text" id="ssjAddress" placeholder="请填写身份证号码" value="{$users.ssjAddress}"/>
-        </div>
-    </div>
-    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
-        <div class="item-left">区县</div>
-        <div class="item-right">
-            <input type="text" id="qxjAddress" placeholder="请填写身份证号码" value="{$users.qxjAddress}"/>
-        </div>
-    </div>
-    <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
-        <div class="item-left">详细地址</div>
-        <div class="item-right">
-            <input type="text" id="address" placeholder="请填写身份证号码" value="{$users.address}"/>
-        </div>
-    </div>
-
-
-
     <div class="ui-btn-wrap" style="padding:5px;padding-bottom:5px;">
-        <button class="ui-btn-lg ui-btn-danger c-btn" onclick="savetax()">
-            提交
+        <button class="ui-btn-lg ui-btn-danger c-btn" onclick="netshowSumb()">
+            下一步
         </button>
     </div>
 </div>
+    <div class="ui-row-flex ui-whitespace ui-row-flex-ver c-box " style="margin-top:45px; display:none">
+        <input type="hidden" name="taxId" id="taxId" value="{$users.id}" />
+        <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+            <div class="item-left">姓名</div>
+            <div class="item-right">
+                <input type="text" id="xm" placeholder="请填写联系人" value="{$users.xm}"/>
+            </div>
+        </div>
+        <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+            <div class="item-left">联系方式</div>
+            <div class="item-right">
+                <input type="text" id="mobile" placeholder="请填写联系方式" value="{$users.mobile}"/>
+            </div>
+        </div>
+        <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+            <div class="item-left">身份证号码</div>
+            <div class="item-right">
+                <input type="text" id="sfzhm" placeholder="请填写身份证号码" value="{$users.sfzhm}"/>
+            </div>
+        </div>
+        <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+            <div class="item-left">邮箱</div>
+            <div class="item-right">
+                <input type="text" id="email" placeholder="请填写身份证号码" value="{$users.email}"/>
+            </div>
+        </div>
+        <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+            <div class="item-left">国籍</div>
+            <div class="item-right">
+                <input type="text" id="gjdqdm" placeholder="请填写身份证号码" value="{$users.gjdqdm}"/>
+            </div>
+        </div>
+        <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+            <div class="item-left">省市</div>
+            <div class="item-right">
+                <input type="text" id="ssjAddress" placeholder="请填写身份证号码" value="{$users.ssjAddress}"/>
+            </div>
+        </div>
+        <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+            <div class="item-left">区县</div>
+            <div class="item-right">
+                <input type="text" id="qxjAddress" placeholder="请填写身份证号码" value="{$users.qxjAddress}"/>
+            </div>
+        </div>
+        <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
+            <div class="item-left">详细地址</div>
+            <div class="item-right">
+                <input type="text" id="address" placeholder="请填写身份证号码" value="{$users.address}"/>
+            </div>
+        </div>
+
+
+
+        <div class="ui-btn-wrap" style="padding:5px;padding-bottom:5px;">
+            <button class="ui-btn-lg ui-btn-danger c-btn" onclick="savetax()">
+                提交
+            </button>
+        </div>
+    </div>
+
 {/if}
 {/block}
 {block name="include"}

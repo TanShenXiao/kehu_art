@@ -56,8 +56,10 @@ class Shopapplys extends Base{
         $userId = (int)session('WST_USER.userId');
         $Taxuser = new TU();
         $rs = $Taxuser->getFieldsById($userId);
-
+        $m = new \wstmart\admin\model\Articles();
+        $artice = $m->get(436);
         $this->assign('users',$rs);
+        $this->assign('articeInfo',$artice);
         $this->assign('isApply',0);
 
         return $this->fetch('users/shopapplys/tax_auth');

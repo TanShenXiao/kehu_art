@@ -25,7 +25,6 @@ function toTax(orderId,taxtype){
 
                 var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
                 params.orderId = orderId;
-                params.taxtype = taxtype;
                 console.log(params);
                 $.post(WST.U('admin/orders/editOrderTaxMoney'),params,function(data,textStatus){
                     layer.close(loading);

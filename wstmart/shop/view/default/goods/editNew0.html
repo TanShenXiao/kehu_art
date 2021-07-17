@@ -179,6 +179,33 @@
         <th>商品单位<font color='red'>*</font>：</th>
         <td><input type='text' class='j-ipt ipwd' id='goodsUnit' value='{$object["goodsUnit"]}' maxLength='10' data-rule='商品单位:required;'/></td>
     </tr>
+    <tr>
+        <th>是否包邮：</th>
+        <td class="layui-form">
+            <label><input type='radio' name='isFreeShipping' id="isFreeShipping-1" lay-filter="isFreeShipping" class='j-ipt' value='1' {if $object['isFreeShipping']==1}checked{/if} title='包邮'/></label>
+            <label><input type='radio' name='isFreeShipping' id="isFreeShipping-0" lay-filter="isFreeShipping" class='j-ipt' value='0' {if $object['isFreeShipping']==0}checked{/if} title='买家承担运费'/></label>
+        </td>
+    </tr>
+    <tr id="shippingFeeTypeTr" {if $object['isFreeShipping']==1}style='display:none'{/if}>
+    <th>计价方式<font color='red'>*</font>：</th>
+    <td class="layui-form">
+        <label><input type='radio' name='shippingFeeType' lay-filter="shippingFeeType" class='j-ipt' value='1' {if $object['shippingFeeType']==1}checked{/if} title='计件'/></label>
+        <label><input type='radio' name='shippingFeeType' lay-filter="shippingFeeType" class='j-ipt' value='2' {if $object['shippingFeeType']==2}checked{/if} title='重量'/></label>
+        <label><input type='radio' name='shippingFeeType' lay-filter="shippingFeeType" class='j-ipt' value='3' {if $object['shippingFeeType']==3}checked{/if} title='体积'/></label>
+
+    </td>
+    </tr>
+    <tr id="shopExpressTr" {if $object['isFreeShipping']==1}style='display:none'{/if}>
+    <th>快递公司<font color='red'>*</font>：</th>
+    <td>
+        <select id='shopExpressId' class='j-ipt ipwd'>
+            <option value="">-请选择-</option>
+            {volist name="shopExpressList" id="vo"}
+            <option value="{$vo['id']}" {if($object["shopExpressId"]==$vo['id'])}selected{/if}>{$vo['expressName']}</option>
+            {/volist}
+        </select>
+    </td>
+    </tr>
     <tr id='goodsStockTr' {if($object["goodsType"]==1)}style='display:none'{/if}>
     <th>商品库存<font color='red'>*</font>：</th>
     <td><input type='text' class='j-ipt ipwd' id='goodsStock' value='{$object["goodsStock"]}' maxLength='10' data-rule='商品库存:required;integer[+0]' onkeypress="return WST.isNumberKey(event)" onkeyup="javascript:WST.isChinese(this,1)"/></td>

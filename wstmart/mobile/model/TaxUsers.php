@@ -13,6 +13,7 @@ class TaxUsers extends CTaxUsers{
             unset($data['id']);
             $res = $this->update($data,['id'=>$id]);
         }else{
+            $data['create_time'] = time();
             $res = $this->insert($data);
         }
 

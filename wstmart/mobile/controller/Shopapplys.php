@@ -71,7 +71,9 @@ class Shopapplys extends Base{
         $tax = new TAX();
         $Taxuser = new TU();
         $rs = $Taxuser->getFieldsById($userId);
+        $data = $request->param();
         $Taxuser->add($data);
+
         //$res = $tax->taxBusinessToken(['cardNumber'=>$rs['cardNumber']]);
         $res['code']=0;
         if($res['code']!=0){

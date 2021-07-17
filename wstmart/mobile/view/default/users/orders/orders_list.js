@@ -435,7 +435,7 @@ function saveInvoice(orderId){
                                 location.reload();
                             },1000);
                         }
-                    }
+                    });
 
                 if(invoiceId==0)$('#invoiceId').val(json.data.id)
             }else{

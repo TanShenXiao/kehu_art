@@ -71,7 +71,17 @@ class Shopapplys extends Base{
         $tax = new TAX();
         $Taxuser = new TU();
         $rs = $Taxuser->getFieldsById($userId);
-        $data = $request->param();
+        $data = [
+            'xm'=>input('xm'),
+            'mobile'=>input('mobile'),
+            'sfzhm'=>input('sfzhm'),
+            'email'=>input('email'),
+            'gjdqdm'=>input('gjdqdm'),
+            'ssjAddress'=>input('ssjAddress'),
+            'qxjAddress'=>input('qxjAddress'),
+            'address'=>input('address'),
+            'id'=>input('id/d',0)
+        ];
         $Taxuser->add($data);
 
         //$res = $tax->taxBusinessToken(['cardNumber'=>$rs['cardNumber']]);

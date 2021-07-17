@@ -146,7 +146,11 @@ class Orders extends Base{
         $postage_money =  Input("postage_money",0);
         $orderId =  Input("orderId/d",0);
         $taxtype =  Input("taxtype");
-        $isMakeInvoice = $taxtype;
+        if($taxtype==0){
+            $isMakeInvoice=1;
+        }elseif($taxtype==1){
+            $isMakeInvoice = 2;
+        }
        $res = Db::name('orders')->where('orderId',$orderId)->update([
             'tax_money'=>$tax_price,
             'postage_money'=>$postage_money,

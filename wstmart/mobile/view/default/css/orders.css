@@ -109,3 +109,31 @@ body{font-size:.14rem}
 .wst-or-refund .wst-dialog-b2{width:220px;height: 35px;line-height: 35px;}
 .ui-checkbox input:before,.ui-checkbox-s input:before{font-size:22px!important;left: 5px;}
 .ui-checkbox input:checked:before,.ui-checkbox-s input:checked:before{color:#e32726!important}
+
+/* 发票信息层 */
+.invoice_box{position: fixed;z-index: 9999;right:-100%;bottom: 0px;width:100%;min-height:40%;background:#f2f2f2;font-size: 0.15rem;top:0;}
+.invoice_box .title,.wst-cart-box .title{position: relative;padding:6px 0px;border-bottom: 1px solid #f1f1f1;background-color: #fff;}
+.invoice_box .title span{float: left;width: 100%;height: 26px;line-height: 26px;text-align: center;font-size: 16px;}
+.invoice_box .title i,.wst-cart-box .title i{position: absolute;right:5px;top:-2px;font-size: 27px;}
+.invoice_box .content{margin-top:5px;background:#f2f2f2;overflow: scroll;min-height: 80%;}
+.inv_ul{margin-right: 15px;padding: 0 15px;position: relative;width: inherit;float: left;}
+.pdtb10{padding: 10px 0;}
+.inv_chk{position: absolute;left: 0;}
+.inv_item{padding: 15px 10px;background-color: #fff;}
+.inv_tit{color: #232326;font-size: 14px;padding-left: 5px;}
+.inv_hidebox{background-color: #fff;width: 100%;position: relative;display: none;}
+.inv_head_input{border: 0;border-radius: 3px;padding: 8px 0 8px 10px;width: 100%;color: #232326;font-size: 13px;background: #f0f2f5;padding-right: 30px;}
+#inv_headlist{display: none;position: absolute;z-index: 3;width: 100%;background-color: #fff;}
+.inv_list_item{width: 100%;background-color: #f0f2f5;}
+.inv_list_item li{padding-left: 10px;line-height: 35px;border-top: 1px solid #e0e0e0;-webkit-line-clamp: 1;}
+.inv_code_input{border: 0;border-radius: 3px;padding: 8px 0 8px 10px;height: 35px;width: 100%;color: #232326;font-size: 13px;background: #f0f2f5;padding-right: 30px;display: -webkit-box;}
+.inv_code_input::-webkit-input-placeholder{color:#f23030}
+.inv_code_input::-moz-placeholder{color:#f23030}
+.inv_code_input::-ms-input-placeholder{color:#f23030}
+.inv_code_inputbox{margin-top:10px}
+.inv_line{padding-bottom: 5px;border-bottom: 1px solid  #f1f1f1;}
+.none_float{float:inherit}
+.inv_tip{padding: 15px 10px;}
+.inv_tip li i{font-style: normal;font-size: 20px;font-weight: bold;margin-right: 5px;}
+.invoice_box .button{position: absolute;left:3%;bottom:4px;width: 93%;font-size: 0.185rem;height: 40px;line-height: 40px;color:#ffffff;background:#e00102;font-size: 0.18rem;border-radius:3px;border-bottom:1px solid #e00102;}
+.invoice_box .button:not(.disabled):not(:disabled):active,.wst-cart-box .button:not(.disabled):not(:disabled):active{color:#fff0f0;background:#f52f30;background-clip: padding-box;}

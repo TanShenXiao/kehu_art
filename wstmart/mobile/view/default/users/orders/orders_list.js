@@ -365,3 +365,83 @@ function toPay(pkey,n){
     location.href = WST.U('mobile/weixinpays/toWeixinPay',{'pkey':pkey});
   }
 }
+//发票信息
+
+function getInvoiceList(){
+    $.post(WST.U('mobile/invoices/pageQuery'),{},function(data){
+        var json = WST.toJson(data);
+        if(json.status!=-1){
+            var gettpl1 = document.getElementById('invoiceBox').innerHTML;
+            laytpl(gettpl1).render(json, function(html){
+                $('.inv_list_item').html(html);
+                invoiceShow();
+                // 点击抬头item
+                $('.inv_list_item li').click(function(){
+                    // 设置值
+                    $('#invoice_head').val($(this).html());
+                    $('#invoiceId').val($(this).attr('invId'));
+                    $('#invoice_code').val($(this).attr('invCode'));
+                })
+            });
+        }else{
+            WST.msg(json.msg,'info');
+        }
+    });
+}
+
+/*********************** 发票信息层 ****************************/
+//弹框
+function invoiceShow(){
+    jQuery('#cover').attr("onclick","javascript:invoiceHide();").show();
+    jQuery('#in_frame').animate({"right": 0}, 500);
+    setTimeout(function(){$('#shopBox').hide();},600)// 隐藏背部页面
+
+}
+function invoiceHide(){
+    $('#shopBox').show();// 隐藏背部页面
+    jQuery('#in_frame').animate({'right': '-100%'}, 500);
+    jQuery('#cover').hide();
+}
+
+
+/* 完成发票信息填写 */
+function saveInvoice(){
+    var param={};
+    var invoiceId = $('#invoiceId').val();// 发票id
+    param.id = 0;
+    var isInvoice  = $('#isInvoice').val();
+    param.invoiceCode = $('#invoice_code').val();// 纳税人识别码
+    param.invoiceHead = $('#invoice_head').val();// 发票抬头
+    var url = 'mobile/invoices/add';
+    if(invoiceId>0){
+        url = 'mobile/invoices/edit';
+        param.id = invoiceId;
+    }
+    if($('#invoice_obj').val()!=0){
+        $.post(WST.U(url),param,function(data){
+            var json = WST.toJson(data);
+            if(json.status==1){
+                setInvoiceText();
+                if(invoiceId==0)$('#invoiceId').val(json.data.id)
+            }else{
+                WST.msg(json.msg,'info');
+            }
+        })
+    }else{
+        setInvoiceText();
+    }
+
+}
+
+// 设置页面显示值
+function setInvoiceText(){
+    var isInvoice  = $('#isInvoice').val();
+    var invoiceObj = $('#invoice_obj').val();// 发票对象
+    var invoiceHead = $('#invoice_head').val();// 发票抬头
+    var text = '不开发票';
+    if(isInvoice==1){
+        text = (invoiceObj==0)?'普通发票（纸质）  个人   明细':'普通发票（纸质）<br />'+invoiceHead+'<br />明细';
+    }
+    $('#invoicest').html(text);
+    invoiceHide();
+}

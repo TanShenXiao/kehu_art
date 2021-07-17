@@ -421,7 +421,7 @@ function saveInvoice(orderId){
         $.post(WST.U(url),param,function(data){
             var json = WST.toJson(data);
             if(json.status==1){
-                setInvoiceText();
+
 
                 //修改订单发票信息
                 var orderInvoice = {};
@@ -433,6 +433,7 @@ function saveInvoice(orderId){
 
                     WST.msg(orderjson.msg,'info');
                     if(orderjson.status==1){
+                        setInvoiceText();
                         setTimeout(function(){
                             location.reload();
                         },1000);

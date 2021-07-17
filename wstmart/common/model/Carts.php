@@ -210,6 +210,7 @@ class Carts extends Base{
 			//----------------------------
 			$carts[$v['shopId']]['shopId'] = $v['shopId'];
 			$carts[$v['shopId']]['isTaxAuth'] = $v['isTaxAuth'];
+			$carts[$v['shopId']]['shopType'] = $v['shopType'];
 			$carts[$v['shopId']]['shopName'] = $v['shopName'];
 			$carts[$v['shopId']]['shopQQ'] = $v['shopQQ'];
 			$carts[$v['shopId']]['userId'] = $v['userId'];

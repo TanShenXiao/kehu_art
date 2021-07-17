@@ -22,15 +22,13 @@
     </div>
 </div>
 {else}
-<div class="ui-row-flex ui-whitespace ui-row-flex-ver c-box " style="margin-top:45px;">
+<div id="xieyihide" class="ui-row-flex ui-whitespace ui-row-flex-ver c-box " style="margin-top:45px;">
 
     <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
         {$articeInfo.articleContent}
     </div>
     <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
-        <div class="item-right">
-            <input type="text" id="gjdqdm" placeholder="请填写身份证号码" value="{$users.gjdqdm}"/>
-        </div>
+        <input type="radio" name="identityOK" checked="checked" />同意协议
     </div>
     <div class="ui-btn-wrap" style="padding:5px;padding-bottom:5px;">
         <button class="ui-btn-lg ui-btn-danger c-btn" onclick="netshowSumb()">
@@ -38,7 +36,7 @@
         </button>
     </div>
 </div>
-    <div class="ui-row-flex ui-whitespace ui-row-flex-ver c-box " style="margin-top:45px; display:none">
+    <div id="showInputList" class="ui-row-flex ui-whitespace ui-row-flex-ver c-box " style="margin-top:45px; display:none">
         <input type="hidden" name="taxId" id="taxId" value="{$users.id}" />
         <div class="ui-col c-title" style="display: flex;flex-direction: row;align-items: center;">
             <div class="item-left">姓名</div>
@@ -109,6 +107,10 @@
 <script type="text/javascript" charset="utf-8">
     function delayer(url){
         location.href = url;
+    }
+    function netshowSumb(){
+        $('#xieyihide').hide();
+        $("#showInputList").show();
     }
     function savetax(){
 

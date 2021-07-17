@@ -367,14 +367,14 @@ function toPay(pkey,n){
 }
 //发票信息
 
-function getInvoiceList(orderNo){
+function getInvoiceList(orderId){
     $.post(WST.U('mobile/invoices/pageQuery'),{},function(data){
         var json = WST.toJson(data);
         if(json.status!=-1){
             var gettpl1 = document.getElementById('invoiceBox').innerHTML;
             laytpl(gettpl1).render(json, function(html){
                 $('.inv_list_item').html(html);
-                invoiceShow();
+                invoiceShow(orderId);
                 // 点击抬头item
                 $('.inv_list_item li').click(function(){
                     // 设置值
@@ -391,9 +391,10 @@ function getInvoiceList(orderNo){
 
 /*********************** 发票信息层 ****************************/
 //弹框
-function invoiceShow(){
+function invoiceShow(orderId){
     jQuery('#cover').attr("onclick","javascript:invoiceHide();").show();
     jQuery('#in_frame').animate({"right": 0}, 500);
+    jQuery('#invoiceorderId').val(orderId);
     setTimeout(function(){$('#shopBox').hide();},600)// 隐藏背部页面
 
 }
@@ -405,9 +406,10 @@ function invoiceHide(){
 
 
 /* 完成发票信息填写 */
-function saveInvoice(orderId){
+function saveInvoice(){
     var param={};
     var invoiceId = $('#invoiceId').val();// 发票id
+    var orderId = $('#invoiceorderId').val();// 订单id
     param.id = 0;
     var isInvoice  = $('#isInvoice').val();
     param.invoiceCode = $('#invoice_code').val();// 纳税人识别码

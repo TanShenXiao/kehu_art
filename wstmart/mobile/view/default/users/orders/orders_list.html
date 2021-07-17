@@ -250,7 +250,7 @@
              	<div class="ui-row-flex">
                 	<div class="ui-col ui-col wst-or-term">
                         <span class="wst-or-describe">发票信息：</span>{{# if(d.isInvoice==1) { }}需要</div>{{# } else{ }}不需要{{# } }}
-                        {{# if(d.shopIsInvoice==0){ }}
+                        {{# if(d.shopIsInvoice==0 && d.isMakeInvoice !=2){ }}
 
                         <div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick="javascript:getInvoiceList();">修改</div>
                         {{# } }}

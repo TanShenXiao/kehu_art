@@ -1,6 +1,8 @@
 <?php
 namespace wstmart\admin\controller;
+use think\Db;
 use wstmart\admin\model\Orders as M;
+use wstmart\shop\model\Goods as G;
 use wstmart\common\model\Payments as P;
 
 
@@ -130,5 +132,13 @@ class Orders extends Base{
     	$m = new M();
     	$rs = $m->toExportOrderMoney();
     	$this->assign('rs',$rs);
+    }
+    public function tax1(){
+       $goodsId =  Input("goodsId/d",0);
+       $goodsPrice =  Input("goodsPrice/d",0);
+       $orderId =  Input("orderId/d",0);
+       $goodsInfo =Db::name('order_goods')->where('id',$goodsId)->where('orderId',$orderId)->order('id asc')->find();
+
+       $this->assign('goodsInfo',$goodsInfo);
     }
 }

@@ -2656,7 +2656,7 @@ class Orders extends Base{
         Db::startTrans();
         try{
 
-            $result = $this->where(['orderId'=>$orderId])->update($data);
+            $result = $this->where(['orderNo'=>$orderId])->update($data);
             if($result){
                 Db::commit();
                 return WSTReturn('操作成功',1);

@@ -1508,7 +1508,7 @@ class Orders extends Base{
 		               ->join('__SHOPS__ s','o.shopId=s.shopId','left')
 		               ->join('__ORDER_REFUNDS__ orf ','o.orderId=orf.orderId','left')
 		               ->where('o.dataFlag=1 and o.orderId='.$orderId.' and ( o.userId='.$userId.' or o.shopId='.$shopId.')')
-		               ->field('o.*,s.areaId shopAreaId,s.shopAddress,s.shopTel,s.shopName,s.shopQQ,s.shopWangWang,orf.id refundId,orf.refundRemark,orf.refundStatus,orf.refundTime,orf.backMoney,orf.backMoney')->find();
+		               ->field('o.*,s.areaId shopAreaId,s.shopAddress,s.isInvoice as shopIsInvoice,s.shopTel,s.shopName,s.shopQQ,s.shopWangWang,orf.id refundId,orf.refundRemark,orf.refundStatus,orf.refundTime,orf.backMoney,orf.backMoney')->find();
 		if(empty($orders))return WSTReturn("无效的订单信息");
 		// 获取店铺地址
 		$orders['shopAddr'] = model('common/areas')->getParentNames($orders['shopAreaId']);

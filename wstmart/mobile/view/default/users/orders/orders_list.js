@@ -234,9 +234,6 @@ function dataHide(){
     jQuery('#frame').animate({'right': '-100%'}, 500);
     jQuery('#cover').hide();
 }
-
-
-
 function getOrderDetail(oid){
   $.post(WST.U('mobile/orders/getDetail'),{id:oid},function(data){
       var json = WST.toJson(data);

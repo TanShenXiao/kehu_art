@@ -248,8 +248,16 @@
                 	<div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">配送信息：</span>{{d.deliverInfo}}</div>
             	</div>
              	<div class="ui-row-flex">
-                	<div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">发票信息：</span>{{# if(d.isInvoice==1) { }}需要{{# } else{ }}不需要{{# } }}</div>
+                	<div class="ui-col ui-col wst-or-term">
+                        <span class="wst-or-describe">发票信息：</span>{{# if(d.isInvoice==1) { }}需要{{# } else{ }}不需要{{# } }}
+                        {{# if(d.shopIsInvoice==1){ }}
+
+                        <div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick="javascript:invoiceShow();">修改</div>
+                        {{# } }}
+
+                    </div>
             	</div>
+
 			{{# if(d.isInvoice==1) { }}
                 <div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">发票状态：</span>{{# if(d.isMakeInvoice==1) { }}已开{{# } else{ }}未开{{# } }}</div>
              	<div class="ui-row-flex">
@@ -267,6 +275,7 @@
             	</div>
 			{{# } }}
             {{# } }}
+
              	<div class="ui-row-flex">
                 	<div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">订单备注：</span>{{d.orderRemarks}}</div>
             	</div>

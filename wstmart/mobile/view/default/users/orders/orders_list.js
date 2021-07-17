@@ -422,20 +422,22 @@ function saveInvoice(orderId){
             var json = WST.toJson(data);
             if(json.status==1){
                 setInvoiceText();
+
                 //修改订单发票信息
                 var orderInvoice = {};
                 orderInvoice.orderid = orderId;
                 orderInvoice.isInvoice = isInvoice;
                 orderInvoice.invoiceId = json.data.id;
-                    $.post(WST.U('mobile/orders/editOrderInvoice'),orderInvoice,function(data){
-                        var json = WST.toJson(data);
-                        WST.msg(json.msg,'info');
-                        if(json.status==1){
-                            setTimeout(function(){
-                                location.reload();
-                            },1000);
-                        }
-                    });
+                $.post(WST.U('mobile/orders/editOrderInvoice'),orderInvoice,function(orderdata){
+                    var orderjson = WST.toJson(orderdata);
+
+                    WST.msg(orderjson.msg,'info');
+                    if(orderjson.status==1){
+                        setTimeout(function(){
+                            location.reload();
+                        },1000);
+                    }
+                });
 
                 if(invoiceId==0)$('#invoiceId').val(json.data.id)
             }else{

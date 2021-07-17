@@ -116,7 +116,7 @@
 
           <tr>
               <th width='150'>发票状态：</th>
-              <td>{if $object['isMakeInvoice']==1}已开{else}未开{/if}</td>
+              <td>{if $object['isMakeInvoice']==0}未开{else}已开{/if}</td>
           </tr>
 
          <tr>
@@ -214,9 +214,13 @@
 
               {if $object['isMakeInvoice']==0}
                   <div class='name'>
-                      <button type="button" class="btn btn-mright" onclick="javascript:toTax({$vo2.orderId})">去开票</button>
+                      <button type="button" class="btn btn-mright" onclick="javascript:toTax({$vo2.orderId},1)">去开票</button>
                   </div>
-              {else/}
+              {elseif $object['isMakeInvoice']==1}
+              <div class='name'>
+                  <button type="button" class="btn btn-mright" onclick="javascript:toTax({$vo2.orderId},2)">审核税费</button>
+              </div>
+              {else}
                   <div class='name'>
                       已开票
                   </div>
@@ -256,14 +260,14 @@
             <tr>
                 <th>税费<font color='red'>*</font>：</th>
                 <td>
-                    <input type="text" id="tax_price" name="tax_price" class="ipt" maxLength='20'/>
+                    <input type="text" id="tax_price" name="tax_price" class="ipt" maxLength='20' value="{$object['tax_price']}"/>
                 </td>
             </tr>
 
             <tr class="invoice">
                 <th>发票运费<font color='red'>*</font>：</th>
                 <td>
-                    <input type="text" id="postage_money" name="postage_money" class="ipt" maxLength='20'/>
+                    <input type="text" id="postage_money" name="postage_money" class="ipt" maxLength='20' value="{$object['postage_money']}"/>
                 </td>
             </tr>
 

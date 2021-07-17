@@ -28,6 +28,9 @@ function getQueryPage(p){
             }},
         {title:'结算金额', name:'settlementMoney', width: 60,renderer:function(val,item,rowIndex){return '￥'+val;}},
         {title:'结算佣金', name:'commissionFee', width: 60,renderer:function(val,item,rowIndex){return '￥'+val;}},
+        {title:'服务费', name:'serviceMoney', width: 60,renderer:function(val,item,rowIndex){return '￥'+val;}},
+        {title:'税费', name:'taxMoney', width: 60,renderer:function(val,item,rowIndex){return '￥'+val;}},
+        {title:'发票邮费', name:'postageMoney', width: 60,renderer:function(val,item,rowIndex){return '￥'+val;}},
         {title:'返还金额', name:'backMoney', width: 60,renderer:function(val,item,rowIndex){return '￥'+val;}},
         {title:'创建时间', name:'createTime', width: 120},
         {title:'结算状态', name:'', width: 50,renderer:function(val,item,rowIndex){

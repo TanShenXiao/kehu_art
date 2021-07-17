@@ -24,7 +24,7 @@ function toTax(orderId){
                 console.log(params)
                 var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
                 params.orderId = orderId;
-                $.post(WST.U('admin/orders/editOrderTaxMoney')),params,function(data,textStatus){
+                $.post(WST.U('admin/orders/editOrderTaxMoney'),params,function(data,textStatus){
                     layer.close(loading);
                     var json = WST.toAdminJson(data);
                     if(json.status=='1'){
@@ -35,7 +35,7 @@ function toTax(orderId){
                     }else{
                         WST.msg(json.msg,{icon:2});
                     }
-                };
+                });
             }
         });
 }

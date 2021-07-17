@@ -211,8 +211,10 @@
 		        <div class='num'>{$vo2['goodsNum']}</div>
 		        <div class='t-price'>¥{$vo2['goodsPrice']*$vo2['goodsNum']}</div>
               {if $object['isInvoice'] ==1 && $object['isMakeInvoice']==0}
-              <button type="button" class="btn btn-mright" onclick="javascript:toTax({$vo2.orderId})">去开票</button>
-<!--                <div class='t-price'><a href='{:Url("admin/orders/tax1",["goodsId"=>$vo2["goodsId"],"goodsPrice"=>$vo2['goodsPrice'],'orderId'=>$object['orderId']])}' target='_blank'>去开票</a></div>-->
+              <div class='name'>
+                  <button type="button" class="btn btn-mright" onclick="javascript:toTax({$vo2.orderId})">去开票</button>
+                  </div>
+
 		      {/if}
               <div class='f-clear'></div>
              </div>
@@ -237,8 +239,6 @@
        <button type="button" class="btn btn-mright" onclick="javascript:toBack({$p},'{$src}')"><i class="fa fa-angle-double-left"></i>返回</button>
        {/if}
    </div>
-<div>
-{/block}
     <div id='attrBox' style='display:none'>
         <form id="orderForm">
             <table class='wst-form wst-box-top'>
@@ -260,3 +260,4 @@
             </table>
         </form>
     </div>
+{/block}

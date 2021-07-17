@@ -10,9 +10,7 @@ function initGrid(p){
             {title:'结算佣金', name:'commissionFee' ,width:60,sortable:true, renderer:function(val,item,rowIndex){
                 return '￥'+val;
             }},
-            {title:'服务费', name:'serviceMoney' ,width:60,sortable:true, renderer:function(val,item,rowIndex){
-                    return '￥'+val;
-                }},
+
             {title:'税费', name:'taxMoney' ,width:60,sortable:true, renderer:function(val,item,rowIndex){
                     return '￥'+val;
                 }},

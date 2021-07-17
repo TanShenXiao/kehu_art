@@ -64,7 +64,7 @@ class Settlements extends Base{
         $where[] = ['o.shopId',"=",(int)session('WST_USER.shopId')];
         $page = Db::name('orders')->alias('o')->join('__SETTLEMENTS__ s','o.settlementId=s.settlementId')
         ->where($where)
-        ->field('orderId,orderNo,payType,goodsMoney,deliverMoney,totalMoney,o.commissionFee,realTotalMoney,s.serviceMoney,s.taxMoney,s.postageMoney
+        ->field('orderId,orderNo,payType,goodsMoney,deliverMoney,totalMoney,o.commissionFee,realTotalMoney,s.taxMoney,s.postageMoney
                  s.settlementTime,s.settlementNo,refundedPayMoney,refundedScoreMoney,refundedGetScoreMoney')
         ->order('s.settlementTime desc')
         ->paginate(input('limit/d'))->toArray();

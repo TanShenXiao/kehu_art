@@ -367,7 +367,7 @@ function toPay(pkey,n){
 }
 //发票信息
 
-function getInvoiceList(){
+function getInvoiceList(orderNo){
     $.post(WST.U('mobile/invoices/pageQuery'),{},function(data){
         var json = WST.toJson(data);
         if(json.status!=-1){
@@ -443,7 +443,7 @@ function saveInvoice(orderId){
             }else{
                 WST.msg(json.msg,'info');
             }
-        })
+        });
     }else{
         setInvoiceText();
     }

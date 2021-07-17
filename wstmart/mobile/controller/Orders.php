@@ -290,4 +290,23 @@ class Orders extends Base{
         $rs = $m->waitDeliverById();
         return WSTReturn("", 1,$rs);
     }
+    public function editOrderInvoice(){
+        $orderId = input('orderid',0);//订单id
+        $isInvoice = input('isInvoice',0);//0 不开票，1开票
+        $invoiceId = input('invoiceId',0);//发票id
+
+        $m = new M();
+        $data = ['isInvoice'=>$isInvoice];
+        $data['invoiceJson']='';
+        $data['invoiceClient']='';
+        if($isInvoice==1){
+            $invo = new \wstmart\common\model\Invoices();
+            $json = $invo->getInviceInfo($invoiceId);
+            $data['invoiceJson']=$json;
+            $data['invoiceClient']='个人';
+        }
+
+        $res = $m->editOrderInvoice($orderId,$data);
+        return WSTReturn("OK", $res);
+    }
 }

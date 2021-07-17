@@ -405,7 +405,7 @@ function invoiceHide(){
 
 
 /* 完成发票信息填写 */
-function saveInvoice(){
+function saveInvoice(orderId){
     var param={};
     var invoiceId = $('#invoiceId').val();// 发票id
     param.id = 0;
@@ -422,6 +422,21 @@ function saveInvoice(){
             var json = WST.toJson(data);
             if(json.status==1){
                 setInvoiceText();
+                //修改订单发票信息
+                var orderInvoice = {};
+                orderInvoice.orderid = orderId;
+                orderInvoice.isInvoice = isInvoice;
+                orderInvoice.invoiceId = json.data.id;
+                    $.post(WST.U('mobile/orders/editOrderInvoice'),orderInvoice,function(data){
+                        var json = WST.toJson(data);
+                        WST.msg(json.msg,'info');
+                        if(json.status==1){
+                            setTimeout(function(){
+                                location.reload();
+                            },1000);
+                        }
+                    }
+
                 if(invoiceId==0)$('#invoiceId').val(json.data.id)
             }else{
                 WST.msg(json.msg,'info');

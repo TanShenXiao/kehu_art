@@ -249,11 +249,17 @@
             	</div>
              	<div class="ui-row-flex">
                 	<div class="ui-col ui-col wst-or-term">
-                        <span class="wst-or-describe">发票信息：</span>{{# if(d.isInvoice==1) { }}需要</div>{{# } else{ }}不需要{{# } }}
+                        <span class="wst-or-describe">发票信息：</span>{{# if(d.isInvoice==1) { }}需要{{# } else{ }}
+
                         {{# if(d.shopIsInvoice==1 && d.orderStatus !=2){ }}
 
-                        <div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick="javascript:getInvoiceList();">修改</div>
-                        {{# } }}
+                        <span style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick="javascript:getInvoiceList({{d.orderId}});">申请开票</span>
+                        {{# }else{ }}
+                        不需要
+                        {{# } } }}
+
+                    </div>
+
 
                     </div>
             	</div>
@@ -262,7 +268,7 @@
                 <div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">发票状态：</span>{{# if(d.isMakeInvoice==1) { }}已开{{# } else{ }}未开{{# } }}</div>
              	<div class="ui-row-flex">
                 	<div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">发票抬头：</span>{{d.invoiceClient}}
-                        {{# if(d.isMakeInvoice!=1 && d.orderStatus!=2) { }}修改信息{{# } }}
+                       <span style="color:blue;" onclick="javascript:getInvoiceList({{d.orderId}});">{{# if(d.isMakeInvoice!=1 && d.orderStatus!=2) { }}修改信息{{# } }}</span>
                     </div>
             	</div>
             {{#
@@ -462,7 +468,7 @@
                 <!--<div style="float:left;color:red;margin-left:10px;">如需开具发票，请直接联系商家</div>-->
                 <div class="wst-clear"></div>
             </div>
-            <button class="button" onclick="saveInvoice()">确定</button>
+            <button class="button" onclick="saveInvoice({{d.orderId}})">确定</button>
         </div>
     </div>
 {/block}

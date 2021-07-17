@@ -202,14 +202,14 @@ $shopFreight = $shopFreight + $freight;
 
 {/* 发票信息层  */}
 <div class="invoice_box" id="frame">
-	<div class="title" id="boxTitle"><span>发票信息{$carts['carts']['shopId']}</span><i class="ui-icon-close-page" onclick="javascript:invoiceHide({$carts['carts']['shopId']});"></i><div class="wst-clear"></div></div>
+	<div class="title" id="boxTitle"><span>发票信息{$carts['carts'][1]['shopId']}</span><i class="ui-icon-close-page" onclick="javascript:invoiceHide({$carts['carts'][1]['shopId']});"></i><div class="wst-clear"></div></div>
 	<div class="content" id="invoice_content">
 		<div class="inv_item">
 
 			<div class="inv_tit inv_line">发票内容</div>
-			<ul class="ui-list inv_ul none_float" onclick="javascript:isInvoice(this,{$carts['carts']['shopId']});">
+			<ul class="ui-list inv_ul none_float" onclick="javascript:isInvoice(this,{$carts['carts'][1]['shopId']});">
 				<input type="hidden" name="invoiceId" id="invoiceId" value="{$invoices_id}" />
-				<input type="hidden" name="invoiceshopId" id="invoiceshopId" value="{$carts['carts']['shopId']}" />
+				<input type="hidden" name="invoiceshopId" id="invoiceshopId" value="{$carts['carts'][1]['shopId']}" />
 				<li>
 					<!--<i class="ui-icon-push invoices0 ui-icon-checked-s wst-active inv_chk" mode="0" word="不开发票"></i>-->
 					是否开票：
@@ -230,7 +230,7 @@ $shopFreight = $shopFreight + $freight;
 			<!--<div style="float:left;color:red;margin-left:10px;">如需开具发票，请直接联系商家</div>-->
 			<div class="wst-clear"></div>
 		</div>
-		<button class="button" onclick="javascript:saveInvoice({$carts['carts']['shopId']});">确定</button>
+		<button class="button" onclick="javascript:saveInvoice({$carts['carts'][1]['shopId']});">确定</button>
 	</div>
 </div>
 

@@ -15,16 +15,18 @@ function toTax(orderId,taxtype){
             end:function(){$('#attrBox').hide();},yes:function(){
                 $('#orderForm').submit();
             }});
+
         $('#orderForm').validator({
             fields: {
                 'tax_price': {rule:"required",msg:{required:'请输入税费金额'}},
             },
             valid: function(form){
                 var params = WST.getParams('.ipt');
-                console.log(params)
+
                 var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
                 params.orderId = orderId;
                 params.taxtype = taxtype;
+                console.log(params);
                 $.post(WST.U('admin/orders/editOrderTaxMoney'),params,function(data,textStatus){
                     layer.close(loading);
                     var json = WST.toAdminJson(data);

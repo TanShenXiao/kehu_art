@@ -8,9 +8,9 @@ class Taxperson extends Base{
      */
     public function pageQuery(){
         $where = [];
-        $where[] = ['o.dataFlag','=',1];
+        $where[] = ['dataFlag','=',1];
 
-        $order = 'i.createtime desc';
+        $order = 'createtime desc';
 
         $page = $this->order($order)->paginate(input('limit/d'))->toArray();
         if(count($page['data'])>0){

@@ -28,13 +28,30 @@ class Shopapplys extends Base{
     public function index(){
         $m = new M();
         $um = new UM();
+
         $userId = (int)session('WST_USER.userId');
         // 获取是否已经填写商家入驻
         $isApply = $m->isApply();
         $rs = $um->getFieldsById($userId,'userPhone,cardNumber');
+        $flowId = (int)input('id',2);
+        $shopFlows = model('shops')->getShopFlowDatas($flowId);
+
+        //获取省级地区信息
+        $area = model('areas')->listQuery(0);
+        $this->assign('area',$area);
         $this->assign('isApply',$isApply);
         $this->assign('userPhone',$rs['userPhone']);
         $this->assign('cardNumber',$rs['cardNumber']);
+
+        $type = (int)input('type/d',0);
+        $this->assign('shopType',$type);
+        $this->assign('prevStep',$shopFlows['prevStep']);
+        $this->assign('currStep',$shopFlows['currStep']);
+        $this->assign('nextStep',$shopFlows['nextStep']);
+        $stepFields = model('shops')->getFlowFieldsById($flowId);
+
+        $this->assign('stepFields',$stepFields);
+        $this->assign('flowId',$flowId);
 
         $apply = model('shops')->getShopApply();
         $this->assign('apply',$apply);

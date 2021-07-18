@@ -334,14 +334,12 @@ class Shops extends CShops{
         $validate = new VShopBase();
         $validate->setRuleAndMessage($shopsData);
         $validate->setRuleAndMessage($shopExtrasData);
-
         Db::startTrans();
         try{
             $shopsData['shopId'] = $shopId;
             //$shopsData['applyStatus'] = 1;
             $shopExtrasData['shopId'] = $shopId;
             if(!$validate->scene('add')->check($data))return WSTReturn($validate->getError());
-
             //首字母
             if( isset( $shopsData['shopName']  ) ){
                 $shopsData['shopNameOne'] = WSTGetFirstCharter($shopsData['shopName'] );
@@ -377,7 +375,7 @@ class Shops extends CShops{
             return WSTReturn('保存成功', 1, ['nextflowId'=>$shopFlows['nextStep']['flowId']]);
         }catch (\Exception $e) {
             Db::rollback();
-            return WSTReturn('保存失败',-1);
+            return WSTReturn('保存失败'.$e->getMessage(),-1);
         }
     }
 
@@ -428,5 +426,20 @@ class Shops extends CShops{
             }
         }
         return $data;
+    }
+
+    /**
+     * 获取店铺指定字段
+     */
+    public function getFieldsById($shopId,$fields){
+        return $this->where(['shopId'=>$shopId,'dataFlag'=>1])->field($fields)->find();
+    }
+
+
+    /*
+     * 获取单个入驻流程里的字段信息
+     */
+    public function getFlowFieldsById($id){
+        return Db::name('shop_bases')->where(['flowId'=>$id,'dataFlag'=>1])->order('fieldSort asc,id asc')->select();
     }
 }

@@ -84,7 +84,7 @@ class Shops extends Base{
 		       ->join('__SHOP_EXTRAS__ ss','s.shopId=ss.shopId','left')
 		       ->join('__USERS__ u','u.userId=s.userId','left')
 		       ->where($where)
-		       ->field('u.loginName,s.shopId,applyLinkMan,applyLinkTel,investmentStaff,isInvestment,shopName,t.tradeName,a2.areaName,shopAddress,shopCompany,applyTime,applyStatus')
+		       ->field('u.loginName,s.shopType,s.shopId,applyLinkMan,applyLinkTel,investmentStaff,isInvestment,shopName,t.tradeName,a2.areaName,shopAddress,shopCompany,applyTime,applyStatus')
 		       ->order('s.shopId desc')->paginate(input('limit/d'));
 	}
 

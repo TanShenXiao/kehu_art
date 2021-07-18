@@ -158,7 +158,7 @@ function WSTGetFirstCharter($str){
 	$s2=iconv('gb2312','UTF-8',$s1);
 	$s=$s2==$str?$s1:$str;
 	if(empty($s{1})){
-		return '';
+		return $str[0];
 	}
 	$asc=ord($s{0})*256+ord($s{1})-65536;
 	if($asc>=-20319 && $asc<=-20284) return 'A';
@@ -184,7 +184,7 @@ function WSTGetFirstCharter($str){
 	if($asc>=-12556 && $asc<=-11848) return 'X';
 	if($asc>=-11847 && $asc<=-11056) return 'Y';
 	if($asc>=-11055 && $asc<=-10247) return 'Z';
-	return null;
+	return  $str[0];
 }
 
 /**
@@ -2578,5 +2578,25 @@ function WSTLangLoginSrc($v){
         case 3:return 'APP安卓端';
         case 4:return 'APP苹果端';
         case 5:return '小程序端';
+    }
+}
+
+/**
+ * 将地区转为 字符串
+ */
+function area_to_str($ids){
+    $ids = explode('_',$ids);
+    $ids = array_filter($ids);
+    $str = '';
+    if(!empty($ids)){
+        $names = Db::table('wst_areas')->where([['areaId','in',$ids]])->field('areaName')->select();
+        foreach ($names as $item){
+            $str.=$item['areaName'];
+        }
+    }
+    if($str){
+         return $str;
+    }else{
+        return "请选择地址";
     }
 }

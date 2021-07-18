@@ -67,7 +67,9 @@ class LogSms extends Base{
 		$data['createTime'] = date('Y-m-d H:i:s');
 		$this->data($data)->save();
 		$rdata = ['msg'=>'短信发送失败!','status'=>-1,'codes'=>[]];
-		hook('sendSMS',['phoneNumber'=>$phoneNumber,"params"=>$params,'smsId'=>$this->smsId,'status'=>&$rdata]);
+        try{
+            hook('sendSMS',['phoneNumber'=>$phoneNumber,"params"=>$params,'smsId'=>$this->smsId,'status'=>&$rdata]);
+        }catch(Exception $e){}
 		return $rdata;
 	}
 

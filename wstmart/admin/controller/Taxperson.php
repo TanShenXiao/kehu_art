@@ -49,18 +49,17 @@ class Taxperson extends Base{
     }
     public function del(){
         $id = input('post.id/d');
-        $data = [];
-        Db::startTrans();
-        try{
-                $result = Db::name('taxperson')->where('id',$id)->delete();
-                if(false !== $result){
-                    Db::commit();
-                    return WSTGrid(['msg'=>"删除成功"], 1);
-                }
-
-        }catch (\Exception $e) {
-            Db::rollback();
+//        Db::startTrans();
+//        try{
+        $result = Db::name('taxperson')->where('id',$id)->delete();
+        if(false !== $result){
+//                    Db::commit();
+            return ['msg'=>"删除成功", 'status'=>1];
         }
-        return WSTGrid(['msg'=>'操作失败'],-1);
+
+//        }catch (\Exception $e) {
+//            Db::rollback();
+//        }
+        return ['msg'=>'操作失败','status'=>0];
     }
 }

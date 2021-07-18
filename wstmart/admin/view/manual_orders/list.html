@@ -39,14 +39,13 @@
                 <th width='150'>
                     <input type="hidden" id="order_id" value="" class="ipt" />
                     所属商品分类<font color='red'>*</font>：</th>
-                <td id="bcat_0_box">
-                    <select id="bcat_0" class='ipt goodsCats' level="0" onchange="WST.ITGoodsCats({id:'bcat_0',val:this.value,isRequire:false,className:'goodsCats'});" data-rule='所属商品分类:required;' data-target="#msg_bcat_0">
+                <td>
+                    <select id="goods_type" class='ipt goodsCats'  data-rule='所属商品分类:required;' >
                         <option value="">-请选择-</option>
-                        {volist name=":WSTGoodsCats(0)" id="vo"}
-                        <option value="{$vo['catId']}">{$vo['catName']}</option>
+                        {volist name=":WSTTaxCategoryList()" id="vo"}
+                        <option value="{$vo['id']}">{$vo['tax_name']}</option>
                         {/volist}
                     </select>
-                    <span class='msg-box' id='msg_bcat_0' style='color:red;'>(至少选择一个商品分类)</span>
                 </td>
             </tr>
             <tr>
@@ -71,9 +70,16 @@
                 </td>
             </tr>
             <tr class="invoice">
-                <th>代办人<font color='red'>*</font>：</th>
+                <th width='150'>
+                    <input type="hidden" value="" class="ipt" />
+                    代办人<font color='red'>*</font>：</th>
                 <td>
-                    <input type="text" id="invoice_agent" name="invoice_agent" class="ipt" maxLength='20'/>
+                    <select id="invoice_agent" class='ipt goodsCats'   >
+                        <option value="">-请选择-</option>
+                        {volist name="wst_taxperson" id="vo"}
+                        <option value="{$vo['id']}">{$vo['jbrxm']}</option>
+                        {/volist}
+                    </select>
                 </td>
             </tr>
             <tr class="invoice">
@@ -112,11 +118,67 @@
                     <input type="text" id="invoice_freight_no" name="invoice_freight_no" class="ipt" maxLength='20'/>
                 </td>
             </tr>
+            <tr class="invoice">
+                <th>备注<font color='red'>*</font>：</th>
+                <td>
+                    <textarea type="text" id="remark" name="remark" class="ipt" maxLength='20'></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id='attrBox2' style='display:none'>
+    <form id="attrForm2">
+        <input type="hidden"  id="id" name="id" class="ipt" value="{$kfp}" />
+        <table class='wst-form wst-box-top'>
+            <tr>
+                <th>商家费率<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="shop_tax_price" name="shop_tax_price" class="ipt" maxLength='20' data-rule='商家费率:required;' />
+                </td>
+            </tr>
         </table>
     </form>
 </div>
 
 <script>
-$(function(){initGrid({$p});})
+$(function(){
+
+    initGrid({$p});
+
+    let kfp = "{$kfp}";
+    if(kfp != 0){
+        layui.form.render();
+        var box2 = WST.open({title:'费率设置',type:1,content:$('#attrBox2'),area: ['750px', '200px'],btn:['确定','取消'],
+            end:function(){$('#attrBox2').hide();},yes:function(){
+                $('#attrForm2').submit();
+            }});
+        $('#attrForm2').validator({
+            fields: {
+                'shop_tax_price': {rule:"required",msg:{required:'请输入费率'}},
+            },
+            valid: function(form){
+                var params = WST.getParams('.ipt');
+                console.log(params)
+                var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
+
+                $.post(WST.U('admin/manual_orders/change_shop_tax_price'),params,function(data,textStatus){
+                    layer.close(loading);
+                    var json = WST.toAdminJson(data);
+                    if(json.status=='1'){
+                        WST.msg("操作成功",{icon:1});
+                        window.location.href = WST.U("admin/manual_orders/index/")
+                    }else{
+                        WST.msg(json.msg,{icon:2});
+                    }
+                });
+            }
+        });
+    }
+
+
+})
+
 </script>
 {/block}

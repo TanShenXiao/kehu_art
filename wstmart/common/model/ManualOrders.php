@@ -36,7 +36,7 @@ class ManualOrders extends Base{
         if(count($page['data'])>0){
             foreach ($page['data'] as $key => $v){
                 if($v['goods_type']){
-                    $page['data'][$key]['goods_type'] = GoodsCats::where(['catId' => $v['goods_type']])->value('catName');
+                    $page['data'][$key]['goods_type'] = Db::name('taxperson')->where(['id' => $v['goods_type']])->value('jbrxm');
                 }
             }
         }
@@ -65,6 +65,7 @@ class ManualOrders extends Base{
             $invoice_data['price'] = input('invoice_price');
             $invoice_data['freight_price'] = input('invoice_freight_price');
             $invoice_data['freight_no'] = input('invoice_freight_no');
+            $invoice_data['remark'] = input('remark');
             $invoice_data['order_no'] =  $data['order_no'];
             $invoice_data['order_goods_id'] =  0;
             $invoice_data['created_time'] =  0;

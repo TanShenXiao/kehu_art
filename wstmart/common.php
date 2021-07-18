@@ -518,6 +518,15 @@ function WSTGoodsCatsList($catId = ['365','366','367','368','369','370'], $where
 }
 
 /**
+ * 获取发票分类
+ */
+function WSTTaxCategoryList(){
+    $where[] = ['isshow','=',1];
+    return Db::name('tax_category')->where($where)
+        ->field("*")->select();
+}
+
+/**
  * 获取精选信息
  * @param $dataType
  * @param int $limit

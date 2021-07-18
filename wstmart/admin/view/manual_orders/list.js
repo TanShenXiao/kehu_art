@@ -29,11 +29,15 @@ function initGrid(page){
                     return h;
             }},
             {title:'创建时间', name:'created_time' , width: 120,sortable:true,sort:true},
-           /* {title:'操作' , width: 60,name:'status', renderer:function(val,item,rowIndex){
+            {title:'操作' , width: 60,name:'status', renderer:function(val,item,rowIndex){
                     var h = "";
-                    h += "<a class='btn btn-blue' href='javascript:toEdit("+ item['id']+")'><i class='fa fa-pencil'></i>修改</a> ";
+                    if(item['status'] == 0 && item['is_invoice'] == 1){
+                        h += "<a class='btn btn-blue' href='"+ WST.U("admin/manual_orders/index/kfp/" + item['id']) +"'><i class='fa fa-pencil'></i>去开票</a> ";
+                    }else {
+                        h += "<a class='btn btn-blue' href='javascript:;' >已设置费率</a>";
+                    }
                     return h;
-            }}*/
+            }}
             ];
     mmg = $('.mmg').mmGrid({height: (h-90),indexCol: true,indexColWidth:50, cols: cols,method:'POST',nowrap:true,
         url: WST.U('admin/manual_orders/pageQuery',p.join('&')), fullWidthRows: true, autoLoad: false,remoteSort: true,sortName:'createTime',sortStatus:'desc',
@@ -100,10 +104,10 @@ function toEdit(order_id){
         changeArrType(json.attrType);
         layui.form.render();
         if(json.goodsCatId>0){
-            var goodsCatPath = json.goodsCatPath.split("_");
+            /*var goodsCatPath = json.goodsCatPath.split("_");
             $('#bcat_0').val(goodsCatPath[0]);
             var opts = {id:'bcat_0',val:goodsCatPath[0],childIds:goodsCatPath,className:'goodsCats'}
-            WST.ITSetGoodsCats(opts);
+            WST.ITSetGoodsCats(opts);*/
         }
         var title =(order_id==0)?"新增":"编辑";
         var box = WST.open({title:title,type:1,content:$('#attrBox'),area: ['750px', '480px'],btn:['确定','取消'],
@@ -118,7 +122,7 @@ function toEdit(order_id){
                 var params = WST.getParams('.ipt');
                 console.log(params)
                 var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
-                params.goods_type = WST.ITGetGoodsCatVal('goodsCats');
+
                 $.post(WST.U('admin/manual_orders/'+((params.order_id==0)?"add":"edit")),params,function(data,textStatus){
                     layer.close(loading);
                     var json = WST.toAdminJson(data);

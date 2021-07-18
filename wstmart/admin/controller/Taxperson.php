@@ -36,7 +36,7 @@ class Taxperson extends Base{
         $jbrzjhm = input('jbrzjhm',1);
         $jbrmobile = input('jbrmobile',1);
         if(empty($jbrxm) || empty($jbrzjhm) || empty($jbrmobile) ){
-            return ['msg'=>"认证成功",'status'=>0]
+            return ['msg'=>"认证成功",'status'=>0];
         }
         Db::name('taxperson')->insertGetId([
             'jbrxm'=>$jbrxm,

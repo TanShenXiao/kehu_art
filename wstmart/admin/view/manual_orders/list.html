@@ -148,34 +148,38 @@ $(function(){
     initGrid({$p});
 
     let kfp = "{$kfp}";
-    if(kfp != 0){
-        layui.form.render();
-        var box2 = WST.open({title:'费率设置',type:1,content:$('#attrBox2'),area: ['750px', '200px'],btn:['确定','取消'],
-            end:function(){$('#attrBox2').hide();},yes:function(){
-                $('#attrForm2').submit();
-            }});
-        $('#attrForm2').validator({
-            fields: {
-                'shop_tax_price': {rule:"required",msg:{required:'请输入费率'}},
-            },
-            valid: function(form){
-                var params = WST.getParams('.ipt');
-                console.log(params)
-                var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
+    setTimeout(function (){
+        if(kfp != 0){
+            layui.form.render();
+            var box2 = WST.open({title:'费率设置',type:1,content:$('#attrBox2'),area: ['750px', '200px'],btn:['确定','取消'],
+                end:function(){$('#attrBox2').hide();},yes:function(){
+                    $('#attrForm2').submit();
+                }});
+            $('#attrForm2').validator({
+                fields: {
+                    'shop_tax_price': {rule:"required",msg:{required:'请输入费率'}},
+                },
+                valid: function(form){
+                    var params = WST.getParams('.ipt');
+                    console.log(params)
+                    var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
 
-                $.post(WST.U('admin/manual_orders/change_shop_tax_price'),params,function(data,textStatus){
-                    layer.close(loading);
-                    var json = WST.toAdminJson(data);
-                    if(json.status=='1'){
-                        WST.msg("操作成功",{icon:1});
-                        window.location.href = WST.U("admin/manual_orders/index/")
-                    }else{
-                        WST.msg(json.msg,{icon:2});
-                    }
-                });
-            }
-        });
-    }
+                    $.post(WST.U('admin/manual_orders/change_shop_tax_price'),params,function(data,textStatus){
+                        layer.close(loading);
+                        var json = WST.toAdminJson(data);
+                        if(json.status=='1'){
+                            WST.msg("操作成功",{icon:1});
+                            window.location.href = WST.U("admin/manual_orders/index/")
+                        }else{
+                            WST.msg(json.msg,{icon:2});
+                        }
+                    });
+                }
+            });
+        }
+
+    },1000)
+
 
 
 })

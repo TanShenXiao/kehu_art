@@ -45,7 +45,7 @@ class Taxperson extends Base{
             'isauth'=>1,
             'createtime'=>time(),
         ]);
-        return WSTGrid('',1);
+        return WSTGrid(['msg'=>"认证成功"],1);
     }
     public function del(){
         $id = input('post.id/d');

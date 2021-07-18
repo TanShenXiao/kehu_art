@@ -52,10 +52,13 @@ $(function () {
                     <input type="hidden" id="catId" name="catId" class="ipt" value="{$object.catId}"/>
                     <table class='wst-form wst-box-top'>
                         <tr>
-                            <th width='100'>开票对应分类<font color='red'>*</font>：</th>
+                            <th width='100'>开票对应分类<font color='red'>  </font>：</th>
                             <td>
-                                <select name="taxcatid" id="taxcatid">
-                                    <option value=""></option>
+                                <select  id="taxcatid"  lay-filter="taxcatid" class='ipt' maxLength='20'  style="display: none" onclick="" >
+                                    <option value="" tax_free="">请选择</option>
+                                    {foreach $tax_category as $item}
+                                    <option value="{$item['id']}" {if $object['taxcatid'] == $item['id']} selected="selected"{/if} tax_free="{$item['tax_free']}">{$item['tax_name']}</option>
+                                    {/foreach}
                                 </select>
                             </td>
                         </tr>
@@ -95,7 +98,7 @@ $(function () {
                         </tr>
                         <tr>
                             <th width='100'>税率设置<font color='red'> </font>：</th>
-                            <td><input type='text' id='fax' name='fax' class='ipt' value="{$object.fax}"/></td>
+                            <td><input type='text' class="layui-disabled" id='fax' name='fax' class='ipt' value="{$object.fax}"/></td>
                         </tr>
                         <tr>
                             <th width='100'>楼层副标题<font color='red'> </font>：</th>

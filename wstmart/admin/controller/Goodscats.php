@@ -134,6 +134,9 @@ class GoodsCats extends Base{
             }
         }
         $this->assign('object',$object);
+        $tax_category = Db::name('tax_category')->where('isshow',1)->order('craetetime desc')->select();
+        $this->assign('tax_category',$tax_category);
+
         return $this->fetch("edit");
     }
 }

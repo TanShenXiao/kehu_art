@@ -242,3 +242,11 @@ function editOrder(id,obj){
 	    }
 	});
 }
+$(function (){
+	var form = layui.form;
+	form.on('select(taxcatid)', function(data){
+
+		var val = $("#taxcatid").find("option:selected").attr("tax_free");
+		$("#fax").val(val)
+	});
+})

@@ -44,12 +44,12 @@ class Shopapplys extends Base{
         $this->assign('cardNumber',$rs['cardNumber']);
 
         $type = (int)input('type/d',0);
-        echo $type;
         $this->assign('shopType',$type);
         $this->assign('prevStep',$shopFlows['prevStep']);
         $this->assign('currStep',$shopFlows['currStep']);
         $this->assign('nextStep',$shopFlows['nextStep']);
         $stepFields = model('shops')->getFlowFieldsById($flowId);
+
         $this->assign('stepFields',$stepFields);
         $this->assign('flowId',$flowId);
 

@@ -116,19 +116,26 @@ label{font-weight: normal;}
                                 <tr>
                                     <th  {if $vo['fieldComment']}valign="top" style='padding-top: 20px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
                                     <td>
-                                        <select id="{$vo['fieldName']}" class='a-ipt'>
-                                            {if $vo['fieldAttr']!='custom'}
-                                                {volist name="$fieldAttr" id='voo'}
-                                                {php}$fieldAttrValue = explode('||',$voo);{/php}
-                                                <option value="{$fieldAttrValue[0]}" {if $apply[$vo['fieldName']]==$fieldAttrValue[0]}selected{/if} >{$fieldAttrValue[1]}</option>
-                                                {/volist}
-                                            {else}
-                                                {php}
-                                                    $banks = WSTTable('banks',['dataFlag'=>1],'bankId,bankName',100);
-                                                    foreach($banks as $aky => $bank){
-                                                {/php}
-                                                <option value="{$bank['bankId']}" {if $apply[$vo['fieldName']]==$bank['bankId']}selected{/if}>{$bank['bankName']}</option>
-                                                {php}}{/php}
+                                        <select id="{$vo['fieldName']}" class="a-ipt" style="width: 100%;">
+                                            {if $vo['fieldAttr']=='trades'}
+                                            {php}
+                                            $banks = WSTTable('trades',['dataFlag'=>1],'tradeId,tradeName',100);
+                                            foreach($banks as $aky => $bank){
+                                            {/php}
+                                            <option value="{$bank['tradeId']}" {if $apply[$vo['fieldName']]==$bank['tradeId']}selected{/if}>{$bank['tradeName']}</option>
+                                            {php}}{/php}
+                                            {else if $vo['fieldAttr']=='custom'}
+                                            {php}
+                                            $banks = WSTTable('banks',['dataFlag'=>1],'bankId,bankName',100);
+                                            foreach($banks as $aky => $bank){
+                                            {/php}
+                                            <option value="{$bank['bankId']}" {if $apply[$vo['fieldName']]==$bank['bankId']}selected{/if}>{$bank['bankName']}</option>
+                                            {php}}{/php}
+                                            {/else}
+                                            {volist name="$fieldAttr" id='voo'}
+                                            {php}$fieldAttrValue = explode('||',$voo);{/php}
+                                            <option value="{$fieldAttrValue[0]}" {if $apply[$vo['fieldName']]==$fieldAttrValue[0]}selected{/if} >{$fieldAttrValue[1]}</option>
+                                            {/volist}
                                             {/if}
                                         </select>
                                         {if $vo['fieldComment']}<div class="c-tip">{$vo['fieldComment']|htmlspecialchars_decode}</div>{/if}
@@ -321,16 +328,26 @@ label{font-weight: normal;}
                                 <tr>
                                     <th {if $vo['fieldComment']}valign="top" style='padding-top: 20px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
                                     <td>
-                                        <select id="{$vo['fieldName']}" class='a-ipt'>
-                                            {if $vo['fieldAttr']!='custom'}
-                                                {volist name="$fieldAttr" id='voo'}
-                                                {php}$fieldAttrValue = explode('||',$voo);{/php}
-                                                <option value="{$fieldAttrValue[0]}" {if $apply[$vo['fieldName']]==$fieldAttrValue[0]}selected{/if} >{$fieldAttrValue[1]}</option>
-                                                {/volist}
-                                            {else}
-                                                {foreach $bankList as $v}
-                                                <option value="{$v['bankId']}" {if $apply[$vo['fieldName']]==$v['bankId']}selected{/if}>{$v['bankName']}</option>
-                                                {/foreach}
+                                        <select id="{$vo['fieldName']}" class="a-ipt" style="width: 100%;">
+                                            {if $vo['fieldAttr']=='trades'}
+                                            {php}
+                                            $banks = WSTTable('trades',['dataFlag'=>1],'tradeId,tradeName',100);
+                                            foreach($banks as $aky => $bank){
+                                            {/php}
+                                            <option value="{$bank['tradeId']}" {if $apply[$vo['fieldName']]==$bank['tradeId']}selected{/if}>{$bank['tradeName']}</option>
+                                            {php}}{/php}
+                                            {else if $vo['fieldAttr']=='custom'}
+                                            {php}
+                                            $banks = WSTTable('banks',['dataFlag'=>1],'bankId,bankName',100);
+                                            foreach($banks as $aky => $bank){
+                                            {/php}
+                                            <option value="{$bank['bankId']}" {if $apply[$vo['fieldName']]==$bank['bankId']}selected{/if}>{$bank['bankName']}</option>
+                                            {php}}{/php}
+                                            {/else}
+                                            {volist name="$fieldAttr" id='voo'}
+                                            {php}$fieldAttrValue = explode('||',$voo);{/php}
+                                            <option value="{$fieldAttrValue[0]}" {if $apply[$vo['fieldName']]==$fieldAttrValue[0]}selected{/if} >{$fieldAttrValue[1]}</option>
+                                            {/volist}
                                             {/if}
                                         </select>
                                         {if $vo['fieldComment']}<div class="c-tip">{$vo['fieldComment']|htmlspecialchars_decode}</div>{/if}
@@ -496,9 +513,19 @@ label{font-weight: normal;}
                                             <option value="{$fieldAttrValue[0]}" {if $apply[$vo['fieldName']]==$fieldAttrValue[0]}selected{/if} >{$fieldAttrValue[1]}</option>
                                             {/volist}
                                             {else}
-                                            {foreach $bankList as $v}
-                                            <option value="{$v['bankId']}" {if $apply[$vo['fieldName']]==$v['bankId']}selected{/if}>{$v['bankName']}</option>
+                                            {if $vo['fieldName']=='tradeId'}
+                                            <option value="">-请选择-</option>
+                                            {volist name=":WSTTrades(0)" id="td"}
+                                            <option value="{$td['tradeId']}" {if $apply[$vo['fieldName']]==$td['tradeId']}selected{/if}>{$td['tradeName']}</option>
+                                            {/volist}
+                                            {else}
+                                            {php}
+                                            $bankList = WSTTable('banks',['dataFlag'=>1,'isShow'=>1],'bankId,bankName',100);
+                                            {/php}
+                                            {foreach $bankList as $bk}
+                                            <option value="{$bk['bankId']}" {if $apply[$vo['fieldName']]==$bk['bankId']}selected{/if}>{$bk['bankName']}</option>
                                             {/foreach}
+                                            {/if}
                                             {/if}
                                         </select>
                                         {if $vo['fieldComment']}<div class="c-tip">{$vo['fieldComment']|htmlspecialchars_decode}</div>{/if}

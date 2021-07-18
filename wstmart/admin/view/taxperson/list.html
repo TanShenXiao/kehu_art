@@ -11,21 +11,39 @@
 {/block}
 {block name="main"}
 <input type="hidden" id="userId" class="j-ipt" value='{$userId}' autocomplete="off"/>
-<input type="text" name="orderNo" style="width: 200px;"  placeholder='订单编号' id="orderNo" class='j-ipt'/>
-<input type="text" name="shopName" style="width: 200px;"  placeholder='店铺名称/店铺编号' id="shopName" class='j-ipt'/>
-<input type="text" name="goodsName" style="width: 200px;"  placeholder='商品名称' id="goodsName" class='j-ipt'/>
-<input type="text" name="freight_no" style="width: 200px;"  placeholder='快递单号' id="freight_no" class='j-ipt'/>
-<select id="type" name="type" class='j-ipt'>
-    <option value='1'>普通订单</option>
-    <option value='2'>手工订单</option>
-</select>
    <button class="btn btn-primary" onclick='javascript:loadGrid(0)'><i class="fa fa-search"></i>查询</button>
    {if($userId>0)}<button class="btn f-right btn-fixtop" onclick="javascript:location.href='{:Url(\'admin/users/index\',\'p=\'.$p)}'" style="margin-left: 10px;"><i class="fa fa-angle-double-left"></i>返回</button>{/if}
+<button class="btn btn-success f-right" onclick="javascript:toTax(0);"><i class='fa fa-plus'></i>新增</button>
    <div style='clear:both'></div>
 </div>
 <div class='wst-grid'>
  <div id="mmg" class="mmg"></div>
  <div id="pg" style="text-align: right;"></div>
+</div>
+<div id='attrBox' style='display:none'>
+    <form id="orderForm">
+        <table class='wst-form wst-box-top'>
+            <tr>
+                <th>经办人姓名<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="jbrxm" name="jbrxm" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr>
+                <th>经办人证件号码<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="jbrzjhm" name="jbrzjhm" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+            <tr>
+                <th>经办人手机号码<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="jbrmobile" name="jbrmobile" class="ipt" maxLength='20'/>
+                </td>
+            </tr>
+
+        </table>
+    </form>
 </div>
 <script>
 $(function(){initGrid({$p});})

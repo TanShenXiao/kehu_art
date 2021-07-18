@@ -8,6 +8,39 @@ $(function(){
         elem: '#endDate'
     });
 })
+function toTax(orderId){
+    var title ="代开人信息填写";
+    var box = WST.open({title:title,type:1,content:$('#attrBox'),area: ['750px', '480px'],btn:['确定','取消'],
+        end:function(){$('#attrBox').hide();},yes:function(){
+            $('#orderForm').submit();
+        }});
+
+    $('#orderForm').validator({
+        fields: {
+            'jbrxm': {rule:"required",msg:{required:'请输入代开人姓名'}},
+            'jbrmobile': {rule:"required",msg:{required:'请输入代开人手机号码'}},
+            'jbrzjhm': {rule:"required",msg:{required:'请输入代开人身份证号码'}},
+        },
+        valid: function(form){
+            var params = WST.getParams('.ipt');
+
+            var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
+            console.log(params);
+            $.post(WST.U('admin/taxperson/add'),params,function(data,textStatus){
+                layer.close(loading);
+                var json = WST.toAdminJson(data);
+                if(json.status=='1'){
+                    WST.msg("操作成功",{icon:1});
+                    layer.close(box);
+                    $('#attrBox').hide();
+                    layer.close(box);
+                }else{
+                    WST.msg(json.msg,{icon:2});
+                }
+            });
+        }
+    });
+}
 function initGrid(page){
 	var p = WST.arrayParams('.j-ipt');
 	var h = WST.pageHeight();
@@ -16,13 +49,13 @@ function initGrid(page){
             {title:'经办人证件号码', name:'jbrzjhm', width: 60,sortable:true},
             {title:'经办人手机号码', name:'jbrmobile' , width: 90,sortable:true},
             {title:'是否认证', name:'isauthstr', width: 120,sortable:true},
-          /*  {title:'操作' , width: 60,name:'status', renderer:function(val,item,rowIndex){
+            {title:'操作' , width: 60,name:'status', renderer:function(val,item,rowIndex){
             	var h = "";
             	if(item['freight_no']){
-                    h += "<a class='btn btn-blue' href='javascript:toView(" + item['orderId'] + ")'><i class='fa fa-search'></i>查看物流信息</a> ";
+                    h += "<a class='btn btn-blue' href='javascript:del(" + item['id'] + ")'><i class='fa fa-search'></i>删除</a> ";
                 }
 	            return h;
-            }}*/
+            }}
             ];
  
     mmg = $('.mmg').mmGrid({height: (h-90),indexCol: true,indexColWidth:50, cols: cols,method:'POST',nowrap:true,
@@ -32,6 +65,22 @@ function initGrid(page){
         ]
     });
     loadGrid(page);
+}
+function del(id,type){
+    var box = WST.confirm({content:"您确定要删除该开票人员吗?",yes:function(){
+            var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
+            $.post(WST.U('admin/taxperson/del'),{id:id},function(data,textStatus){
+                layer.close(loading);
+                var json = WST.toAdminJson(data);
+                if(json.status=='1'){
+                    WST.msg(json.msg,{icon:1});
+                    layer.close(box);
+                    loadGrid(WST_CURR_PAGE);
+                }else{
+                    WST.msg(json.msg,{icon:2});
+                }
+            });
+        }});
 }
 
 function toView(id){

@@ -1,5 +1,6 @@
 <?php
 namespace wstmart\admin\controller;
+use think\Db;
 use wstmart\common\model\Taxperson as M;
 
 class Taxperson extends Base{
@@ -29,5 +30,29 @@ class Taxperson extends Base{
         }else{
             return WSTGrid($m->pageManualQuery());
         }
+    }
+    public function add(){
+        $jbrxm = input('jbrxm',1);
+        $jbrzjhm = input('jbrzjhm',1);
+        $jbrmobile = input('jbrmobile',1);
+        if(empty($jbrxm) || empty($jbrzjhm) || empty($jbrmobile) ){
+            return WSTGrid(['msg'=>"经办人信息必须填写"],0);
+        }
+    }
+    public function del(){
+        $id = input('post.id/d');
+        $data = [];
+        Db::startTrans();
+        try{
+                $result = Db::name('taxperson')->where('id',$id)->delete();
+                if(false !== $result){
+                    Db::commit();
+                    return WSTGrid(['msg'=>"删除成功"], 1);
+                }
+
+        }catch (\Exception $e) {
+            Db::rollback();
+        }
+        return WSTGrid(['msg'=>'操作失败'],-1);
     }
 }

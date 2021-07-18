@@ -36,7 +36,7 @@ class Taxperson extends Base{
         $jbrzjhm = input('jbrzjhm',1);
         $jbrmobile = input('jbrmobile',1);
         if(empty($jbrxm) || empty($jbrzjhm) || empty($jbrmobile) ){
-            return WSTGrid(['msg'=>"经办人信息必须填写"],0);
+            return ['msg'=>"认证成功",'status'=>0]
         }
         Db::name('taxperson')->insertGetId([
             'jbrxm'=>$jbrxm,
@@ -45,7 +45,7 @@ class Taxperson extends Base{
             'isauth'=>1,
             'createtime'=>time(),
         ]);
-        return WSTGrid(['msg'=>"认证成功"],1);
+        return ['msg'=>"认证成功",'status'=>1];
     }
     public function del(){
         $id = input('post.id/d');

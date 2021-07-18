@@ -27,7 +27,7 @@
 #detailBox{font-size:.15rem}#boxTitle{background:#fff}
 .c-item{margin-top:45px;padding:10px 5px;font-size:.15rem}
 .c-box{margin:0;padding:0;font-size:.15rem}
-.c-title{padding:30px 5px 5px 5px;padding-top:10px;background:#fff;height:36px!important;border-bottom:1px solid #eaeaea}
+.c-title{padding:30px 5px 5px 5px;padding-top:10px;background:#fff;!important;border-bottom:1px solid #eaeaea}
 .c-content{background:#fff;height:125px!important;padding:5px;}
 .webuploader-pick{padding:5px 6px!important;}
 .feedbackFileBox{min-height:60px;margin-top: 15px;margin-left: 5px;}
@@ -50,8 +50,48 @@
 .ui-checkbox input:before,.ui-checkbox-s input:before{left:53px;top:-13px;font-size:26px!important}
 .ui-checkbox input:checked:before,.ui-checkbox-s input:checked:before{color:#e32726!important}
 .c-btn{height: 38px;line-height: 38px;font-size: 0.15rem;color: #fff;background: #e00102;border-radius: 3px;border-bottom: 1px solid #e00102;}
-.item-left{margin-right: 10px;}
-.item-right{width:70%;}
+.item-left{margin-right: 10px;width: 36%;}
+.item-right{width:60%;}
 .item-right input{border:0;}
 .apply-container{margin-top:72px}
 #applyIntention{width:100%;height:115px;resize:none}
+.address{float:right;width:60%;height:35px;line-height:35px;margin-top:4px;font-size:.15rem}
+
+.wst-fr-box2{position:fixed;z-index:9999;left:0;bottom:-285px;width:100%;min-height:50%;background:#fff;font-size:.15rem}
+.wst-fr-box2 .title,.wst-cart-box .title{position:relative;padding:6px 0;border-bottom:1px solid #f1f1f1;}
+.wst-fr-box2 .title span{float:left;width:100%;height:26px;line-height:26px;text-align:center;font-size:15px;}
+.wst-fr-box2 .title i,.wst-cart-box .title i{position:absolute;right:5px;top:-2px;font-size:27px}
+.wst-fr-box2 .content{padding:10px 10px 20px 10px}
+.wst-fr-box2 .option{float:left;width:100%;border-bottom:1px solid #edebeb}
+.wst-fr-box2 .option p{float:left;width:50px;height:26px;line-height:26px;padding:0 5px;text-align:center}
+.wst-fr-box2 .option .active{border-bottom:1px solid #de0301}
+.wst-fr-box2 .list{padding-top:5px;font-size:0.14rem;}
+.wst-fr-box2 .list.hide{display:none}
+.wst-fr-box2 .list p{padding:5px 0}
+.wst-fr-box2 .list .active{color:#de0301}
+
+.wst-cover{position:fixed;left:0;top:0;background-color:#000;width:100%;height:100%;filter:alpha(opacity=60);opacity:.6;z-Index:9999;display:none}
+
+.webuploader-element-invisible{
+    opacity: 0;
+}
+
+.c-tip{
+    flex-basis: 100%;
+}
+.tsx_li{
+    display: flex;flex-direction: row;align-items: center;height: auto !important;flex-wrap: wrap;
+}
+.shop_type{
+    display: inline-block;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #363434;
+}
+.shop_type_checked{
+    background: red;
+}
+.apply-box {border-top: 2px solid #FC7A64;border-left: 1px solid #eeeeee;border-right: 1px solid #eeeeee;border-bottom: 1px solid #eeeeee;padding: 5px 0px 0px 5px;}
+.examine-tips{text-align: center;width:100%;padding-top:60px;padding-bottom:80px;font-weight: 600;font-size:16px;color:#999;}

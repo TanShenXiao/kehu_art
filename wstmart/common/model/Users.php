@@ -342,7 +342,7 @@ class Users extends Base{
     	//请允许手机号码注册
 		$data['userPhone'] = $loginName;
 		$verify = session('VerifyCode_userPhone_Verify');
-		if(($mobileCode=="" || $verify != $mobileCode) and $mobileCode !='123456'){
+		if($mobileCode=="" || $verify != $mobileCode){
 			return WSTReturn("短信验证码错误!");
 		}
 		$loginName = WSTRandomLoginName($loginName);

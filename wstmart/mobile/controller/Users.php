@@ -133,21 +133,20 @@ class Users extends Base{
     	if($rs["status"]!=1){
     		return WSTReturn("手机号已存在!");
     	}
-    	$phoneVerify =123456;// rand(100000,999999);
+    	$phoneVerify = rand(100000,999999);
     	$tpl = WSTMsgTemplates('PHONE_USER_REGISTER_VERFIY');
 
-//    	if( $tpl['tplContent']!='' && $tpl['status']=='1'){
-//    		$params = ['tpl'=>$tpl,'params'=>['MALL_NAME'=>WSTConf("CONF.mallName"),'VERFIY_CODE'=>$phoneVerify,'VERFIY_TIME'=>10]];
-//    		$m = new LogSms();
-//    		$rv = $m->sendSMS(0,$userPhone,$params,'getPhoneVerifyCode',$phoneVerify);
-//    	}
-//    	if($rv['status']==1){
+    	if( $tpl['tplContent']!='' && $tpl['status']=='1'){
+    		$params = ['tpl'=>$tpl,'params'=>['MALL_NAME'=>WSTConf("CONF.mallName"),'VERFIY_CODE'=>$phoneVerify,'VERFIY_TIME'=>10]];
+    		$m = new LogSms();
+    		$rv = $m->sendSMS(0,$userPhone,$params,'getPhoneVerifyCode',$phoneVerify);
+    	}
+    	if($rv['status']==1){
 			session('VerifyCode_userPhone',$userPhone);
 			session('VerifyCode_userPhone_Verify',$phoneVerify);
 			session('VerifyCode_userPhone_Time',time());
-//    	}
-//    	return $rv;
-    	return ['status'=>1,'msg'=>"短信发送成功"];
+    	}
+    	return $rv;
     }
     /**
      * 获取验证码(手机登录)

@@ -52,6 +52,14 @@ $(function () {
                     <input type="hidden" id="catId" name="catId" class="ipt" value="{$object.catId}"/>
                     <table class='wst-form wst-box-top'>
                         <tr>
+                            <th width='100'>开票对应分类<font color='red'>*</font>：</th>
+                            <td>
+                                <select name="taxcatid" id="taxcatid">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
                             <th width='100'>商品分类名称<font color='red'>*</font>：</th>
                             <td><input type='text' id='catName' name="catName" class='ipt' maxLength='20' value="{$object.catName}" /></td>
                         </tr>

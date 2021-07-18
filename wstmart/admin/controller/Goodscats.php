@@ -1,5 +1,6 @@
 <?php
 namespace wstmart\admin\controller;
+use think\Db;
 use wstmart\admin\model\GoodsCats as M;
 /**
  * ============================================================================
@@ -42,7 +43,9 @@ class GoodsCats extends Base{
     	$m = new M();
     	return $m->get((int)Input("post.id"));
     }
-    
+    public function getTaxPerson(){
+        return Db::name('tax_category')->where('isshow',1)->order('craetetime desc')->select();
+    }
     /**
      * 设置是否推荐/不推荐
      */
@@ -64,6 +67,7 @@ class GoodsCats extends Base{
      */
     public function add(){
     	$m = new M();
+
     	return $m->add();
     }
     

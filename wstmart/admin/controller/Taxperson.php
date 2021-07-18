@@ -38,6 +38,14 @@ class Taxperson extends Base{
         if(empty($jbrxm) || empty($jbrzjhm) || empty($jbrmobile) ){
             return WSTGrid(['msg'=>"经办人信息必须填写"],0);
         }
+        Db::name('taxperson')->insertGetId([
+            'jbrxm'=>$jbrxm,
+            'jbrzjhm'=>$jbrzjhm,
+            'jbrmobile'=>$jbrmobile,
+            'isauth'=>1,
+            'createtime'=>time(),
+        ]);
+        return WSTGrid('',1);
     }
     public function del(){
         $id = input('post.id/d');

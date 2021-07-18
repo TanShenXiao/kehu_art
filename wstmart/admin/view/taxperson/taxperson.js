@@ -51,9 +51,7 @@ function initGrid(page){
             {title:'是否认证', name:'isauthstr', width: 120,sortable:true},
             {title:'操作' , width: 60,name:'status', renderer:function(val,item,rowIndex){
             	var h = "";
-            	if(item['freight_no']){
                     h += "<a class='btn btn-blue' href='javascript:del(" + item['id'] + ")'><i class='fa fa-search'></i>删除</a> ";
-                }
 	            return h;
             }}
             ];

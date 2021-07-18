@@ -216,10 +216,13 @@
               <div class="pay-boxs">
                  <div class='box-head'>发票信息</div>
                    <div class="invoic-box">
-
-                     <div style="float:left;" id="invoice_info_{$vo['shopId']}">不开发票</div>
-                     <div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick='javascript:changeInvoice(1,"#invoiceClientDiv",{$vo['shopId']},this)'>修改</div>
-
+                       {if(($vo['isTaxAuth']==1 || $vo['shopType']==0)  && $vo['isInvoice']==1)}
+                         <div style="float:left;" id="invoice_info_{$vo['shopId']}">不开发票</div>
+                         <div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick='javascript:changeInvoice(1,"#invoiceClientDiv",{$vo['shopId']},this)'>修改</div>
+                        {/if}
+                  {if($vo['isTaxAuth']==0 && $vo['shopType']==1 && $vo['isInvoice']==1)}
+                    <div style="float:left;" id="invoice_info_{$vo['shopId']}">如需发票，请联系商户处理</div>
+                  {/if}
                      <div class="wst-clear"></div>
                         <input type="hidden" id="invoice_obj_{$vo['shopId']}" value="0" />
                        <input type="hidden" id="invoiceId_{$vo['shopId']}" value="0" class='j-ipt' />

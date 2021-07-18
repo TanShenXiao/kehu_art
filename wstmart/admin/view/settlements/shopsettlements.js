@@ -10,13 +10,11 @@ function initGrid(p){
             {title:'结算佣金', name:'commissionFee' ,width:60,sortable:true, renderer:function(val,item,rowIndex){
                 return '￥'+val;
             }},
-            {title:'服务费', name:'serviceMoney' ,width:60,sortable:true, renderer:function(val,item,rowIndex){
-                    return '￥'+val;
-                }},
+
             {title:'税费', name:'taxMoney' ,width:60,sortable:true, renderer:function(val,item,rowIndex){
                     return '￥'+val;
                 }},
-            {title:'开票邮费', name:'postageMoney' ,width:60,sortable:true, renderer:function(val,item,rowIndex){
+            {title:'发票邮费', name:'postageMoney' ,width:60,sortable:true, renderer:function(val,item,rowIndex){
                     return '￥'+val;
                 }},
             {title:'返还金额', name:'backMoney' ,width:40,sortable:true, renderer:function(val,item,rowIndex){

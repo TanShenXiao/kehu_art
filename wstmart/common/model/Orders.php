@@ -2651,4 +2651,22 @@ class Orders extends Base{
 		Db::name('orders')->where('orderId',$orderId)->update(['deliverSmsCode'=>$phoneVerify]);
 		return WSTReturn('提货码发送成功。', 1);
 	}
+	//修改订单开票信息
+    public function editOrderInvoice($orderId,$data){
+        Db::startTrans();
+        try{
+
+            $result = $this->where(['orderId'=>$orderId])->update($data);
+            if($result){
+                Db::commit();
+                return WSTReturn('操作成功',1);
+            }else{
+                Db::rollback();
+                return WSTReturn('操作失败',-1);
+            }
+        }catch (\Exception $e) {
+            Db::rollback();
+            return WSTReturn('操作失败',-1);
+        }
+    }
 }

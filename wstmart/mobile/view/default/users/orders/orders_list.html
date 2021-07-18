@@ -249,20 +249,26 @@
             	</div>
              	<div class="ui-row-flex">
                 	<div class="ui-col ui-col wst-or-term">
-                        <span class="wst-or-describe">发票信息：</span>{{# if(d.isInvoice==1) { }}需要</div>{{# } else{ }}不需要{{# } }}
-                        {{# if(d.shopIsInvoice==0){ }}
+                        <span class="wst-or-describe">发票信息：</span>{{# if(d.isInvoice==1) { }}需要{{# } else{ }}
 
-                        <div style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick="javascript:getInvoiceList();">修改</div>
-                        {{# } }}
+                        {{# if(d.shopIsInvoice==1 && d.orderStatus !=2){ }}
+
+                        <span style="float:left;color:blue;margin-left:10px;cursor:pointer;" onclick="javascript:getInvoiceList({{d.orderId}});">申请开票</span>
+                        {{# }else{ }}
+                        不需要
+                        {{# } } }}
+
+                    </div>
+
 
                     </div>
             	</div>
 
 			{{# if(d.isInvoice==1) { }}
-                <div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">发票状态：</span>{{# if(d.isMakeInvoice==1) { }}已开{{# } else{ }}未开{{# } }}</div>
+                <div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">发票状态：</span>{{# if(d.isMakeInvoice==0) { }}未开{{# } else{ }}已开{{# } }}</div>
              	<div class="ui-row-flex">
                 	<div class="ui-col ui-col wst-or-term"><span class="wst-or-describe">发票抬头：</span>{{d.invoiceClient}}
-                        {{# if(d.isMakeInvoice!=1 && d.orderStatus!=2) { }}修改信息{{# } }}
+                       <span style="color:blue;" onclick="javascript:getInvoiceList({{d.orderId}});">{{# if(d.isMakeInvoice!=1 && d.orderStatus!=2) { }}修改信息{{# } }}</span>
                     </div>
             	</div>
             {{#
@@ -441,6 +447,7 @@
                 <div class="inv_tit inv_line">发票内容</div>
                 <ul class="ui-list inv_ul none_float" onclick="">
                     <input type="hidden" name="invoiceId" id="invoiceId" value="" />
+                    <input type="hidden" name="invoiceorderId" id="invoiceorderId" value="" />
                     <input type="hidden" name="invoiceshopId" id="invoiceshopId" value="" />
                     <li>
                         <!--<i class="ui-icon-push invoices0 ui-icon-checked-s wst-active inv_chk" mode="0" word="不开发票"></i>-->

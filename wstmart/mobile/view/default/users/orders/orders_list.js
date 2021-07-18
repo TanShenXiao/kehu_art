@@ -367,14 +367,14 @@ function toPay(pkey,n){
 }
 //发票信息
 
-function getInvoiceList(){
+function getInvoiceList(orderId){
     $.post(WST.U('mobile/invoices/pageQuery'),{},function(data){
         var json = WST.toJson(data);
         if(json.status!=-1){
             var gettpl1 = document.getElementById('invoiceBox').innerHTML;
             laytpl(gettpl1).render(json, function(html){
                 $('.inv_list_item').html(html);
-                invoiceShow();
+                invoiceShow(orderId);
                 // 点击抬头item
                 $('.inv_list_item li').click(function(){
                     // 设置值
@@ -391,9 +391,10 @@ function getInvoiceList(){
 
 /*********************** 发票信息层 ****************************/
 //弹框
-function invoiceShow(){
+function invoiceShow(orderId){
     jQuery('#cover').attr("onclick","javascript:invoiceHide();").show();
     jQuery('#in_frame').animate({"right": 0}, 500);
+    jQuery('#invoiceorderId').val(orderId);
     setTimeout(function(){$('#shopBox').hide();},600)// 隐藏背部页面
 
 }
@@ -408,6 +409,7 @@ function invoiceHide(){
 function saveInvoice(){
     var param={};
     var invoiceId = $('#invoiceId').val();// 发票id
+    var orderId = $('#invoiceorderId').val();// 订单id
     param.id = 0;
     var isInvoice  = $('#isInvoice').val();
     param.invoiceCode = $('#invoice_code').val();// 纳税人识别码
@@ -421,12 +423,30 @@ function saveInvoice(){
         $.post(WST.U(url),param,function(data){
             var json = WST.toJson(data);
             if(json.status==1){
-                setInvoiceText();
+
+
+                //修改订单发票信息
+                var orderInvoice = {};
+                orderInvoice.orderid = orderId;
+                orderInvoice.isInvoice = isInvoice;
+                orderInvoice.invoiceId = json.data.id;
+                $.post(WST.U('mobile/orders/editOrderInvoice'),orderInvoice,function(orderdata){
+                    var orderjson = WST.toJson(orderdata);
+
+                    WST.msg(orderjson.msg,'info');
+                    if(orderjson.status==1){
+                        setInvoiceText();
+                        setTimeout(function(){
+                            location.reload();
+                        },1000);
+                    }
+                });
+
                 if(invoiceId==0)$('#invoiceId').val(json.data.id)
             }else{
                 WST.msg(json.msg,'info');
             }
-        })
+        });
     }else{
         setInvoiceText();
     }

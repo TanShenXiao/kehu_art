@@ -21,6 +21,15 @@
 			     <th>结算佣金：</th>
 			     <td>¥{$object['commissionFee']}</td>
 			  </tr>
+
+			   <tr>
+				   <th>税费：</th>
+				   <td>¥{$object['taxMoney']}</td>
+			   </tr>
+			   <tr>
+				   <th>发票邮费：</th>
+				   <td>¥{$object['postageMoney']}</td>
+			   </tr>
 			  <tr>
 			     <th>返还金额：</th>
 			     <td>¥{$object['backMoney']}</td>
@@ -63,6 +72,8 @@
 			     			<th>积分抵扣</th>
 			     			<th>实付金额</th>
 			     			<th>佣金</th>
+			     			<th>税费</th>
+			     			<th>发票邮费</th>
 			     			<th>下单时间</th>
 			     		</tr>
 			     		</thead>
@@ -77,6 +88,8 @@
 		                   <td>¥{$vo['scoreMoney']}</td>
 		                   <td>¥{$vo['realTotalMoney']}</td>
 		                   <td>¥{$vo['commissionFee']}</td>
+		                   <td>¥{$vo['taxMoney']}</td>
+		                   <td>¥{$vo['postageMoney']}</td>
 		                   <td>{$vo['createTime']}</td>
 		                </tr>
 		                {/volist}

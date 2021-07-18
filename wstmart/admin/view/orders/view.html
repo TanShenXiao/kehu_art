@@ -116,7 +116,7 @@
 
           <tr>
               <th width='150'>发票状态：</th>
-              <td>{if $object['isMakeInvoice']==1}已开{else}未开{/if}</td>
+              <td>{if $object['isMakeInvoice']==0}未开{else}已开{/if}</td>
           </tr>
 
          <tr>
@@ -210,8 +210,27 @@
 		        <div class='price'>¥{$vo2['goodsPrice']}</div>
 		        <div class='num'>{$vo2['goodsNum']}</div>
 		        <div class='t-price'>¥{$vo2['goodsPrice']*$vo2['goodsNum']}</div>
-                <div class='t-price'><a href='{:Url("admin/orders/tax1",["goodsId"=>$vo2["goodsId"],"goodsPrice"=>$vo2['goodsPrice'],'orderId'=>$object['orderId']])}' target='_blank'>去开票</a></div>
-		        <div class='f-clear'></div>
+              {if $object['isInvoice'] ==1 && $object['isPay']==1}
+
+              {if $object['isMakeInvoice']==0}
+                  <div class='name'>
+                      <button type="button" class="btn btn-mright" onclick="javascript:toTax({$vo2.orderId},1)">去开票</button>
+                  </div>
+              {elseif $object['isMakeInvoice']==1}
+              <div class='name'>
+                  <button type="button" class="btn btn-mright" onclick="javascript:toTax({$vo2.orderId},2)">审核税费</button>
+              </div>
+              {else}
+                  <div class='name'>
+                      已开票
+                  </div>
+              {/if}
+              {else/}
+              <div class='name'>
+                  不开票
+              </div>
+		      {/if}
+              <div class='f-clear'></div>
              </div>
              {/volist}
           </div>
@@ -234,5 +253,27 @@
        <button type="button" class="btn btn-mright" onclick="javascript:toBack({$p},'{$src}')"><i class="fa fa-angle-double-left"></i>返回</button>
        {/if}
    </div>
+<div id='attrBox' style='display:none'>
+    <form id="orderForm">
+        <table class='wst-form wst-box-top'>
+            <input type="hidden" id="taxtype" name="taxtype" value="{$object['isMakeInvoice']}" class="ipt"/>
+            <tr>
+                <th>税费<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="tax_price" name="tax_price" class="ipt" maxLength='20' value="{$object['tax_money']}"/>
+                </td>
+            </tr>
+
+            <tr class="invoice">
+                <th>发票运费<font color='red'>*</font>：</th>
+                <td>
+                    <input type="text" id="postage_money" name="postage_money" class="ipt" maxLength='20' value="{$object['postage_money']}"/>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
 <div>
+
 {/block}

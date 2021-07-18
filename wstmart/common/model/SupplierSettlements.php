@@ -31,6 +31,8 @@ class SupplierSettlements extends Base{
 
         $realTotalMoney = $order["realTotalMoney"];
         $commissionFee = $order["commissionFee"];
+        $tax_money = $order["tax_money"];
+        $postage_money = $order["postage_money"];
         $payType = $order["payType"];
         $refundedPayMoney = $order["refundedPayMoney"];
         
@@ -41,8 +43,8 @@ class SupplierSettlements extends Base{
                 
             }else{
                 $settlementMoney = $realTotalMoney - $refundedPayMoney;
-                //在线支付的返还金额=实付金额+积分抵扣金额-已退款支付金额-已退款积分抵扣金额 - 失效获得积分换算的金额 -佣金
-                $backMoney = $realTotalMoney - $refundedPayMoney - $commissionFee;
+                //在线支付的返还金额=实付金额+积分抵扣金额-已退款支付金额-已退款积分抵扣金额 - 失效获得积分换算的金额 -佣金 - 服务费 - 邮费 - 税费
+                $backMoney = $realTotalMoney - $refundedPayMoney - $commissionFee - $postage_money - $tax_money;
             }
 
         }else{//货到付款
@@ -58,6 +60,8 @@ class SupplierSettlements extends Base{
         $data['supplierId'] = $order->supplierId;
         $data['settlementMoney'] = $settlementMoney;
         $data['commissionFee'] = $order->commissionFee;
+        $data['taxMoney'] = $tax_money;
+        $data['postageMoney'] = $postage_money;
         $data['backMoney'] = $backMoney;
         $data['settlementStatus'] = 1;
         $data['settlementTime'] = date('Y-m-d H:i:s');

@@ -7,7 +7,40 @@ $(function(){
     laydate.render({
         elem: '#endDate'
     });
-})
+});
+
+function toTax(orderId,taxtype){
+        var title ="税费填写";
+        var box = WST.open({title:title,type:1,content:$('#attrBox'),area: ['750px', '480px'],btn:['确定','取消'],
+            end:function(){$('#attrBox').hide();},yes:function(){
+                $('#orderForm').submit();
+            }});
+
+        $('#orderForm').validator({
+            fields: {
+                'tax_price': {rule:"required",msg:{required:'请输入税费金额'}},
+            },
+            valid: function(form){
+                var params = WST.getParams('.ipt');
+
+                var loading = WST.msg('正在提交数据，请稍后...', {icon: 16,time:60000});
+                params.orderId = orderId;
+                console.log(params);
+                $.post(WST.U('admin/orders/editOrderTaxMoney'),params,function(data,textStatus){
+                    layer.close(loading);
+                    var json = WST.toAdminJson(data);
+                    if(json.status=='1'){
+                        WST.msg("操作成功",{icon:1});
+                        layer.close(box);
+                        $('#attrBox').hide();
+                        layer.close(box);
+                    }else{
+                        WST.msg(json.msg,{icon:2});
+                    }
+                });
+            }
+        });
+}
 function initGrid(page){
 	var p = WST.arrayParams('.j-ipt');
 	var h = WST.pageHeight();

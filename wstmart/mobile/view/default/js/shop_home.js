@@ -170,7 +170,7 @@ function shopsList(newPage){
     param.ct1 = $('#ct1').val();
     param.ct2 = $('#ct2').val();
     param.saleType = $('#saleType').val();
-    param.pagesize = 1000;
+    param.pagesize = 8;
     param.page = Number( $('#currPage').val() ) + 1;
     if(newPage == 1){
         $('#shops-list').html("");

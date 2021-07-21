@@ -123,6 +123,22 @@
              <li id="j-top0" onclick="javascript:switchTerm(0);">全部商品</li>
              <div class="wst-clear"></div>
          </ul>
+         <div class="wst-sh-index" id="j-index1">
+             <script id="shopBest" type="text/html">
+                 {{# for(var i=0; i<d.length; i++){ }}
+                 <div class="wst-in-goods {{# if((i)%2==0){ }}left{{# }else{ }}right{{# } }}" onclick="WST.intoGoods({{d[i].goodsId}})">
+                     <div class="img j-imgBest" onclick="WST.intoGoods({{d[i].goodsId}})">
+                         <a href="javascript:void(0)" onclick="WST.intoGoods({{d[i].goodsId}})">
+                             <img src="__RESOURCE_PATH__/{:WSTConf('CONF.goodsLogo')}" data-echo="__RESOURCE_PATH__/{{d[i].goodsImg }}" title="{{d[i].goodsName}}"/>
+                         </a>
+                     </div>
+                     <div class="name ui-nowrap-multi">{{ d[i].goodsName}}</div>
+                     <div class="info"><span class="price"><span>{{# if(d[i].saleType==1){ }}议价{{# }else if(d[i].saleType==2){ }}仅展示{{# }else{ }}¥ {{ d[i].shopPrice }}{{# } }}</span></span></div>
+                     <div class="info3">{{ d[i].thumbsNum }}</div>
+                 </div>
+                 {{# } }}
+             </script>
+         </div>
         <div class="wst-sh-list" id="j-index0" style="">
             <a name="goods"></a>
             <h2>作品/展示</h2>
@@ -137,7 +153,15 @@
 			 <div class="goods_foot">
              	<div class="name ui-nowrap-multi">{{ d[i].goodsName}}</div>
 				<div class="info"><span class="price"><span>{{# if(d[i].saleType==1){ }}议价{{# }else if(d[i].saleType==2){ }}仅展示{{# }else{ }}¥ {{ d[i].shopPrice }}{{# } }}</span></span></div>
-				<div class="name ui-nowrap-multi name-author">{{ d[i].goodsAuthor}}&nbsp;{{ d[i].goodsTips}}</div>
+				<div class="name ui-nowrap-multi name-author">
+                    {{# if(d[i].goodsAuthor){ }}
+                    {{ d[i].goodsAuthor}}
+                    {{# } }}
+                    &nbsp;
+                    {{# if(d[i].goodsTips){ }}
+                    {{ d[i].goodsTips}}
+                    {{# } }}
+                </div>
 			</div>
              </div>
           {{# } }}

@@ -206,7 +206,15 @@
 			 <div class="goods_foot">
              	<div class="name ui-nowrap-multi">{{ d[i].goodsName}}</div>
 				<div class="info"><span class="price"><span>{{# if(d[i].saleType==1){ }}议价{{# }else if(d[i].saleType==2){ }}仅展示{{# }else{ }}¥ {{ d[i].shopPrice }}{{# } }}</span></span></div>
-				<div class="name ui-nowrap-multi name-author">{{ d[i].goodsAuthor}}&nbsp;{{ d[i].goodsTips}}</div>
+				<div class="name ui-nowrap-multi name-author">
+                    {{# if(d[i].goodsAuthor){ }}
+                        {{ d[i].goodsAuthor}}
+                    {{# } }}
+                    &nbsp;
+                    {{# if(d[i].goodsTips){ }}
+                    {{ d[i].goodsTips}}
+                    {{# } }}
+                </div>
 			</div>
              </div>
           {{# } }}

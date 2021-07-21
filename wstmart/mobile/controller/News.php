@@ -26,6 +26,8 @@ class News extends Base{
         $articleId = (int)input('articleId');
         if($catId == 405){
             $title = "品牌活动";
+        }elseif($catId == 402){
+            $title = "艺术服务";
         }else{
             $title = "商城资讯";
         }
@@ -57,6 +59,17 @@ class News extends Base{
     	$data = $m->getNewsById();
         $data['articleContent']=htmlspecialchars_decode($data['articleContent']);
         $data['createTime'] = date('Y-m-d',strtotime($data['createTime']));
+        $title = '';
+        $catId = isset($data['catId'])?$data['catId']:'';
+        if($catId == 405){
+            $title = "品牌活动";
+        }elseif($catId == 402){
+            $title = "艺术服务";
+        }else{
+            $title = "商城资讯";
+        }
+
+        $this->assign('title',$title);
         $this->assign('data',$data);
         return $this->fetch('news_detail');
     }

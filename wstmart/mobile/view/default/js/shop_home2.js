@@ -169,7 +169,7 @@ function shopsList(){
     param.goodsName = $('#keyword').val();
     param.ct1 = $('#ct1').val();
     param.ct2 = $('#ct2').val();
-    param.pagesize = 1000;
+    param.pagesize = 8;
     param.page = Number( $('#currPage').val() ) + 1;
     $.post(WST.U('mobile/shops/getShopGoods'), param, function(data){
         var json = WST.toJson(data);

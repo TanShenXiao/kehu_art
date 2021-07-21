@@ -112,7 +112,12 @@ label{font-weight: normal;}
                                 {/if}
                             {/case}
                             {case select}
-                                {php} if($vo['fieldAttr']!='custom')$fieldAttr = explode(',',$vo['fieldAttr']);{/php}
+                                {php}
+                                $fieldAttr = '';
+                                if(!in_array($vo['fieldAttr'],['custom','trades'])){
+                                $fieldAttr = explode(',',$vo['fieldAttr']);
+                                }
+                                {/php}
                                 <tr>
                                     <th  {if $vo['fieldComment']}valign="top" style='padding-top: 20px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
                                     <td>
@@ -324,7 +329,12 @@ label{font-weight: normal;}
                                 {/if}
                             {/case}
                             {case select}
-                                {php} if($vo['fieldAttr']!='custom')$fieldAttr = explode(',',$vo['fieldAttr']);{/php}
+                                {php}
+                                $fieldAttr = '';
+                                if(!in_array($vo['fieldAttr'],['custom','trades'])){
+                                $fieldAttr = explode(',',$vo['fieldAttr']);
+                                }
+                                {/php}
                                 <tr>
                                     <th {if $vo['fieldComment']}valign="top" style='padding-top: 20px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
                                     <td>

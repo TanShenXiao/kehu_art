@@ -130,7 +130,12 @@
                     {/case}
                     {case select}
 						{if (($vo['isShow']==1 && $shopType==0) || ($vo['isShowPersonal']==1 && $shopType==1))}
-                        {php} if($vo['fieldAttr']!='custom')$fieldAttr = explode(',',$vo['fieldAttr']);{/php}
+                        {php}
+                        $fieldAttr = '';
+                        if(!in_array($vo['fieldAttr'],['custom','trades'])){
+                        $fieldAttr = explode(',',$vo['fieldAttr']);
+                        }
+                        {/php}
                         <tr>
                             <th {if $vo['fieldComment']}valign="top" style='padding-top:16px;'{/if}>{$vo['fieldTitle']}{if $vo['isRequire']==1}<font color='red'>*</font>{/if}：</th>
                             <td>

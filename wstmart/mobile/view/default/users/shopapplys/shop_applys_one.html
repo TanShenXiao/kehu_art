@@ -123,7 +123,12 @@
     {/case}
     {case select}
     {if (($vo['isShow']==1 && $shopType==0) || ($vo['isShowPersonal']==1 && $shopType==1))}
-    {php} if($vo['fieldAttr']!='custom')$fieldAttr = explode(',',$vo['fieldAttr']);{/php}
+    {php}
+            $fieldAttr = '';
+            if(!in_array($vo['fieldAttr'],['custom','trades'])){
+                $fieldAttr = explode(',',$vo['fieldAttr']);
+            }
+    {/php}
         <div class="ui-col c-title tsx_li">
             <div class="item-left">{if $vo['isRequire']==1}<span style="color:red">* </span>{/if}{$vo['fieldTitle']}</div>
             <div class="item-right">
@@ -223,7 +228,7 @@
             <div id="{$vo['fieldName']}_b" style="position: relative;">
                 <img src="__MOBILE__/img/sctp.png" style="height: 65px;margin-left: 10px;">
             </div>
-            <img id='{$vo['fieldName']}_img' src='__RESOURCE_PATH__/{$apply['legalCertificateImg']}' {if $apply['legalCertificateImg'] ==''}style='display:none'{/if}  style="height: 65px;margin-left: 10px;">
+            <img id='{$vo['fieldName']}_img' src='__RESOURCE_PATH__/{$apply[$vo['fieldName']]}' {if $apply[$vo['fieldName']] ==''}style='display:none'{/if}  style="height: 65px;margin-left: 10px;">
         </div>
         <div class="ui-col c-title showType0 tsx_li">
             {if $vo['fieldComment']}<div class="c-tip">{$vo['fieldComment']|htmlspecialchars_decode}</div><br>{/if}
@@ -293,20 +298,32 @@
 </section>
 
 {/if}
+<!--提示框-->
+<div class="ui-dialog" id="wst-di-prompt">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-bd">
+            <p id="wst-dialog" class="wst-dialog-t">提示</p>
+            <p class="wst-dialog-l"></p>
+            <button id="wst-event1" type="button" class="ui-btn-s wst-dialog-b1" data-role="button">取消</button>&nbsp;&nbsp;
+            <button id="wst-event2" type="button" class="ui-btn-s wst-dialog-b2">确定</button>
+        </div>
+    </div>
+</div>
 {/block}
 {block name="include"}
 {include file="default/dialog" /}<!-- 对话框模板 -->
 {/block}
 {block name="js"}
-<script type="text/javascript" src="__STATIC__/js/jquery.min.js?v={$v}"></script>
+<script type="text/javascript" src="__MOBILE__/js/jquery.min.js?v={$v}"></script>
 <script type="text/javascript" src="__STATIC__/plugins/validator/jquery.validator.min.js?v={$v}"></script>
 <script type='text/javascript' src='__STATIC__/plugins/webuploader/webuploader.js?v={$v}'></script>
 <script type='text/javascript' src='__MOBILE__/js/mobiscroll-2.13.2.full.min.js'></script>
 <script type='text/javascript' src='__MOBILE__/users/shopapplys/shop_applys.js?v={$v}3'></script>
 <script>
-    var showType = '{$apply["shopType"]}';
-    selectType(showType)
     var appleDesc =  '{$apply["applyDesc"]}';
-    showError( appleDesc )
+    var flowId =  '{$flowId}';
+    if(flowId == 2){
+        showError( appleDesc )
+    }
 </script>
 {/block}

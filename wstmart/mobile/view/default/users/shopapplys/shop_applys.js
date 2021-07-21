@@ -1,4 +1,4 @@
-//jQuery.noConflict();
+var apply_jq = jQuery.noConflict();
 
 $(function(){
 
@@ -115,27 +115,12 @@ $(function(){
     }
   });
 
-  WST.upload({
-    pick:'#shopImgButton',
-    formData: {dir:'shops'},
-    accept: {extensions: 'gif,jpg,jpeg,png',mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif'},
-    callback:function(f){
-      var json = WST.toJson(f);
-      if(json.status==1){
-        $('#shopImgShow').css({"height": "65px","margin-left": "10px"}).attr('src',WST.conf.RESOURCE_PATH+"/"+json.savePath+json.thumb).show();
-        $('#shopImg').val(json.savePath+json.name);
-      }
-    },
-    progress:function(rate){
-
-    }
-  });
 })
 var init_times = {}
 function tsx_date(obj_name){
   if(!init_times[obj_name]){
       //时间管理
-      $("#"+obj_name).mobiscroll().date({
+    apply_jq("#"+obj_name).mobiscroll().date({
         theme: "android-ics",
         lang: "zh",
         display: 'bottom',
@@ -149,7 +134,7 @@ function tsx_date(obj_name){
         }
       });
     init_times[obj_name] = 1
-    $('#'+obj_name).trigger("click");
+    apply_jq('#'+obj_name).trigger("click");
   }
 }
 
@@ -293,7 +278,7 @@ function saveStep(flowId,nextflowId,type){
   var params = WST.getParams('.a-ipt');
   params.flowId = flowId;
   params.shopType = type;
-  $('#applyFrom').isValid(function(v) {
+  apply_jq('#applyFrom').isValid(function(v) {
     if (v) {
       var load = WST.load({msg:'正在提交请求，请稍后...'});
       $.post(WST.U('mobile/shops/saveStep'),params,function(data,textStatus){
@@ -317,17 +302,6 @@ function toThree(){
   $("#flowTwo").hide();
   $("#flowThree").show();
   saveStep(2);
-}
-
-function selectType( type ){
-  if( type == 1 ){
-    $(".showType0").hide();
-    $(".showType1").show();
-  }else{
-    $(".showType0").show();
-    $(".showType1").hide();
-  }
-  $("#shopType").val( type );
 }
 
 function showError( info ){

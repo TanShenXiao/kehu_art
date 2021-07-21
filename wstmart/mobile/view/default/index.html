@@ -67,7 +67,9 @@
 								<p class="zp_prize">价格 ￥<span>{$goodInfo['shopPrice']}</span></p>
 								<span class="zp_author">作者{$goodInfo['goodsAuthor']}</span>&nbsp;
 								<br>
+								{if $goodInfo['goodsTips']}
 								<span class="zp_size">尺寸{$goodInfo['goodsTips']}</span>
+								{/if}
 							</div>
 						</a>
 					</li>

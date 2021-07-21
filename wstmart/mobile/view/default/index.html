@@ -126,35 +126,41 @@
 					<!-- <a href="/street.html">查看更多>></a> -->
 				</div>
 				<div class="artist_content">
-					<?php
+					{php}
 						$shopList = RecommendedArtists(1,'0,1');
-						foreach ($shopList as $k => $shopIfo) {
-					?>
-					<div class="artist_big_cont">
-						<div class="artist_big">
-							<a href="{:url('mobile/shops/index2',['shopId'=>$shopIfo['shopId']])}">
-								<img style="height: 175px;" src="__ROOT__/{$shopIfo['shopImg']}" alt="">
-								<p>{$shopIfo['shopName']}</p>
-							</a>
-						<?php } ?>
-						</div>
-						<ul class="artist_big_right">
-							<?php
-								$shopList = WSTShopRecommends(0,1,'1,4');
-								foreach ($shopList as $k => $shopIfo) {
-							?>
-							<li>
-								<a href="{:url('mobile/shops/index',['shopId'=>$shopIfo['shopId']])}">
-									<img src="__ROOT__/{$shopIfo['shopImg']}" alt="">
+						if(count($shopList) > 0){
+							$shopList2 = WSTShopRecommends(0,1,'5,8');
+						}else{
+							$shopList2 = WSTShopRecommends(0,1,'0,8');
+						}
+					{/php}
+					{if count($shopList) > 0}
+						<div class="artist_big_cont">
+							<?php foreach ($shopList as $k => $shopIfo) {  ?>
+							<div class="artist_big">
+								<a href="{:url('mobile/shops/index2',['shopId'=>$shopIfo['shopId']])}">
+									<img style="height: 175px;" src="__ROOT__/{$shopIfo['shopImg']}" alt="">
+									<p>{$shopIfo['shopName']}</p>
 								</a>
-							</li>
 							<?php } ?>
-						</ul>
-					</div>
+							</div>
+							<ul class="artist_big_right">
+								<?php
+									$shopList = WSTShopRecommends(0,1,'0,4');
+									foreach ($shopList as $k => $shopIfo) {
+								?>
+								<li>
+									<a href="{:url('mobile/shops/index',['shopId'=>$shopIfo['shopId']])}">
+										<img src="__ROOT__/{$shopIfo['shopImg']}" alt="">
+									</a>
+								</li>
+								<?php } ?>
+							</ul>
+						</div>
+					{/if}
 					<ul class="artist_big_bottom">
 						<?php
-							$shopList = WSTShopRecommends(0,1,'5,8');
-							foreach ($shopList as $k => $shopIfo) {
+							foreach ($shopList2 as $k => $shopIfo) {
 						?>
 						<li>
 							<a href="{:url('mobile/shops/index',['shopId'=>$shopIfo['shopId']])}">
@@ -167,6 +173,7 @@
 			</div>
 		</div>
 		{/* 品牌活动 */}
+	<div class="wst-clear"></div>
 <div class="brand_pack">
 	<h2 class="sector_h2"><a href="/mobile/brand_activities/get_list">品牌活动</a></h2>
 	<div class="sector_desc">

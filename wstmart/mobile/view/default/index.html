@@ -211,7 +211,7 @@
 					foreach ($articleList as $k => $article) {
 			?>
 			<li>
-				<a href="{:url('/mnews',['id'=> $article['articleId']])}">
+				<a href="{:url('mobile/news/getnews',['id'=> $article['articleId']])}">
 					<img src="/{$article['coverImg']}" alt="">
 					<div class="mark">
 						<p>{$article['articleTitle']}</p>

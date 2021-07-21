@@ -128,7 +128,7 @@
 .yh_big img{width: 98%;}
 .yh_big_tost{position: absolute;left: 0;top: 0;width: 100%;text-align: left;color: #fff;box-sizing: border-box;padding: 40px;}
 .yh_big_tost button{background: #fff;border-radius: 20px;padding: 6px 20px;margin-top: 20px;}
-.yh_content{padding: 10px;box-sizing: border-box;border: 1px solid #bebcbc; border-top: none;}
+.yh_content{padding: 10px;box-sizing: border-box;border: 1px solid #bebcbc; border-top: none; text-overflow :ellipsis;white-space: nowrap;overflow:hidden;}
 .yh_content .author{font-size: 12px;color: #bebcbc;}
 .cur_prize{font-size: 14px;}
 .cur_prize span{font-size: 18px;}
@@ -376,4 +376,6 @@
 .zp_name{
     text-overflow :ellipsis;
     white-space: nowrap;
+    overflow:hidden;
+
 }

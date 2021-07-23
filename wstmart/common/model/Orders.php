@@ -2258,7 +2258,7 @@ class Orders extends Base{
 			//获取用户钱包
 			$user = model('users')->get(['userId'=>$userId]);
 			if($user->payPwd=='')return WSTReturn('您未设置支付密码，请先设置密码',-1);
-			//if($user->payPwd!=md5($payPwd.$user->loginSecret))return WSTReturn('您的支付密码不正确',-1);
+			if($user->payPwd!=md5($payPwd.$user->loginSecret))return WSTReturn('您的支付密码不正确',-1);
 			if($needPay > $user->userMoney)return WSTReturn('您的钱包余额不足',-1);
 			$userMoney = $user->userMoney;
 			$rechargeMoney = $user->rechargeMoney;

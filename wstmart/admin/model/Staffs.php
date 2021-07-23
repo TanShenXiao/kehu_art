@@ -27,7 +27,7 @@ class Staffs extends Base{
 		$loginPwd = input("post.loginPwd");
 		$code = input("post.verifyCode");
 		if(!WSTVerifyCheck($code)){
-			// return WSTReturn('验证码错误!');
+			 return WSTReturn('验证码错误!');
 		}
 		$decrypt_data = WSTRSA($loginPwd);
 		if($decrypt_data['status']==1){
